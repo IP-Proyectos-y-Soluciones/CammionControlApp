@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "buid": "babel src -d dist && ncp \"src/views\" \"dist/views\" && ncp \"src/public\" \"dist/public\"",
+    "dev": "nodemon src/index.js"
   },
   "author": "IP Proyectos y Soluciones",
   "license": "ISC",
@@ -23,6 +26,7 @@
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.24.7",
     "@babel/node": "^7.24.7",
+    "@babel/plugin-transform-runtime": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
     "ncp": "^2.0.0",
     "nodemon": "^3.1.3"
