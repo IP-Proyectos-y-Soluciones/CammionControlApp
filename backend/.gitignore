@@ -152,4 +152,7 @@ Session.vim
 # auto-generated tag files
 tags
 
+# Prettier
+.prettierrc
+
 # End of https://www.gitignore.io/api/node,vim,git,macos,linux,sublimetext
