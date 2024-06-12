@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "buid": "babel src -d dist && ncp \"src/views\" \"dist/views\" && ncp \"src/public\" \"dist/public\"",
+    "build": "babel src -d dist && ncp \"src/views\" \"dist/views\" && ncp \"src/public\" \"dist/public\"",
     "dev": "nodemon src/index.js"
   },
   "author": "IP Proyectos y Soluciones",
