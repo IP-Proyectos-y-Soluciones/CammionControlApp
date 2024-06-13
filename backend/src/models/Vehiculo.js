@@ -31,8 +31,7 @@ const vehiculoSchema = new mongoose.Schema(
     color: String,
     propietario: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Usuario",
-      required: true,
+      ref: "Persona",
     },
     documentos: [
       {

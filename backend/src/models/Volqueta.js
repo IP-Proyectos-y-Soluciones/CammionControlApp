@@ -9,12 +9,10 @@ const volquetaSchema = new mongoose.Schema(
     placas: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Vehiculo",
-      required: true,
     },
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Usuario",
-      required: true,
+      ref: "Persona",
     },
     volmts3: {
       type: String,

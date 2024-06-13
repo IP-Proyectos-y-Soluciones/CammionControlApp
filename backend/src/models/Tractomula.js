@@ -11,6 +11,14 @@ const tractomulaSchema = new mongoose.Schema(
       type: Date,
       default: "",
     },
+    placas: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Vehiculo",
+    },
+    conductor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Persona",
+    },
     ciudad_inicio: {
       type: String,
       required: true,

@@ -16,12 +16,10 @@ const tanqueoSchema = new mongoose.Schema(
     vehiculo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Vehiculo",
-      required: true,
     },
-    usuario: {
+    conductor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Usuario",
-      required: true,
+      ref: "persona",
     },
   },
   {
