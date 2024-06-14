@@ -4,8 +4,8 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 var _app = _interopRequireDefault(require("./app.js"));
-// import { startConnection } from './config/db.js';
-// startConnection();
+var _db = require("./config/db.js");
+(0, _db.startConnection)();
 function main() {
   return _main.apply(this, arguments);
 }

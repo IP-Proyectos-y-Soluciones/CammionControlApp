@@ -1,19 +1,19 @@
-const mongoose = require("mongoose");
+import { model, Schema } from 'mongoose';
 
-const volquetaSchema = new mongoose.Schema(
+const volquetaSchema = new Schema(
   {
     fecha: {
       type: Date,
       default: Date.now,
     },
     placas: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Vehiculo",
+      type: Schema.Types.ObjectId,
+      ref: 'Vehiculo',
       required: true,
     },
     conductor: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Usuario",
+      type: Schema.Types.ObjectId,
+      ref: 'Usuario',
       required: true,
     },
     volmts3: {
@@ -31,7 +31,7 @@ const volquetaSchema = new mongoose.Schema(
     },
     hora_final: {
       type: Date,
-      default: "",
+      default: '',
     },
     honorario_inicial: {
       type: Number,
@@ -48,15 +48,78 @@ const volquetaSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    total_km_dia: String,
-    corte_de_cargue: String,
-    corte_de_descargue: String,
-    duracion: String,
+    total_km_dia: { type: String },
+    corte_de_cargue: { type: String },
+    corte_de_descargue: { type: String },
+    duracion: { type: String },
   },
   {
     timestamps: false,
     autoCreate: false,
-  }
+  },
 );
 
-module.exports = volquetaSchema;
+export default model('Volqueta', volquetaSchema);
+
+// const mongoose = require('mongoose');
+
+// const volquetaSchema = new mongoose.Schema(
+//   {
+//     fecha: {
+//       type: Date,
+//       default: Date.now,
+//     },
+//     placas: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: 'Vehiculo',
+//       required: true,
+//     },
+//     conductor: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: 'Usuario',
+//       required: true,
+//     },
+//     volmts3: {
+//       type: String,
+//       required: true,
+//     },
+//     n_viajes: {
+//       type: Number,
+//       required: true,
+//     },
+//     hora_inicio: {
+//       type: Date,
+//       default: Date.now,
+//       required: true,
+//     },
+//     hora_final: {
+//       type: Date,
+//       default: '',
+//     },
+//     honorario_inicial: {
+//       type: Number,
+//     },
+//     honorario_final: {
+//       type: Number,
+//     },
+//     total_horas: Number,
+//     km_inicial: {
+//       type: String,
+//       required: true,
+//     },
+//     km_final: {
+//       type: String,
+//       required: true,
+//     },
+//     total_km_dia: String,
+//     corte_de_cargue: String,
+//     corte_de_descargue: String,
+//     duracion: String,
+//   },
+//   {
+//     timestamps: false,
+//     autoCreate: false,
+//   },
+// );
+
+// module.exports = volquetaSchema;

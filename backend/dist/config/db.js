@@ -10,7 +10,7 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 var _mongoose = _interopRequireDefault(require("mongoose"));
 var _dotenv = _interopRequireDefault(require("dotenv"));
 _dotenv["default"].config();
-var url = process.env.URL_DB_DEV;
+var url = process.env.URLDB_DEV;
 function startConnection() {
   return _startConnection.apply(this, arguments);
 }
@@ -23,7 +23,7 @@ function _startConnection() {
           _context.next = 3;
           return _mongoose["default"].connect(url);
         case 3:
-          console.log('Successful connection with DB...!');
+          console.log('Successful connection with MongoDB...!');
           _context.next = 9;
           break;
         case 6:

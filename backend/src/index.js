@@ -1,7 +1,7 @@
 import app from './app.js';
-// import { startConnection } from './config/db.js';
+import { startConnection } from './config/db.js';
 
-// startConnection();
+startConnection();
 
 async function main() {
   try {

@@ -1,7 +1,11 @@
 "use strict";
 
-var mongoose = require("mongoose");
-var usuarioSchema = new mongoose.Schema({
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _mongoose = require("mongoose");
+var usuarioSchema = new _mongoose.Schema({
   cedula: {
     type: Number,
     "default": 20,
@@ -18,7 +22,7 @@ var usuarioSchema = new mongoose.Schema({
   },
   celular: {
     type: String,
-    "default": ""
+    "default": ''
   },
   password: {
     type: String,
@@ -26,13 +30,13 @@ var usuarioSchema = new mongoose.Schema({
   },
   roles: {
     type: String,
-    "enum": ["Admin", "Empleado", "Empresa"],
+    "enum": ['Admin', 'Empleado', 'Empresa'],
     required: true
   },
   tipo_de_contrato: {
     type: String,
-    "enum": ["Fijo", "Indefinido"],
-    "default": "Fijo"
+    "enum": ['Fijo', 'Indefinido'],
+    "default": 'Fijo'
   },
   fecha_contrato: {
     type: Date,
@@ -44,27 +48,107 @@ var usuarioSchema = new mongoose.Schema({
     required: true
   },
   vehiculos: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Vehiculo"
+    type: _mongoose.Schema.Types.ObjectId,
+    ref: 'Vehiculo'
   }],
   licencias: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Licencia"
+    type: _mongoose.Schema.Types.ObjectId,
+    ref: 'Licencia'
   }],
   volquetas: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Volqueta"
+    type: _mongoose.Schema.Types.ObjectId,
+    ref: 'Volqueta'
   }],
   tractomulas: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Tractomula"
+    type: _mongoose.Schema.Types.ObjectId,
+    ref: 'Tractomula'
   }],
   tanqueos: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Tanqueo"
+    type: _mongoose.Schema.Types.ObjectId,
+    ref: 'Tanqueo'
   }]
 }, {
   timestamps: false,
   autoCreate: false
 });
-module.exports = usuarioSchema;
+var _default = exports["default"] = (0, _mongoose.model)('Usuario', usuarioSchema); // const mongoose = require("mongoose");
+// const usuarioSchema = new mongoose.Schema(
+//   {
+//     cedula: {
+//       type: Number,
+//       default: 20,
+//       required: true,
+//       unique: true,
+//     },
+//     nombres: {
+//       type: String,
+//       required: true,
+//     },
+//     apellidos: {
+//       type: String,
+//       required: true,
+//     },
+//     celular: {
+//       type: String,
+//       default: "",
+//     },
+//     password: {
+//       type: String,
+//       required: true,
+//     },
+//     roles: {
+//       type: String,
+//       enum: ["Admin", "Empleado", "Empresa"],
+//       required: true,
+//     },
+//     tipo_de_contrato: {
+//       type: String,
+//       enum: ["Fijo", "Indefinido"],
+//       default: "Fijo",
+//     },
+//     fecha_contrato: {
+//       type: Date,
+//       default: Date.now,
+//     },
+//     estado: {
+//       type: Boolean,
+//       default: false,
+//       required: true,
+//     },
+//     vehiculos: [
+//       {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "Vehiculo",
+//       },
+//     ],
+//     licencias: [
+//       {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "Licencia",
+//       },
+//     ],
+//     volquetas: [
+//       {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "Volqueta",
+//       },
+//     ],
+//     tractomulas: [
+//       {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "Tractomula",
+//       },
+//     ],
+//     tanqueos: [
+//       {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "Tanqueo",
+//       },
+//     ],
+//   },
+//   {
+//     timestamps: false,
+//     autoCreate: false,
+//   }
+// );
+// module.exports = usuarioSchema;
