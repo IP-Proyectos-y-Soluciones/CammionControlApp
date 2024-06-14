@@ -24,7 +24,8 @@ var documentoSchema = new _mongoose.Schema({
   },
   vehiculo: {
     type: _mongoose.Schema.Types.ObjectId,
-    ref: 'Vehiculo'
+    ref: 'Vehiculo',
+    require: true
   }
 }, {
   timestamps: false,

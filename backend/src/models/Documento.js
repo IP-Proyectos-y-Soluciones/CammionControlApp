@@ -17,6 +17,7 @@ const documentoSchema = new Schema(
     vehiculo: {
       type: Schema.Types.ObjectId,
       ref: 'Vehiculo',
+      require: true,
     },
   },
   {
