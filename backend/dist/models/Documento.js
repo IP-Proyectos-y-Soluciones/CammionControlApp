@@ -4,8 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _mongoose = require("mongoose");
-var documentoSchema = new _mongoose.Schema({
+var _mongoose = _interopRequireDefault(require("mongoose"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+// const mongoose = require('mongoose');
+
+var documentoSchema = new _mongoose["default"].Schema({
   cerificado_N: {
     type: String,
     required: true,
@@ -16,45 +19,16 @@ var documentoSchema = new _mongoose.Schema({
     "enum": ['Poliza de seguro', 'Soat', 'tecnomecanica'],
     required: true
   },
-  fecha_expedicion: {
-    type: Date
-  },
-  fecha_vencemiento: {
-    type: Date
-  },
+  fecha_expedicion: Date,
+  fecha_vencemiento: Date,
   vehiculo: {
-    type: _mongoose.Schema.Types.ObjectId,
+    type: _mongoose["default"].Schema.Types.ObjectId,
     ref: 'Vehiculo',
-    require: true
+    required: true
   }
 }, {
   timestamps: false,
   autoCreate: false
 });
-var _default = exports["default"] = (0, _mongoose.model)('Documento', documentoSchema); // const mongoose = require("mongoose");
-// const documentoSchema = new mongoose.Schema(
-//   {
-//     cerificado_N: {
-//       type: String,
-//       required: true,
-//       unique: true,
-//     },
-//     tipo: {
-//       type: String,
-//       enum: ["Poliza de seguro", "Soat", "tecnomecanica"],
-//       required: true,
-//     },
-//     fecha_expedicion: Date,
-//     fecha_vencemiento: Date,
-//     vehiculo: {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "Vehiculo",
-//       required: true,
-//     },
-//   },
-//   {
-//     timestamps: false,
-//     autoCreate: false,
-//   }
-// );
-// module.exports = documentoSchema;
+var Documento = _mongoose["default"].model('Documento', documentoSchema);
+var _default = exports["default"] = Documento;

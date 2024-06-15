@@ -1,6 +1,6 @@
-import { model, Schema } from 'mongoose';
+const mongoose = require('mongoose');
 
-const tanqueoSchema = new Schema(
+const tanqueoSchema = new mongoose.Schema(
   {
     fecha_tanqueo: {
       type: Date,
@@ -11,17 +11,15 @@ const tanqueoSchema = new Schema(
       type: String,
       required: true,
     },
-    cantidad_galones: { Number },
-    valor_tanqueo: { Number },
+    cantidad_galones: String,
+    valor_tanqueo: Number,
     vehiculo: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Vehiculo',
-      required: true,
     },
-    usuario: {
-      type: Schema.Types.ObjectId,
-      ref: 'Usuario',
-      required: true,
+    conductor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'persona',
     },
   },
   {
@@ -30,38 +28,6 @@ const tanqueoSchema = new Schema(
   },
 );
 
-export default model('Tanqueo', tanqueoSchema);
+const Tanqueo = mongoose.model('Tanqueo', tanqueoSchema);
 
-// const mongoose = require("mongoose");
-
-// const tanqueoSchema = new mongoose.Schema(
-//   {
-//     fecha_tanqueo: {
-//       type: Date,
-//       default: Date.now,
-//       required: true,
-//     },
-//     estacion: {
-//       type: String,
-//       required: true,
-//     },
-//     cantidad_galones: String,
-//     valor_tanqueo: Number,
-//     vehiculo: {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "Vehiculo",
-//       required: true,
-//     },
-//     usuario: {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "Usuario",
-//       required: true,
-//     },
-//   },
-//   {
-//     timestamps: false,
-//     autoCreate: false,
-//   }
-// );
-
-// module.exports = tanqueoSchema;
+export default Tanqueo;

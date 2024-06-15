@@ -1,6 +1,7 @@
-import { model, Schema } from 'mongoose';
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const documentoSchema = new Schema(
+const documentoSchema = new mongoose.Schema(
   {
     cerificado_N: {
       type: String,
@@ -12,12 +13,12 @@ const documentoSchema = new Schema(
       enum: ['Poliza de seguro', 'Soat', 'tecnomecanica'],
       required: true,
     },
-    fecha_expedicion: { type: Date },
-    fecha_vencemiento: { type: Date },
+    fecha_expedicion: Date,
+    fecha_vencemiento: Date,
     vehiculo: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Vehiculo',
-      require: true,
+      required: true,
     },
   },
   {
@@ -26,34 +27,9 @@ const documentoSchema = new Schema(
   },
 );
 
-export default model('Documento', documentoSchema);
+const Documento = mongoose.model(
+  'Documento',
+  documentoSchema,
+);
 
-// const mongoose = require("mongoose");
-
-// const documentoSchema = new mongoose.Schema(
-//   {
-//     cerificado_N: {
-//       type: String,
-//       required: true,
-//       unique: true,
-//     },
-//     tipo: {
-//       type: String,
-//       enum: ["Poliza de seguro", "Soat", "tecnomecanica"],
-//       required: true,
-//     },
-//     fecha_expedicion: Date,
-//     fecha_vencemiento: Date,
-//     vehiculo: {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "Vehiculo",
-//       required: true,
-//     },
-//   },
-//   {
-//     timestamps: false,
-//     autoCreate: false,
-//   }
-// );
-
-// module.exports = documentoSchema;
+export default Documento;
