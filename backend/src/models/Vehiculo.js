@@ -31,7 +31,8 @@ const vehiculoSchema = new mongoose.Schema(
     color: String,
     propietario: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Persona",
+      ref: "Usuario",
+      required: true,
     },
     documentos: [
       {
@@ -64,4 +65,6 @@ const vehiculoSchema = new mongoose.Schema(
   }
 );
 
-module.exports = vehiculoSchema;
+const Vehiculo = mongoose.model("Vehiculo", vehiculoSchema);
+
+export default Vehiculo;

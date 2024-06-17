@@ -20,10 +20,36 @@ const usuarioSchema = new mongoose.Schema(
       default: false,
       required: true,
     },
-    infoPersonal: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Personal",
-    },
+    vehiculos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Vehiculo",
+      },
+    ],
+    licencias: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Licencia",
+      },
+    ],
+    volquetas: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Volqueta",
+      },
+    ],
+    tractomulas: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tractomula",
+      },
+    ],
+    tanqueos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tanqueo",
+      },
+    ],
   },
   {
     timestamps: false,
@@ -31,4 +57,6 @@ const usuarioSchema = new mongoose.Schema(
   }
 );
 
-module.exports = usuarioSchema;
+const Usuario = mongoose.model("Usuario", usuarioSchema);
+
+export default Usuario;

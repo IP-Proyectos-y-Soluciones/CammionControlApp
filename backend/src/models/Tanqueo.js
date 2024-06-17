@@ -16,10 +16,12 @@ const tanqueoSchema = new mongoose.Schema(
     vehiculo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Vehiculo",
+      required: true,
     },
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "persona",
+      ref: "Usuario",
+      required: true,
     },
   },
   {
@@ -28,4 +30,6 @@ const tanqueoSchema = new mongoose.Schema(
   }
 );
 
-module.exports = tanqueoSchema;
+const Tanqueo = mongoose.model("Tanqueo", tanqueoSchema);
+
+export default Tanqueo;

@@ -9,10 +9,12 @@ const volquetaSchema = new mongoose.Schema(
     placas: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Vehiculo",
+      required: true,
     },
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Persona",
+      ref: "Usuario",
+      required: true,
     },
     volmts3: {
       type: String,
@@ -57,4 +59,6 @@ const volquetaSchema = new mongoose.Schema(
   }
 );
 
-module.exports = volquetaSchema;
+const Volqueta = mongoose.model("Volqueta", volquetaSchema);
+
+export default Volqueta;

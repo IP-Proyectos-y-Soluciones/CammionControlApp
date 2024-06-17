@@ -4,7 +4,7 @@ const licenciaSchema = new mongoose.Schema(
   {
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Persona",
+      ref: "Usuario",
       required: true,
     },
     licencia_N: {
@@ -27,4 +27,6 @@ const licenciaSchema = new mongoose.Schema(
   }
 );
 
-module.exports = licenciaSchema;
+const Licencia = mongoose.model("Licencia", licenciaSchema);
+
+export default Licencia;

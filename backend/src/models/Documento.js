@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const documentoSchema = new mongoose.Schema(
   {
@@ -9,21 +10,26 @@ const documentoSchema = new mongoose.Schema(
     },
     tipo: {
       type: String,
-      enum: ["Poliza de seguro", "Soat", "tecnomecanica"],
+      enum: ['Poliza de seguro', 'Soat', 'tecnomecanica'],
       required: true,
     },
     fecha_expedicion: Date,
     fecha_vencemiento: Date,
     vehiculo: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Vehiculo",
+      ref: 'Vehiculo',
       required: true,
     },
   },
   {
     timestamps: false,
     autoCreate: false,
-  }
+  },
 );
 
-module.exports = documentoSchema;
+const Documento = mongoose.model(
+  'Documento',
+  documentoSchema,
+);
+
+export default Documento;

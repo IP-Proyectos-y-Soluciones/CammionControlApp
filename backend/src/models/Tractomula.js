@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const tractomulaSchema = new mongoose.Schema(
   {
@@ -9,7 +9,15 @@ const tractomulaSchema = new mongoose.Schema(
     },
     fecha_final: {
       type: Date,
-      default: "",
+      default: '',
+    },
+    placas: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Vehiculo',
+    },
+    conductor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Persona',
     },
     placas: {
       type: mongoose.Schema.Types.ObjectId,
@@ -39,7 +47,12 @@ const tractomulaSchema = new mongoose.Schema(
   {
     timestamps: false,
     autoCreate: false,
-  }
+  },
 );
 
-module.exports = tractomulaSchema;
+const Tractomula = mongoose.model(
+  'Tractomula',
+  tractomulaSchema,
+);
+
+export default Tractomula;
