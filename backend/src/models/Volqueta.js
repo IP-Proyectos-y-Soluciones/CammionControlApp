@@ -13,7 +13,11 @@ const volquetaSchema = new mongoose.Schema(
     },
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Usuario",
+      ref: "Persona",
+      required: true,
+    },
+    cliente: {
+      type: String,
       required: true,
     },
     volmts3: {
@@ -22,6 +26,10 @@ const volquetaSchema = new mongoose.Schema(
     },
     n_viajes: {
       type: Number,
+      required: true,
+    },
+    material: {
+      type: String,
       required: true,
     },
     hora_inicio: {
@@ -33,12 +41,6 @@ const volquetaSchema = new mongoose.Schema(
       type: Date,
       default: "",
     },
-    honorario_inicial: {
-      type: Number,
-    },
-    honorario_final: {
-      type: Number,
-    },
     total_horas: Number,
     km_inicial: {
       type: String,
@@ -49,9 +51,9 @@ const volquetaSchema = new mongoose.Schema(
       required: true,
     },
     total_km_dia: String,
-    corte_de_cargue: String,
-    corte_de_descargue: String,
-    duracion: String,
+    lugar_de_cargue: String,
+    lugar_de_descargue: String,
+    observacion: String,
   },
   {
     timestamps: false,

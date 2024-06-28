@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const tractomulaSchema = new mongoose.Schema(
+const cargaPesadaSchema = new mongoose.Schema(
   {
     fecha_inicio: {
       type: Date,
@@ -9,15 +9,7 @@ const tractomulaSchema = new mongoose.Schema(
     },
     fecha_final: {
       type: Date,
-      default: '',
-    },
-    placas: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Vehiculo',
-    },
-    conductor: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Persona',
+      default: "",
     },
     placas: {
       type: mongoose.Schema.Types.ObjectId,
@@ -37,22 +29,19 @@ const tractomulaSchema = new mongoose.Schema(
     },
     empresa: String,
     valor_flete: Number,
-    anticipo: Number,
+    anticipo_empresa: Number,
+    anticipo_cliente: Number,
     descripcion_de_gastos: String,
     gastos: Number,
     total_anticipos_fletesPagados: Number,
     total_gastos: Number,
-    saldo: Number,
   },
   {
     timestamps: false,
     autoCreate: false,
-  },
+  }
 );
 
-const Tractomula = mongoose.model(
-  'Tractomula',
-  tractomulaSchema,
-);
+const cargaPesada = mongoose.model("CargaPesada", cargaPesadaSchema);
 
-export default Tractomula;
+export default cargaPesada;
