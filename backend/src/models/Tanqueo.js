@@ -7,6 +7,10 @@ const tanqueoSchema = new mongoose.Schema(
       default: Date.now,
       required: true,
     },
+    n_recibo: {
+      type: String,
+      required: true,
+    },
     estacion: {
       type: String,
       required: true,

@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const volquetaSchema = new mongoose.Schema(
   {
+    n_planilla: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     fecha: {
       type: Date,
       default: Date.now,

@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const cargaPesadaSchema = new mongoose.Schema(
   {
+    n_planilla: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     fecha_inicio: {
       type: Date,
       default: Date.now,
@@ -31,8 +36,11 @@ const cargaPesadaSchema = new mongoose.Schema(
     valor_flete: Number,
     anticipo_empresa: Number,
     anticipo_cliente: Number,
-    descripcion_de_gastos: String,
-    gastos: Number,
+    acpm: Number,
+    peaje: Number,
+    mantenimiento: Number,
+    mecanico: Number,
+    otros: Number,
     total_anticipos_fletesPagados: Number,
     total_gastos: Number,
   },
