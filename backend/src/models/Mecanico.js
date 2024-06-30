@@ -5,7 +5,6 @@ const mecanicoSchema = new mongoose.Schema(
     placas: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Vehiculo',
-      required: true,
     },
     fecha_de_revision: {
       type: Date,
@@ -16,11 +15,35 @@ const mecanicoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    nombre_mecanico: {
+      type: String,
+      required: true,
+    },
+    celular: {
+      type: String,
+      required: true,
+    },
+    area_de_revision: {
+      type: String,
+      enum: [
+        'Motores',
+        'Frenos',
+        'Suspensión',
+        'Transmisión',
+        'Electrónica',
+        'Otros',
+      ],
+      required: true,
+    },
+    fecha_entrega: {
+      type: Date,
+      default: '',
+    },
     descripcion_revicion: String,
   },
   {
-    timestamps: false,
-    autoCreate: false,
+    timestamps: true,
+    autoCreate: true,
   },
 );
 

@@ -45,12 +45,6 @@ const vehiculoSchema = new mongoose.Schema(
         ref: 'Volqueta',
       },
     ],
-    tractomulas: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tractomula',
-      },
-    ],
     tanqueos: [
       {
         type: mongoose.Schema.Types.ObjectId,

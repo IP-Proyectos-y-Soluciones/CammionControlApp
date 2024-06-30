@@ -20,9 +20,10 @@ const usuarioSchema = new mongoose.Schema(
       default: false,
       required: true,
     },
-    infoPersonal: {
+    persona: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Personal',
+      ref: 'Persona',
+      required: true,
     },
   },
   {

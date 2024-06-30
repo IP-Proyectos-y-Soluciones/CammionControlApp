@@ -18,7 +18,6 @@ const documentoSchema = new mongoose.Schema(
     vehiculo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Vehiculo',
-      required: true,
     },
   },
   {

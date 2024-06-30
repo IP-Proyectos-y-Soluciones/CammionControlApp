@@ -27,23 +27,14 @@ const personaSchema = new mongoose.Schema(
     },
     telefono: {
       type: String,
-      default: '',
+      required: true,
     },
     tipo_de_contrato: {
       type: String,
       enum: ['Fijo', 'Indefinido'],
-      default: 'Fijo',
-    },
-    fecha_inicio_contrato: {
-      type: Date,
-      default: Date.now,
       required: true,
     },
-    fecha_final_contrato: {
-      type: Date,
-      default: '',
-    },
-    usuario: {
+    Usuario: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Usuario',
     },
@@ -79,8 +70,8 @@ const personaSchema = new mongoose.Schema(
     ],
   },
   {
-    timestamps: false,
-    autoCreate: false,
+    timestamps: true,
+    autoCreate: true,
   },
 );
 

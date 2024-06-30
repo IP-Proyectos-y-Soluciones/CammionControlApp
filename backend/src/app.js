@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import personasRoutes from './routes/personas.routes';
 
 dotenv.config();
 
@@ -25,10 +26,9 @@ app.use(cors());
 // );
 
 // Routes...
-// ...
-// ...
-// ...
+app.use('/api/personas', personasRoutes);
 
+// Test route...
 app.get('/', (req, res) => {
   res.end(
     `Welcome to Backend Node.js Server. Running on port: ${app.get(

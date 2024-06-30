@@ -7,6 +7,10 @@ const tanqueoSchema = new mongoose.Schema(
       default: Date.now,
       required: true,
     },
+    n_recibo: {
+      type: String,
+      required: true,
+    },
     estacion: {
       type: String,
       required: true,
@@ -16,10 +20,12 @@ const tanqueoSchema = new mongoose.Schema(
     vehiculo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Vehiculo',
+      required: true,
     },
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'persona',
+      ref: 'Persona',
+      required: true,
     },
   },
   {
