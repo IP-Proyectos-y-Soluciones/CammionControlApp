@@ -20,36 +20,11 @@ const usuarioSchema = new mongoose.Schema(
       default: false,
       required: true,
     },
-    vehiculos: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Vehiculo",
-      },
-    ],
-    licencias: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Licencia",
-      },
-    ],
-    volquetas: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Volqueta",
-      },
-    ],
-    tractomulas: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Tractomula",
-      },
-    ],
-    tanqueos: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Tanqueo",
-      },
-    ],
+    Persona: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Persona",
+      required: true,
+    },
   },
   {
     timestamps: false,

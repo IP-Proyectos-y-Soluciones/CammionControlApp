@@ -5,7 +5,6 @@ const licenciaSchema = new mongoose.Schema(
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Usuario",
-      required: true,
     },
     licencia_N: {
       type: Number,
