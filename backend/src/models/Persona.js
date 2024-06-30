@@ -29,6 +29,11 @@ const personaSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    fecha_inicio_contrato: {
+      type: Date,
+      required: true,
+    },
+    fecha_final_contrato: Date,
     tipo_de_contrato: {
       type: String,
       enum: ['Fijo', 'Indefinido'],

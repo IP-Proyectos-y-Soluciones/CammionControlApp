@@ -1,14 +1,28 @@
 import Usuario from '../models/Usuario';
+import Persona from '../models/Persona';
 
 export const createUsuario = async (req, res) => {
-  const { usuario, password, roles, estado } = req.body;
+  const { usuario, password, roles, estado, personaId } =
+    req.body;
 
   try {
+    // Verifica si la persona existe
+    const persona = await Persona.findById(personaId);
+
+    if (!persona) {
+      return res.status(404).json({
+        message:
+          'Persona no encontrada. No se puede crear el usuario sin una persona válida.',
+      });
+    }
+
+    // Crea un nuevo usuario con la referencia a la persona existente
     const newUsuario = new Usuario({
       usuario,
       password,
       roles,
       estado,
+      persona: persona._id,
     });
 
     const savedUsuario = await newUsuario.save();

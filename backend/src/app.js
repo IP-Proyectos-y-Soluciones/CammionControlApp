@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import personasRoutes from './routes/personas.routes';
+import usuariosRoutes from './routes/usuarios.routes';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(cors());
 
 // Routes...
 app.use('/api/personas', personasRoutes);
+app.use('/api/usuarios', usuariosRoutes);
 
 // Test route...
 app.get('/', (req, res) => {

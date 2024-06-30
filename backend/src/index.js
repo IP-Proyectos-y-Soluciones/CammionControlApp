@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 import app from './app.js';
 import { startConnection } from './config/db.js';
+import CargaPesada from './models/CargaPesada.js';
 import Documento from './models/Documento.js';
 import Licencia from './models/Licencia.js';
 import Mecanico from './models/Mecanico.js';
 import Persona from './models/Persona.js';
 import Tanqueo from './models/Tanqueo.js';
-import Tractomula from './models/Tractomula.js';
 import Usuario from './models/Usuario.js';
 import Vehiculo from './models/Vehiculo.js';
 import Volqueta from './models/Volqueta.js';

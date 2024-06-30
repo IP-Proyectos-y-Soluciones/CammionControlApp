@@ -8,9 +8,9 @@ export const createPersona = async (req, res) => {
     fecha_nacimiento,
     correo,
     telefono,
-    tipo_de_contrato,
     fecha_inicio_contrato,
     fecha_final_contrato,
+    tipo_de_contrato,
   } = req.body;
 
   try {
@@ -21,9 +21,9 @@ export const createPersona = async (req, res) => {
       fecha_nacimiento,
       correo,
       telefono,
-      tipo_de_contrato,
       fecha_inicio_contrato,
       fecha_final_contrato,
+      tipo_de_contrato,
     });
 
     const savedPersona = await newPersona.save();
