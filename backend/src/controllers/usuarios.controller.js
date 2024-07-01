@@ -1,7 +1,8 @@
 import Usuario from '../models/Usuario';
 import Persona from '../models/Persona';
+import { encrypted } from '../authentication/passwords/encrypted';
 
-export const createUsuario = async (req, res) => {
+export const registrarUsuario = async (req, res) => {
   const { usuario, password, roles, estado, personaId } =
     req.body;
 
@@ -16,10 +17,13 @@ export const createUsuario = async (req, res) => {
       });
     }
 
+    // Encriptación del password...
+    const passwordEncrypted = await encrypted(password);
+
     // Crea un nuevo usuario con la referencia a la persona existente
     const newUsuario = new Usuario({
       usuario,
-      password,
+      password: passwordEncrypted,
       roles,
       estado,
       persona: persona._id,

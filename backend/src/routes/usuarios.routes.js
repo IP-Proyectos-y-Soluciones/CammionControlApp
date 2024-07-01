@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { createUsuario } from '../controllers/usuarios.controller';
+import { registrarUsuario } from '../controllers/usuarios.controller';
 import { validateUser } from '../middlewares/validateUser';
 
 const router = Router();
 
-router.post('/addusuario', validateUser, createUsuario);
+router.post('/addusuario', validateUser, registrarUsuario);
 
 export default router;
