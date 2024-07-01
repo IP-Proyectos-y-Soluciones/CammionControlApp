@@ -9,6 +9,9 @@ var _morgan = _interopRequireDefault(require("morgan"));
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 var _cors = _interopRequireDefault(require("cors"));
 var _dotenv = _interopRequireDefault(require("dotenv"));
+var _auth = _interopRequireDefault(require("./routes/auth.routes"));
+var _personas = _interopRequireDefault(require("./routes/personas.routes"));
+var _usuarios = _interopRequireDefault(require("./routes/usuarios.routes"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 _dotenv["default"].config();
 var app = (0, _express["default"])();
@@ -32,10 +35,11 @@ app.use((0, _cors["default"])());
 // );
 
 // Routes...
-// ...
-// ...
-// ...
+app.use('/api/auth', _auth["default"]);
+app.use('/api/personas', _personas["default"]);
+app.use('/api/usuarios', _usuarios["default"]);
 
+// Test route...
 app.get('/', function (req, res) {
   res.end("Welcome to Backend Node.js Server. Running on port: ".concat(app.get('port'), "...!"));
 });

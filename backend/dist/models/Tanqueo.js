@@ -11,6 +11,10 @@ var tanqueoSchema = new mongoose.Schema({
     "default": Date.now,
     required: true
   },
+  n_recibo: {
+    type: String,
+    required: true
+  },
   estacion: {
     type: String,
     required: true
@@ -19,11 +23,13 @@ var tanqueoSchema = new mongoose.Schema({
   valor_tanqueo: Number,
   vehiculo: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehiculo'
+    ref: 'Vehiculo',
+    required: true
   },
   conductor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'persona'
+    ref: 'Persona',
+    required: true
   }
 }, {
   timestamps: false,

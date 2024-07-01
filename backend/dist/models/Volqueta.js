@@ -6,6 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var mongoose = require('mongoose');
 var volquetaSchema = new mongoose.Schema({
+  n_planilla: {
+    type: String,
+    required: true,
+    unique: true
+  },
   fecha: {
     type: Date,
     "default": Date.now
@@ -18,12 +23,20 @@ var volquetaSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Persona'
   },
+  cliente: {
+    type: String,
+    required: true
+  },
   volmts3: {
     type: String,
     required: true
   },
   n_viajes: {
     type: Number,
+    required: true
+  },
+  material: {
+    type: String,
     required: true
   },
   hora_inicio: {
@@ -35,12 +48,6 @@ var volquetaSchema = new mongoose.Schema({
     type: Date,
     "default": ''
   },
-  honorario_inicial: {
-    type: Number
-  },
-  honorario_final: {
-    type: Number
-  },
   total_horas: Number,
   km_inicial: {
     type: String,
@@ -51,9 +58,9 @@ var volquetaSchema = new mongoose.Schema({
     required: true
   },
   total_km_dia: String,
-  corte_de_cargue: String,
-  corte_de_descargue: String,
-  duracion: String
+  lugar_de_cargue: String,
+  lugar_de_descargue: String,
+  observacion: String
 }, {
   timestamps: false,
   autoCreate: false

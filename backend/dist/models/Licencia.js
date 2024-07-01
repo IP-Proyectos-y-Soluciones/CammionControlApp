@@ -8,8 +8,7 @@ var mongoose = require('mongoose');
 var licenciaSchema = new mongoose.Schema({
   conductor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Persona',
-    required: true
+    ref: 'Usuario'
   },
   licencia_N: {
     type: Number,

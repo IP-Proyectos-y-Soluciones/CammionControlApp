@@ -31,23 +31,19 @@ var personaSchema = new mongoose.Schema({
   },
   telefono: {
     type: String,
-    "default": ''
-  },
-  tipo_de_contrato: {
-    type: String,
-    "enum": ['Fijo', 'Indefinido'],
-    "default": 'Fijo'
+    required: true
   },
   fecha_inicio_contrato: {
     type: Date,
-    "default": Date.now,
     required: true
   },
-  fecha_final_contrato: {
-    type: Date,
-    "default": ''
+  fecha_final_contrato: Date,
+  tipo_de_contrato: {
+    type: String,
+    "enum": ['Fijo', 'Indefinido'],
+    required: true
   },
-  usuario: {
+  Usuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Usuario'
   },
@@ -72,8 +68,8 @@ var personaSchema = new mongoose.Schema({
     ref: 'Tanqueo'
   }]
 }, {
-  timestamps: false,
-  autoCreate: false
+  timestamps: true,
+  autoCreate: true
 });
 var Persona = mongoose.model('Persona', personaSchema);
 var _default = exports["default"] = Persona;

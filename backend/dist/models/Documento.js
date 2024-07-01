@@ -23,8 +23,7 @@ var documentoSchema = new _mongoose["default"].Schema({
   fecha_vencemiento: Date,
   vehiculo: {
     type: _mongoose["default"].Schema.Types.ObjectId,
-    ref: 'Vehiculo',
-    required: true
+    ref: 'Vehiculo'
   }
 }, {
   timestamps: false,
