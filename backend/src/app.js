@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
-import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
 import personasRoutes from './routes/personas.routes';
@@ -16,9 +16,6 @@ app.set('port', process.env.PORT || 8585 || 3070);
 
 // Middlewares...
 app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(cors());
 // app.use(
 //   cors({
@@ -26,6 +23,9 @@ app.use(cors());
 //     credentials: true,
 //   }),
 // );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Routes...
 app.use('/api/auth', authRoutes);

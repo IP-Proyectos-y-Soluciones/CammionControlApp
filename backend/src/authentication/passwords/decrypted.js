@@ -1,18 +1,13 @@
 import bcrypt from 'bcryptjs';
 
 export const decrypted = async (
-  signinPassword,
-  encryptedPassword,
+  password,
+  hashedPassword,
 ) => {
   try {
-    const match = await bcrypt.compare(
-      signinPassword,
-      encryptedPassword,
-    );
-
-    return match;
+    return await bcrypt.compare(password, hashedPassword);
   } catch (error) {
     console.error('Error comparing passwords', error);
-    return false;
+    throw new Error('Error comparing passwords');
   }
 };
