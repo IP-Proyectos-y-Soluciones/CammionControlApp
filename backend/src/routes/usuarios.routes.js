@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { registrarUsuario } from '../controllers/usuarios.controller';
+import {
+  registrarUsuario,
+  getAllUsuarios,
+  getUsuario,
+  updateUsuario,
+} from '../controllers/usuarios.controller';
 import { TokenValidation } from '../authentication/tokens/verifyToken';
 import { validateUser } from '../middlewares/validateUser';
 
@@ -11,5 +16,11 @@ router.post(
   validateUser,
   registrarUsuario,
 );
+
+router.get('/', TokenValidation, getAllUsuarios);
+
+router.get('/:usuario', TokenValidation, getUsuario);
+
+router.put('/:_id', TokenValidation, updateUsuario);
 
 export default router;

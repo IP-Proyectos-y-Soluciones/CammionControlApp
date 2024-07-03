@@ -37,7 +37,7 @@ export const registrarUsuario = async (req, res) => {
       savedUsuario,
     });
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -52,7 +52,7 @@ export const getAllUsuarios = async (req, res) => {
 
     return res.status(200).json(usuarios);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -60,17 +60,37 @@ export const getUsuario = async (req, res) => {
   try {
     const { usuario } = req.params;
 
-    const findUsuario = await Usuario.find({
+    const findUsuario = await Usuario.findOne({
       usuario: usuario,
     });
 
-    if (!usuario)
+    if (!findUsuario)
       return res
         .status(404)
         .json({ message: 'Usuario no encontrado...!' });
 
     return res.status(200).json(findUsuario);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
+
+export const updateUsuario = async (req, res) => {
+  try {
+    const { _id } = req.params;
+
+    const findUsuario = await Usuario.findById(_id);
+
+    if (!findUsuario)
+      return res
+        .status(404)
+        .json({ message: 'Usuario no encontrado...!' });
+
+    // Provisional. Solo para test...
+    return res.status(200).json(findUsuario);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export const deleteUsuario = async (req, res) => {};
