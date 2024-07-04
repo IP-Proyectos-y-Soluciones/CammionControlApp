@@ -37,7 +37,11 @@ export const registrarUsuario = async (req, res) => {
       savedUsuario,
     });
   } catch (error) {
-    return res.status(500).json(error);
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json(error);
+    }
   }
 };
 
@@ -52,7 +56,11 @@ export const getAllUsuarios = async (req, res) => {
 
     return res.status(200).json(usuarios);
   } catch (error) {
-    return res.status(500).json(error);
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json(error);
+    }
   }
 };
 
@@ -71,11 +79,59 @@ export const getUsuario = async (req, res) => {
 
     return res.status(200).json(findUsuario);
   } catch (error) {
-    return res.status(500).json(error);
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json(error);
+    }
   }
 };
 
 export const updateUsuario = async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const { usuario, newPassword, roles, estado } =
+      req.body;
+
+    const findUsuario = await Usuario.findById(_id);
+
+    if (!findUsuario)
+      return res
+        .status(404)
+        .json({ message: 'Usuario no encontrado...!' });
+
+    // Se crea un objeto con los campos a actualizar...
+    const updatedFields = {};
+
+    if (usuario !== undefined)
+      updatedFields.usuario = usuario;
+    if (roles !== undefined) updatedFields.roles = roles;
+    if (estado !== undefined) updatedFields.estado = estado;
+
+    // Si se proporciona un nuevo password, se encripta...
+    if (newPassword !== undefined) {
+      updatedFields.password = await encrypted(newPassword);
+    }
+
+    // Se actualiza el usuario en la BD...
+    const updatedUsuario = await Usuario.findByIdAndUpdate(
+      _id,
+      { $set: updatedFields },
+      { new: true }, // Para devolver el usuario actualizado...
+    );
+
+    return res.status(200).json(updatedUsuario);
+    // return res.status(200).json({ message: 'Todo OK...!' });
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json(error);
+    }
+  }
+};
+
+export const deleteUsuario = async (req, res) => {
   try {
     const { _id } = req.params;
 
@@ -86,11 +142,17 @@ export const updateUsuario = async (req, res) => {
         .status(404)
         .json({ message: 'Usuario no encontrado...!' });
 
-    // Provisional. Solo para test...
-    return res.status(200).json(findUsuario);
+    // Se elimina el usuario de la BD...
+    const updatedUsuario = await Usuario.findByIdAndDelete(
+      _id,
+    );
+
+    return res.sendStatus(200);
   } catch (error) {
-    return res.status(500).json(error);
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json(error);
+    }
   }
 };
-
-export const deleteUsuario = async (req, res) => {};

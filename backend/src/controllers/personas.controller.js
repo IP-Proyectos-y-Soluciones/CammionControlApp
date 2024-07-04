@@ -34,7 +34,11 @@ export const createPersona = async (req, res) => {
       savedPersona,
     });
   } catch (error) {
-    res.status(500).json(error);
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json(error);
+    }
   }
 };
 
@@ -49,7 +53,11 @@ export const getAllPersonas = async (req, res) => {
 
     return res.status(200).json(personas);
   } catch (error) {
-    res.status(500).json(error);
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json(error);
+    }
   }
 };
 
@@ -68,6 +76,16 @@ export const getPersonaByDNI = async (req, res) => {
 
     return res.status(200).json(persona);
   } catch (error) {
-    res.status(500).json(error);
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json(error);
+    }
   }
 };
+
+export const getPersonaByID = async (req, res) => {};
+
+export const updatePersona = async (req, res) => {};
+
+export const deletePersona = async (req, res) => {};

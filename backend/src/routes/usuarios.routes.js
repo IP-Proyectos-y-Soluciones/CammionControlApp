@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   registrarUsuario,
+  deleteUsuario,
   getAllUsuarios,
   getUsuario,
   updateUsuario,
@@ -21,6 +22,12 @@ router.get('/', TokenValidation, getAllUsuarios);
 
 router.get('/:usuario', TokenValidation, getUsuario);
 
-router.put('/:_id', TokenValidation, updateUsuario);
+router.patch('/edit/:_id', TokenValidation, updateUsuario);
+
+router.delete(
+  '/delete/:_id',
+  TokenValidation,
+  deleteUsuario,
+);
 
 export default router;
