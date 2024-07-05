@@ -1,21 +1,22 @@
-import express from 'express';
-import morgan from 'morgan';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import dotenv from 'dotenv';
+import express from "express";
+import morgan from "morgan";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+import authRoutes from "./routes/auth.routhes";
+import personasRoutes from "./routes/personas.routhes";
+import usuariosRoutes from "./routes/usuarios.routhes";
+import documentosRoutes from "./routes/documento.routhes";
 
 dotenv.config();
 
 const app = express();
 
 // Settings...
-app.set('port', process.env.PORT || 8585 || 3070);
+app.set("port", process.env.PORT || 8585 || 3070);
 
 // Middlewares...
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(morgan("dev"));
 app.use(cors());
 // app.use(
 //   cors({
@@ -23,17 +24,19 @@ app.use(cors());
 //     credentials: true,
 //   }),
 // );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Routes...
-// ...
-// ...
-// ...
-
-app.get('/', (req, res) => {
+app.use("/api/auth", authRoutes);
+app.use("/api/personas", personasRoutes);
+app.use("/api/usuarios", usuariosRoutes);
+app.use("/api/documentos", documentosRoutes);
+// Test route...
+app.get("/", (req, res) => {
   res.end(
-    `Welcome to Backend Node.js Server. Running on port: ${app.get(
-      'port',
-    )}...!`,
+    `Welcome to Backend Node.js Server. Running on port: ${app.get("port")}...!`
   );
 });
 
