@@ -143,7 +143,7 @@ export const deleteUsuario = async (req, res) => {
         .json({ message: 'Usuario no encontrado...!' });
 
     // Se elimina el usuario de la BD...
-    const updatedUsuario = await Usuario.findByIdAndDelete(
+    const deletedUsuario = await Usuario.findByIdAndDelete(
       _id,
     );
 

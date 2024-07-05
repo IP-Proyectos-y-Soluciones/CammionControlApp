@@ -1,8 +1,11 @@
 import { Router } from 'express';
 import {
   createPersona,
+  deletePersona,
   getAllPersonas,
   getPersonaByDNI,
+  getPersonaByID,
+  updatePersona,
 } from '../controllers/personas.controller';
 import { TokenValidation } from '../authentication/tokens/verifyToken';
 
@@ -13,9 +16,27 @@ router.post('/addpersona', TokenValidation, createPersona);
 router.get('/', TokenValidation, getAllPersonas);
 
 router.get(
-  '/persona/:cedula',
+  '/personaced/:cedula',
   TokenValidation,
   getPersonaByDNI,
+);
+
+router.get(
+  '/personaid/:_id',
+  TokenValidation,
+  getPersonaByID,
+);
+
+router.patch(
+  '/persona/edit/:_id',
+  TokenValidation,
+  updatePersona,
+);
+
+router.delete(
+  '/persona/delete/:_id',
+  TokenValidation,
+  deletePersona,
 );
 
 export default router;

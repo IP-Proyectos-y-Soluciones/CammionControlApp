@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
 import personasRoutes from './routes/personas.routes';
 import usuariosRoutes from './routes/usuarios.routes';
+import cargaPesadaRoutes from './routes/cargaPesada.routes';
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/personas', personasRoutes);
 app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/cargapesada', cargaPesadaRoutes);
 
 // Test route...
 app.get('/', (req, res) => {
