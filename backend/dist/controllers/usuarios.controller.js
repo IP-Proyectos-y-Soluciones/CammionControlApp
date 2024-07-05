@@ -4,7 +4,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.registrarUsuario = exports.getUsuario = exports.getAllUsuarios = void 0;
+exports.updateUsuario = exports.registrarUsuario = exports.getUsuario = exports.getAllUsuarios = exports.deleteUsuario = void 0;
 var _Usuario = _interopRequireDefault(require("../models/Usuario"));
 var _Persona = _interopRequireDefault(require("../models/Persona"));
 var _encrypted = require("../authentication/passwords/encrypted");
@@ -55,8 +55,16 @@ var registrarUsuario = exports.registrarUsuario = /*#__PURE__*/function () {
         case 17:
           _context.prev = 17;
           _context.t0 = _context["catch"](1);
-          res.status(500).json(_context.t0);
-        case 20:
+          if (!(_context.t0 instanceof Error)) {
+            _context.next = 23;
+            break;
+          }
+          return _context.abrupt("return", res.status(500).json({
+            error: _context.t0.message
+          }));
+        case 23:
+          return _context.abrupt("return", res.status(500).json(_context.t0));
+        case 24:
         case "end":
           return _context.stop();
       }
@@ -89,8 +97,16 @@ var getAllUsuarios = exports.getAllUsuarios = /*#__PURE__*/function () {
         case 9:
           _context2.prev = 9;
           _context2.t0 = _context2["catch"](0);
-          res.status(500).json(_context2.t0);
-        case 12:
+          if (!(_context2.t0 instanceof Error)) {
+            _context2.next = 15;
+            break;
+          }
+          return _context2.abrupt("return", res.status(500).json({
+            error: _context2.t0.message
+          }));
+        case 15:
+          return _context2.abrupt("return", res.status(500).json(_context2.t0));
+        case 16:
         case "end":
           return _context2.stop();
       }
@@ -109,12 +125,12 @@ var getUsuario = exports.getUsuario = /*#__PURE__*/function () {
           _context3.prev = 0;
           usuario = req.params.usuario;
           _context3.next = 4;
-          return _Usuario["default"].find({
+          return _Usuario["default"].findOne({
             usuario: usuario
           });
         case 4:
           findUsuario = _context3.sent;
-          if (usuario) {
+          if (findUsuario) {
             _context3.next = 7;
             break;
           }
@@ -126,8 +142,16 @@ var getUsuario = exports.getUsuario = /*#__PURE__*/function () {
         case 10:
           _context3.prev = 10;
           _context3.t0 = _context3["catch"](0);
-          res.status(500).json(_context3.t0);
-        case 13:
+          if (!(_context3.t0 instanceof Error)) {
+            _context3.next = 16;
+            break;
+          }
+          return _context3.abrupt("return", res.status(500).json({
+            error: _context3.t0.message
+          }));
+        case 16:
+          return _context3.abrupt("return", res.status(500).json(_context3.t0));
+        case 17:
         case "end":
           return _context3.stop();
       }
@@ -135,5 +159,121 @@ var getUsuario = exports.getUsuario = /*#__PURE__*/function () {
   }));
   return function getUsuario(_x5, _x6) {
     return _ref3.apply(this, arguments);
+  };
+}();
+var updateUsuario = exports.updateUsuario = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+    var _id, _req$body2, usuario, newPassword, roles, estado, findUsuario, updatedFields, updatedUsuario;
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.prev = 0;
+          _id = req.params._id;
+          _req$body2 = req.body, usuario = _req$body2.usuario, newPassword = _req$body2.newPassword, roles = _req$body2.roles, estado = _req$body2.estado;
+          _context4.next = 5;
+          return _Usuario["default"].findById(_id);
+        case 5:
+          findUsuario = _context4.sent;
+          if (findUsuario) {
+            _context4.next = 8;
+            break;
+          }
+          return _context4.abrupt("return", res.status(404).json({
+            message: 'Usuario no encontrado...!'
+          }));
+        case 8:
+          // Se crea un objeto con los campos a actualizar...
+          updatedFields = {};
+          if (usuario !== undefined) updatedFields.usuario = usuario;
+          if (roles !== undefined) updatedFields.roles = roles;
+          if (estado !== undefined) updatedFields.estado = estado;
+
+          // Si se proporciona un nuevo password, se encripta...
+          if (!(newPassword !== undefined)) {
+            _context4.next = 16;
+            break;
+          }
+          _context4.next = 15;
+          return (0, _encrypted.encrypted)(newPassword);
+        case 15:
+          updatedFields.password = _context4.sent;
+        case 16:
+          _context4.next = 18;
+          return _Usuario["default"].findByIdAndUpdate(_id, {
+            $set: updatedFields
+          }, {
+            "new": true
+          } // Para devolver el usuario actualizado...
+          );
+        case 18:
+          updatedUsuario = _context4.sent;
+          return _context4.abrupt("return", res.status(200).json(updatedUsuario));
+        case 22:
+          _context4.prev = 22;
+          _context4.t0 = _context4["catch"](0);
+          if (!(_context4.t0 instanceof Error)) {
+            _context4.next = 28;
+            break;
+          }
+          return _context4.abrupt("return", res.status(500).json({
+            error: _context4.t0.message
+          }));
+        case 28:
+          return _context4.abrupt("return", res.status(500).json(_context4.t0));
+        case 29:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4, null, [[0, 22]]);
+  }));
+  return function updateUsuario(_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+var deleteUsuario = exports.deleteUsuario = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
+    var _id, findUsuario, deletedUsuario;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          _id = req.params._id;
+          _context5.next = 4;
+          return _Usuario["default"].findById(_id);
+        case 4:
+          findUsuario = _context5.sent;
+          if (findUsuario) {
+            _context5.next = 7;
+            break;
+          }
+          return _context5.abrupt("return", res.status(404).json({
+            message: 'Usuario no encontrado...!'
+          }));
+        case 7:
+          _context5.next = 9;
+          return _Usuario["default"].findByIdAndDelete(_id);
+        case 9:
+          deletedUsuario = _context5.sent;
+          return _context5.abrupt("return", res.sendStatus(200));
+        case 13:
+          _context5.prev = 13;
+          _context5.t0 = _context5["catch"](0);
+          if (!(_context5.t0 instanceof Error)) {
+            _context5.next = 19;
+            break;
+          }
+          return _context5.abrupt("return", res.status(500).json({
+            error: _context5.t0.message
+          }));
+        case 19:
+          return _context5.abrupt("return", res.status(500).json(_context5.t0));
+        case 20:
+        case "end":
+          return _context5.stop();
+      }
+    }, _callee5, null, [[0, 13]]);
+  }));
+  return function deleteUsuario(_x9, _x10) {
+    return _ref5.apply(this, arguments);
   };
 }();
