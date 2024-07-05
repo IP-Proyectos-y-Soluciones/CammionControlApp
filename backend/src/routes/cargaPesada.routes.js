@@ -35,3 +35,5 @@ router.delete(
   TokenValidation,
   deleteHeavyLoadForm,
 );
+
+export default router;
