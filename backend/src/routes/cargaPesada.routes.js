@@ -11,7 +11,7 @@ import { TokenValidation } from '../authentication/tokens/verifyToken';
 const router = Router();
 
 router.post(
-  '/addcargapesada',
+  '/addplanillacarga',
   TokenValidation,
   createHeavyLoadForm,
 );
