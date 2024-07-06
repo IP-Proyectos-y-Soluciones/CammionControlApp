@@ -14,6 +14,8 @@ var _personas = _interopRequireDefault(require("./routes/personas.routes"));
 var _usuarios = _interopRequireDefault(require("./routes/usuarios.routes"));
 var _cargaPesada = _interopRequireDefault(require("./routes/cargaPesada.routes"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+// import vehicleRoutes from './routes/vehiculosProv.routes'; // Ruta provisonal. Solo para pruebas temporales...
+
 _dotenv["default"].config();
 var app = (0, _express["default"])();
 
@@ -40,6 +42,7 @@ app.use('/api/auth', _auth["default"]);
 app.use('/api/personas', _personas["default"]);
 app.use('/api/usuarios', _usuarios["default"]);
 app.use('/api/cargapesada', _cargaPesada["default"]);
+// app.use('/api/vehicles', vehicleRoutes); // Ruta provisonal. Solo para pruebas temporales...
 
 // Test route...
 app.get('/', function (req, res) {
