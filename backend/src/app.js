@@ -7,6 +7,7 @@ import authRoutes from './routes/auth.routes';
 import personasRoutes from './routes/personas.routes';
 import usuariosRoutes from './routes/usuarios.routes';
 import cargaPesadaRoutes from './routes/cargaPesada.routes';
+// import vehicleRoutes from './routes/vehiculosProv.routes'; // Ruta provisonal. Solo para pruebas temporales...
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/personas', personasRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/cargapesada', cargaPesadaRoutes);
+// app.use('/api/vehicles', vehicleRoutes); // Ruta provisonal. Solo para pruebas temporales...
 
 // Test route...
 app.get('/', (req, res) => {

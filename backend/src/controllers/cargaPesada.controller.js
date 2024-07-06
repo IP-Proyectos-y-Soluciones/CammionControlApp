@@ -1,4 +1,6 @@
 import CargaPesada from '../models/CargaPesada';
+import Persona from '../models/Persona';
+import Vehiculo from '../models/Vehiculo';
 
 export const createHeavyLoadForm = async (req, res) => {
   try {
@@ -7,7 +9,7 @@ export const createHeavyLoadForm = async (req, res) => {
       fecha_inicio,
       fecha_final,
       placas,
-      conductor,
+      conductorId,
       ciudad_inicio,
       ciudad_destino,
       empresa,
@@ -19,16 +21,39 @@ export const createHeavyLoadForm = async (req, res) => {
       mantenimiento,
       mecanico,
       otros,
-      total_anticipos_fletesPagados,
-      total_gastos,
     } = req.body;
+
+    const person = await Persona.findById(conductorId);
+
+    if (!person)
+      return res
+        .status(404)
+        .json({ message: 'Persona no encontrada...!' });
+
+    const vehicle = await Vehiculo.findById(placas);
+
+    if (!vehicle)
+      return res
+        .status(404)
+        .json({ message: 'Vehículo no encontrado...!' });
+
+    let totalAdvance =
+      parseInt(anticipo_empresa) +
+      parseInt(anticipo_cliente);
+
+    let totalSpends =
+      parseInt(acpm) +
+      parseInt(peaje) +
+      parseInt(mantenimiento) +
+      parseInt(mecanico) +
+      parseInt(otros);
 
     const newHeavyLoad = new CargaPesada({
       n_planilla,
       fecha_inicio,
       fecha_final,
-      placas,
-      conductor,
+      placas: vehicle._id,
+      conductor: person._id,
       ciudad_inicio,
       ciudad_destino,
       empresa,
@@ -40,8 +65,8 @@ export const createHeavyLoadForm = async (req, res) => {
       mantenimiento,
       mecanico,
       otros,
-      total_anticipos_fletesPagados,
-      total_gastos,
+      total_anticipos_fletesPagados: totalAdvance,
+      total_gastos: totalSpends,
     });
 
     const savedHeavyLoad = await newHeavyLoad.save();
