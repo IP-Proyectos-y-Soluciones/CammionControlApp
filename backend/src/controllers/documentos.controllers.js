@@ -1,4 +1,5 @@
-const Documento = require("../models/Documento");
+import Documento from "../models/Documento";
+import Vehiculo from "../models/Vehiculo";
 
 export const createDocumento = async (req, res) => {
   try {
@@ -7,14 +8,20 @@ export const createDocumento = async (req, res) => {
       tipo,
       fecha_expedicion,
       fecha_vencemiento,
-      vehiculo,
+      vehiculo_id,
     } = req.body;
+    const vehiculo = await Vehiculo.findById(vehiculo_id);
+    if (!vehiculo) {
+      return res.status(404).json({
+        message: "El id del vehiculo no existe",
+      });
+    }
     const newDocumento = new Documento({
       cerificado_N,
       tipo,
       fecha_expedicion,
       fecha_vencemiento,
-      vehiculo,
+      vehiculo_id,
     });
     await newDocumento.save();
     res.status(201).json({
@@ -53,7 +60,7 @@ export const getAllDocumento = async (req, res) => {
     }
     res.status(200).json({ documento, mensaje });
   } catch (error) {
-    res.status(500).json(error);
+    0;
   }
 };
 
@@ -64,8 +71,14 @@ export const putDocumento = async (req, res) => {
       tipo,
       fecha_expedicion,
       fecha_vencemiento,
-      vehiculo,
+      vehiculo_id,
     } = req.body;
+    const vehiculo = await Vehiculo.findById(vehiculo_id);
+    if (!vehiculo) {
+      return res.status(404).json({
+        message: "El id del vehiculo no existe",
+      });
+    }
     const documento = await Documento.findByIdAndUpdate(
       req.params.id,
       {
@@ -73,7 +86,7 @@ export const putDocumento = async (req, res) => {
         tipo,
         fecha_expedicion,
         fecha_vencemiento,
-        vehiculo,
+        vehiculo: vehiculo_id,
       },
       { new: true, runValidators: true }
     );

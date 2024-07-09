@@ -45,7 +45,7 @@ const vehiculoSchema = new mongoose.Schema(
         ref: "Volqueta",
       },
     ],
-    tractomulas: [
+    cargaPesada: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Tractomula",

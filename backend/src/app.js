@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth.routhes";
 import personasRoutes from "./routes/personas.routhes";
 import usuariosRoutes from "./routes/usuarios.routhes";
 import documentosRoutes from "./routes/documento.routhes";
-
+import licenciaRoutes from "./routes/licencia.routhes";
 dotenv.config();
 
 const app = express();
@@ -33,6 +33,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/personas", personasRoutes);
 app.use("/api/usuarios", usuariosRoutes);
 app.use("/api/documentos", documentosRoutes);
+app.use("/api/licencia", licenciaRoutes);
 // Test route...
 app.get("/", (req, res) => {
   res.end(

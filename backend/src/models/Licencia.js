@@ -18,7 +18,7 @@ const licenciaSchema = new mongoose.Schema(
     clase_de_vehiculo: String,
     servicio: String,
     fecha_expedicion: Date,
-    fecha_vencemiento: Date,
+    fecha_vencimiento: Date,
   },
   {
     timestamps: false,
