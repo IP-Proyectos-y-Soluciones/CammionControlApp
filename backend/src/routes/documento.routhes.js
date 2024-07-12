@@ -5,15 +5,16 @@ import {
   putDocumento,
   deleteDocumento,
 } from "../controllers/documentos.controllers";
+import { TokenValidation } from "../authentication/tokens/verifyToken";
 
 const router = Router();
 
-router.post("/", createDocumento);
+router.post("/", TokenValidation, createDocumento);
 
-router.get("/", getAllDocumento);
+router.get("/", TokenValidation, getAllDocumento);
 
-router.put("/:id", putDocumento);
+router.put("/:id", TokenValidation, putDocumento);
 
-router.put("/:id", deleteDocumento);
+router.delete("/:id", TokenValidation, deleteDocumento);
 
 export default router;

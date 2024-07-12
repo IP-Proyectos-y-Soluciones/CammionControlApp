@@ -19,7 +19,7 @@ async function main() {
     // ======= Test de creación de documentos ======== //
     // =========================================== //
 
-    const persona = await Persona.create({
+    /*const persona = await Persona.create({
       cedula: 123456789,
       nombres: "John",
       apellidos: "Doe",
@@ -116,7 +116,7 @@ async function main() {
       roles: "Admin",
       estado: true,
       infoPersonal: persona._id,
-    });
+    });*/
 
     console.log("Test documents created...");
 

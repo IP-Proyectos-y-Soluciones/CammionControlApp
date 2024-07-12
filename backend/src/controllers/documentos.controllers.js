@@ -43,21 +43,6 @@ export const getAllDocumento = async (req, res) => {
     if (documento.length === 0) {
       return res.status(404).json({ message: "Documento no encontrado" });
     }
-    const dias = 7;
-    const fecha = new Date();
-    const alerta = documento.filter((doc) => {
-      const fechaVencimiento = new Date(doc.fecha_vencimiento);
-      const diasRestantes = Math.ceil(
-        (fechaVencimiento - fecha) / (1000 * 60 * 60 * 24)
-      );
-      return diasRestantes <= dias;
-    });
-
-    let mensaje = null;
-    if (alerta.length > 0) {
-      const certificados = alerta.map((doc) => cerificado_N).join(", ");
-      mensaje = `hay ${alerta.length} documentos con fechas de vencimiento próximas. Certificados: ${certificados}`;
-    }
     res.status(200).json({ documento, mensaje });
   } catch (error) {
     0;

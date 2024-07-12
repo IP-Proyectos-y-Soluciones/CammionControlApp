@@ -28,6 +28,7 @@ export const createLicencia = async (req, res) => {
       fecha_expedicion,
       fecha_vencemiento,
     });
+    await newLicencia.save();
     res.status(200).json({
       message: "la licencia ha sido guardada correctamente!",
       newLicencia,
@@ -45,25 +46,10 @@ export const getLicencia = async (req, res) => {
     if (licencia_N) query.licencia_N = licencia_N;
     if (clase_de_vehiculo) query.clase_de_vehiculo = clase_de_vehiculo;
 
-    const licencias = await Licencia.find(query).populate("persona");
+    const licencias = await Licencia.find(query).populate("conductor");
+
     if (licencias.length === 0) {
       return res.status(404).json({ message: "Licencia no encontrada" });
-    }
-
-    const dias = 7;
-    const fecha = new Date();
-    const alerta = licencias.filter((doc) => {
-      const fechaVencimiento = new Date(doc.fecha_vencimiento);
-      const diasRestantes = Math.ceil(
-        (fechaVencimiento - fecha) / (1000 * 60 * 60 * 24)
-      );
-      return diasRestantes <= dias;
-    });
-
-    let mensaje = null;
-    if (alerta.length > 0) {
-      const licenciasExpirando = alerta.map((doc) => doc.licencia_N).join(", ");
-      mensaje = `Hay ${alerta.length} licencias con fechas de vencimiento próximas. Licencias: ${licenciasExpirando}`;
     }
 
     res.status(200).json({ licencias, mensaje });
