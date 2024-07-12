@@ -49,4 +49,4 @@ const mecanicoSchema = new mongoose.Schema(
 
 const Mecanico = mongoose.model('Mecanico', mecanicoSchema);
 
-export default Mecanico;
+export default  Mecanico;

@@ -8,7 +8,7 @@ import { TokenValidation } from '../authentication/tokens/verifyToken';
 
 const router = Router();
 
-router.post('/addpersona', TokenValidation, createPersona);
+router.post('/addpersona',TokenValidation, createPersona);
 
 router.get('/', TokenValidation, getAllPersonas);
 
