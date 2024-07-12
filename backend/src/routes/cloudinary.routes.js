@@ -4,7 +4,7 @@ import { TokenValidation } from '../authentication/tokens/verifyToken';
 
 const router = Router();
 
-router.post('/upload', uploadImage);
+router.post('/upload',parser, uploadImage);
 
 
 export default router;

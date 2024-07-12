@@ -57,58 +57,7 @@ export const uploadImage = async (req, res) => {
 
 
 
-// const multer = require('multer');
-// const { v2: cloudinary } = require('cloudinary');
-// const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-
-
-// // Configuración de Cloudinary
-// cloudinary.config({
-//   cloud_name: 'dpd4mxi0u',
-//   api_key: '382712356157546',
-//   api_secret: '<your_api_secret>'
-// });
-// const storage = new CloudinaryStorage({
-//     cloudinary: cloudinary,
-//     params: {
-//       folder: 'uploads',
-//       format: async (req, file) => 'jpg', // formato de archivo soportado por Cloudinary
-//       public_id: (req, file) => file.originalname.split('.')[0], // usa el nombre original del archivo
-//     },
-//   });
-
-//   const parser = multer({ storage: storage });
-
-// console.log("aqui Parser "+parser)
-
-// export const uploadImage= async(req, res)=>{ 
-
-//   if (!req.file) {
-//     return res.status(400).json({ message: 'No se ha proporcionado ninguna imagen' });
-//   }
-//    let uploadedImageUrls = [];
-//     try {
-//         const res = await fetch("https://api.cloudinary.com/v1_1/dpd4mxi0u/image/upload", {
-//         method: "POST",
-//         body: parser,
-//         });
-//         if (res.status === 200) {
-//         const data = await res.json();
-//         uploadedImageUrls.push(data.secure_url);
-//         console.log("aqui url de imagen lista "+uploadedImageUrls)
-//         }
-//         else {
-//         console.error("Error al cargar el archivo a Cloudinary:", res.statusText);
-//         }
-//     } 
-//     catch (error) {
-//         console.error("Error en la solicitud:", error);
-//     }
-
-
- 
-// };
 
 
 
