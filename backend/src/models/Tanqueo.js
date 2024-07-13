@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const tanqueoSchema = new mongoose.Schema(
   {
@@ -31,9 +31,9 @@ const tanqueoSchema = new mongoose.Schema(
   {
     timestamps: false,
     autoCreate: false,
-  },
+  }
 );
 
-const Tanqueo = mongoose.model('Tanqueo', tanqueoSchema);
+const Tanqueo = mongoose.model("Tanqueo", tanqueoSchema);
 
 export default Tanqueo;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const mecanicoSchema = new mongoose.Schema(
   {
@@ -47,6 +47,6 @@ const mecanicoSchema = new mongoose.Schema(
   },
 );
 
-const Mecanico = mongoose.model('Mecanico', mecanicoSchema);
+const Mecanico = mongoose.model("Mecanico", mecanicoSchema);
 
 export default  Mecanico;

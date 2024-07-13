@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const vehiculoSchema = new mongoose.Schema(
   {
@@ -9,18 +9,18 @@ const vehiculoSchema = new mongoose.Schema(
     },
     tipo_de_combustible: {
       type: String,
-      enum: ['Gasolina', 'A.C.P.M'],
+      enum: ["Gasolina", "A.C.P.M"],
       required: true,
     },
     clase_de_vehiculo: {
       type: String,
       enum: [
-        'VOLQUETA DTRQ',
-        'VOLQUETA',
-        'CARRO TANQUE',
-        'CAMION SENCILLO',
-        'TRACTOCAMION',
-        'CAMIONETA JEFES',
+        "VOLQUETA DTRQ",
+        "VOLQUETA",
+        "CARRO TANQUE",
+        "CAMION SENCILLO",
+        "TRACTOCAMION",
+        "CAMIONETA JEFES",
       ],
       required: true,
     },
@@ -31,33 +31,39 @@ const vehiculoSchema = new mongoose.Schema(
     color: String,
     propietario: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Persona',
+      ref: "Persona",
     },
     documentos: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Documento',
+        ref: "Documento",
       },
     ],
     volquetas: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Volqueta',
+        ref: "Volqueta",
+      },
+    ],
+    cargaPesada: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tractomula",
       },
     ],
     tanqueos: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tanqueo',
+        ref: "Tanqueo",
       },
     ],
   },
   {
     timestamps: false,
     autoCreate: false,
-  },
+  }
 );
 
-const Vehiculo = mongoose.model('Vehiculo', vehiculoSchema);
+const Vehiculo = mongoose.model("Vehiculo", vehiculoSchema);
 
 export default Vehiculo;

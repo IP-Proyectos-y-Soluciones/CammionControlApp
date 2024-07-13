@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const cargaPesadaSchema = new mongoose.Schema(
   {
@@ -14,15 +14,15 @@ const cargaPesadaSchema = new mongoose.Schema(
     },
     fecha_final: {
       type: Date,
-      default: '',
+      default: "",
     },
     placas: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Vehiculo',
+      ref: "Vehiculo",
     },
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Persona',
+      ref: "Persona",
     },
     ciudad_inicio: {
       type: String,
@@ -47,12 +47,9 @@ const cargaPesadaSchema = new mongoose.Schema(
   {
     timestamps: false,
     autoCreate: false,
-  },
+  }
 );
 
-const CargaPesada = mongoose.model(
-  'CargaPesada',
-  cargaPesadaSchema,
-);
+const cargaPesada = mongoose.model("CargaPesada", cargaPesadaSchema);
 
-export default CargaPesada;
+export default cargaPesada;

@@ -10,13 +10,16 @@ import tanqueosRoutes from './routes/tanqueos.routes.js'
 import mecanicoRoutes from './routes/mecanico.routes.js';
 import vehiculoRoutes from './routes/vehiculo.routes.js';
 import cloudinaryRoutes from './routes/cloudinary.routes.js';
-
+import usuariosRoutes from "./routes/usuarios.routhes";
+import documentosRoutes from "./routes/documento.routhes";
+import licenciaRoutes from "./routes/licencia.routhes";
+import VolquetaRoutes from "./routes/volquetas.routhes";
 dotenv.config();
 
 const app = express();
 
 // Settings...
-app.set('port', process.env.PORT || 8585 || 3070);
+app.set("port", process.env.PORT || 8585 || 3070);
 
 // Middlewares...
 app.use(morgan('dev'));
@@ -34,9 +37,12 @@ app.use(cookieParser());
 
 
 // Routes...
-app.use('/api/auth', authRoutes);
-app.use('/api/personas', personasRoutes);
-app.use('/api/usuarios', usuariosRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/personas", personasRoutes);
+app.use("/api/usuarios", usuariosRoutes);
+app.use("/api/documentos", documentosRoutes);
+app.use("/api/licencia", licenciaRoutes);
+app.use("/api/planilla", VolquetaRoutes);
 app.use('/api/tanqueo', tanqueosRoutes);
 app.use('/api/mecanico', mecanicoRoutes);
 app.use('/api/vehiculo', vehiculoRoutes);
@@ -45,9 +51,7 @@ app.use('/api/cloudinary', cloudinaryRoutes);
 // Test route...
 app.get('/', (req, res) => {
   res.end(
-    `Welcome to Backend Node.js Server. Running on port: ${app.get(
-      'port',
-    )}...!`,
+    `Welcome to Backend Node.js Server. Running on port: ${app.get("port")}...!`
   );
 });
 

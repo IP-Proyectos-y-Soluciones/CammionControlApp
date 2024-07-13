@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const volquetaSchema = new mongoose.Schema(
   {
@@ -13,11 +13,15 @@ const volquetaSchema = new mongoose.Schema(
     },
     placas: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Vehiculo',
+      ref: "Vehiculo",
     },
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Persona',
+    },
+    cliente: {
+      type: String,
+      required: true,
     },
     cliente: {
       type: String,
@@ -42,7 +46,7 @@ const volquetaSchema = new mongoose.Schema(
     },
     hora_final: {
       type: Date,
-      default: '',
+      default: "",
     },
     total_horas: Number,
     km_inicial: {
@@ -61,9 +65,9 @@ const volquetaSchema = new mongoose.Schema(
   {
     timestamps: false,
     autoCreate: false,
-  },
+  }
 );
 
-const Volqueta = mongoose.model('Volqueta', volquetaSchema);
+const Volqueta = mongoose.model("Volqueta", volquetaSchema);
 
 export default Volqueta;
