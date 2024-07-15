@@ -4,7 +4,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateHeavyLoadForm = exports.getHeavyLoadByFormNumber = exports.getAllHeavyLoadForms = exports.deleteHeavyLoadForm = exports.createHeavyLoadForm = void 0;
+exports.getHeavyLoadByFormNumber = exports.getHeavyLoadByFormID = exports.getAllHeavyLoadForms = exports.createHeavyLoadForm = void 0;
 var _CargaPesada = _interopRequireDefault(require("../models/CargaPesada"));
 var _Persona = _interopRequireDefault(require("../models/Persona"));
 var _Vehiculo = _interopRequireDefault(require("../models/Vehiculo"));
@@ -143,43 +143,95 @@ var getAllHeavyLoadForms = exports.getAllHeavyLoadForms = /*#__PURE__*/function 
 }();
 var getHeavyLoadByFormNumber = exports.getHeavyLoadByFormNumber = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+    var n_planilla, findHeavyLoadForm;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
+          _context3.prev = 0;
+          n_planilla = req.params.n_planilla;
+          _context3.next = 4;
+          return _CargaPesada["default"].findOne({
+            n_planilla: n_planilla
+          });
+        case 4:
+          findHeavyLoadForm = _context3.sent;
+          if (findHeavyLoadForm) {
+            _context3.next = 7;
+            break;
+          }
+          return _context3.abrupt("return", res.status(404).json({
+            message: 'No se encontró ninguna planilla de Carga Pesada...!'
+          }));
+        case 7:
+          return _context3.abrupt("return", res.status(200).json(findHeavyLoadForm));
+        case 10:
+          _context3.prev = 10;
+          _context3.t0 = _context3["catch"](0);
+          if (!(_context3.t0 instanceof Error)) {
+            _context3.next = 16;
+            break;
+          }
+          return _context3.abrupt("return", res.status(500).json({
+            error: _context3.t0.message
+          }));
+        case 16:
+          return _context3.abrupt("return", res.status(500).json(_context3.t0));
+        case 17:
         case "end":
           return _context3.stop();
       }
-    }, _callee3);
+    }, _callee3, null, [[0, 10]]);
   }));
   return function getHeavyLoadByFormNumber(_x5, _x6) {
     return _ref3.apply(this, arguments);
   };
 }();
-var updateHeavyLoadForm = exports.updateHeavyLoadForm = /*#__PURE__*/function () {
+var getHeavyLoadByFormID = exports.getHeavyLoadByFormID = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+    var _id, findHeavyLoadFormID;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
+          _context4.prev = 0;
+          _id = req.params._id;
+          console.log(_id);
+          _context4.next = 5;
+          return _CargaPesada["default"].findById(_id);
+        case 5:
+          findHeavyLoadFormID = _context4.sent;
+          console.log(findHeavyLoadFormID);
+          if (findHeavyLoadFormID) {
+            _context4.next = 9;
+            break;
+          }
+          return _context4.abrupt("return", res.status(404).json({
+            message: 'No se encontró ninguna planilla de Carga Pesada...!'
+          }));
+        case 9:
+          return _context4.abrupt("return", res.status(200).json(findHeavyLoadFormID));
+        case 12:
+          _context4.prev = 12;
+          _context4.t0 = _context4["catch"](0);
+          if (!(_context4.t0 instanceof Error)) {
+            _context4.next = 18;
+            break;
+          }
+          return _context4.abrupt("return", res.status(500).json({
+            error: _context4.t0.message
+          }));
+        case 18:
+          return _context4.abrupt("return", res.status(500).json(_context4.t0));
+        case 19:
         case "end":
           return _context4.stop();
       }
-    }, _callee4);
+    }, _callee4, null, [[0, 12]]);
   }));
-  return function updateHeavyLoadForm(_x7, _x8) {
+  return function getHeavyLoadByFormID(_x7, _x8) {
     return _ref4.apply(this, arguments);
   };
 }();
-var deleteHeavyLoadForm = exports.deleteHeavyLoadForm = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-      while (1) switch (_context5.prev = _context5.next) {
-        case 0:
-        case "end":
-          return _context5.stop();
-      }
-    }, _callee5);
-  }));
-  return function deleteHeavyLoadForm(_x9, _x10) {
-    return _ref5.apply(this, arguments);
-  };
-}();
+
+// export const updateHeavyLoadForm = async (req, res) => {};
+
+// export const deleteHeavyLoadForm = async (req, res) => {};

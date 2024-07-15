@@ -11,6 +11,17 @@ var router = (0, _express.Router)();
 router.post('/addplanillacarga', _verifyToken.TokenValidation, _cargaPesada.createHeavyLoadForm);
 router.get('/', _verifyToken.TokenValidation, _cargaPesada.getAllHeavyLoadForms);
 router.get('/planilla/:n_planilla', _verifyToken.TokenValidation, _cargaPesada.getHeavyLoadByFormNumber);
-router.patch('/planilla/edit/:n_planilla', _verifyToken.TokenValidation, _cargaPesada.updateHeavyLoadForm);
-router["delete"]('/planilla/delete/:n_planilla', _verifyToken.TokenValidation, _cargaPesada.deleteHeavyLoadForm);
+router.get('/planillaid/:_id', _verifyToken.TokenValidation, _cargaPesada.getHeavyLoadByFormID);
+
+// router.patch(
+//   '/planilla/edit/:n_planilla',
+//   TokenValidation,
+//   updateHeavyLoadForm,
+// );
+
+// router.delete(
+//   '/planilla/delete/:n_planilla',
+//   TokenValidation,
+//   deleteHeavyLoadForm,
+// );
 var _default = exports["default"] = router;
