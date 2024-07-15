@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import {
   createHeavyLoadForm,
-  deleteHeavyLoadForm,
+  // deleteHeavyLoadForm,
   getAllHeavyLoadForms,
   getHeavyLoadByFormNumber,
-  updateHeavyLoadForm,
+  getHeavyLoadByFormID,
+  // updateHeavyLoadForm,
 } from '../controllers/cargaPesada.controller';
 import { TokenValidation } from '../authentication/tokens/verifyToken';
 
@@ -24,16 +25,22 @@ router.get(
   getHeavyLoadByFormNumber,
 );
 
-router.patch(
-  '/planilla/edit/:n_planilla',
+router.get(
+  '/planillaid/:_id',
   TokenValidation,
-  updateHeavyLoadForm,
+  getHeavyLoadByFormID,
 );
 
-router.delete(
-  '/planilla/delete/:n_planilla',
-  TokenValidation,
-  deleteHeavyLoadForm,
-);
+// router.patch(
+//   '/planilla/edit/:n_planilla',
+//   TokenValidation,
+//   updateHeavyLoadForm,
+// );
+
+// router.delete(
+//   '/planilla/delete/:n_planilla',
+//   TokenValidation,
+//   deleteHeavyLoadForm,
+// );
 
 export default router;

@@ -117,8 +117,60 @@ export const getAllHeavyLoadForms = async (req, res) => {
 export const getHeavyLoadByFormNumber = async (
   req,
   res,
-) => {};
+) => {
+  try {
+    const { n_planilla } = req.params;
 
-export const updateHeavyLoadForm = async (req, res) => {};
+    const findHeavyLoadForm = await CargaPesada.findOne({
+      n_planilla: n_planilla,
+    });
 
-export const deleteHeavyLoadForm = async (req, res) => {};
+    if (!findHeavyLoadForm) {
+      return res.status(404).json({
+        message:
+          'No se encontró ninguna planilla de Carga Pesada...!',
+      });
+    }
+
+    return res.status(200).json(findHeavyLoadForm);
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json(error);
+    }
+  }
+};
+
+export const getHeavyLoadByFormID = async (req, res) => {
+  try {
+    const { _id } = req.params;
+
+    console.log(_id);
+
+    const findHeavyLoadFormID = await CargaPesada.findById(
+      _id,
+    );
+
+    console.log(findHeavyLoadFormID);
+
+    if (!findHeavyLoadFormID) {
+      return res.status(404).json({
+        message:
+          'No se encontró ninguna planilla de Carga Pesada...!',
+      });
+    }
+
+    return res.status(200).json(findHeavyLoadFormID);
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json(error);
+    }
+  }
+};
+
+// export const updateHeavyLoadForm = async (req, res) => {};
+
+// export const deleteHeavyLoadForm = async (req, res) => {};
