@@ -23,6 +23,7 @@ export const createHeavyLoadForm = async (req, res) => {
       otros,
     } = req.body;
 
+    // Se verifica si existe la persona...
     const person = await Persona.findById(conductorId);
 
     if (!person)
@@ -30,6 +31,7 @@ export const createHeavyLoadForm = async (req, res) => {
         .status(404)
         .json({ message: 'Persona no encontrada...!' });
 
+    // Se verifica si existe el vehículo...
     const vehicle = await Vehiculo.findById(placas);
 
     if (!vehicle)
@@ -37,16 +39,22 @@ export const createHeavyLoadForm = async (req, res) => {
         .status(404)
         .json({ message: 'Vehículo no encontrado...!' });
 
+    // Sumatoria de todos los anticipos recibidos...
     let totalAdvance =
       parseInt(anticipo_empresa) +
       parseInt(anticipo_cliente);
 
+    // Sumatoria de todos los gastos...
     let totalSpends =
       parseInt(acpm) +
       parseInt(peaje) +
       parseInt(mantenimiento) +
       parseInt(mecanico) +
       parseInt(otros);
+
+    // Saldo total...
+    let totalBalance =
+      parseInt(valor_flete) - totalAdvance - totalSpends;
 
     const newHeavyLoad = new CargaPesada({
       n_planilla,
@@ -67,6 +75,7 @@ export const createHeavyLoadForm = async (req, res) => {
       otros,
       total_anticipos_fletesPagados: totalAdvance,
       total_gastos: totalSpends,
+      total_saldo: totalBalance,
     });
 
     const savedHeavyLoad = await newHeavyLoad.save();

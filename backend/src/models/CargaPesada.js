@@ -43,6 +43,7 @@ const cargaPesadaSchema = new mongoose.Schema(
     otros: Number,
     total_anticipos_fletesPagados: Number,
     total_gastos: Number,
+    total_saldo: Number,
   },
   {
     timestamps: false,

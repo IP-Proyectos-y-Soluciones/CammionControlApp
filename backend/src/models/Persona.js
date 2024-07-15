@@ -33,7 +33,9 @@ const personaSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    fecha_final_contrato: Date,
+    fecha_final_contrato: {
+      type: Date,
+    },
     tipo_de_contrato: {
       type: String,
       enum: ['Fijo', 'Indefinido'],
@@ -43,28 +45,22 @@ const personaSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Usuario',
     },
-    vehiculos: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Vehiculo',
-      },
-    ],
     licencias: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Licencia',
       },
     ],
+    vehiculos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Vehiculo',
+      },
+    ],
     volquetas: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Volqueta',
-      },
-    ],
-    tractomulas: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tractomula',
       },
     ],
     tanqueos: [

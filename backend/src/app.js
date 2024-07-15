@@ -1,13 +1,14 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+// import csurf from 'csurf';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
 import personasRoutes from './routes/personas.routes';
 import usuariosRoutes from './routes/usuarios.routes';
 import cargaPesadaRoutes from './routes/cargaPesada.routes';
-// import vehicleRoutes from './routes/vehiculosProv.routes'; // Ruta provisonal. Solo para pruebas temporales...
+import vehiclesRoutes from './routes/vehiclesProv.routes'; // Ruta provisional. Solo para pruebas temporales...
 
 dotenv.config();
 
@@ -18,23 +19,31 @@ app.set('port', process.env.PORT || 8585 || 3070);
 
 // Middlewares...
 app.use(morgan('dev'));
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: 'http://localhost:5173',
-//     credentials: true,
-//   }),
-// );
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Routes...
 app.use('/api/auth', authRoutes);
 app.use('/api/personas', personasRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/cargapesada', cargaPesadaRoutes);
-// app.use('/api/vehicles', vehicleRoutes); // Ruta provisonal. Solo para pruebas temporales...
+app.use('/api/vehicles', vehiclesRoutes); // Ruta provisional. Solo para pruebas temporales...
+
+// // Manejo de errores CSRF...
+// app.use((err, req, res, next) => {
+//   if (err.code === 'EBADCSRFTOKEN') {
+//     return res.status(403).json({
+//       message: 'CSRF token inválido o falta de token CSRF',
+//     });
+//   }
+//   next(err);
+// });
 
 // Test route...
 app.get('/', (req, res) => {

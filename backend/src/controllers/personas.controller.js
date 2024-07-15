@@ -174,7 +174,7 @@ export const deletePersona = async (req, res) => {
     if (!findPersona)
       return res
         .status(404)
-        .json({ message: 'Usuario no encontrado...!' });
+        .json({ message: 'Persona no encontrado...!' });
 
     const findUsuarioPersona = await Usuario.findOne({
       persona: findPersona._id,

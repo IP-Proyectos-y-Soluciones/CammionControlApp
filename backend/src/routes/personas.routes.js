@@ -8,10 +8,16 @@ import {
   updatePersona,
 } from '../controllers/personas.controller';
 import { TokenValidation } from '../authentication/tokens/verifyToken';
+import { validatePerson } from '../middlewares/validatePerson';
 
 const router = Router();
 
-router.post('/addpersona', TokenValidation, createPersona);
+router.post(
+  '/addpersona',
+  TokenValidation,
+  validatePerson,
+  createPersona,
+);
 
 router.get('/', TokenValidation, getAllPersonas);
 
