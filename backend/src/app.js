@@ -10,7 +10,6 @@ import tanqueosRoutes from './routes/tanqueos.routes.js'
 import mecanicoRoutes from './routes/mecanico.routes.js';
 import vehiculoRoutes from './routes/vehiculo.routes.js';
 import cloudinaryRoutes from './routes/cloudinary.routes.js';
-import usuariosRoutes from "./routes/usuarios.routhes";
 import documentosRoutes from "./routes/documento.routhes";
 import licenciaRoutes from "./routes/licencia.routhes";
 import VolquetaRoutes from "./routes/volquetas.routhes";

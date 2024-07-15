@@ -4,29 +4,29 @@ import Persona from "../models/Persona";
 export const createLicencia = async (req, res) => {
   try {
     const {
-      conductor_id,
+      conductor,
       licencia_N,
       categoria,
       clase_de_vehiculo,
       servicio,
       fecha_expedicion,
-      fecha_vencemiento,
+      fecha_vencimiento,
     } = req.body;
-
-    const persona = await Persona.findById(conductor_id);
+    
+    const persona = await Persona.findById(conductor);
     if (!persona) {
       return res.status(404).json({
         message: "El id de la persona no existe",
       });
     }
     const newLicencia = new Licencia({
-      conductor_id,
+      conductor,
       licencia_N,
       categoria,
       clase_de_vehiculo,
       servicio,
       fecha_expedicion,
-      fecha_vencemiento,
+      fecha_vencimiento,
     });
     await newLicencia.save();
     res.status(200).json({
