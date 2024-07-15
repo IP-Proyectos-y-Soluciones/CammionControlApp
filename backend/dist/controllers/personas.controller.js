@@ -272,7 +272,7 @@ var deletePersona = exports.deletePersona = /*#__PURE__*/function () {
             break;
           }
           return _context6.abrupt("return", res.status(404).json({
-            message: 'Usuario no encontrado...!'
+            message: 'Persona no encontrado...!'
           }));
         case 7:
           _context6.next = 9;

@@ -14,12 +14,12 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var createHeavyLoadForm = exports.createHeavyLoadForm = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, n_planilla, fecha_inicio, fecha_final, placas, conductorId, ciudad_inicio, ciudad_destino, empresa, valor_flete, anticipo_empresa, anticipo_cliente, acpm, peaje, mantenimiento, mecanico, otros, person, vehicle, totalAdvance, totalSpends, newHeavyLoad, savedHeavyLoad;
+    var _req$body, n_planilla, fecha_inicio, fecha_final, placas, conductorId, ciudad_inicio, ciudad_destino, empresa, valor_flete, anticipo_empresa, anticipo_cliente, acpm, peaje, mantenimiento, mecanico, otros, person, vehicle, totalAdvance, totalSpends, totalBalance, newHeavyLoad, savedHeavyLoad;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _req$body = req.body, n_planilla = _req$body.n_planilla, fecha_inicio = _req$body.fecha_inicio, fecha_final = _req$body.fecha_final, placas = _req$body.placas, conductorId = _req$body.conductorId, ciudad_inicio = _req$body.ciudad_inicio, ciudad_destino = _req$body.ciudad_destino, empresa = _req$body.empresa, valor_flete = _req$body.valor_flete, anticipo_empresa = _req$body.anticipo_empresa, anticipo_cliente = _req$body.anticipo_cliente, acpm = _req$body.acpm, peaje = _req$body.peaje, mantenimiento = _req$body.mantenimiento, mecanico = _req$body.mecanico, otros = _req$body.otros;
+          _req$body = req.body, n_planilla = _req$body.n_planilla, fecha_inicio = _req$body.fecha_inicio, fecha_final = _req$body.fecha_final, placas = _req$body.placas, conductorId = _req$body.conductorId, ciudad_inicio = _req$body.ciudad_inicio, ciudad_destino = _req$body.ciudad_destino, empresa = _req$body.empresa, valor_flete = _req$body.valor_flete, anticipo_empresa = _req$body.anticipo_empresa, anticipo_cliente = _req$body.anticipo_cliente, acpm = _req$body.acpm, peaje = _req$body.peaje, mantenimiento = _req$body.mantenimiento, mecanico = _req$body.mecanico, otros = _req$body.otros; // Se verifica si existe la persona...
           _context.next = 4;
           return _Persona["default"].findById(conductorId);
         case 4:
@@ -44,8 +44,10 @@ var createHeavyLoadForm = exports.createHeavyLoadForm = /*#__PURE__*/function ()
             message: 'Vehículo no encontrado...!'
           }));
         case 12:
-          totalAdvance = parseInt(anticipo_empresa) + parseInt(anticipo_cliente);
-          totalSpends = parseInt(acpm) + parseInt(peaje) + parseInt(mantenimiento) + parseInt(mecanico) + parseInt(otros);
+          // Sumatoria de todos los anticipos recibidos...
+          totalAdvance = parseInt(anticipo_empresa) + parseInt(anticipo_cliente); // Sumatoria de todos los gastos...
+          totalSpends = parseInt(acpm) + parseInt(peaje) + parseInt(mantenimiento) + parseInt(mecanico) + parseInt(otros); // Saldo total...
+          totalBalance = parseInt(valor_flete) - totalAdvance - totalSpends;
           newHeavyLoad = new _CargaPesada["default"]({
             n_planilla: n_planilla,
             fecha_inicio: fecha_inicio,
@@ -64,33 +66,34 @@ var createHeavyLoadForm = exports.createHeavyLoadForm = /*#__PURE__*/function ()
             mecanico: mecanico,
             otros: otros,
             total_anticipos_fletesPagados: totalAdvance,
-            total_gastos: totalSpends
+            total_gastos: totalSpends,
+            total_saldo: totalBalance
           });
-          _context.next = 17;
+          _context.next = 18;
           return newHeavyLoad.save();
-        case 17:
+        case 18:
           savedHeavyLoad = _context.sent;
           return _context.abrupt("return", res.status(201).json({
             message: 'Una nueva planilla de "Carga Pesada" ha sido registrada exitosamente...!',
             savedHeavyLoad: savedHeavyLoad
           }));
-        case 21:
-          _context.prev = 21;
+        case 22:
+          _context.prev = 22;
           _context.t0 = _context["catch"](0);
           if (!(_context.t0 instanceof Error)) {
-            _context.next = 27;
+            _context.next = 28;
             break;
           }
           return _context.abrupt("return", res.status(500).json({
             error: _context.t0.message
           }));
-        case 27:
-          return _context.abrupt("return", res.status(500).json(_context.t0));
         case 28:
+          return _context.abrupt("return", res.status(500).json(_context.t0));
+        case 29:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 21]]);
+    }, _callee, null, [[0, 22]]);
   }));
   return function createHeavyLoadForm(_x, _x2) {
     return _ref.apply(this, arguments);

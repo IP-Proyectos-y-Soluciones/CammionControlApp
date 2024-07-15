@@ -13,8 +13,11 @@ var _auth = _interopRequireDefault(require("./routes/auth.routes"));
 var _personas = _interopRequireDefault(require("./routes/personas.routes"));
 var _usuarios = _interopRequireDefault(require("./routes/usuarios.routes"));
 var _cargaPesada = _interopRequireDefault(require("./routes/cargaPesada.routes"));
+var _vehiclesProv = _interopRequireDefault(require("./routes/vehiclesProv.routes"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-// import vehicleRoutes from './routes/vehiculosProv.routes'; // Ruta provisonal. Solo para pruebas temporales...
+// import csurf from 'csurf';
+
+// Ruta provisional. Solo para pruebas temporales...
 
 _dotenv["default"].config();
 var app = (0, _express["default"])();
@@ -24,25 +27,30 @@ app.set('port', process.env.PORT || 8585 || 3070);
 
 // Middlewares...
 app.use((0, _morgan["default"])('dev'));
-app.use((0, _cors["default"])());
-// app.use(
-//   cors({
-//     origin: 'http://localhost:5173',
-//     credentials: true,
-//   }),
-// );
+app.use((0, _cors["default"])({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 app.use(_express["default"].json());
 app.use(_express["default"].urlencoded({
   extended: true
 }));
 app.use((0, _cookieParser["default"])());
-
-// Routes...
 app.use('/api/auth', _auth["default"]);
 app.use('/api/personas', _personas["default"]);
 app.use('/api/usuarios', _usuarios["default"]);
 app.use('/api/cargapesada', _cargaPesada["default"]);
-// app.use('/api/vehicles', vehicleRoutes); // Ruta provisonal. Solo para pruebas temporales...
+app.use('/api/vehicles', _vehiclesProv["default"]); // Ruta provisional. Solo para pruebas temporales...
+
+// // Manejo de errores CSRF...
+// app.use((err, req, res, next) => {
+//   if (err.code === 'EBADCSRFTOKEN') {
+//     return res.status(403).json({
+//       message: 'CSRF token inválido o falta de token CSRF',
+//     });
+//   }
+//   next(err);
+// });
 
 // Test route...
 app.get('/', function (req, res) {
