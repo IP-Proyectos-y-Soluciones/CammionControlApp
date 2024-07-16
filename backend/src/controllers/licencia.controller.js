@@ -4,29 +4,29 @@ import Persona from "../models/Persona";
 export const createLicencia = async (req, res) => {
   try {
     const {
-      conductor_id,
+      conductor,
       licencia_N,
       categoria,
       clase_de_vehiculo,
       servicio,
       fecha_expedicion,
-      fecha_vencemiento,
+      fecha_vencimiento,
     } = req.body;
 
-    const persona = await Persona.findById(conductor_id);
+    const persona = await Persona.findById(conductor);
     if (!persona) {
       return res.status(404).json({
         message: "El id de la persona no existe",
       });
     }
     const newLicencia = new Licencia({
-      conductor_id,
+      conductor,
       licencia_N,
       categoria,
       clase_de_vehiculo,
       servicio,
       fecha_expedicion,
-      fecha_vencemiento,
+      fecha_vencimiento,
     });
     await newLicencia.save();
     res.status(200).json({
@@ -51,8 +51,11 @@ export const getLicencia = async (req, res) => {
     if (licencias.length === 0) {
       return res.status(404).json({ message: "Licencia no encontrada" });
     }
-
-    res.status(200).json({ licencias, mensaje });
+    console.log(licencias);
+    res.status(200).json({
+      message: "Planilla encontrada",
+      licencias,
+    });
   } catch (error) {
     res.status(500).json({
       message: "Error al obtener las licencias",
@@ -64,7 +67,7 @@ export const getLicencia = async (req, res) => {
 export const putLicencia = async (req, res) => {
   try {
     const {
-      conductor_id,
+      conductor,
       licencia_N,
       categoria,
       clase_de_vehiculo,
@@ -73,7 +76,7 @@ export const putLicencia = async (req, res) => {
       fecha_vencimiento,
     } = req.body;
 
-    const persona = await Persona.findById(conductor_id);
+    const persona = await Persona.findById(conductor);
     if (!persona) {
       return res.status(404).json({ message: "El id del persona no existe" });
     }
@@ -81,7 +84,7 @@ export const putLicencia = async (req, res) => {
     const licencia = await Licencia.findByIdAndUpdate(
       req.params.id,
       {
-        conductor_id,
+        conductor,
         licencia_N,
         categoria,
         clase_de_vehiculo,

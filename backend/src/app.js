@@ -6,9 +6,9 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routhes";
 import personasRoutes from "./routes/personas.routhes";
 import usuariosRoutes from "./routes/usuarios.routhes";
-import documentosRoutes from "./routes/documento.routhes";
-import licenciaRoutes from "./routes/licencia.routhes";
-import VolquetaRoutes from "./routes/volquetas.routhes";
+import documentosRoutes from "./routes/documento.routes";
+import licenciaRoutes from "./routes/licencia.routes";
+import VolquetaRoutes from "./routes/volquetas.routes";
 dotenv.config();
 
 const app = express();

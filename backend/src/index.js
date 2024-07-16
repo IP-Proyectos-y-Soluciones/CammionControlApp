@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import app from "./app.js";
 import { startConnection } from "./config/db.js";
+import cron from "node-cron";
 import Documento from "./models/Documento.js";
 import Licencia from "./models/Licencia.js";
 import Mecanico from "./models/Mecanico.js";
@@ -10,6 +11,7 @@ import cargaPesada from "./models/cargaPesada.js";
 import Usuario from "./models/Usuario.js";
 import Vehiculo from "./models/Vehiculo.js";
 import Volqueta from "./models/Volqueta.js";
+import { vencimientoLicenciasDocumentos } from "./alertas/vencimientoLicenciasDocumentos";
 
 async function main() {
   try {
@@ -141,3 +143,7 @@ async function main() {
 }
 
 main();
+cron.schedule("0 8 * * *", () => {
+  console.log("Ejecutando tarea de cron para verificar vencimientos.");
+  vencimientoLicenciasDocumentos();
+});

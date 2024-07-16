@@ -8,10 +8,10 @@ export const createDocumento = async (req, res) => {
       tipo,
       fecha_expedicion,
       fecha_vencemiento,
-      vehiculo_id,
+      vehiculo,
     } = req.body;
-    const vehiculo = await Vehiculo.findById(vehiculo_id);
-    if (!vehiculo) {
+    const vehiculoId = await Vehiculo.findById(vehiculo);
+    if (!vehiculoId) {
       return res.status(404).json({
         message: "El id del vehiculo no existe",
       });
@@ -21,7 +21,7 @@ export const createDocumento = async (req, res) => {
       tipo,
       fecha_expedicion,
       fecha_vencemiento,
-      vehiculo_id,
+      vehiculo,
     });
     await newDocumento.save();
     res.status(201).json({
@@ -43,7 +43,10 @@ export const getAllDocumento = async (req, res) => {
     if (documento.length === 0) {
       return res.status(404).json({ message: "Documento no encontrado" });
     }
-    res.status(200).json({ documento, mensaje });
+    res.status(200).json({
+      message: "Planilla encontrada",
+      documento,
+    });
   } catch (error) {
     0;
   }
@@ -56,10 +59,10 @@ export const putDocumento = async (req, res) => {
       tipo,
       fecha_expedicion,
       fecha_vencemiento,
-      vehiculo_id,
+      vehiculo,
     } = req.body;
-    const vehiculo = await Vehiculo.findById(vehiculo_id);
-    if (!vehiculo) {
+    const vehiculoId = await Vehiculo.findById(vehiculo);
+    if (!vehiculoId) {
       return res.status(404).json({
         message: "El id del vehiculo no existe",
       });

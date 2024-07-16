@@ -4,7 +4,7 @@ import {
   getVolqueta,
   putVolqueta,
   deleteVolqueta,
-} from "../controllers/volquetaController";
+} from "../controllers/volqueta.controller";
 import { TokenValidation } from "../authentication/tokens/verifyToken";
 
 const router = Router();
