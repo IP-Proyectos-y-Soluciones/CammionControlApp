@@ -3,6 +3,7 @@ import app from './app.js';
 import { startConnection } from './config/db.js';
 import cron from 'node-cron';
 import CargaPesada from './models/CargaPesada.js';
+import Cloudinary from './models/Cloudinary.js';
 import Documento from './models/Documento.js';
 import Licencia from './models/Licencia.js';
 import Mecanico from './models/Mecanico.js';
