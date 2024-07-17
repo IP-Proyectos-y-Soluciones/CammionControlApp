@@ -1,5 +1,4 @@
-// const mongoose = require('mongoose');
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const documentoSchema = new mongoose.Schema(
   {
@@ -14,7 +13,7 @@ const documentoSchema = new mongoose.Schema(
       required: true,
     },
     fecha_expedicion: Date,
-    fecha_vencemiento: Date,
+    fecha_vencimiento: Date,
     vehiculo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Vehiculo',
