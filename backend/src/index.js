@@ -12,6 +12,7 @@ import Usuario from "./models/Usuario.js";
 import Vehiculo from "./models/Vehiculo.js";
 import Volqueta from "./models/Volqueta.js";
 import { vencimientoLicenciasDocumentos } from "./alertas/vencimientoLicenciasDocumentos";
+import { verificacionDeFecha } from "./alertas/verificacionDeFecha";
 
 async function main() {
   try {
@@ -146,4 +147,8 @@ main();
 cron.schedule("0 8 * * *", () => {
   console.log("Ejecutando tarea de cron para verificar vencimientos.");
   vencimientoLicenciasDocumentos();
+});
+cron.schedule("0 0 1 * *", () => {
+  console.log("Ejecutando tarea de cron para verificar fechas.");
+  verificacionDeFecha();
 });

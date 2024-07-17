@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const PersonaSchema = new mongoose.Schema(
+const personaSchema = new mongoose.Schema(
   {
     cedula: {
       type: Number,
@@ -29,6 +29,13 @@ const PersonaSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    fecha_inicio_contrato: {
+      type: Date,
+      required: true,
+    },
+    fecha_final_contrato: {
+      type: Date,
+    },
     tipo_de_contrato: {
       type: String,
       enum: ["Fijo", "Indefinido"],
@@ -38,28 +45,22 @@ const PersonaSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Usuario",
     },
-    vehiculos: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Vehiculo",
-      },
-    ],
     licencias: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Licencia",
       },
     ],
+    vehiculos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Vehiculo",
+      },
+    ],
     volquetas: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Volqueta",
-      },
-    ],
-    tractomulas: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Tractomula",
       },
     ],
     tanqueos: [
@@ -74,6 +75,7 @@ const PersonaSchema = new mongoose.Schema(
     autoCreate: true,
   }
 );
-const Persona = mongoose.model("Persona", PersonaSchema);
+
+const Persona = mongoose.model("Persona", personaSchema);
 
 export default Persona;
