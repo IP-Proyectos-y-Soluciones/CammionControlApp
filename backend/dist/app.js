@@ -10,12 +10,13 @@ var _cors = _interopRequireDefault(require("cors"));
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 var _dotenv = _interopRequireDefault(require("dotenv"));
 var _auth = _interopRequireDefault(require("./routes/auth.routes"));
-var _personas = _interopRequireDefault(require("./routes/personas.routes"));
-var _usuarios = _interopRequireDefault(require("./routes/usuarios.routes"));
 var _cargaPesada = _interopRequireDefault(require("./routes/cargaPesada.routes"));
+var _documento = _interopRequireDefault(require("./routes/documento.routes"));
+var _licencia = _interopRequireDefault(require("./routes/licencia.routes"));
+var _persona = _interopRequireDefault(require("./routes/persona.routes"));
+var _usuario = _interopRequireDefault(require("./routes/usuario.routes"));
+var _volqueta = _interopRequireDefault(require("./routes/volqueta.routes"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-// import csurf from 'csurf';
-
 _dotenv["default"].config();
 var app = (0, _express["default"])();
 
@@ -24,29 +25,26 @@ app.set('port', process.env.PORT || 8585 || 3070);
 
 // Middlewares...
 app.use((0, _morgan["default"])('dev'));
-app.use((0, _cors["default"])({
-  origin: 'http://localhost:5173',
-  credentials: true
-}));
+// app.use(
+//   cors({
+//     origin: 'http://localhost:5173',
+//     credentials: true,
+//   }),
+// );
 app.use(_express["default"].json());
 app.use(_express["default"].urlencoded({
   extended: true
 }));
 app.use((0, _cookieParser["default"])());
-app.use('/api/auth', _auth["default"]);
-app.use('/api/personas', _personas["default"]);
-app.use('/api/usuarios', _usuarios["default"]);
-app.use('/api/cargapesada', _cargaPesada["default"]);
 
-// // Manejo de errores CSRF...
-// app.use((err, req, res, next) => {
-//   if (err.code === 'EBADCSRFTOKEN') {
-//     return res.status(403).json({
-//       message: 'CSRF token inválido o falta de token CSRF',
-//     });
-//   }
-//   next(err);
-// });
+// Routes...
+app.use('/api/auth', _auth["default"]);
+app.use('/api/cargapesada', _cargaPesada["default"]);
+app.use('/api/documentos', _documento["default"]);
+app.use('/licencias', _licencia["default"]);
+app.use('/api/personas', _persona["default"]);
+app.use('/api/usuarios', _usuario["default"]);
+app.use('/api/volquetas', _volqueta["default"]);
 
 // Test route...
 app.get('/', function (req, res) {

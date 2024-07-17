@@ -8,7 +8,8 @@ var mongoose = require('mongoose');
 var usuarioSchema = new mongoose.Schema({
   usuario: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   password: {
     type: String,

@@ -4,11 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _mongoose = _interopRequireDefault(require("mongoose"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-// const mongoose = require('mongoose');
-
-var documentoSchema = new _mongoose["default"].Schema({
+var mongoose = require('mongoose');
+var documentoSchema = new mongoose.Schema({
   cerificado_N: {
     type: String,
     required: true,
@@ -20,14 +17,14 @@ var documentoSchema = new _mongoose["default"].Schema({
     required: true
   },
   fecha_expedicion: Date,
-  fecha_vencemiento: Date,
+  fecha_vencimiento: Date,
   vehiculo: {
-    type: _mongoose["default"].Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Vehiculo'
   }
 }, {
   timestamps: false,
   autoCreate: false
 });
-var Documento = _mongoose["default"].model('Documento', documentoSchema);
+var Documento = mongoose.model('Documento', documentoSchema);
 var _default = exports["default"] = Documento;
