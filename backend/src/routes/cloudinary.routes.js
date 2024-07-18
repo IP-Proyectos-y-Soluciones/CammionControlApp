@@ -1,4 +1,4 @@
-import { uploadImage,parser,getImagesFromCloudinay,deleteImageById,getImageById,updateImageById } from "../controllers/cloudinary.controller";
+import { uploadImage,parser,getImagesFromCloudinay,deleteImageById,getImageById,updateImageById } from "../controllers/cloudinarys.controller";
 import { Router } from 'express';
 import { TokenValidation } from '../authentication/tokens/verifyToken'; 
 

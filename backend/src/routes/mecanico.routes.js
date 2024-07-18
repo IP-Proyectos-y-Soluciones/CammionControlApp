@@ -5,7 +5,7 @@ import {
     getMecanicoById,
     updateMecanico,
     deleteMecanico
-} from '../controllers/mecanico'; 
+} from '../controllers/mecanicos.controller'; 
 import { TokenValidation } from '../authentication/tokens/verifyToken'; 
 
 const router = Router();

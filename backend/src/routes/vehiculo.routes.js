@@ -5,7 +5,7 @@ import {
     getVehiculoById,
     updateVehiculo,
     deleteVehiculo
-} from '../controllers/vehiculo.controller.js';
+} from '../controllers/vehiculos.controller.js';
 import { TokenValidation } from '../authentication/tokens/verifyToken';
 
 const router = Router();

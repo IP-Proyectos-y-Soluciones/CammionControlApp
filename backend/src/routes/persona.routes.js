@@ -3,7 +3,7 @@ import {
   createPersona,
   getAllPersonas,
   getPersonaByDNI,
-} from "../controllers/personas.controllers";
+} from "../controllers/personas.controller";
 import { TokenValidation } from "../authentication/tokens/verifyToken";
 
 const router = Router();

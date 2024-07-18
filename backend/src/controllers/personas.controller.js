@@ -1,4 +1,4 @@
-import Persona from '../models/Persona';
+import Persona from "../models/Persona";
 
 export const createPersona = async (req, res) => {
   const {
@@ -29,8 +29,7 @@ export const createPersona = async (req, res) => {
     const savedPersona = await newPersona.save();
 
     return res.status(201).json({
-      message:
-        'Una nueva persona ha sido registrada exitosamente...!',
+      message: "Una nueva persona ha sido registrada exitosamente...!",
       savedPersona,
     });
   } catch (error) {
@@ -44,7 +43,7 @@ export const getAllPersonas = async (req, res) => {
 
     if (!personas)
       return res.status(404).json({
-        message: 'No se ha encontrado ninguna persona...',
+        message: "No se ha encontrado ninguna persona...",
       });
 
     return res.status(200).json(personas);
@@ -62,9 +61,7 @@ export const getPersonaByDNI = async (req, res) => {
     });
 
     if (!persona)
-      return res
-        .status(404)
-        .json({ message: 'Persona no encontrada...!' });
+      return res.status(404).json({ message: "Persona no encontrada...!" });
 
     return res.status(200).json(persona);
   } catch (error) {

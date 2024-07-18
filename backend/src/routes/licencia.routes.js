@@ -4,7 +4,7 @@ import {
   getLicencia,
   putLicencia,
   deleteLicencia,
-} from "../controllers/licencia.controller";
+} from "../controllers/licencias.controller";
 import { TokenValidation } from "../authentication/tokens/verifyToken";
 
 const router = Router();

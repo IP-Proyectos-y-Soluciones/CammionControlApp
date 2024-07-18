@@ -17,8 +17,8 @@ router.get("/", TokenValidation, getAllUsuarios);
 
 router.get("/:usuario", TokenValidation, getUsuario);
 
-router.patch("/edit/:_id", TokenValidation, updateUsuario);
+// router.patch("/edit/:_id", TokenValidation,);
 
-router.delete("/delete/:_id", TokenValidation, deleteUsuario);
+// router.delete("/delete/:_id", TokenValidation, deleteUsuario);
 
 export default router;

@@ -4,15 +4,15 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
-import personasRoutes from './routes/personas.routes';
-import usuariosRoutes from './routes/usuarios.routes';
-import tanqueosRoutes from './routes/tanqueos.routes.js'
+import personasRoutes from './routes/persona.routes';
+import usuariosRoutes from './routes/usuario.routes';
+import tanqueosRoutes from './routes/tanqueo.routes.js'
 import mecanicoRoutes from './routes/mecanico.routes.js';
 import vehiculoRoutes from './routes/vehiculo.routes.js';
 import cloudinaryRoutes from './routes/cloudinary.routes.js';
-import documentosRoutes from "./routes/documento.routhes";
-import licenciaRoutes from "./routes/licencia.routhes";
-import VolquetaRoutes from "./routes/volquetas.routhes";
+import documentosRoutes from "./routes/documento.routes";
+import licenciaRoutes from "./routes/licencia.routes";
+import VolquetaRoutes from "./routes/volqueta.routes";
 dotenv.config();
 
 const app = express();
