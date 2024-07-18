@@ -4,7 +4,7 @@ import {
   getAllDocumento,
   putDocumento,
   deleteDocumento,
-} from "../controllers/documentos.controllers";
+} from "../controllers/documentos.controller";
 import { TokenValidation } from "../authentication/tokens/verifyToken";
 
 const router = Router();

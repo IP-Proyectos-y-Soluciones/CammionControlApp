@@ -6,7 +6,7 @@ import {
   getPersonaByDNI,
   getPersonaByID,
   updatePersona,
-} from "../controllers/personas.controllers";
+} from "../controllers/personas.controller";
 import { TokenValidation } from "../authentication/tokens/verifyToken";
 import { validatePerson } from "../middlewares/validatePerson";
 
