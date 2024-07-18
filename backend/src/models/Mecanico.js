@@ -25,7 +25,14 @@ const mecanicoSchema = new mongoose.Schema(
     },
     area_de_revision: {
       type: String,
-      enum: ["Motores", "Frenos", "Suspensión", "Transmisión", "Electrónica"],
+      enum: [
+        "Motores",
+        "Frenos",
+        "Suspensión",
+        "Transmisión",
+        "Electrónica",
+        "Otros",
+      ],
       required: true,
     },
     fecha_entrega: {
@@ -42,4 +49,4 @@ const mecanicoSchema = new mongoose.Schema(
 
 const Mecanico = mongoose.model("Mecanico", mecanicoSchema);
 
-module.exports = Mecanico;
+export default Mecanico;

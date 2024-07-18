@@ -4,17 +4,17 @@ import {
   getLicencia,
   putLicencia,
   deleteLicencia,
-} from "../controllers/licencia.controller";
+} from "../controllers/licencias.controller";
 import { TokenValidation } from "../authentication/tokens/verifyToken";
 
 const router = Router();
 
-router.post("/", /* TokenValidation,*/ createLicencia);
+router.post("/", TokenValidation, createLicencia);
 
-router.get("/", /*TokenValidation,*/ getLicencia);
+router.get("/", TokenValidation, getLicencia);
 
-router.put("/:id", /* TokenValidation,*/ putLicencia);
+router.put("/:id", TokenValidation, putLicencia);
 
-router.delete("/:id", /* TokenValidation,*/ deleteLicencia);
+router.delete("/:id", TokenValidation, deleteLicencia);
 
 export default router;
