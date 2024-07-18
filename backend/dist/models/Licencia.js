@@ -4,12 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var licenciaSchema = new mongoose.Schema({
   conductor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Persona',
-    required: true
+    ref: "Usuario"
   },
   licencia_N: {
     type: Number,
@@ -22,11 +21,17 @@ var licenciaSchema = new mongoose.Schema({
   },
   clase_de_vehiculo: String,
   servicio: String,
-  fecha_expedicion: Date,
-  fecha_vencemiento: Date
+  fecha_expedicion: {
+    type: Date,
+    require: true
+  },
+  fecha_vencimiento: {
+    type: Date,
+    require: true
+  }
 }, {
   timestamps: false,
   autoCreate: false
 });
-var Licencia = mongoose.model('Licencia', licenciaSchema);
+var Licencia = mongoose.model("Licencia", licenciaSchema);
 var _default = exports["default"] = Licencia;

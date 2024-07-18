@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var personaSchema = new mongoose.Schema({
   cedula: {
     type: Number,
@@ -31,49 +31,43 @@ var personaSchema = new mongoose.Schema({
   },
   telefono: {
     type: String,
-    "default": ''
-  },
-  tipo_de_contrato: {
-    type: String,
-    "enum": ['Fijo', 'Indefinido'],
-    "default": 'Fijo'
+    required: true
   },
   fecha_inicio_contrato: {
     type: Date,
-    "default": Date.now,
     required: true
   },
   fecha_final_contrato: {
-    type: Date,
-    "default": ''
+    type: Date
   },
-  usuario: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario'
+  tipo_de_contrato: {
+    type: String,
+    "enum": ["Fijo", "Indefinido"],
+    required: true
   },
-  vehiculos: [{
+  Usuario: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehiculo'
-  }],
+    ref: "Usuario"
+  },
   licencias: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Licencia'
+    ref: "Licencia"
+  }],
+  vehiculos: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Vehiculo"
   }],
   volquetas: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Volqueta'
-  }],
-  tractomulas: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Tractomula'
+    ref: "Volqueta"
   }],
   tanqueos: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Tanqueo'
+    ref: "Tanqueo"
   }]
 }, {
-  timestamps: false,
-  autoCreate: false
+  timestamps: true,
+  autoCreate: true
 });
-var Persona = mongoose.model('Persona', personaSchema);
+var Persona = mongoose.model("Persona", personaSchema);
 var _default = exports["default"] = Persona;
