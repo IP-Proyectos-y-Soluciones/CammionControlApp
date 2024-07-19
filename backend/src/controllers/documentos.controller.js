@@ -7,7 +7,7 @@ export const createDocumento = async (req, res) => {
       cerificado_N,
       tipo,
       fecha_expedicion,
-      fecha_vencemiento,
+      fecha_vencimiento,
       vehiculo,
     } = req.body;
     const vehiculoId = await Vehiculo.findById(vehiculo);
@@ -20,12 +20,12 @@ export const createDocumento = async (req, res) => {
       cerificado_N,
       tipo,
       fecha_expedicion,
-      fecha_vencemiento,
+      fecha_vencimiento,
       vehiculo,
     });
     await newDocumento.save();
     res.status(201).json({
-      message: "El documento  ha sido gurdado correctamente!",
+      message: "El documento  ha sido guardado correctamente!",
       newDocumento,
     });
   } catch (error) {
@@ -44,7 +44,7 @@ export const getAllDocumento = async (req, res) => {
       return res.status(404).json({ message: "Documento no encontrado" });
     }
     res.status(200).json({
-      message: "Planilla encontrada",
+      message: "Documento encontrado",
       documento,
     });
   } catch (error) {
@@ -58,7 +58,7 @@ export const putDocumento = async (req, res) => {
       cerificado_N,
       tipo,
       fecha_expedicion,
-      fecha_vencemiento,
+      fecha_vencimiento,
       vehiculo,
     } = req.body;
     const vehiculoId = await Vehiculo.findById(vehiculo);
@@ -73,8 +73,8 @@ export const putDocumento = async (req, res) => {
         cerificado_N,
         tipo,
         fecha_expedicion,
-        fecha_vencemiento,
-        vehiculo: vehiculo_id,
+        fecha_vencimiento,
+        vehiculo,
       },
       { new: true, runValidators: true }
     );

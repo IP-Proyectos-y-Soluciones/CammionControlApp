@@ -88,7 +88,7 @@ var getLicencia = exports.getLicencia = /*#__PURE__*/function () {
         case 10:
           console.log(licencias);
           res.status(200).json({
-            message: "Planilla encontrada",
+            message: "Licencia encontrada",
             licencias: licencias
           });
           _context2.next = 17;

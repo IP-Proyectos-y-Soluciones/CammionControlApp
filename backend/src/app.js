@@ -11,7 +11,7 @@ import licenciasRoutes from "./routes/licencia.routes";
 import mecanicosRoutes from "./routes/mecanico.routes";
 import personasRoutes from "./routes/persona.routes";
 import tanqueosRoutes from "./routes/tanqueo.routes";
-import usuariosRoutes from "./routes/usuarios.routes";
+import usuariosRoutes from "./routes/usuario.routes";
 import vehiculosRoutes from "./routes/vehiculo.routes";
 import volquetasRoutes from "./routes/volqueta.routes";
 
@@ -39,7 +39,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/cargapesada", cargaPesadaRoutes);
 app.use("/api/cloudinary", cloudinaryRoutes);
 app.use("/api/documentos", documentosRoutes);
-app.use("/licencias", licenciasRoutes);
+app.use("/api/licencias", licenciasRoutes);
 app.use("/mecanicos", mecanicosRoutes);
 app.use("/api/personas", personasRoutes);
 app.use("/tanqueos", tanqueosRoutes);

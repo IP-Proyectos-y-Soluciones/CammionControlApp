@@ -51,9 +51,10 @@ export const getLicencia = async (req, res) => {
     if (licencias.length === 0) {
       return res.status(404).json({ message: "Licencia no encontrada" });
     }
+
     console.log(licencias);
     res.status(200).json({
-      message: "Planilla encontrada",
+      message: "Licencia encontrada",
       licencias,
     });
   } catch (error) {
@@ -63,7 +64,6 @@ export const getLicencia = async (req, res) => {
     });
   }
 };
-
 export const putLicencia = async (req, res) => {
   try {
     const {

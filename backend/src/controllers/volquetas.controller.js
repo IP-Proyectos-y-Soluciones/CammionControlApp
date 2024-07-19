@@ -8,7 +8,7 @@ export const createVolqueta = async (req, res) => {
       n_planilla,
       fecha,
       placas,
-      conductor_id,
+      conductor,
       cliente,
       volmts3,
       n_viajes,
@@ -22,7 +22,7 @@ export const createVolqueta = async (req, res) => {
       observacion,
     } = req.body;
 
-    const persona = await Persona.findById(conductor_id);
+    const persona = await Persona.findById(conductor);
     if (!persona) {
       return res.status(404).json({
         message: "El id de la persona no existe",
@@ -48,7 +48,7 @@ export const createVolqueta = async (req, res) => {
       n_planilla,
       fecha,
       placas,
-      conductor: conductor_id,
+      conductor,
       cliente,
       volmts3,
       n_viajes,
@@ -110,7 +110,7 @@ export const putVolqueta = async (req, res) => {
       n_planilla,
       fecha,
       placas,
-      conductor_id,
+      conductor,
       cliente,
       volmts3,
       n_viajes,
@@ -151,7 +151,7 @@ export const putVolqueta = async (req, res) => {
         n_planilla,
         fecha,
         placas,
-        conductor_id,
+        conductor,
         cliente,
         volmts3,
         n_viajes,

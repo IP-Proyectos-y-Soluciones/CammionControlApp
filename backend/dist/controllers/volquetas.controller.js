@@ -14,14 +14,14 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, n_planilla, fecha, placas, conductor_id, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, persona, vehiculo_id, total_horas, start, end, total_km_dia, newVolqueta;
+    var _req$body, n_planilla, fecha, placas, conductor, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, persona, vehiculo_id, total_horas, start, end, total_km_dia, newVolqueta;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _req$body = req.body, n_planilla = _req$body.n_planilla, fecha = _req$body.fecha, placas = _req$body.placas, conductor_id = _req$body.conductor_id, cliente = _req$body.cliente, volmts3 = _req$body.volmts3, n_viajes = _req$body.n_viajes, material = _req$body.material, hora_inicio = _req$body.hora_inicio, hora_final = _req$body.hora_final, km_inicial = _req$body.km_inicial, km_final = _req$body.km_final, lugar_de_cargue = _req$body.lugar_de_cargue, lugar_de_descargue = _req$body.lugar_de_descargue, observacion = _req$body.observacion;
+          _req$body = req.body, n_planilla = _req$body.n_planilla, fecha = _req$body.fecha, placas = _req$body.placas, conductor = _req$body.conductor, cliente = _req$body.cliente, volmts3 = _req$body.volmts3, n_viajes = _req$body.n_viajes, material = _req$body.material, hora_inicio = _req$body.hora_inicio, hora_final = _req$body.hora_final, km_inicial = _req$body.km_inicial, km_final = _req$body.km_final, lugar_de_cargue = _req$body.lugar_de_cargue, lugar_de_descargue = _req$body.lugar_de_descargue, observacion = _req$body.observacion;
           _context.next = 4;
-          return _Persona["default"].findById(conductor_id);
+          return _Persona["default"].findById(conductor);
         case 4:
           persona = _context.sent;
           if (persona) {
@@ -55,7 +55,7 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
             n_planilla: n_planilla,
             fecha: fecha,
             placas: placas,
-            conductor: conductor_id,
+            conductor: conductor,
             cliente: cliente,
             volmts3: volmts3,
             n_viajes: n_viajes,
@@ -95,15 +95,15 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
 }();
 var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var _req$query, n_planilla, conductor_id, placas, query, planilla;
+    var _req$query, n_planilla, _conductor_id, placas, query, planilla;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
-          _req$query = req.query, n_planilla = _req$query.n_planilla, conductor_id = _req$query.conductor_id, placas = _req$query.placas;
+          _req$query = req.query, n_planilla = _req$query.n_planilla, _conductor_id = _req$query.conductor_id, placas = _req$query.placas;
           query = {};
           if (n_planilla) query.n_planilla = n_planilla;
-          if (conductor_id) query.conductor = conductor_id; // debe ser "conductor" en lugar de "conductor_id"
+          if (_conductor_id) query.conductor = _conductor_id; // debe ser "conductor" en lugar de "conductor_id"
           if (placas) query.placas = placas;
           _context2.next = 8;
           return _Volqueta["default"].find(query).populate("conductor").populate("placas");
@@ -142,12 +142,12 @@ var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
 }();
 var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
-    var _req$body2, n_planilla, fecha, placas, conductor_id, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, persona, vehiculo_id, total_horas, start, end, total_km_dia, planilla;
+    var _req$body2, n_planilla, fecha, placas, conductor, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, persona, vehiculo_id, total_horas, start, end, total_km_dia, planilla;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
-          _req$body2 = req.body, n_planilla = _req$body2.n_planilla, fecha = _req$body2.fecha, placas = _req$body2.placas, conductor_id = _req$body2.conductor_id, cliente = _req$body2.cliente, volmts3 = _req$body2.volmts3, n_viajes = _req$body2.n_viajes, material = _req$body2.material, hora_inicio = _req$body2.hora_inicio, hora_final = _req$body2.hora_final, km_inicial = _req$body2.km_inicial, km_final = _req$body2.km_final, lugar_de_cargue = _req$body2.lugar_de_cargue, lugar_de_descargue = _req$body2.lugar_de_descargue, observacion = _req$body2.observacion;
+          _req$body2 = req.body, n_planilla = _req$body2.n_planilla, fecha = _req$body2.fecha, placas = _req$body2.placas, conductor = _req$body2.conductor, cliente = _req$body2.cliente, volmts3 = _req$body2.volmts3, n_viajes = _req$body2.n_viajes, material = _req$body2.material, hora_inicio = _req$body2.hora_inicio, hora_final = _req$body2.hora_final, km_inicial = _req$body2.km_inicial, km_final = _req$body2.km_final, lugar_de_cargue = _req$body2.lugar_de_cargue, lugar_de_descargue = _req$body2.lugar_de_descargue, observacion = _req$body2.observacion;
           _context3.next = 4;
           return _Persona["default"].findById(conductor_id);
         case 4:
@@ -184,7 +184,7 @@ var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
             n_planilla: n_planilla,
             fecha: fecha,
             placas: placas,
-            conductor_id: conductor_id,
+            conductor: conductor,
             cliente: cliente,
             volmts3: volmts3,
             n_viajes: n_viajes,

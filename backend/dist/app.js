@@ -17,7 +17,7 @@ var _licencia = _interopRequireDefault(require("./routes/licencia.routes"));
 var _mecanico = _interopRequireDefault(require("./routes/mecanico.routes"));
 var _persona = _interopRequireDefault(require("./routes/persona.routes"));
 var _tanqueo = _interopRequireDefault(require("./routes/tanqueo.routes"));
-var _usuarios = _interopRequireDefault(require("./routes/usuarios.routes"));
+var _usuario = _interopRequireDefault(require("./routes/usuario.routes"));
 var _vehiculo = _interopRequireDefault(require("./routes/vehiculo.routes"));
 var _volqueta = _interopRequireDefault(require("./routes/volqueta.routes"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
@@ -46,11 +46,11 @@ app.use("/api/auth", _auth["default"]);
 app.use("/api/cargapesada", _cargaPesada["default"]);
 app.use("/api/cloudinary", _cloudinary["default"]);
 app.use("/api/documentos", _documento["default"]);
-app.use("/licencias", _licencia["default"]);
+app.use("/api/licencias", _licencia["default"]);
 app.use("/mecanicos", _mecanico["default"]);
 app.use("/api/personas", _persona["default"]);
 app.use("/tanqueos", _tanqueo["default"]);
-app.use("/api/usuarios", _usuarios["default"]);
+app.use("/api/usuarios", _usuario["default"]);
 app.use("/vehiculos", _vehiculo["default"]);
 app.use("/api/planillas", _volqueta["default"]);
 

@@ -17,7 +17,7 @@ var documentoSchema = new mongoose.Schema({
     required: true
   },
   fecha_expedicion: Date,
-  fecha_vencemiento: Date,
+  fecha_vencimiento: Date,
   vehiculo: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Vehiculo"
