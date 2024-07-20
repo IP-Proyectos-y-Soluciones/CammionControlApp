@@ -29,7 +29,7 @@ var registrarUsuario = exports.registrarUsuario = /*#__PURE__*/function () {
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: "Persona no encontrada. No se puede crear el usuario sin una persona válida."
+            message: 'Persona no encontrada. No se puede crear el usuario sin una persona válida.'
           }));
         case 7:
           _context.next = 9;
@@ -49,7 +49,7 @@ var registrarUsuario = exports.registrarUsuario = /*#__PURE__*/function () {
         case 13:
           savedUsuario = _context.sent;
           return _context.abrupt("return", res.status(201).json({
-            message: "El nuevo usuario ha sido creado exitosamente...!",
+            message: 'El nuevo usuario ha sido creado exitosamente...!',
             savedUsuario: savedUsuario
           }));
         case 17:
@@ -90,7 +90,7 @@ var getAllUsuarios = exports.getAllUsuarios = /*#__PURE__*/function () {
             break;
           }
           return _context2.abrupt("return", res.status(404).json({
-            message: "No se ha encontrado ningún usuario..."
+            message: 'No se ha encontrado ningún usuario...'
           }));
         case 6:
           return _context2.abrupt("return", res.status(200).json(usuarios));
@@ -135,7 +135,7 @@ var getUsuario = exports.getUsuario = /*#__PURE__*/function () {
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: "Usuario no encontrado...!"
+            message: 'Usuario no encontrado...!'
           }));
         case 7:
           return _context3.abrupt("return", res.status(200).json(findUsuario));
@@ -179,7 +179,7 @@ var updateUsuario = exports.updateUsuario = /*#__PURE__*/function () {
             break;
           }
           return _context4.abrupt("return", res.status(404).json({
-            message: "Usuario no encontrado...!"
+            message: 'Usuario no encontrado...!'
           }));
         case 8:
           // Se crea un objeto con los campos a actualizar...
@@ -247,7 +247,7 @@ var deleteUsuario = exports.deleteUsuario = /*#__PURE__*/function () {
             break;
           }
           return _context5.abrupt("return", res.status(404).json({
-            message: "Usuario no encontrado...!"
+            message: 'Usuario no encontrado...!'
           }));
         case 7:
           _context5.next = 9;

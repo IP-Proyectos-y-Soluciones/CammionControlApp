@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 var personaSchema = new mongoose.Schema({
   cedula: {
     type: Number,
@@ -42,32 +42,32 @@ var personaSchema = new mongoose.Schema({
   },
   tipo_de_contrato: {
     type: String,
-    "enum": ["Fijo", "Indefinido"],
+    "enum": ['Fijo', 'Indefinido'],
     required: true
   },
   Usuario: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Usuario"
+    ref: 'Usuario'
   },
   licencias: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Licencia"
+    ref: 'Licencia'
   }],
   vehiculos: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Vehiculo"
+    ref: 'Vehiculo'
   }],
   volquetas: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Volqueta"
+    ref: 'Volqueta'
   }],
   tanqueos: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Tanqueo"
+    ref: 'Tanqueo'
   }]
 }, {
   timestamps: true,
   autoCreate: true
 });
-var Persona = mongoose.model("Persona", personaSchema);
+var Persona = mongoose.model('Persona', personaSchema);
 var _default = exports["default"] = Persona;

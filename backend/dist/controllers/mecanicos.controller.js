@@ -33,7 +33,7 @@ var createMecanico = exports.createMecanico = /*#__PURE__*/function () {
           return mecanico.save();
         case 5:
           res.status(201).json({
-            message: "registro de mecanico exitoso",
+            message: 'registro de mecanico exitoso',
             data: mecanico
           });
           _context.next = 11;
@@ -96,10 +96,10 @@ var getMecanicoById = exports.getMecanicoById = /*#__PURE__*/function () {
             _context3.next = 7;
             break;
           }
-          return _context3.abrupt("return", res.status(404).send("id no encontrado"));
+          return _context3.abrupt("return", res.status(404).send('id no encontrado'));
         case 7:
           res.status(200).json({
-            message: "búsqueda por id exitosa",
+            message: 'búsqueda por id exitosa',
             data: mecanico
           });
           _context3.next = 13;
@@ -151,10 +151,10 @@ var updateMecanico = exports.updateMecanico = /*#__PURE__*/function () {
             _context4.next = 10;
             break;
           }
-          return _context4.abrupt("return", res.status(404).send("no se pudo encontrar el id para actualizar"));
+          return _context4.abrupt("return", res.status(404).send('no se pudo encontrar el id para actualizar'));
         case 10:
           res.status(200).json({
-            message: "Actualizado exitosamente",
+            message: 'Actualizado exitosamente',
             data: mecanico
           });
           _context4.next = 16;
@@ -191,10 +191,10 @@ var deleteMecanico = exports.deleteMecanico = /*#__PURE__*/function () {
             _context5.next = 7;
             break;
           }
-          return _context5.abrupt("return", res.status(404).send("no se pudo encontrar el id de mecanico"));
+          return _context5.abrupt("return", res.status(404).send('no se pudo encontrar el id de mecanico'));
         case 7:
           res.status(200).json({
-            message: id + " se ha eliminado exitosamente",
+            message: id + ' se ha eliminado exitosamente',
             data: mecanico
           });
           _context5.next = 13;

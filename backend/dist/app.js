@@ -25,10 +25,10 @@ _dotenv["default"].config();
 var app = (0, _express["default"])();
 
 // Settings...
-app.set("port", process.env.PORT || 8585 || 3070);
+app.set('port', process.env.PORT || 8585 || 3070);
 
 // Middlewares...
-app.use((0, _morgan["default"])("dev"));
+app.use((0, _morgan["default"])('dev'));
 // app.use(
 //   cors({
 //     origin: 'http://localhost:5173',
@@ -42,20 +42,20 @@ app.use(_express["default"].urlencoded({
 app.use((0, _cookieParser["default"])());
 
 // Routes...
-app.use("/api/auth", _auth["default"]);
-app.use("/api/cargapesada", _cargaPesada["default"]);
-app.use("/api/cloudinary", _cloudinary["default"]);
-app.use("/api/documentos", _documento["default"]);
-app.use("/api/licencias", _licencia["default"]);
-app.use("/mecanicos", _mecanico["default"]);
-app.use("/api/personas", _persona["default"]);
-app.use("/tanqueos", _tanqueo["default"]);
-app.use("/api/usuarios", _usuario["default"]);
-app.use("/vehiculos", _vehiculo["default"]);
-app.use("/api/planillas", _volqueta["default"]);
+app.use('/api/auth', _auth["default"]);
+app.use('/api/cargapesada', _cargaPesada["default"]);
+app.use('/api/cloudinary', _cloudinary["default"]);
+app.use('/api/documentos', _documento["default"]);
+app.use('/api/licencias', _licencia["default"]);
+app.use('/mecanicos', _mecanico["default"]);
+app.use('/api/personas', _persona["default"]);
+app.use('/tanqueos', _tanqueo["default"]);
+app.use('/api/usuarios', _usuario["default"]);
+app.use('/vehiculos', _vehiculo["default"]);
+app.use('/api/planillas', _volqueta["default"]);
 
 // Test route...
-app.get("/", function (req, res) {
-  res.end("Welcome to Backend Node.js Server. Running on port: ".concat(app.get("port"), "...!"));
+app.get('/', function (req, res) {
+  res.end("Welcome to Backend Node.js Server. Running on port: ".concat(app.get('port'), "...!"));
 });
 var _default = exports["default"] = app;

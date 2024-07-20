@@ -29,7 +29,7 @@ var createHeavyLoadForm = exports.createHeavyLoadForm = /*#__PURE__*/function ()
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: "Persona no encontrada...!"
+            message: 'Persona no encontrada...!'
           }));
         case 7:
           _context.next = 9;
@@ -41,7 +41,7 @@ var createHeavyLoadForm = exports.createHeavyLoadForm = /*#__PURE__*/function ()
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: "Vehículo no encontrado...!"
+            message: 'Vehículo no encontrado...!'
           }));
         case 12:
           // Sumatoria de todos los anticipos recibidos...
@@ -160,7 +160,7 @@ var getHeavyLoadByFormNumber = exports.getHeavyLoadByFormNumber = /*#__PURE__*/f
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: "No se encontró ninguna planilla de Carga Pesada...!"
+            message: 'No se encontró ninguna planilla de Carga Pesada...!'
           }));
         case 7:
           return _context3.abrupt("return", res.status(200).json(findHeavyLoadForm));
@@ -205,7 +205,7 @@ var getHeavyLoadByFormID = exports.getHeavyLoadByFormID = /*#__PURE__*/function 
             break;
           }
           return _context4.abrupt("return", res.status(404).json({
-            message: "No se encontró ninguna planilla de Carga Pesada...!"
+            message: 'No se encontró ninguna planilla de Carga Pesada...!'
           }));
         case 9:
           return _context4.abrupt("return", res.status(200).json(findHeavyLoadFormID));

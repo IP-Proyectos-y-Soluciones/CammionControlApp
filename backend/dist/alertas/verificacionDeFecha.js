@@ -40,17 +40,17 @@ var verificacionDeFecha = exports.verificacionDeFecha = /*#__PURE__*/function ()
           return (0, _configMail.envioALertaEmail)(listaCumpleañios, listaFinalContrato);
         case 11:
           if (listaCumpleañios.length > 0) {
-            console.log("Personas que cumplenaños este mes:", listaCumpleañios);
+            console.log('Personas que cumplenaños este mes:', listaCumpleañios);
           }
           if (listaFinalContrato > 0) {
-            console.log("Contratos proximos a vencer este mes", listaFinalContrato);
+            console.log('Contratos proximos a vencer este mes', listaFinalContrato);
           }
           _context.next = 18;
           break;
         case 15:
           _context.prev = 15;
           _context.t0 = _context["catch"](0);
-          console.log("Error al validar las fechas");
+          console.log('Error al validar las fechas');
         case 18:
         case "end":
           return _context.stop();

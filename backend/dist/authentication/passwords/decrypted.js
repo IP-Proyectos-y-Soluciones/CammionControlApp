@@ -23,8 +23,8 @@ var decrypted = exports.decrypted = /*#__PURE__*/function () {
         case 6:
           _context.prev = 6;
           _context.t0 = _context["catch"](0);
-          console.error("Error comparing passwords", _context.t0);
-          throw new Error("Error comparing passwords");
+          console.error('Error comparing passwords', _context.t0);
+          throw new Error('Error comparing passwords');
         case 10:
         case "end":
           return _context.stop();

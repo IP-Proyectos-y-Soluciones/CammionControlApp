@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 var volquetaSchema = new mongoose.Schema({
   n_planilla: {
     type: String,
@@ -17,11 +17,11 @@ var volquetaSchema = new mongoose.Schema({
   },
   placas: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Vehiculo"
+    ref: 'Vehiculo'
   },
   conductor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Persona"
+    ref: 'Persona'
   },
   cliente: {
     type: String,
@@ -46,7 +46,7 @@ var volquetaSchema = new mongoose.Schema({
   },
   hora_final: {
     type: Date,
-    "default": ""
+    "default": ''
   },
   total_horas: Number,
   km_inicial: {
@@ -65,5 +65,5 @@ var volquetaSchema = new mongoose.Schema({
   timestamps: false,
   autoCreate: false
 });
-var Volqueta = mongoose.model("Volqueta", volquetaSchema);
+var Volqueta = mongoose.model('Volqueta', volquetaSchema);
 var _default = exports["default"] = Volqueta;

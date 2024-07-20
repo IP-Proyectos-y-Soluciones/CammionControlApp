@@ -47,17 +47,17 @@ var vencimientoLicenciasDocumentos = exports.vencimientoLicenciasDocumentos = /*
           return (0, _configMail.envioALertaDeVencimiento)(documentosExpirados, licenciasExpiradas);
         case 14:
           if (documentosExpirados.length > 0) {
-            console.log("Documentos a punto de vencer:", documentosExpirados);
+            console.log('Documentos a punto de vencer:', documentosExpirados);
           }
           if (licenciasExpiradas.length > 0) {
-            console.log("Licencias a punto de vencer:", licenciasExpiradas);
+            console.log('Licencias a punto de vencer:', licenciasExpiradas);
           }
           _context.next = 21;
           break;
         case 18:
           _context.prev = 18;
           _context.t0 = _context["catch"](0);
-          console.error("Error al verificar documentos y licencias:", _context.t0);
+          console.error('Error al verificar documentos y licencias:', _context.t0);
         case 21:
         case "end":
           return _context.stop();

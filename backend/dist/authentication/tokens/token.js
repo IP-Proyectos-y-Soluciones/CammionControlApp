@@ -16,7 +16,7 @@ var token = exports.token = function token(savedUser) {
   };
   return new Promise(function (resolve, reject) {
     _jsonwebtoken["default"].sign(payload, SECK, {
-      expiresIn: "1d"
+      expiresIn: '1d'
     }, function (err, token) {
       if (err) reject(err);
       resolve(token);

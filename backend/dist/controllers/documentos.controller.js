@@ -28,7 +28,7 @@ var createDocumento = exports.createDocumento = /*#__PURE__*/function () {
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: "El id del vehiculo no existe"
+            message: 'El id del vehiculo no existe'
           }));
         case 7:
           newDocumento = new _Documento["default"]({
@@ -42,7 +42,7 @@ var createDocumento = exports.createDocumento = /*#__PURE__*/function () {
           return newDocumento.save();
         case 10:
           res.status(201).json({
-            message: "El documento  ha sido guardado correctamente!",
+            message: 'El documento  ha sido guardado correctamente!',
             newDocumento: newDocumento
           });
           _context.next = 16;
@@ -73,7 +73,7 @@ var getAllDocumento = exports.getAllDocumento = /*#__PURE__*/function () {
           if (cerificado_N) query.cerificado_N = cerificado_N;
           if (tipo) query.tipo = tipo;
           _context2.next = 7;
-          return _Documento["default"].find(query).populate("vehiculo");
+          return _Documento["default"].find(query).populate('vehiculo');
         case 7:
           documento = _context2.sent;
           if (!(documento.length === 0)) {
@@ -81,11 +81,11 @@ var getAllDocumento = exports.getAllDocumento = /*#__PURE__*/function () {
             break;
           }
           return _context2.abrupt("return", res.status(404).json({
-            message: "Documento no encontrado"
+            message: 'Documento no encontrado'
           }));
         case 10:
           res.status(200).json({
-            message: "Documento encontrado",
+            message: 'Documento encontrado',
             documento: documento
           });
           _context2.next = 16;
@@ -121,7 +121,7 @@ var putDocumento = exports.putDocumento = /*#__PURE__*/function () {
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: "El id del vehiculo no existe"
+            message: 'El id del vehiculo no existe'
           }));
         case 7:
           _context3.next = 9;
@@ -142,7 +142,7 @@ var putDocumento = exports.putDocumento = /*#__PURE__*/function () {
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: "Documento no encontrado"
+            message: 'Documento no encontrado'
           }));
         case 12:
           res.status(200).json(documento);
@@ -178,7 +178,7 @@ var deleteDocumento = exports.deleteDocumento = /*#__PURE__*/function () {
             break;
           }
           return _context4.abrupt("return", res.status(404).json({
-            message: "Documento no encontrado"
+            message: 'Documento no encontrado'
           }));
         case 6:
           res.status(200).json(documento);

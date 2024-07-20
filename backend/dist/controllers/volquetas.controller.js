@@ -29,7 +29,7 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: "El id de la persona no existe"
+            message: 'El id de la persona no existe'
           }));
         case 7:
           _context.next = 9;
@@ -41,7 +41,7 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: "Las placas del vehiculo no existen"
+            message: 'Las placas del vehiculo no existen'
           }));
         case 12:
           total_horas = 0;
@@ -74,7 +74,7 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           return newVolqueta.save();
         case 18:
           res.status(200).json({
-            message: "El formulario fue guardado correctamente!",
+            message: 'El formulario fue guardado correctamente!',
             newVolqueta: newVolqueta
           });
           _context.next = 24;
@@ -106,7 +106,7 @@ var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
           if (_conductor_id) query.conductor = _conductor_id; // debe ser "conductor" en lugar de "conductor_id"
           if (placas) query.placas = placas;
           _context2.next = 8;
-          return _Volqueta["default"].find(query).populate("conductor").populate("placas");
+          return _Volqueta["default"].find(query).populate('conductor').populate('placas');
         case 8:
           planilla = _context2.sent;
           if (!(planilla.length === 0)) {
@@ -114,11 +114,11 @@ var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
             break;
           }
           return _context2.abrupt("return", res.status(404).json({
-            message: "Planilla no encontrada"
+            message: 'Planilla no encontrada'
           }));
         case 11:
           res.status(200).json({
-            message: "Planilla encontrada",
+            message: 'Planilla encontrada',
             planilla: planilla
           });
           _context2.next = 17;
@@ -127,7 +127,7 @@ var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
           _context2.prev = 14;
           _context2.t0 = _context2["catch"](0);
           res.status(500).json({
-            message: "Error al obtener las planillas",
+            message: 'Error al obtener las planillas',
             error: _context2.t0.message
           });
         case 17:
@@ -157,7 +157,7 @@ var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: "El id de la persona no existe"
+            message: 'El id de la persona no existe'
           }));
         case 7:
           _context3.next = 9;
@@ -169,7 +169,7 @@ var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: "Las placas del vehiculo no existen"
+            message: 'Las placas del vehiculo no existen'
           }));
         case 12:
           total_horas = 0;
@@ -208,11 +208,11 @@ var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: "Planilla no encontrada"
+            message: 'Planilla no encontrada'
           }));
         case 20:
           res.status(200).json({
-            message: "El formulario fue actualizado correctamente!",
+            message: 'El formulario fue actualizado correctamente!',
             planilla: planilla
           });
           _context3.next = 26;
@@ -247,11 +247,11 @@ var deleteVolqueta = exports.deleteVolqueta = /*#__PURE__*/function () {
             break;
           }
           return _context4.abrupt("return", res.status(404).json({
-            message: "Planilla no encontrada"
+            message: 'Planilla no encontrada'
           }));
         case 6:
           res.status(200).json({
-            message: "La planilla ha sido eliminada correctamente!",
+            message: 'La planilla ha sido eliminada correctamente!',
             planilla: planilla
           });
           _context4.next = 12;

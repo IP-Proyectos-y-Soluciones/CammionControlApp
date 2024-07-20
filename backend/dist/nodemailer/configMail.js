@@ -28,7 +28,7 @@ transporter.verify(function (error, success) {
   if (error) {
     console.log(error);
   } else {
-    console.log("Server is ready to take our messages");
+    console.log('Server is ready to take our messages');
   }
 });
 var envioALertaDeVencimiento = exports.envioALertaDeVencimiento = /*#__PURE__*/function () {
@@ -39,27 +39,27 @@ var envioALertaDeVencimiento = exports.envioALertaDeVencimiento = /*#__PURE__*/f
         case 0:
           documentosText = documentosExpirados.map(function (doc) {
             return "Documento: ".concat(doc.cerificado_N, " vence el ").concat(doc.fecha_vencimiento);
-          }).join("\n");
+          }).join('\n');
           licenciasText = licenciasExpiradas.map(function (lic) {
             return "Licencia: ".concat(lic.licencia_N, " vence el ").concat(lic.fecha_vencimiento);
-          }).join("\n");
+          }).join('\n');
           _context.prev = 2;
           _context.next = 5;
           return transporter.sendMail({
             from: EMAIL,
             to: EMAIL,
-            subject: "Documentos y Licencias a punto de vencer",
+            subject: 'Documentos y Licencias a punto de vencer',
             text: "Documentos a punto de vencer:\n".concat(documentosText, "\n\nLicencias a punto de vencer:\n").concat(licenciasText)
           });
         case 5:
           info = _context.sent;
-          console.log("Correo enviado: %s", info.messageId);
+          console.log('Correo enviado: %s', info.messageId);
           _context.next = 12;
           break;
         case 9:
           _context.prev = 9;
           _context.t0 = _context["catch"](2);
-          console.error("Error al enviar el correo: %s", _context.t0);
+          console.error('Error al enviar el correo: %s', _context.t0);
         case 12:
         case "end":
           return _context.stop();
@@ -78,27 +78,27 @@ var envioALertaEmail = exports.envioALertaEmail = /*#__PURE__*/function () {
         case 0:
           fechasCumpleanios = listaCumpleañios.map(function (e) {
             return "Persona: ".concat((e.nombres, e.apellidos), " fecha de cumplea\xF1os ").concat(e.fecha_nacimiento);
-          }).join("\n");
+          }).join('\n');
           contratoRevisar = listaFinalContrato.map(function (c) {
             return "Persona: ".concat((c.nombres, c.apellidos), " contrato vence el ").concat(c.fecha_final_contrato);
-          }).join("\n");
+          }).join('\n');
           _context2.prev = 2;
           _context2.next = 5;
           return transporter.sendMail({
             from: EMAIL,
             to: EMAIL,
-            subject: "Documentos y Licencias a punto de vencer",
+            subject: 'Documentos y Licencias a punto de vencer',
             text: "Cumplea\xF1os del mes:\n".concat(fechasCumpleanios, "\n\nContratos a punto de vencer:\n").concat(contratoRevisar)
           });
         case 5:
           info = _context2.sent;
-          console.log("Correo enviado: %s", info.messageId);
+          console.log('Correo enviado: %s', info.messageId);
           _context2.next = 12;
           break;
         case 9:
           _context2.prev = 9;
           _context2.t0 = _context2["catch"](2);
-          console.error("Error al enviar el correo: %s", _context2.t0);
+          console.error('Error al enviar el correo: %s', _context2.t0);
         case 12:
         case "end":
           return _context2.stop();

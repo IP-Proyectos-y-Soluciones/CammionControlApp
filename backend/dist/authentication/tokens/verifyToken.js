@@ -28,16 +28,16 @@ var SECK = process.env.SKEY_TOKEN;
  * @returns La función `TokenValidation` devuelve diferentes respuestas HTTP según ciertas condiciones:
  */
 var TokenValidation = exports.TokenValidation = function TokenValidation(req, res, next) {
-  var authToken = req.cookies["auth-token"];
+  var authToken = req.cookies['auth-token'];
 
   // console.log(req.cookies);
 
   if (!authToken) return res.status(401).json({
-    message: "Autorización denegada...!"
+    message: 'Autorización denegada...!'
   });
   _jsonwebtoken["default"].verify(authToken, SECK, function (err, user) {
     if (err) return res.status(403).json({
-      message: "Token inválido..."
+      message: 'Token inválido...'
     });
     req.allUserData = user;
     next();

@@ -33,16 +33,16 @@ function _main() {
           _context.next = 3;
           return (0, _db.startConnection)();
         case 3:
-          console.log("Database connected...");
-          _app["default"].listen(_app["default"].get("port"), function () {
-            console.log("NODE Server is running on port: ".concat(_app["default"].get("port")));
+          console.log('Database connected...');
+          _app["default"].listen(_app["default"].get('port'), function () {
+            console.log("NODE Server is running on port: ".concat(_app["default"].get('port')));
           });
 
           // Apagado satisfactorio con SIGINT o SIGTERM...
-          process.on("SIGINT", function () {
-            console.log("Received SIGINT signal, shutting down...");
+          process.on('SIGINT', function () {
+            console.log('Received SIGINT signal, shutting down...');
             _mongoose["default"].connection.close(function () {
-              console.log("MongoDB connection closed...");
+              console.log('MongoDB connection closed...');
               process.exit(0);
             });
           });
@@ -61,11 +61,11 @@ function _main() {
   return _main.apply(this, arguments);
 }
 main();
-_nodeCron["default"].schedule("0 8 * * *", function () {
-  console.log("Ejecutando tarea de cron para verificar vencimientos.");
+_nodeCron["default"].schedule('0 8 * * *', function () {
+  console.log('Ejecutando tarea de cron para verificar vencimientos.');
   (0, _vencimientoLicenciasDocumentos.vencimientoLicenciasDocumentos)();
 });
-_nodeCron["default"].schedule("0 0 1 * *", function () {
-  console.log("Ejecutando tarea de cron para verificar fechas.");
+_nodeCron["default"].schedule('0 0 1 * *', function () {
+  console.log('Ejecutando tarea de cron para verificar fechas.');
   (0, _verificacionDeFecha.verificacionDeFecha)();
 });

@@ -31,7 +31,7 @@ var login = exports.login = /*#__PURE__*/function () {
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: "Usuario no encontrado...!"
+            message: 'Usuario no encontrado...!'
           }));
         case 7:
           _context.next = 9;
@@ -42,15 +42,15 @@ var login = exports.login = /*#__PURE__*/function () {
             break;
           }
           return _context.abrupt("return", res.status(401).json({
-            message: "Password inválido...!"
+            message: 'Password inválido...!'
           }));
         case 11:
           _context.next = 13;
           return (0, _token.token)(usuarioReg);
         case 13:
           userToken = _context.sent;
-          res.cookie("auth-token", userToken, {
-            sameSite: "none",
+          res.cookie('auth-token', userToken, {
+            sameSite: 'none',
             secure: true
           });
           return _context.abrupt("return", res.status(200).json({

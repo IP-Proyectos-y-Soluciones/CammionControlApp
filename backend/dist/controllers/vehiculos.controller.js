@@ -34,7 +34,7 @@ var createVehiculo = exports.createVehiculo = /*#__PURE__*/function () {
           return vehiculo.save();
         case 5:
           res.status(201).json({
-            message: "Registro de vehiculo exitoso",
+            message: 'Registro de vehiculo exitoso',
             data: vehiculo
           });
           _context.next = 11;
@@ -101,10 +101,10 @@ var getVehiculoById = exports.getVehiculoById = /*#__PURE__*/function () {
             _context3.next = 7;
             break;
           }
-          return _context3.abrupt("return", res.status(404).send("ID no encontrado"));
+          return _context3.abrupt("return", res.status(404).send('ID no encontrado'));
         case 7:
           res.status(200).json({
-            message: "Búsqueda por ID exitosa",
+            message: 'Búsqueda por ID exitosa',
             data: vehiculo
           });
           _context3.next = 13;
@@ -159,10 +159,10 @@ var updateVehiculo = exports.updateVehiculo = /*#__PURE__*/function () {
             _context4.next = 10;
             break;
           }
-          return _context4.abrupt("return", res.status(404).send("No se pudo encontrar el ID para actualizar"));
+          return _context4.abrupt("return", res.status(404).send('No se pudo encontrar el ID para actualizar'));
         case 10:
           res.status(200).json({
-            message: "Actualizado exitosamente",
+            message: 'Actualizado exitosamente',
             data: vehiculo
           });
           _context4.next = 16;
@@ -199,10 +199,10 @@ var deleteVehiculo = exports.deleteVehiculo = /*#__PURE__*/function () {
             _context5.next = 7;
             break;
           }
-          return _context5.abrupt("return", res.status(404).send("No se pudo encontrar el ID del vehiculo"));
+          return _context5.abrupt("return", res.status(404).send('No se pudo encontrar el ID del vehiculo'));
         case 7:
           res.status(200).json({
-            message: id + " se ha eliminado exitosamente",
+            message: id + ' se ha eliminado exitosamente',
             data: vehiculo
           });
           _context5.next = 13;
