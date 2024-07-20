@@ -27,6 +27,10 @@ const tanqueoSchema = new mongoose.Schema(
       ref: 'Persona',
       required: true,
     },
+    imagen_url:{
+      type: String,
+      required: true,
+    }
   },
   {
     timestamps: false,

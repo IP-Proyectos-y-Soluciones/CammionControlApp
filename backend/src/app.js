@@ -24,12 +24,7 @@ app.set('port', process.env.PORT || 8585 || 3070);
 
 // Middlewares...
 app.use(morgan('dev'));
-// app.use(
-//   cors({
-//     origin: 'http://localhost:5173',
-//     credentials: true,
-//   }),
-// );
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -39,12 +34,12 @@ app.use('/api/auth', authRoutes);
 app.use('/api/cargapesada', cargaPesadaRoutes);
 app.use('/api/cloudinary', cloudinaryRoutes);
 app.use('/api/documentos', documentosRoutes);
-app.use('/licencias', licenciasRoutes);
-app.use('/mecanicos', mecanicosRoutes);
+app.use('/api/licencias', licenciasRoutes);
+app.use('/api/mecanicos', mecanicosRoutes);
 app.use('/api/personas', personasRoutes);
-app.use('/tanqueos', tanqueosRoutes);
+app.use('/api/tanqueos', tanqueosRoutes);
 app.use('/api/usuarios', usuariosRoutes);
-app.use('/vehiculos', vehiculosRoutes);
+app.use('/api/vehiculos', vehiculosRoutes);
 app.use('/api/planillas', volquetasRoutes);
 
 // Test route...

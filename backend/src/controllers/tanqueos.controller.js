@@ -1,7 +1,35 @@
-// importar los modelos con importimport
+
 import Tanqueo from '../models/Tanqueo';
 import Persona from '../models/Persona';
 import Vehiculo from '../models/Vehiculo';
+import dotenv from 'dotenv';
+import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+
+dotenv.config();
+
+// Configuración de Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
+
+// Configuración de multer
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'uploads',
+    format: async (req, file) => 'jpg',
+    public_id: (req, file) =>
+      file.originalname.split('.')[0],
+  },
+});
+// esta funcion de parser se encarga de subir las imagenes y se invoca en routes
+export const parser = multer({ storage: storage }).single(
+  'file',
+);
 
 // Crear un nuevo tanqueo
 export const createTanqueo = async (req, res) => {
@@ -17,7 +45,14 @@ export const createTanqueo = async (req, res) => {
 
   try {
     const persona = await Persona.findById(conductor);
+    if (!req.file) {
+      return res.status(400).json({
+        message: 'No se ha proporcionado ninguna imagen',
+      });
+    }
 
+    // Obtiene la URL de la imagen cargada a Cloudinary
+    const uploadedImageUrl = req.file.path;
     if (!persona) {
       return res
         .status(404)
@@ -38,6 +73,7 @@ export const createTanqueo = async (req, res) => {
       valor_tanqueo,
       vehiculo: vehiculoById._id,
       conductor: persona._id,
+      imagen_url: uploadedImageUrl,
     });
     await tanqueo.save();
     res.status(201).json({
@@ -83,6 +119,8 @@ export const getTanqueoById = async (req, res) => {
 // Actualizar un tanqueo por ID
 export const updateTanqueo = async (req, res) => {
   const { id } = req.params;
+  // Obtiene la URL de la imagen cargada a Cloudinary
+  const uploadedImageUrl = req.file.path;
   const {
     fecha_tanqueo,
     n_recibo,
@@ -100,6 +138,7 @@ export const updateTanqueo = async (req, res) => {
     valor_tanqueo,
     vehiculo,
     conductor,
+    imagen_url: uploadedImageUrl
   };
 
   // Filtrar las propiedades no definidas
