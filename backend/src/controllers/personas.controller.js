@@ -1,5 +1,5 @@
-import Persona from '../models/Persona';
-import Usuario from '../models/Usuario';
+import Persona from "../models/Persona";
+import Usuario from "../models/Usuario";
 
 export const createPersona = async (req, res) => {
   const {
@@ -30,8 +30,7 @@ export const createPersona = async (req, res) => {
     const savedPersona = await newPersona.save();
 
     return res.status(201).json({
-      message:
-        'Una nueva persona ha sido registrada exitosamente...!',
+      message: "Una nueva persona ha sido registrada exitosamente...!",
       savedPersona,
     });
   } catch (error) {
@@ -49,7 +48,7 @@ export const getAllPersonas = async (req, res) => {
 
     if (!personas)
       return res.status(404).json({
-        message: 'No se ha encontrado ninguna persona...',
+        message: "No se ha encontrado ninguna persona...",
       });
 
     return res.status(200).json(personas);
@@ -71,9 +70,7 @@ export const getPersonaByDNI = async (req, res) => {
     });
 
     if (!persona)
-      return res
-        .status(404)
-        .json({ message: 'Persona no encontrada...!' });
+      return res.status(404).json({ message: "Persona no encontrada...!" });
 
     return res.status(200).json(persona);
   } catch (error) {
@@ -92,9 +89,7 @@ export const getPersonaByID = async (req, res) => {
     const persona = await Persona.findById(_id);
 
     if (!persona)
-      return res
-        .status(404)
-        .json({ message: 'Persona no encontrada...!' });
+      return res.status(404).json({ message: "Persona no encontrada...!" });
 
     return res.status(200).json(persona);
   } catch (error) {
@@ -123,28 +118,21 @@ export const updatePersona = async (req, res) => {
     const findPersona = await Persona.findById(_id);
 
     if (!findPersona)
-      return res
-        .status(404)
-        .json({ message: 'Usuario no encontrado...!' });
+      return res.status(404).json({ message: "Usuario no encontrado...!" });
 
     // Se crea un objeto con los campos a actualizar...
     const updatedFields = {};
 
-    if (nombres !== undefined)
-      updatedFields.nombres = nombres;
-    if (apellidos !== undefined)
-      updatedFields.apellidos = apellidos;
+    if (nombres !== undefined) updatedFields.nombres = nombres;
+    if (apellidos !== undefined) updatedFields.apellidos = apellidos;
     if (fecha_nacimiento !== undefined)
       updatedFields.fecha_nacimiento = fecha_nacimiento;
     if (correo !== undefined) updatedFields.correo = correo;
-    if (telefono !== undefined)
-      updatedFields.telefono = telefono;
+    if (telefono !== undefined) updatedFields.telefono = telefono;
     if (fecha_inicio_contrato !== undefined)
-      updatedFields.fecha_inicio_contrato =
-        fecha_inicio_contrato;
+      updatedFields.fecha_inicio_contrato = fecha_inicio_contrato;
     if (fecha_final_contrato !== undefined)
-      updatedFields.fecha_final_contrato =
-        fecha_final_contrato;
+      updatedFields.fecha_final_contrato = fecha_final_contrato;
     if (tipo_de_contrato !== undefined)
       updatedFields.tipo_de_contrato = tipo_de_contrato;
 
@@ -152,7 +140,7 @@ export const updatePersona = async (req, res) => {
     const updatedPersona = await Persona.findByIdAndUpdate(
       _id,
       { $set: updatedFields },
-      { new: true }, // Para devolver persona actualizada...
+      { new: true } // Para devolver persona actualizada...
     );
 
     return res.status(200).json(updatedPersona);
@@ -172,9 +160,7 @@ export const deletePersona = async (req, res) => {
     const findPersona = await Persona.findById(_id);
 
     if (!findPersona)
-      return res
-        .status(404)
-        .json({ message: 'Persona no encontrado...!' });
+      return res.status(404).json({ message: "Persona no encontrado...!" });
 
     const findUsuarioPersona = await Usuario.findOne({
       persona: findPersona._id,
@@ -182,15 +168,11 @@ export const deletePersona = async (req, res) => {
 
     // Si tiene un "usuario" creado, se procede a su eliminación...
     if (findUsuarioPersona) {
-      await Usuario.findByIdAndDelete(
-        findUsuarioPersona._id,
-      );
+      await Usuario.findByIdAndDelete(findUsuarioPersona._id);
     }
 
     // Se elimina la persona de la BD...
-    const deletedPersona = await Persona.findByIdAndDelete(
-      _id,
-    );
+    const deletedPersona = await Persona.findByIdAndDelete(_id);
 
     return res.sendStatus(200);
   } catch (error) {

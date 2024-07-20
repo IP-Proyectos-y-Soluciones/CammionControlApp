@@ -1,5 +1,5 @@
-import Licencia from '../models/Licencia';
-import Persona from '../models/Persona';
+import Licencia from "../models/Licencia";
+import Persona from "../models/Persona";
 
 export const createLicencia = async (req, res) => {
   try {
@@ -16,7 +16,7 @@ export const createLicencia = async (req, res) => {
     const persona = await Persona.findById(conductor);
     if (!persona) {
       return res.status(404).json({
-        message: 'El id de la persona no existe',
+        message: "El id de la persona no existe",
       });
     }
     const newLicencia = new Licencia({
@@ -30,8 +30,7 @@ export const createLicencia = async (req, res) => {
     });
     await newLicencia.save();
     res.status(200).json({
-      message:
-        'la licencia ha sido guardada correctamente!',
+      message: "la licencia ha sido guardada correctamente!",
       newLicencia,
     });
   } catch (error) {
@@ -45,31 +44,26 @@ export const getLicencia = async (req, res) => {
     const query = {};
 
     if (licencia_N) query.licencia_N = licencia_N;
-    if (clase_de_vehiculo)
-      query.clase_de_vehiculo = clase_de_vehiculo;
+    if (clase_de_vehiculo) query.clase_de_vehiculo = clase_de_vehiculo;
 
-    const licencias = await Licencia.find(query).populate(
-      'conductor',
-    );
+    const licencias = await Licencia.find(query).populate("conductor");
 
     if (licencias.length === 0) {
-      return res
-        .status(404)
-        .json({ message: 'Licencia no encontrada' });
+      return res.status(404).json({ message: "Licencia no encontrada" });
     }
+
     console.log(licencias);
     res.status(200).json({
-      message: 'Planilla encontrada',
+      message: "Licencia encontrada",
       licencias,
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Error al obtener las licencias',
+      message: "Error al obtener las licencias",
       error: error.message,
     });
   }
 };
-
 export const putLicencia = async (req, res) => {
   try {
     const {
@@ -84,9 +78,7 @@ export const putLicencia = async (req, res) => {
 
     const persona = await Persona.findById(conductor);
     if (!persona) {
-      return res
-        .status(404)
-        .json({ message: 'El id del persona no existe' });
+      return res.status(404).json({ message: "El id del persona no existe" });
     }
 
     const licencia = await Licencia.findByIdAndUpdate(
@@ -100,23 +92,20 @@ export const putLicencia = async (req, res) => {
         fecha_expedicion,
         fecha_vencimiento,
       },
-      { new: true, runValidators: true },
+      { new: true, runValidators: true }
     );
 
     if (!licencia) {
-      return res
-        .status(404)
-        .json({ message: 'Licencia no fue encontrada' });
+      return res.status(404).json({ message: "Licencia no fue encontrada" });
     }
 
     res.status(200).json({
-      message:
-        'La licencia ha sido actualizada correctamente!',
+      message: "La licencia ha sido actualizada correctamente!",
       licencia,
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Error al actualizar la licencia',
+      message: "Error al actualizar la licencia",
       error: error.message,
     });
   }
@@ -124,17 +113,12 @@ export const putLicencia = async (req, res) => {
 
 export const deleteLicencia = async (req, res) => {
   try {
-    const licencia = await Licencia.findByIdAndDelete(
-      req.params.id,
-    );
+    const licencia = await Licencia.findByIdAndDelete(req.params.id);
     if (!licencia) {
-      return res
-        .status(404)
-        .json({ message: 'Licencia no encontrada' });
+      return res.status(404).json({ message: "Licencia no encontrada" });
     }
     res.status(200).json({
-      message:
-        'La licencia ha sido eliminada correctamente!',
+      message: "La licencia ha sido eliminada correctamente!",
       licencia,
     });
   } catch (error) {

@@ -1,4 +1,4 @@
-import Vehiculo from '../models/Vehiculo';
+import Vehiculo from "../models/Vehiculo";
 
 // Crear un nuevo vehiculo
 export const createVehiculo = async (req, res) => {
@@ -28,7 +28,7 @@ export const createVehiculo = async (req, res) => {
   try {
     await vehiculo.save();
     res.status(201).json({
-      message: 'Registro de vehiculo exitoso',
+      message: "Registro de vehiculo exitoso",
       data: vehiculo,
     });
   } catch (error) {
@@ -53,10 +53,10 @@ export const getVehiculoById = async (req, res) => {
   try {
     const vehiculo = await Vehiculo.findById(id);
     if (!vehiculo) {
-      return res.status(404).send('ID no encontrado');
+      return res.status(404).send("ID no encontrado");
     }
     res.status(200).json({
-      message: 'Búsqueda por ID exitosa',
+      message: "Búsqueda por ID exitosa",
       data: vehiculo,
     });
   } catch (error) {
@@ -92,23 +92,19 @@ export const updateVehiculo = async (req, res) => {
 
   // Filtrar las propiedades no definidas
   Object.keys(updates).forEach(
-    (key) =>
-      updates[key] === undefined && delete updates[key],
+    (key) => updates[key] === undefined && delete updates[key]
   );
 
   try {
-    const vehiculo = await Vehiculo.findByIdAndUpdate(
-      id,
-      updates,
-      { new: true, runValidators: true },
-    );
+    const vehiculo = await Vehiculo.findByIdAndUpdate(id, updates, {
+      new: true,
+      runValidators: true,
+    });
     if (!vehiculo) {
-      return res
-        .status(404)
-        .send('No se pudo encontrar el ID para actualizar');
+      return res.status(404).send("No se pudo encontrar el ID para actualizar");
     }
     res.status(200).json({
-      message: 'Actualizado exitosamente',
+      message: "Actualizado exitosamente",
       data: vehiculo,
     });
   } catch (error) {
@@ -123,12 +119,10 @@ export const deleteVehiculo = async (req, res) => {
   try {
     const vehiculo = await Vehiculo.findByIdAndDelete(id);
     if (!vehiculo) {
-      return res
-        .status(404)
-        .send('No se pudo encontrar el ID del vehiculo');
+      return res.status(404).send("No se pudo encontrar el ID del vehiculo");
     }
     res.status(200).json({
-      message: id + ' se ha eliminado exitosamente',
+      message: id + " se ha eliminado exitosamente",
       data: vehiculo,
     });
   } catch (error) {

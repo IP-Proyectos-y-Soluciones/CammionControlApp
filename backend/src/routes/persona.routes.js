@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router } from "express";
 import {
   createPersona,
   deletePersona,
@@ -6,43 +6,22 @@ import {
   getPersonaByDNI,
   getPersonaByID,
   updatePersona,
-} from '../controllers/personas.controller';
-import { TokenValidation } from '../authentication/tokens/verifyToken';
-import { validatePerson } from '../middlewares/validatePerson';
+} from "../controllers/personas.controller";
+import { TokenValidation } from "../authentication/tokens/verifyToken";
+import { validatePerson } from "../middlewares/validatePerson";
 
 const router = Router();
 
-router.post(
-  '/addpersona',
-  TokenValidation,
-  validatePerson,
-  createPersona,
-);
+router.post("/addpersona", TokenValidation, validatePerson, createPersona);
 
-router.get('/', TokenValidation, getAllPersonas);
+router.get("/", TokenValidation, getAllPersonas);
 
-router.get(
-  '/personaced/:cedula',
-  TokenValidation,
-  getPersonaByDNI,
-);
+router.get("/personaced/:cedula", TokenValidation, getPersonaByDNI);
 
-router.get(
-  '/personaid/:_id',
-  TokenValidation,
-  getPersonaByID,
-);
+router.get("/personaid/:_id", TokenValidation, getPersonaByID);
 
-router.patch(
-  '/persona/edit/:_id',
-  TokenValidation,
-  updatePersona,
-);
+router.patch("/persona/edit/:_id", TokenValidation, updatePersona);
 
-router.delete(
-  '/persona/delete/:_id',
-  TokenValidation,
-  deletePersona,
-);
+router.delete("/persona/delete/:_id", TokenValidation, deletePersona);
 
 export default router;

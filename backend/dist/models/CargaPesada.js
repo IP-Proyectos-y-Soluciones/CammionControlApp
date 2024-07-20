@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var cargaPesadaSchema = new mongoose.Schema({
   n_planilla: {
     type: String,
@@ -18,15 +18,15 @@ var cargaPesadaSchema = new mongoose.Schema({
   },
   fecha_final: {
     type: Date,
-    "default": ''
+    "default": ""
   },
   placas: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehiculo'
+    ref: "Vehiculo"
   },
   conductor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Persona'
+    ref: "Persona"
   },
   ciudad_inicio: {
     type: String,
@@ -52,5 +52,5 @@ var cargaPesadaSchema = new mongoose.Schema({
   timestamps: false,
   autoCreate: false
 });
-var CargaPesada = mongoose.model('CargaPesada', cargaPesadaSchema);
+var CargaPesada = mongoose.model("CargaPesada", cargaPesadaSchema);
 var _default = exports["default"] = CargaPesada;

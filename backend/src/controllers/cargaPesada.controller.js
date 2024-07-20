@@ -1,6 +1,6 @@
-import CargaPesada from '../models/CargaPesada';
-import Persona from '../models/Persona';
-import Vehiculo from '../models/Vehiculo';
+import CargaPesada from "../models/CargaPesada";
+import Persona from "../models/Persona";
+import Vehiculo from "../models/Vehiculo";
 
 export const createHeavyLoadForm = async (req, res) => {
   try {
@@ -27,22 +27,16 @@ export const createHeavyLoadForm = async (req, res) => {
     const person = await Persona.findById(conductorId);
 
     if (!person)
-      return res
-        .status(404)
-        .json({ message: 'Persona no encontrada...!' });
+      return res.status(404).json({ message: "Persona no encontrada...!" });
 
     // Se verifica si existe el vehículo...
     const vehicle = await Vehiculo.findById(placas);
 
     if (!vehicle)
-      return res
-        .status(404)
-        .json({ message: 'Vehículo no encontrado...!' });
+      return res.status(404).json({ message: "Vehículo no encontrado...!" });
 
     // Sumatoria de todos los anticipos recibidos...
-    let totalAdvance =
-      parseInt(anticipo_empresa) +
-      parseInt(anticipo_cliente);
+    let totalAdvance = parseInt(anticipo_empresa) + parseInt(anticipo_cliente);
 
     // Sumatoria de todos los gastos...
     let totalSpends =
@@ -53,8 +47,7 @@ export const createHeavyLoadForm = async (req, res) => {
       parseInt(otros);
 
     // Saldo total...
-    let totalBalance =
-      parseInt(valor_flete) - totalAdvance - totalSpends;
+    let totalBalance = parseInt(valor_flete) - totalAdvance - totalSpends;
 
     const newHeavyLoad = new CargaPesada({
       n_planilla,
@@ -100,8 +93,7 @@ export const getAllHeavyLoadForms = async (req, res) => {
 
     if (!showAllHeavyLoadForms)
       return res.status(404).json({
-        message:
-          'No se ha encontrado ninguna planilla de "Carga Pesada"...!',
+        message: 'No se ha encontrado ninguna planilla de "Carga Pesada"...!',
       });
 
     return res.status(200).json(showAllHeavyLoadForms);
@@ -114,10 +106,7 @@ export const getAllHeavyLoadForms = async (req, res) => {
   }
 };
 
-export const getHeavyLoadByFormNumber = async (
-  req,
-  res,
-) => {
+export const getHeavyLoadByFormNumber = async (req, res) => {
   try {
     const { n_planilla } = req.params;
 
@@ -127,8 +116,7 @@ export const getHeavyLoadByFormNumber = async (
 
     if (!findHeavyLoadForm) {
       return res.status(404).json({
-        message:
-          'No se encontró ninguna planilla de Carga Pesada...!',
+        message: "No se encontró ninguna planilla de Carga Pesada...!",
       });
     }
 
@@ -148,16 +136,13 @@ export const getHeavyLoadByFormID = async (req, res) => {
 
     console.log(_id);
 
-    const findHeavyLoadFormID = await CargaPesada.findById(
-      _id,
-    );
+    const findHeavyLoadFormID = await CargaPesada.findById(_id);
 
     console.log(findHeavyLoadFormID);
 
     if (!findHeavyLoadFormID) {
       return res.status(404).json({
-        message:
-          'No se encontró ninguna planilla de Carga Pesada...!',
+        message: "No se encontró ninguna planilla de Carga Pesada...!",
       });
     }
 
@@ -170,7 +155,3 @@ export const getHeavyLoadByFormID = async (req, res) => {
     }
   }
 };
-
-// export const updateHeavyLoadForm = async (req, res) => {};
-
-// export const deleteHeavyLoadForm = async (req, res) => {};

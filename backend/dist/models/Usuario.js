@@ -4,12 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var usuarioSchema = new mongoose.Schema({
   usuario: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   password: {
     type: String,
@@ -17,7 +16,7 @@ var usuarioSchema = new mongoose.Schema({
   },
   roles: {
     type: String,
-    "enum": ['Admin', 'Empleado', 'Empresa'],
+    "enum": ["Admin", "Empleado", "Empresa"],
     required: true
   },
   estado: {
@@ -25,14 +24,14 @@ var usuarioSchema = new mongoose.Schema({
     "default": false,
     required: true
   },
-  persona: {
+  Persona: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Persona',
+    ref: "Persona",
     required: true
   }
 }, {
   timestamps: false,
   autoCreate: false
 });
-var Usuario = mongoose.model('Usuario', usuarioSchema);
+var Usuario = mongoose.model("Usuario", usuarioSchema);
 var _default = exports["default"] = Usuario;

@@ -25,7 +25,7 @@ function _startConnection() {
           _context.next = 3;
           return _mongoose["default"].connect(url);
         case 3:
-          console.log('Successful connection with MongoDB...!');
+          console.log("Successful connection with MongoDB...!");
           _context.next = 9;
           break;
         case 6:

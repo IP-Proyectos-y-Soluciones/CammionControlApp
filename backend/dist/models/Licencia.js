@@ -4,11 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var licenciaSchema = new mongoose.Schema({
   conductor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario'
+    ref: "Usuario"
   },
   licencia_N: {
     type: Number,
@@ -33,5 +33,5 @@ var licenciaSchema = new mongoose.Schema({
   timestamps: false,
   autoCreate: false
 });
-var Licencia = mongoose.model('Licencia', licenciaSchema);
+var Licencia = mongoose.model("Licencia", licenciaSchema);
 var _default = exports["default"] = Licencia;

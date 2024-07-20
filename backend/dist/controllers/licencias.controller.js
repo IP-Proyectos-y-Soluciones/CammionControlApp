@@ -28,7 +28,7 @@ var createLicencia = exports.createLicencia = /*#__PURE__*/function () {
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: 'El id de la persona no existe'
+            message: "El id de la persona no existe"
           }));
         case 7:
           newLicencia = new _Licencia["default"]({
@@ -44,7 +44,7 @@ var createLicencia = exports.createLicencia = /*#__PURE__*/function () {
           return newLicencia.save();
         case 10:
           res.status(200).json({
-            message: 'la licencia ha sido guardada correctamente!',
+            message: "la licencia ha sido guardada correctamente!",
             newLicencia: newLicencia
           });
           _context.next = 16;
@@ -75,7 +75,7 @@ var getLicencia = exports.getLicencia = /*#__PURE__*/function () {
           if (licencia_N) query.licencia_N = licencia_N;
           if (clase_de_vehiculo) query.clase_de_vehiculo = clase_de_vehiculo;
           _context2.next = 7;
-          return _Licencia["default"].find(query).populate('conductor');
+          return _Licencia["default"].find(query).populate("conductor");
         case 7:
           licencias = _context2.sent;
           if (!(licencias.length === 0)) {
@@ -83,12 +83,12 @@ var getLicencia = exports.getLicencia = /*#__PURE__*/function () {
             break;
           }
           return _context2.abrupt("return", res.status(404).json({
-            message: 'Licencia no encontrada'
+            message: "Licencia no encontrada"
           }));
         case 10:
           console.log(licencias);
           res.status(200).json({
-            message: 'Planilla encontrada',
+            message: "Licencia encontrada",
             licencias: licencias
           });
           _context2.next = 17;
@@ -97,7 +97,7 @@ var getLicencia = exports.getLicencia = /*#__PURE__*/function () {
           _context2.prev = 14;
           _context2.t0 = _context2["catch"](0);
           res.status(500).json({
-            message: 'Error al obtener las licencias',
+            message: "Error al obtener las licencias",
             error: _context2.t0.message
           });
         case 17:
@@ -127,7 +127,7 @@ var putLicencia = exports.putLicencia = /*#__PURE__*/function () {
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: 'El id del persona no existe'
+            message: "El id del persona no existe"
           }));
         case 7:
           _context3.next = 9;
@@ -150,11 +150,11 @@ var putLicencia = exports.putLicencia = /*#__PURE__*/function () {
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: 'Licencia no fue encontrada'
+            message: "Licencia no fue encontrada"
           }));
         case 12:
           res.status(200).json({
-            message: 'La licencia ha sido actualizada correctamente!',
+            message: "La licencia ha sido actualizada correctamente!",
             licencia: licencia
           });
           _context3.next = 18;
@@ -163,7 +163,7 @@ var putLicencia = exports.putLicencia = /*#__PURE__*/function () {
           _context3.prev = 15;
           _context3.t0 = _context3["catch"](0);
           res.status(500).json({
-            message: 'Error al actualizar la licencia',
+            message: "Error al actualizar la licencia",
             error: _context3.t0.message
           });
         case 18:
@@ -192,11 +192,11 @@ var deleteLicencia = exports.deleteLicencia = /*#__PURE__*/function () {
             break;
           }
           return _context4.abrupt("return", res.status(404).json({
-            message: 'Licencia no encontrada'
+            message: "Licencia no encontrada"
           }));
         case 6:
           res.status(200).json({
-            message: 'La licencia ha sido eliminada correctamente!',
+            message: "La licencia ha sido eliminada correctamente!",
             licencia: licencia
           });
           _context4.next = 12;

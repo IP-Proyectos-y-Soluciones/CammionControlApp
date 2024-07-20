@@ -35,7 +35,7 @@ var createPersona = exports.createPersona = /*#__PURE__*/function () {
         case 5:
           savedPersona = _context.sent;
           return _context.abrupt("return", res.status(201).json({
-            message: 'Una nueva persona ha sido registrada exitosamente...!',
+            message: "Una nueva persona ha sido registrada exitosamente...!",
             savedPersona: savedPersona
           }));
         case 9:
@@ -76,7 +76,7 @@ var getAllPersonas = exports.getAllPersonas = /*#__PURE__*/function () {
             break;
           }
           return _context2.abrupt("return", res.status(404).json({
-            message: 'No se ha encontrado ninguna persona...'
+            message: "No se ha encontrado ninguna persona..."
           }));
         case 6:
           return _context2.abrupt("return", res.status(200).json(personas));
@@ -121,7 +121,7 @@ var getPersonaByDNI = exports.getPersonaByDNI = /*#__PURE__*/function () {
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: 'Persona no encontrada...!'
+            message: "Persona no encontrada...!"
           }));
         case 7:
           return _context3.abrupt("return", res.status(200).json(persona));
@@ -164,7 +164,7 @@ var getPersonaByID = exports.getPersonaByID = /*#__PURE__*/function () {
             break;
           }
           return _context4.abrupt("return", res.status(404).json({
-            message: 'Persona no encontrada...!'
+            message: "Persona no encontrada...!"
           }));
         case 7:
           return _context4.abrupt("return", res.status(200).json(persona));
@@ -208,7 +208,7 @@ var updatePersona = exports.updatePersona = /*#__PURE__*/function () {
             break;
           }
           return _context5.abrupt("return", res.status(404).json({
-            message: 'Usuario no encontrado...!'
+            message: "Usuario no encontrado...!"
           }));
         case 8:
           // Se crea un objeto con los campos a actualizar...
@@ -272,7 +272,7 @@ var deletePersona = exports.deletePersona = /*#__PURE__*/function () {
             break;
           }
           return _context6.abrupt("return", res.status(404).json({
-            message: 'Persona no encontrado...!'
+            message: "Persona no encontrado...!"
           }));
         case 7:
           _context6.next = 9;

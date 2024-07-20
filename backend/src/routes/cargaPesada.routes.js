@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router } from "express";
 import {
   createHeavyLoadForm,
   // deleteHeavyLoadForm,
@@ -6,30 +6,18 @@ import {
   getHeavyLoadByFormNumber,
   getHeavyLoadByFormID,
   // updateHeavyLoadForm,
-} from '../controllers/cargaPesada.controller';
-import { TokenValidation } from '../authentication/tokens/verifyToken';
+} from "../controllers/cargaPesada.controller";
+import { TokenValidation } from "../authentication/tokens/verifyToken";
 
 const router = Router();
 
-router.post(
-  '/addplanillacarga',
-  TokenValidation,
-  createHeavyLoadForm,
-);
+router.post("/addplanillacarga", TokenValidation, createHeavyLoadForm);
 
-router.get('/', TokenValidation, getAllHeavyLoadForms);
+router.get("/", TokenValidation, getAllHeavyLoadForms);
 
-router.get(
-  '/planilla/:n_planilla',
-  TokenValidation,
-  getHeavyLoadByFormNumber,
-);
+router.get("/planilla/:n_planilla", TokenValidation, getHeavyLoadByFormNumber);
 
-router.get(
-  '/planillaid/:_id',
-  TokenValidation,
-  getHeavyLoadByFormID,
-);
+router.get("/planillaid/:_id", TokenValidation, getHeavyLoadByFormID);
 
 // router.patch(
 //   '/planilla/edit/:n_planilla',
