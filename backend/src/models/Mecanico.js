@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const mecanicoSchema = new mongoose.Schema(
   {
     placas: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Vehiculo",
+      ref: 'Vehiculo',
     },
     fecha_de_revision: {
       type: Date,
@@ -26,27 +26,27 @@ const mecanicoSchema = new mongoose.Schema(
     area_de_revision: {
       type: String,
       enum: [
-        "Motores",
-        "Frenos",
-        "Suspensión",
-        "Transmisión",
-        "Electrónica",
-        "Otros",
+        'Motores',
+        'Frenos',
+        'Suspensión',
+        'Transmisión',
+        'Electrónica',
+        'Otros',
       ],
       required: true,
     },
     fecha_entrega: {
       type: Date,
-      default: "",
+      default: '',
     },
     descripcion_revicion: String,
   },
   {
     timestamps: true,
     autoCreate: true,
-  }
+  },
 );
 
-const Mecanico = mongoose.model("Mecanico", mecanicoSchema);
+const Mecanico = mongoose.model('Mecanico', mecanicoSchema);
 
 export default Mecanico;

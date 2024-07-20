@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const tanqueoSchema = new mongoose.Schema(
   {
@@ -19,21 +19,21 @@ const tanqueoSchema = new mongoose.Schema(
     valor_tanqueo: Number,
     vehiculo: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Vehiculo",
+      ref: 'Vehiculo',
       required: true,
     },
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Persona",
+      ref: 'Persona',
       required: true,
     },
   },
   {
     timestamps: false,
     autoCreate: false,
-  }
+  },
 );
 
-const Tanqueo = mongoose.model("Tanqueo", tanqueoSchema);
+const Tanqueo = mongoose.model('Tanqueo', tanqueoSchema);
 
 export default Tanqueo;

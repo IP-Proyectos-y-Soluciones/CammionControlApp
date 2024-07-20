@@ -1,4 +1,4 @@
-import Mecanico from "../models/Mecanico";
+import Mecanico from '../models/Mecanico';
 
 // Crear un nuevo mecanico
 export const createMecanico = async (req, res) => {
@@ -26,7 +26,7 @@ export const createMecanico = async (req, res) => {
   try {
     await mecanico.save();
     res.status(201).json({
-      message: "registro de mecanico exitoso",
+      message: 'registro de mecanico exitoso',
       data: mecanico,
     });
   } catch (error) {
@@ -49,10 +49,10 @@ export const getMecanicoById = async (req, res) => {
   try {
     const mecanico = await Mecanico.findById(id);
     if (!mecanico) {
-      return res.status(404).send("id no encontrado");
+      return res.status(404).send('id no encontrado');
     }
     res.status(200).json({
-      message: "búsqueda por id exitosa",
+      message: 'búsqueda por id exitosa',
       data: mecanico,
     });
   } catch (error) {
@@ -85,19 +85,26 @@ export const updateMecanico = async (req, res) => {
 
   // Filtrar las propiedades no definidas
   Object.keys(updates).forEach(
-    (key) => updates[key] === undefined && delete updates[key]
+    (key) =>
+      updates[key] === undefined && delete updates[key],
   );
 
   try {
-    const mecanico = await Mecanico.findByIdAndUpdate(id, updates, {
-      new: true,
-      runValidators: true,
-    });
+    const mecanico = await Mecanico.findByIdAndUpdate(
+      id,
+      updates,
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
     if (!mecanico) {
-      return res.status(404).send("no se pudo encontrar el id para actualizar");
+      return res
+        .status(404)
+        .send('no se pudo encontrar el id para actualizar');
     }
     res.status(200).json({
-      message: "Actualizado exitosamente",
+      message: 'Actualizado exitosamente',
       data: mecanico,
     });
   } catch (error) {
@@ -112,10 +119,12 @@ export const deleteMecanico = async (req, res) => {
   try {
     const mecanico = await Mecanico.findByIdAndDelete(id);
     if (!mecanico) {
-      return res.status(404).send("no se pudo encontrar el id de mecanico");
+      return res
+        .status(404)
+        .send('no se pudo encontrar el id de mecanico');
     }
     res.status(200).json({
-      message: id + " se ha eliminado exitosamente",
+      message: id + ' se ha eliminado exitosamente',
       data: mecanico,
     });
   } catch (error) {

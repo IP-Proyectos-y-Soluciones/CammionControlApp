@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const personaSchema = new mongoose.Schema(
   {
@@ -38,44 +38,44 @@ const personaSchema = new mongoose.Schema(
     },
     tipo_de_contrato: {
       type: String,
-      enum: ["Fijo", "Indefinido"],
+      enum: ['Fijo', 'Indefinido'],
       required: true,
     },
     Usuario: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Usuario",
+      ref: 'Usuario',
     },
     licencias: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Licencia",
+        ref: 'Licencia',
       },
     ],
     vehiculos: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Vehiculo",
+        ref: 'Vehiculo',
       },
     ],
     volquetas: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Volqueta",
+        ref: 'Volqueta',
       },
     ],
     tanqueos: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Tanqueo",
+        ref: 'Tanqueo',
       },
     ],
   },
   {
     timestamps: true,
     autoCreate: true,
-  }
+  },
 );
 
-const Persona = mongoose.model("Persona", personaSchema);
+const Persona = mongoose.model('Persona', personaSchema);
 
 export default Persona;

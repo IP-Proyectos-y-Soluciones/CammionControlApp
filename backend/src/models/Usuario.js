@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const usuarioSchema = new mongoose.Schema(
   {
@@ -12,7 +12,7 @@ const usuarioSchema = new mongoose.Schema(
     },
     roles: {
       type: String,
-      enum: ["Admin", "Empleado", "Empresa"],
+      enum: ['Admin', 'Empleado', 'Empresa'],
       required: true,
     },
     estado: {
@@ -22,16 +22,16 @@ const usuarioSchema = new mongoose.Schema(
     },
     Persona: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Persona",
+      ref: 'Persona',
       required: true,
     },
   },
   {
     timestamps: false,
     autoCreate: false,
-  }
+  },
 );
 
-const Usuario = mongoose.model("Usuario", usuarioSchema);
+const Usuario = mongoose.model('Usuario', usuarioSchema);
 
 export default Usuario;

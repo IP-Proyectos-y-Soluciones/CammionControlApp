@@ -1,6 +1,6 @@
-import Usuario from "../../models/Usuario";
-import { decrypted } from "../passwords/decrypted";
-import { token } from "../tokens/token";
+import Usuario from '../../models/Usuario';
+import { decrypted } from '../passwords/decrypted';
+import { token } from '../tokens/token';
 
 export const login = async (req, res) => {
   try {
@@ -11,17 +11,21 @@ export const login = async (req, res) => {
     });
 
     if (!usuarioReg) {
-      return res.status(404).json({ message: "Usuario no encontrado...!" });
+      return res
+        .status(404)
+        .json({ message: 'Usuario no encontrado...!' });
     }
 
     if (!(await decrypted(password, usuarioReg.password))) {
-      return res.status(401).json({ message: "Password inválido...!" });
+      return res
+        .status(401)
+        .json({ message: 'Password inválido...!' });
     }
 
     const userToken = await token(usuarioReg);
 
-    res.cookie("auth-token", userToken, {
-      sameSite: "none",
+    res.cookie('auth-token', userToken, {
+      sameSite: 'none',
       secure: true,
     });
 

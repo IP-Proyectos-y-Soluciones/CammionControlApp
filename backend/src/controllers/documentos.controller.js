@@ -1,5 +1,5 @@
-import Documento from "../models/Documento";
-import Vehiculo from "../models/Vehiculo";
+import Documento from '../models/Documento';
+import Vehiculo from '../models/Vehiculo';
 
 export const createDocumento = async (req, res) => {
   try {
@@ -13,7 +13,7 @@ export const createDocumento = async (req, res) => {
     const vehiculoId = await Vehiculo.findById(vehiculo);
     if (!vehiculoId) {
       return res.status(404).json({
-        message: "El id del vehiculo no existe",
+        message: 'El id del vehiculo no existe',
       });
     }
     const newDocumento = new Documento({
@@ -25,7 +25,8 @@ export const createDocumento = async (req, res) => {
     });
     await newDocumento.save();
     res.status(201).json({
-      message: "El documento  ha sido guardado correctamente!",
+      message:
+        'El documento  ha sido guardado correctamente!',
       newDocumento,
     });
   } catch (error) {
@@ -39,12 +40,16 @@ export const getAllDocumento = async (req, res) => {
     const query = {};
     if (cerificado_N) query.cerificado_N = cerificado_N;
     if (tipo) query.tipo = tipo;
-    const documento = await Documento.find(query).populate("vehiculo");
+    const documento = await Documento.find(query).populate(
+      'vehiculo',
+    );
     if (documento.length === 0) {
-      return res.status(404).json({ message: "Documento no encontrado" });
+      return res
+        .status(404)
+        .json({ message: 'Documento no encontrado' });
     }
     res.status(200).json({
-      message: "Documento encontrado",
+      message: 'Documento encontrado',
       documento,
     });
   } catch (error) {
@@ -64,7 +69,7 @@ export const putDocumento = async (req, res) => {
     const vehiculoId = await Vehiculo.findById(vehiculo);
     if (!vehiculoId) {
       return res.status(404).json({
-        message: "El id del vehiculo no existe",
+        message: 'El id del vehiculo no existe',
       });
     }
     const documento = await Documento.findByIdAndUpdate(
@@ -76,10 +81,12 @@ export const putDocumento = async (req, res) => {
         fecha_vencimiento,
         vehiculo,
       },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
     if (!documento) {
-      return res.status(404).json({ message: "Documento no encontrado" });
+      return res
+        .status(404)
+        .json({ message: 'Documento no encontrado' });
     }
     res.status(200).json(documento);
   } catch (error) {
@@ -89,9 +96,13 @@ export const putDocumento = async (req, res) => {
 
 export const deleteDocumento = async (req, res) => {
   try {
-    const documento = await Documento.findByIdAndDelete(req.params.id);
+    const documento = await Documento.findByIdAndDelete(
+      req.params.id,
+    );
     if (!documento) {
-      return res.status(404).json({ message: "Documento no encontrado" });
+      return res
+        .status(404)
+        .json({ message: 'Documento no encontrado' });
     }
     res.status(200).json(documento);
   } catch (error) {

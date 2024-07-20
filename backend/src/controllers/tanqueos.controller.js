@@ -1,7 +1,7 @@
 // importar los modelos con importimport
-import Tanqueo from "../models/Tanqueo";
-import Persona from "../models/Persona";
-import Vehiculo from "../models/Vehiculo";
+import Tanqueo from '../models/Tanqueo';
+import Persona from '../models/Persona';
+import Vehiculo from '../models/Vehiculo';
 
 // Crear un nuevo tanqueo
 export const createTanqueo = async (req, res) => {
@@ -19,11 +19,15 @@ export const createTanqueo = async (req, res) => {
     const persona = await Persona.findById(conductor);
 
     if (!persona) {
-      return res.status(404).json({ message: "persona no encontrada" });
+      return res
+        .status(404)
+        .json({ message: 'persona no encontrada' });
     }
     const vehiculoById = await Vehiculo.findById(vehiculo);
     if (!vehiculoById) {
-      return res.status(404).json({ message: "no se encontro el vehículo" });
+      return res
+        .status(404)
+        .json({ message: 'no se encontro el vehículo' });
     }
 
     const tanqueo = new Tanqueo({
@@ -37,7 +41,7 @@ export const createTanqueo = async (req, res) => {
     });
     await tanqueo.save();
     res.status(201).json({
-      message: " Tanqueo creado exitosamente",
+      message: ' Tanqueo creado exitosamente',
       data: tanqueo,
     });
   } catch (error) {
@@ -50,7 +54,7 @@ export const getAllTanqueos = async (req, res) => {
   try {
     const tanqueos = await Tanqueo.find();
     res.status(200).json({
-      message: " Tanqueo traidos exitosamente",
+      message: ' Tanqueo traidos exitosamente',
       data: tanqueos,
     });
   } catch (error) {
@@ -68,7 +72,7 @@ export const getTanqueoById = async (req, res) => {
       return res.status(404).json();
     }
     res.status(200).json({
-      message: " Tanqueo encontrado exitosamente",
+      message: ' Tanqueo encontrado exitosamente',
       data: tanqueo,
     });
   } catch (error) {
@@ -100,19 +104,24 @@ export const updateTanqueo = async (req, res) => {
 
   // Filtrar las propiedades no definidas
   Object.keys(updates).forEach(
-    (key) => updates[key] === undefined && delete updates[key]
+    (key) =>
+      updates[key] === undefined && delete updates[key],
   );
 
   try {
-    const tanqueo = await Tanqueo.findByIdAndUpdate(id, updates, {
-      new: true,
-      runValidators: true,
-    });
+    const tanqueo = await Tanqueo.findByIdAndUpdate(
+      id,
+      updates,
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
     if (!tanqueo) {
       return res.status(404).json();
     }
     res.status(200).json({
-      message: " Tanqueo actualizado exitosamente",
+      message: ' Tanqueo actualizado exitosamente',
       data: tanqueo,
     });
   } catch (error) {
@@ -127,9 +136,9 @@ export const deleteTanqueo = async (req, res) => {
   try {
     const tanqueo = await Tanqueo.findByIdAndDelete(id);
     if (!tanqueo) {
-      return res.status(404).send("id no encontrado");
+      return res.status(404).send('id no encontrado');
     }
-    res.status(200).json(id + " eliminado con éxito");
+    res.status(200).json(id + ' eliminado con éxito');
   } catch (error) {
     res.status(500).json(error);
   }

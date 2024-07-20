@@ -1,6 +1,6 @@
-import Volqueta from "../models/Volqueta";
-import Persona from "../models/Persona";
-import Vehiculo from "../models/Vehiculo";
+import Volqueta from '../models/Volqueta';
+import Persona from '../models/Persona';
+import Vehiculo from '../models/Vehiculo';
 
 export const createVolqueta = async (req, res) => {
   try {
@@ -25,13 +25,13 @@ export const createVolqueta = async (req, res) => {
     const persona = await Persona.findById(conductor);
     if (!persona) {
       return res.status(404).json({
-        message: "El id de la persona no existe",
+        message: 'El id de la persona no existe',
       });
     }
     const vehiculo_id = await Vehiculo.findById(placas);
     if (!vehiculo_id) {
       return res.status(404).json({
-        message: "Las placas del vehiculo no existen",
+        message: 'Las placas del vehiculo no existen',
       });
     }
 
@@ -67,7 +67,7 @@ export const createVolqueta = async (req, res) => {
     await newVolqueta.save();
 
     res.status(200).json({
-      message: "El formulario fue guardado correctamente!",
+      message: 'El formulario fue guardado correctamente!',
       newVolqueta,
     });
   } catch (error) {
@@ -85,20 +85,22 @@ export const getVolqueta = async (req, res) => {
     if (placas) query.placas = placas;
 
     const planilla = await Volqueta.find(query)
-      .populate("conductor")
-      .populate("placas");
+      .populate('conductor')
+      .populate('placas');
 
     if (planilla.length === 0) {
-      return res.status(404).json({ message: "Planilla no encontrada" });
+      return res
+        .status(404)
+        .json({ message: 'Planilla no encontrada' });
     }
 
     res.status(200).json({
-      message: "Planilla encontrada",
+      message: 'Planilla encontrada',
       planilla,
     });
   } catch (error) {
     res.status(500).json({
-      message: "Error al obtener las planillas",
+      message: 'Error al obtener las planillas',
       error: error.message,
     });
   }
@@ -127,13 +129,13 @@ export const putVolqueta = async (req, res) => {
     const persona = await Persona.findById(conductor_id);
     if (!persona) {
       return res.status(404).json({
-        message: "El id de la persona no existe",
+        message: 'El id de la persona no existe',
       });
     }
     const vehiculo_id = await Vehiculo.findById(placas);
     if (!vehiculo_id) {
       return res.status(404).json({
-        message: "Las placas del vehiculo no existen",
+        message: 'Las placas del vehiculo no existen',
       });
     }
     let total_horas = 0;
@@ -166,17 +168,18 @@ export const putVolqueta = async (req, res) => {
         lugar_de_descargue,
         observacion,
       },
-      { new: true }
+      { new: true },
     );
 
     if (!planilla) {
       return res.status(404).json({
-        message: "Planilla no encontrada",
+        message: 'Planilla no encontrada',
       });
     }
 
     res.status(200).json({
-      message: "El formulario fue actualizado correctamente!",
+      message:
+        'El formulario fue actualizado correctamente!',
       planilla,
     });
   } catch (error) {
@@ -186,12 +189,17 @@ export const putVolqueta = async (req, res) => {
 
 export const deleteVolqueta = async (req, res) => {
   try {
-    const planilla = await Volqueta.findByIdAndDelete(req.params.id);
+    const planilla = await Volqueta.findByIdAndDelete(
+      req.params.id,
+    );
     if (!planilla) {
-      return res.status(404).json({ message: "Planilla no encontrada" });
+      return res
+        .status(404)
+        .json({ message: 'Planilla no encontrada' });
     }
     res.status(200).json({
-      message: "La planilla ha sido eliminada correctamente!",
+      message:
+        'La planilla ha sido eliminada correctamente!',
       planilla,
     });
   } catch (error) {

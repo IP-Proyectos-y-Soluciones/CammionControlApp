@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const licenciaSchema = new mongoose.Schema(
   {
     conductor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Usuario",
+      ref: 'Usuario',
     },
     licencia_N: {
       type: Number,
@@ -29,9 +29,9 @@ const licenciaSchema = new mongoose.Schema(
   {
     timestamps: false,
     autoCreate: false,
-  }
+  },
 );
 
-const Licencia = mongoose.model("Licencia", licenciaSchema);
+const Licencia = mongoose.model('Licencia', licenciaSchema);
 
 export default Licencia;

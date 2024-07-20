@@ -1,11 +1,11 @@
 // Implementar cloudinary en el backend con express y nodejs
 
-import dotenv from "dotenv";
-import Cloudinary from "../models/Cloudinary";
+import dotenv from 'dotenv';
+import Cloudinary from '../models/Cloudinary';
 
-import multer from "multer";
-import { v2 as cloudinary } from "cloudinary";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
+import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
 dotenv.config();
 
@@ -20,20 +20,23 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "uploads",
-    format: async (req, file) => "jpg",
-    public_id: (req, file) => file.originalname.split(".")[0],
+    folder: 'uploads',
+    format: async (req, file) => 'jpg',
+    public_id: (req, file) =>
+      file.originalname.split('.')[0],
   },
 });
 
-export const parser = multer({ storage: storage }).single("file");
+export const parser = multer({ storage: storage }).single(
+  'file',
+);
 
 // Función para manejar la respuesta
 export const uploadImage = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
-        message: "No se ha proporcionado ninguna imagen",
+        message: 'No se ha proporcionado ninguna imagen',
       });
     }
 
@@ -48,7 +51,7 @@ export const uploadImage = async (req, res) => {
     return res.status(200).json({ url: uploadedImageUrl });
   } catch (error) {
     return res.status(500).json({
-      message: "Error al subir la imagen",
+      message: 'Error al subir la imagen',
       error: error.message,
     });
   }
@@ -59,13 +62,13 @@ export const getImagesFromCloudinay = async (req, res) => {
   try {
     const images = await Cloudinary.find();
     return res.status(200).json({
-      message: "búsqueda de imagenes exitosa",
+      message: 'búsqueda de imagenes exitosa',
       data: images,
     });
   } catch (error) {
-    console.error("Error al obtener las imágenes:", error);
+    console.error('Error al obtener las imágenes:', error);
     return res.status(500).json({
-      message: "Error al obtener las imágenes",
+      message: 'Error al obtener las imágenes',
       error: error.message,
     });
   }
@@ -78,17 +81,19 @@ export const getImageById = async (req, res) => {
     const image = await Cloudinary.findById(id);
 
     if (!image) {
-      return res.status(404).json({ message: "Imagen no encontrada" });
+      return res
+        .status(404)
+        .json({ message: 'Imagen no encontrada' });
     }
 
     return res.status(200).json({
-      message: "Búsqueda por ID exitosa",
+      message: 'Búsqueda por ID exitosa',
       data: image,
     });
   } catch (error) {
-    console.error("Error al obtener la imagen:", error);
+    console.error('Error al obtener la imagen:', error);
     return res.status(500).json({
-      message: "Error al obtener la imagen",
+      message: 'Error al obtener la imagen',
       error: error.message,
     });
   }
@@ -101,14 +106,18 @@ export const deleteImageById = async (req, res) => {
     const image = await Cloudinary.findByIdAndDelete(id);
 
     if (!image) {
-      return res.status(404).json({ message: "Imagen no encontrada" });
+      return res
+        .status(404)
+        .json({ message: 'Imagen no encontrada' });
     }
 
-    return res.status(200).json({ message: "Imagen eliminada exitosamente" });
+    return res
+      .status(200)
+      .json({ message: 'Imagen eliminada exitosamente' });
   } catch (error) {
-    console.error("Error al eliminar la imagen:", error);
+    console.error('Error al eliminar la imagen:', error);
     return res.status(500).json({
-      message: "Error al eliminar la imagen",
+      message: 'Error al eliminar la imagen',
       error: error.message,
     });
   }
@@ -119,24 +128,30 @@ export const updateImageById = async (req, res) => {
   const { url } = req.body;
 
   try {
-    const updatedImage = await Cloudinary.findByIdAndUpdate(id, url, {
-      new: true,
-    });
+    const updatedImage = await Cloudinary.findByIdAndUpdate(
+      id,
+      url,
+      {
+        new: true,
+      },
+    );
 
     if (!updatedImage) {
-      return res.status(404).json({ message: "Imagen no encontrada" });
+      return res
+        .status(404)
+        .json({ message: 'Imagen no encontrada' });
     }
 
     return res.status(200).json({
-      message: "Imagen actualizada exitosamente",
+      message: 'Imagen actualizada exitosamente',
       data: {
         url: url,
       },
     });
   } catch (error) {
-    console.error("Error al actualizar la imagen:", error);
+    console.error('Error al actualizar la imagen:', error);
     return res.status(500).json({
-      message: "Error al actualizar la imagen",
+      message: 'Error al actualizar la imagen',
       error: error.message,
     });
   }

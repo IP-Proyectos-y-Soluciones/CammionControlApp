@@ -1,9 +1,10 @@
-import Usuario from "../models/Usuario";
-import Persona from "../models/Persona";
-import { encrypted } from "../authentication/passwords/encrypted";
+import Usuario from '../models/Usuario';
+import Persona from '../models/Persona';
+import { encrypted } from '../authentication/passwords/encrypted';
 
 export const registrarUsuario = async (req, res) => {
-  const { usuario, password, roles, estado, personaId } = req.body;
+  const { usuario, password, roles, estado, personaId } =
+    req.body;
 
   try {
     // Verifica si la persona existe
@@ -12,7 +13,7 @@ export const registrarUsuario = async (req, res) => {
     if (!persona) {
       return res.status(404).json({
         message:
-          "Persona no encontrada. No se puede crear el usuario sin una persona válida.",
+          'Persona no encontrada. No se puede crear el usuario sin una persona válida.',
       });
     }
 
@@ -31,7 +32,8 @@ export const registrarUsuario = async (req, res) => {
     const savedUsuario = await newUsuario.save();
 
     return res.status(201).json({
-      message: "El nuevo usuario ha sido creado exitosamente...!",
+      message:
+        'El nuevo usuario ha sido creado exitosamente...!',
       savedUsuario,
     });
   } catch (error) {
@@ -49,7 +51,7 @@ export const getAllUsuarios = async (req, res) => {
 
     if (!usuarios)
       return res.status(404).json({
-        message: "No se ha encontrado ningún usuario...",
+        message: 'No se ha encontrado ningún usuario...',
       });
 
     return res.status(200).json(usuarios);
@@ -71,7 +73,9 @@ export const getUsuario = async (req, res) => {
     });
 
     if (!findUsuario)
-      return res.status(404).json({ message: "Usuario no encontrado...!" });
+      return res
+        .status(404)
+        .json({ message: 'Usuario no encontrado...!' });
 
     return res.status(200).json(findUsuario);
   } catch (error) {
@@ -86,17 +90,21 @@ export const getUsuario = async (req, res) => {
 export const updateUsuario = async (req, res) => {
   try {
     const { _id } = req.params;
-    const { usuario, newPassword, roles, estado } = req.body;
+    const { usuario, newPassword, roles, estado } =
+      req.body;
 
     const findUsuario = await Usuario.findById(_id);
 
     if (!findUsuario)
-      return res.status(404).json({ message: "Usuario no encontrado...!" });
+      return res
+        .status(404)
+        .json({ message: 'Usuario no encontrado...!' });
 
     // Se crea un objeto con los campos a actualizar...
     const updatedFields = {};
 
-    if (usuario !== undefined) updatedFields.usuario = usuario;
+    if (usuario !== undefined)
+      updatedFields.usuario = usuario;
     if (roles !== undefined) updatedFields.roles = roles;
     if (estado !== undefined) updatedFields.estado = estado;
 
@@ -109,7 +117,7 @@ export const updateUsuario = async (req, res) => {
     const updatedUsuario = await Usuario.findByIdAndUpdate(
       _id,
       { $set: updatedFields },
-      { new: true } // Para devolver el usuario actualizado...
+      { new: true }, // Para devolver el usuario actualizado...
     );
 
     return res.status(200).json(updatedUsuario);
@@ -130,10 +138,14 @@ export const deleteUsuario = async (req, res) => {
     const findUsuario = await Usuario.findById(_id);
 
     if (!findUsuario)
-      return res.status(404).json({ message: "Usuario no encontrado...!" });
+      return res
+        .status(404)
+        .json({ message: 'Usuario no encontrado...!' });
 
     // Se elimina el usuario de la BD...
-    const deletedUsuario = await Usuario.findByIdAndDelete(_id);
+    const deletedUsuario = await Usuario.findByIdAndDelete(
+      _id,
+    );
 
     return res.sendStatus(200);
   } catch (error) {
