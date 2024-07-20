@@ -38,6 +38,16 @@ app.use(cookieParser());
 
 // Generar y enviar el token CSRF...
 app.use((req, res, next) => {
+  if (!req.cookies['csrf-secret']) {
+    const secret = csrfProtection.secretSync();
+
+    res.cookie('csrf-secret', secret, {
+      sameSite: 'none',
+      secure: true,
+    });
+    req.cookies['csrf-secret'] = secret; // Se debe añadir esto, para que esté disponible en esta solicitud
+  }
+
   const csrfToken = csrfProtection.create(
     req.cookies['csrf-secret'] ||
       csrfProtection.secretSync(),
@@ -54,7 +64,7 @@ app.use((req, res, next) => {
 
 // Middleware para verificar el token CSRF...
 const verifyCsrfToken = (req, res, next) => {
-  const csrfToken = req.cookies['csrf-token'];
+  const csrfToken = req.headers['csrf-token']; // Se obtiene el token de los headers...
   const csrfSecret = req.cookies['csrf-secret'];
 
   if (csrfProtection.verify(csrfSecret, csrfToken)) {
@@ -72,12 +82,12 @@ app.use('/api/cargapesada', cargaPesadaRoutes);
 app.use('/api/cloudinary', cloudinaryRoutes);
 app.use('/api/documentos', documentosRoutes);
 app.use('/api/licencias', licenciasRoutes);
-app.use('/mecanicos', mecanicosRoutes);
+app.use('/api/mecanicos', mecanicosRoutes);
 // app.use('/api/personas', personasRoutes); // sin protección CSRF...
 app.use('/api/personas', verifyCsrfToken, personasRoutes); // CON PROTECCION CSRF...
-app.use('/tanqueos', tanqueosRoutes);
+app.use('/api/tanqueos', tanqueosRoutes);
 app.use('/api/usuarios', usuariosRoutes);
-app.use('/vehiculos', vehiculosRoutes);
+app.use('/api/vehiculos', vehiculosRoutes);
 app.use('/api/planillas', volquetasRoutes);
 
 app.use((err, req, res, next) => {
