@@ -12,7 +12,8 @@ import Tanqueo from './models/Tanqueo.js';
 import Usuario from './models/Usuario.js';
 import Vehiculo from './models/Vehiculo.js';
 import Volqueta from './models/Volqueta.js';
-import { vencimientoLicenciasDocumentos } from './alertas/vencimientoLicenciasDocumentos.js';
+import { vencimientoLicenciasDocumentos } from './alertas/vencimientoLicenciasDocumentos';
+import { verificacionDeFecha } from './alertas/verificacionDeFecha';
 
 async function main() {
   try {
@@ -49,4 +50,10 @@ cron.schedule('0 8 * * *', () => {
     'Ejecutando tarea de cron para verificar vencimientos.',
   );
   vencimientoLicenciasDocumentos();
+});
+cron.schedule('0 0 1 * *', () => {
+  console.log(
+    'Ejecutando tarea de cron para verificar fechas.',
+  );
+  verificacionDeFecha();
 });

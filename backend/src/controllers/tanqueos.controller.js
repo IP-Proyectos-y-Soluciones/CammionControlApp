@@ -112,7 +112,10 @@ export const updateTanqueo = async (req, res) => {
     const tanqueo = await Tanqueo.findByIdAndUpdate(
       id,
       updates,
-      { new: true, runValidators: true },
+      {
+        new: true,
+        runValidators: true,
+      },
     );
     if (!tanqueo) {
       return res.status(404).json();

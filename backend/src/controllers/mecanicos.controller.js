@@ -93,7 +93,10 @@ export const updateMecanico = async (req, res) => {
     const mecanico = await Mecanico.findByIdAndUpdate(
       id,
       updates,
-      { new: true, runValidators: true },
+      {
+        new: true,
+        runValidators: true,
+      },
     );
     if (!mecanico) {
       return res

@@ -37,11 +37,11 @@ export const registrarUsuario = async (req, res) => {
       savedUsuario,
     });
   } catch (error) {
-    if (error instanceof Error) {
-      return res.status(500).json({ error: error.message });
-    } else {
-      return res.status(500).json(error);
-    }
+    // if (error instanceof Error) {
+    //   return res.status(500).json({ error: error.message });
+    // } else {
+    return res.status(500).json(error);
+    // }
   }
 };
 

@@ -48,7 +48,7 @@ const vehiculoSchema = new mongoose.Schema(
     cargaPesada: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'CargaPesada',
+        ref: 'Tractomula',
       },
     ],
     tanqueos: [

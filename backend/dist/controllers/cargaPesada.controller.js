@@ -231,7 +231,3 @@ var getHeavyLoadByFormID = exports.getHeavyLoadByFormID = /*#__PURE__*/function 
     return _ref4.apply(this, arguments);
   };
 }();
-
-// export const updateHeavyLoadForm = async (req, res) => {};
-
-// export const deleteHeavyLoadForm = async (req, res) => {};

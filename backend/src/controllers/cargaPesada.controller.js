@@ -170,7 +170,3 @@ export const getHeavyLoadByFormID = async (req, res) => {
     }
   }
 };
-
-// export const updateHeavyLoadForm = async (req, res) => {};
-
-// export const deleteHeavyLoadForm = async (req, res) => {};

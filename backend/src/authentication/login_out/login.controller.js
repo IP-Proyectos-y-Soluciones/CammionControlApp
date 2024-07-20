@@ -6,7 +6,9 @@ export const login = async (req, res) => {
   try {
     const { usuario, password } = req.body;
 
-    const usuarioReg = await Usuario.findOne({ usuario });
+    const usuarioReg = await Usuario.findOne({
+      usuario,
+    });
 
     if (!usuarioReg) {
       return res
@@ -32,7 +34,6 @@ export const login = async (req, res) => {
       usuarioReg,
     });
   } catch (error) {
-    console.error('Error during login:', error);
     if (error instanceof Error) {
       return res.status(500).json({ error: error.message });
     } else {

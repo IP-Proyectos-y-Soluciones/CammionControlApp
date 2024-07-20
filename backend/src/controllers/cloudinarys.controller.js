@@ -131,7 +131,9 @@ export const updateImageById = async (req, res) => {
     const updatedImage = await Cloudinary.findByIdAndUpdate(
       id,
       url,
-      { new: true },
+      {
+        new: true,
+      },
     );
 
     if (!updatedImage) {

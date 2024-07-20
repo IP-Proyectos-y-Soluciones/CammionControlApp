@@ -100,7 +100,10 @@ export const updateVehiculo = async (req, res) => {
     const vehiculo = await Vehiculo.findByIdAndUpdate(
       id,
       updates,
-      { new: true, runValidators: true },
+      {
+        new: true,
+        runValidators: true,
+      },
     );
     if (!vehiculo) {
       return res

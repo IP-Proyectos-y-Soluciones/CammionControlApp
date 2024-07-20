@@ -13,12 +13,12 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var createDocumento = exports.createDocumento = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, cerificado_N, tipo, fecha_expedicion, fecha_vencemiento, vehiculo, vehiculoId, newDocumento;
+    var _req$body, cerificado_N, tipo, fecha_expedicion, fecha_vencimiento, vehiculo, vehiculoId, newDocumento;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _req$body = req.body, cerificado_N = _req$body.cerificado_N, tipo = _req$body.tipo, fecha_expedicion = _req$body.fecha_expedicion, fecha_vencemiento = _req$body.fecha_vencemiento, vehiculo = _req$body.vehiculo;
+          _req$body = req.body, cerificado_N = _req$body.cerificado_N, tipo = _req$body.tipo, fecha_expedicion = _req$body.fecha_expedicion, fecha_vencimiento = _req$body.fecha_vencimiento, vehiculo = _req$body.vehiculo;
           _context.next = 4;
           return _Vehiculo["default"].findById(vehiculo);
         case 4:
@@ -35,14 +35,14 @@ var createDocumento = exports.createDocumento = /*#__PURE__*/function () {
             cerificado_N: cerificado_N,
             tipo: tipo,
             fecha_expedicion: fecha_expedicion,
-            fecha_vencemiento: fecha_vencemiento,
+            fecha_vencimiento: fecha_vencimiento,
             vehiculo: vehiculo
           });
           _context.next = 10;
           return newDocumento.save();
         case 10:
           res.status(201).json({
-            message: 'El documento  ha sido gurdado correctamente!',
+            message: 'El documento  ha sido guardado correctamente!',
             newDocumento: newDocumento
           });
           _context.next = 16;
@@ -85,7 +85,7 @@ var getAllDocumento = exports.getAllDocumento = /*#__PURE__*/function () {
           }));
         case 10:
           res.status(200).json({
-            message: 'Planilla encontrada',
+            message: 'Documento encontrado',
             documento: documento
           });
           _context2.next = 16;
@@ -106,12 +106,12 @@ var getAllDocumento = exports.getAllDocumento = /*#__PURE__*/function () {
 }();
 var putDocumento = exports.putDocumento = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
-    var _req$body2, cerificado_N, tipo, fecha_expedicion, fecha_vencemiento, vehiculo, vehiculoId, documento;
+    var _req$body2, cerificado_N, tipo, fecha_expedicion, fecha_vencimiento, vehiculo, vehiculoId, documento;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
-          _req$body2 = req.body, cerificado_N = _req$body2.cerificado_N, tipo = _req$body2.tipo, fecha_expedicion = _req$body2.fecha_expedicion, fecha_vencemiento = _req$body2.fecha_vencemiento, vehiculo = _req$body2.vehiculo;
+          _req$body2 = req.body, cerificado_N = _req$body2.cerificado_N, tipo = _req$body2.tipo, fecha_expedicion = _req$body2.fecha_expedicion, fecha_vencimiento = _req$body2.fecha_vencimiento, vehiculo = _req$body2.vehiculo;
           _context3.next = 4;
           return _Vehiculo["default"].findById(vehiculo);
         case 4:
@@ -129,8 +129,8 @@ var putDocumento = exports.putDocumento = /*#__PURE__*/function () {
             cerificado_N: cerificado_N,
             tipo: tipo,
             fecha_expedicion: fecha_expedicion,
-            fecha_vencemiento: fecha_vencemiento,
-            vehiculo: vehiculo_id
+            fecha_vencimiento: fecha_vencimiento,
+            vehiculo: vehiculo
           }, {
             "new": true,
             runValidators: true
