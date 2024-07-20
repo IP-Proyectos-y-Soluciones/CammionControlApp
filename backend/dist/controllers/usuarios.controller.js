@@ -55,16 +55,8 @@ var registrarUsuario = exports.registrarUsuario = /*#__PURE__*/function () {
         case 17:
           _context.prev = 17;
           _context.t0 = _context["catch"](1);
-          if (!(_context.t0 instanceof Error)) {
-            _context.next = 23;
-            break;
-          }
-          return _context.abrupt("return", res.status(500).json({
-            error: _context.t0.message
-          }));
-        case 23:
           return _context.abrupt("return", res.status(500).json(_context.t0));
-        case 24:
+        case 20:
         case "end":
           return _context.stop();
       }

@@ -9,6 +9,7 @@ var _morgan = _interopRequireDefault(require("morgan"));
 var _cors = _interopRequireDefault(require("cors"));
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 var _dotenv = _interopRequireDefault(require("dotenv"));
+var _csrf = _interopRequireDefault(require("csrf"));
 var _auth = _interopRequireDefault(require("./routes/auth.routes"));
 var _cargaPesada = _interopRequireDefault(require("./routes/cargaPesada.routes"));
 var _cloudinary = _interopRequireDefault(require("./routes/cloudinary.routes"));
@@ -23,6 +24,7 @@ var _volqueta = _interopRequireDefault(require("./routes/volqueta.routes"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 _dotenv["default"].config();
 var app = (0, _express["default"])();
+var csrfProtection = new _csrf["default"]();
 
 // Settings...
 app.set('port', process.env.PORT || 8585 || 3070);
@@ -41,6 +43,30 @@ app.use(_express["default"].urlencoded({
 }));
 app.use((0, _cookieParser["default"])());
 
+// Generar y enviar el token CSRF...
+app.use(function (req, res, next) {
+  var csrfToken = csrfProtection.create(req.cookies['csrf-secret'] || csrfProtection.secretSync());
+  res.cookie('csrf-token', csrfToken, {
+    sameSite: 'none',
+    secure: true
+  });
+  res.locals.csrfToken = csrfToken;
+  next();
+});
+
+// Middleware para verificar el token CSRF...
+var verifyCsrfToken = function verifyCsrfToken(req, res, next) {
+  var csrfToken = req.cookies['csrf-token'];
+  var csrfSecret = req.cookies['csrf-secret'];
+  if (csrfProtection.verify(csrfSecret, csrfToken)) {
+    next();
+  } else {
+    res.status(403).json({
+      message: 'Token CSRF inválido o perdido...'
+    });
+  }
+};
+
 // Routes...
 app.use('/api/auth', _auth["default"]);
 app.use('/api/cargapesada', _cargaPesada["default"]);
@@ -48,14 +74,32 @@ app.use('/api/cloudinary', _cloudinary["default"]);
 app.use('/api/documentos', _documento["default"]);
 app.use('/api/licencias', _licencia["default"]);
 app.use('/mecanicos', _mecanico["default"]);
-app.use('/api/personas', _persona["default"]);
+// app.use('/api/personas', personasRoutes); // sin protección CSRF...
+app.use('/api/personas', verifyCsrfToken, _persona["default"]); // CON PROTECCION CSRF...
 app.use('/tanqueos', _tanqueo["default"]);
 app.use('/api/usuarios', _usuario["default"]);
 app.use('/vehiculos', _vehiculo["default"]);
 app.use('/api/planillas', _volqueta["default"]);
+app.use(function (err, req, res, next) {
+  if (err.code === 'EBADCSRFTOKEN') {
+    // Manejo de error CSRF
+    res.status(403).json({
+      message: 'Token CSRF inválido o perdido...'
+    });
+  } else {
+    next(err);
+  }
+});
 
 // Test route...
 app.get('/', function (req, res) {
   res.end("Welcome to Backend Node.js Server. Running on port: ".concat(app.get('port'), "...!"));
+});
+
+// Ruta para obtener el token CSRF...
+app.use('/api/csrf-token', function (req, res) {
+  res.json({
+    csrfToken: res.locals.csrfToken
+  });
 });
 var _default = exports["default"] = app;
