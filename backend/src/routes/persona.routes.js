@@ -12,12 +12,7 @@ import { validatePerson } from '../middlewares/validatePerson';
 
 const router = Router();
 
-router.post(
-  '/addpersona',
-  TokenValidation,
-  validatePerson,
-  createPersona,
-);
+router.post('/addpersona', validatePerson, createPersona);
 
 router.get('/', TokenValidation, getAllPersonas);
 

@@ -20,7 +20,7 @@ const usuarioSchema = new mongoose.Schema(
       default: false,
       required: true,
     },
-    Persona: {
+    persona: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Persona',
       required: true,
