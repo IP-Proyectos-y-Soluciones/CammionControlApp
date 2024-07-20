@@ -30,6 +30,10 @@ var tanqueoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Persona',
     required: true
+  },
+  imagen_url: {
+    type: String,
+    required: true
   }
 }, {
   timestamps: false,
