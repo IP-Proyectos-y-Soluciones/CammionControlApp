@@ -9,7 +9,7 @@ var _personas = require("../controllers/personas.controller");
 var _verifyToken = require("../authentication/tokens/verifyToken");
 var _validatePerson = require("../middlewares/validatePerson");
 var router = (0, _express.Router)();
-router.post('/addpersona', _validatePerson.validatePerson, _personas.createPersona);
+router.post('/addpersona', _verifyToken.TokenValidation, _validatePerson.validatePerson, _personas.createPersona);
 router.get('/', _verifyToken.TokenValidation, _personas.getAllPersonas);
 router.get('/personaced/:cedula', _verifyToken.TokenValidation, _personas.getPersonaByDNI);
 router.get('/personaid/:_id', _verifyToken.TokenValidation, _personas.getPersonaByID);
