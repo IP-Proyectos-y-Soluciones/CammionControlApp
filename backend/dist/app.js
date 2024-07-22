@@ -45,6 +45,14 @@ app.use((0, _cookieParser["default"])());
 
 // Generar y enviar el token CSRF...
 app.use(function (req, res, next) {
+  if (!req.cookies['csrf-secret']) {
+    var secret = csrfProtection.secretSync();
+    res.cookie('csrf-secret', secret, {
+      sameSite: 'none',
+      secure: true
+    });
+    req.cookies['csrf-secret'] = secret; // Se debe añadir esto, para que esté disponible en esta solicitud
+  }
   var csrfToken = csrfProtection.create(req.cookies['csrf-secret'] || csrfProtection.secretSync());
   res.cookie('csrf-token', csrfToken, {
     sameSite: 'none',
@@ -56,7 +64,7 @@ app.use(function (req, res, next) {
 
 // Middleware para verificar el token CSRF...
 var verifyCsrfToken = function verifyCsrfToken(req, res, next) {
-  var csrfToken = req.cookies['csrf-token'];
+  var csrfToken = req.headers['csrf-token']; // Se obtiene el token de los headers...
   var csrfSecret = req.cookies['csrf-secret'];
   if (csrfProtection.verify(csrfSecret, csrfToken)) {
     next();
@@ -73,12 +81,12 @@ app.use('/api/cargapesada', _cargaPesada["default"]);
 app.use('/api/cloudinary', _cloudinary["default"]);
 app.use('/api/documentos', _documento["default"]);
 app.use('/api/licencias', _licencia["default"]);
-app.use('/mecanicos', _mecanico["default"]);
+app.use('/api/mecanicos', _mecanico["default"]);
 // app.use('/api/personas', personasRoutes); // sin protección CSRF...
 app.use('/api/personas', verifyCsrfToken, _persona["default"]); // CON PROTECCION CSRF...
-app.use('/tanqueos', _tanqueo["default"]);
+app.use('/api/tanqueos', _tanqueo["default"]);
 app.use('/api/usuarios', _usuario["default"]);
-app.use('/vehiculos', _vehiculo["default"]);
+app.use('/api/vehiculos', _vehiculo["default"]);
 app.use('/api/planillas', _volqueta["default"]);
 app.use(function (err, req, res, next) {
   if (err.code === 'EBADCSRFTOKEN') {
