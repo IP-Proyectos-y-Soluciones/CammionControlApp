@@ -25,11 +25,11 @@ try {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-700">
-    <div className='max-w-md'>
-    <div className='flex justify-center mb-6'> 
-        <img src={logo} alt='imagen' className='h-30 w-auto rounded-full'/> 
+    <div className='bg-white p-8 rounded-lg shadow-lg w-full max-w-md'>
+    <div className='flex justify-center mb-10'> 
+        <img src={logo} alt='imagen' className='h-30 w-auto'/> 
         </div>
-     <h1 className="text-4xl text-center mb-6 text-gray-900">Registrarse</h1> 
+     <h1 className="text-4xl text-center mb-6 text-gray-700">Registrarse</h1> 
       <form className="space-y-6" onSubmit={registerUserSubmit}>
           <input type="text" 
                 placeholder="John Doe" 
@@ -57,7 +57,7 @@ try {
           REGISTRARSE
           </button>
           <div className='text-center py-2 text-gray-400'>
-            Ya tiene una cuenta? <Link className='underline text-black' to={'/login'}>Iniciar Sesión</Link>
+            Ya tiene una cuenta? <Link className='underline text-black hover:text-red-800 transition-color' to={'/login'}>Iniciar Sesión</Link>
           </div>
       </form>
      </div>

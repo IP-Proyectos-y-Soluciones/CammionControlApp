@@ -24,7 +24,7 @@ alert('login successful');
         <div className='flex justify-center mb-10'> 
         <img src={logo} alt='imagen' className='h-30 w-auto'/> 
         </div>
-       <h1 className="text-4xl text-center mb-6 text-gray-900"></h1> 
+       <h1 className="text-4xl text-center mb-6 text-gray-700">Iniciar Sesión</h1> 
         <form className="space-y-6" onSubmit={handleLoginSubmit}>
             <input 
             type="email" 
