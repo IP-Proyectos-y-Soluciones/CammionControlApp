@@ -32,7 +32,7 @@ app.use(morgan('dev'));
 // Aquí, la URL (Front local) debe sustituirse por la URL del Front desplegado...
 app.use(
   cors({
-    origin: 'http://localhost:5174',
+    origin: 'http://localhost:5173',
     credentials: true,
   }),
 );
