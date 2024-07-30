@@ -25,8 +25,6 @@ const SECK = process.env.SKEY_TOKEN;
 export const TokenValidation = (req, res, next) => {
   const { 'auth-token': authToken } = req.cookies;
 
-  // console.log(req.cookies);
-
   if (!authToken)
     return res
       .status(401)
