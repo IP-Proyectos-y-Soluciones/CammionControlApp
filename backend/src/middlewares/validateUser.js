@@ -11,7 +11,7 @@ export const validateUser = [
     .isIn(['Admin', 'Empleado', 'Empresa'])
     .withMessage('Rol inválido...'),
   body('estado')
-    .isBoolean()
+    .isIn('Activo', 'Inactivo', 'Bloqueado')
     .withMessage('Estado inválido...'),
   body('personaId')
     .isMongoId()

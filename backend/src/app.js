@@ -9,6 +9,7 @@ import csrfMiddleware, {
   handleCsrfError,
 } from './middlewares/csrfMiddleware';
 import authRoutes from './routes/auth.routes';
+import adminRoutes from './routes/admin.routes';
 import cargaPesadaRoutes from './routes/cargaPesada.routes';
 import cloudinaryRoutes from './routes/cloudinary.routes';
 import documentosRoutes from './routes/documento.routes';
@@ -45,6 +46,7 @@ app.use(generateCsrfToken);
 
 // Routes...
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', verifyCsrfToken, adminRoutes); // CON PROTECCION CSRF...
 app.use(
   '/api/cargapesada',
   verifyCsrfToken, // CON PROTECCION CSRF...

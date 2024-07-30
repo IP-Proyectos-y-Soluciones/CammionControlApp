@@ -29,9 +29,6 @@ var SECK = process.env.SKEY_TOKEN;
  */
 var TokenValidation = exports.TokenValidation = function TokenValidation(req, res, next) {
   var authToken = req.cookies['auth-token'];
-
-  // console.log(req.cookies);
-
   if (!authToken) return res.status(401).json({
     message: 'Autorización denegada...!'
   });
