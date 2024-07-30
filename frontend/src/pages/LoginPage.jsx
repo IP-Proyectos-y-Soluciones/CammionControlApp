@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom'
 import '../index.css'
 import { useState } from 'react'
@@ -8,14 +9,26 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+//   async function handleLoginSubmit(e){
+//     e.preventDefault();
+// try {
+//  await axios.post(`${process.env.REACT_APP_API_URL}/login`, {email, password});
+// alert('login successful');
+// } catch (error) {
+//   alert('login failed');
+// }
+//   }
+
   async function handleLoginSubmit(e){
-    e.preventDefault();
-try {
- await axios.post('/login', {email, password});
-alert('login successful');
-} catch (error) {
-  alert('login failed');
-}
+  e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:7000/api/usuarios/', {
+        email, password
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
