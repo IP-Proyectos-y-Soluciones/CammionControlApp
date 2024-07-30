@@ -12,6 +12,7 @@ var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 var _dotenv = _interopRequireDefault(require("dotenv"));
 var _csrfMiddleware = _interopRequireWildcard(require("./middlewares/csrfMiddleware"));
 var _auth = _interopRequireDefault(require("./routes/auth.routes"));
+var _admin = _interopRequireDefault(require("./routes/admin.routes"));
 var _cargaPesada = _interopRequireDefault(require("./routes/cargaPesada.routes"));
 var _cloudinary = _interopRequireDefault(require("./routes/cloudinary.routes"));
 var _documento = _interopRequireDefault(require("./routes/documento.routes"));
@@ -49,6 +50,7 @@ app.use(_csrfMiddleware.generateCsrfToken);
 
 // Routes...
 app.use('/api/auth', _auth["default"]);
+app.use('/api/admin', _csrfMiddleware.verifyCsrfToken, _admin["default"]); // CON PROTECCION CSRF...
 app.use('/api/cargapesada', _csrfMiddleware.verifyCsrfToken,
 // CON PROTECCION CSRF...
 _cargaPesada["default"]);

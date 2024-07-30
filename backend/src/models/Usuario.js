@@ -16,9 +16,9 @@ const usuarioSchema = new mongoose.Schema(
       required: true,
     },
     estado: {
-      type: Boolean,
-      default: false,
-      required: true,
+      type: String,
+      enum: ['Activo', 'Inactivo', 'Bloqueado'],
+      default: 'Activo',
     },
     persona: {
       type: mongoose.Schema.Types.ObjectId,
