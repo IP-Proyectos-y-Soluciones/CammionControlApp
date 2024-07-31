@@ -21,8 +21,6 @@ export const login = async (req, res) => {
         .json({ message: 'Usuario no encontrado...!' });
     }
 
-    // // /////////console.log(usuarioReg.estado);
-
     if (usuarioReg.estado === 'Bloqueado') {
       return res.status(403).json({
         message:

@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const url = process.env.URLDB_DEV;
+// const url = process.env.URLDB_DEV;
+const url = process.env.URL_DB;
 
 export async function startConnection() {
   try {
