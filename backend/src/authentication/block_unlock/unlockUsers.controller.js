@@ -1,8 +1,4 @@
 import Usuario from '../../models/Usuario';
-import redis from '../../libs/RedisClient';
-
-const LOGIN_ATTEMPTS_KEY = (usuario) =>
-  `login_attempts_${usuario}`;
 
 export const unlockUser = async (req, res) => {
   try {
@@ -17,11 +13,9 @@ export const unlockUser = async (req, res) => {
     }
 
     usuarioReg.estado = 'Activo';
+    usuarioReg.intentosFallidos = 0;
+    usuarioReg.ultimoIntento = null;
     await usuarioReg.save();
-
-    // Se restablecer el contador de intentos fallidos en Redis
-    const attemptsKey = LOGIN_ATTEMPTS_KEY(usuario);
-    await redis.del(attemptsKey);
 
     return res.status(200).json({
       message: `El usuario ${usuario} ha sido desbloqueado exitosamente.`,
