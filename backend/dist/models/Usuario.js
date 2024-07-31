@@ -24,6 +24,13 @@ var usuarioSchema = new mongoose.Schema({
     "enum": ['Activo', 'Inactivo', 'Bloqueado'],
     "default": 'Activo'
   },
+  intentosFallidos: {
+    type: Number,
+    "default": 0
+  },
+  ultimoIntento: {
+    type: Date
+  },
   persona: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Persona',
