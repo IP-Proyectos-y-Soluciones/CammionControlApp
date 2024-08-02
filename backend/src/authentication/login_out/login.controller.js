@@ -2,6 +2,8 @@ import Usuario from '../../models/Usuario';
 import { decrypted } from '../passwords/decrypted';
 import { token } from '../tokens/token';
 
+const MAX_LOGIN_ATTEMPTS = 3;
+
 export const login = async (req, res) => {
   try {
     const { usuario, password } = req.body;
@@ -16,11 +18,33 @@ export const login = async (req, res) => {
         .json({ message: 'Usuario no encontrado...!' });
     }
 
+    if (usuarioReg.estado === 'Bloqueado') {
+      return res.status(403).json({
+        message:
+          'Usuario bloqueado. Contacte al administrador para desbloquearlo.',
+      });
+    }
     if (!(await decrypted(password, usuarioReg.password))) {
+      usuarioReg.intentosFallidos += 1;
+      usuarioReg.ultimoIntento = new Date();
+
+      if (
+        usuarioReg.intentosFallidos >= MAX_LOGIN_ATTEMPTS
+      ) {
+        usuarioReg.estado = 'Bloqueado';
+      }
+
+      await usuarioReg.save();
+
       return res
         .status(401)
         .json({ message: 'Password inválido...!' });
     }
+
+    // Resetear intentos fallidos en caso de login exitoso
+    usuarioReg.intentosFallidos = 0;
+    usuarioReg.ultimoIntento = null;
+    await usuarioReg.save();
 
     const userToken = await token(usuarioReg);
 

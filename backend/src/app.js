@@ -3,8 +3,13 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import csrf from 'csrf';
+import csrfMiddleware, {
+  generateCsrfToken,
+  verifyCsrfToken,
+  handleCsrfError,
+} from './middlewares/csrfMiddleware';
 import authRoutes from './routes/auth.routes';
+import adminRoutes from './routes/admin.routes';
 import cargaPesadaRoutes from './routes/cargaPesada.routes';
 import cloudinaryRoutes from './routes/cloudinary.routes';
 import documentosRoutes from './routes/documento.routes';
@@ -19,87 +24,49 @@ import volquetasRoutes from './routes/volqueta.routes';
 dotenv.config();
 
 const app = express();
-const csrfProtection = new csrf();
 
 // Settings...
 app.set('port', process.env.PORT || 8585 || 3070);
 
 // Middlewares...
 app.use(morgan('dev'));
-// app.use(
-//   cors({
-//     origin: 'http://localhost:5173',
-//     credentials: true,
-//   }),
-// );
+// Aquí, la URL (Front local) debe sustituirse por la URL del Front desplegado...
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Generar y enviar el token CSRF...
-app.use((req, res, next) => {
-  if (!req.cookies['csrf-secret']) {
-    const secret = csrfProtection.secretSync();
-
-    res.cookie('csrf-secret', secret, {
-      sameSite: 'none',
-      secure: true,
-    });
-    req.cookies['csrf-secret'] = secret; // Se debe añadir esto, para que esté disponible en esta solicitud
-  }
-
-  const csrfToken = csrfProtection.create(
-    req.cookies['csrf-secret'] ||
-      csrfProtection.secretSync(),
-  );
-
-  res.cookie('csrf-token', csrfToken, {
-    sameSite: 'none',
-    secure: true,
-  });
-  res.locals.csrfToken = csrfToken;
-
-  next();
-});
-
-// Middleware para verificar el token CSRF...
-const verifyCsrfToken = (req, res, next) => {
-  const csrfToken = req.headers['csrf-token']; // Se obtiene el token de los headers...
-  const csrfSecret = req.cookies['csrf-secret'];
-
-  if (csrfProtection.verify(csrfSecret, csrfToken)) {
-    next();
-  } else {
-    res.status(403).json({
-      message: 'Token CSRF inválido o perdido...',
-    });
-  }
-};
+// Middleware para generar el token CSRF...
+app.use(generateCsrfToken);
 
 // Routes...
 app.use('/api/auth', authRoutes);
-app.use('/api/cargapesada', cargaPesadaRoutes);
+app.use('/api/admin', verifyCsrfToken, adminRoutes); // CON PROTECCION CSRF...
+app.use(
+  '/api/cargapesada',
+  verifyCsrfToken, // CON PROTECCION CSRF...
+  cargaPesadaRoutes,
+);
 app.use('/api/cloudinary', cloudinaryRoutes);
 app.use('/api/documentos', documentosRoutes);
 app.use('/api/licencias', licenciasRoutes);
 app.use('/api/mecanicos', mecanicosRoutes);
-// app.use('/api/personas', personasRoutes); // sin protección CSRF...
 app.use('/api/personas', verifyCsrfToken, personasRoutes); // CON PROTECCION CSRF...
 app.use('/api/tanqueos', tanqueosRoutes);
-app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/usuarios', verifyCsrfToken, usuariosRoutes); // CON PROTECCION CSRF...
 app.use('/api/vehiculos', vehiculosRoutes);
 app.use('/api/planillas', volquetasRoutes);
 
-app.use((err, req, res, next) => {
-  if (err.code === 'EBADCSRFTOKEN') {
-    // Manejo de error CSRF
-    res.status(403).json({
-      message: 'Token CSRF inválido o perdido...',
-    });
-  } else {
-    next(err);
-  }
-});
+// Ruta para obtener el token CSRF...
+app.use(csrfMiddleware);
+
+// Middleware para manejo de errores CSRF...
+app.use(handleCsrfError);
 
 // Test route...
 app.get('/', (req, res) => {
@@ -108,11 +75,6 @@ app.get('/', (req, res) => {
       'port',
     )}...!`,
   );
-});
-
-// Ruta para obtener el token CSRF...
-app.use('/api/csrf-token', (req, res) => {
-  res.json({ csrfToken: res.locals.csrfToken });
 });
 
 export default app;

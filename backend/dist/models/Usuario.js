@@ -20,9 +20,16 @@ var usuarioSchema = new mongoose.Schema({
     required: true
   },
   estado: {
-    type: Boolean,
-    "default": false,
-    required: true
+    type: String,
+    "enum": ['Activo', 'Inactivo', 'Bloqueado'],
+    "default": 'Activo'
+  },
+  intentosFallidos: {
+    type: Number,
+    "default": 0
+  },
+  ultimoIntento: {
+    type: Date
   },
   persona: {
     type: mongoose.Schema.Types.ObjectId,
