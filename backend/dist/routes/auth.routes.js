@@ -11,9 +11,8 @@ var _verifyToken = require("../authentication/tokens/verifyToken");
 var router = (0, _express.Router)();
 router.post('/login', _login.login);
 router.post('/logout', _logout.logout);
-router.get('/check', _verifyToken.TokenValidation, function (req, res) {
-  res.json({
-    isAuthenticated: true
-  });
-});
+
+// router.get('/check', TokenValidation, (req, res) => {
+//   res.json({ isAuthenticated: true });
+// });
 var _default = exports["default"] = router;
