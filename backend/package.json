@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js --exec babel-node",
-    "build": "npm ci && babel src -d dist && copyfiles -u 1 src/views/**/* dist/views && copyfiles -u 1 src/public/**/* dist/public",
+    "build": "npm ci && babel src -d dist && npx copyfiles -u 1 src/views/**/* dist/views && npx copyfiles -u 1 src/public/**/* dist/public",
     "start": "node dist/index.js"
   },
   "author": "IP Proyectos y Soluciones",
