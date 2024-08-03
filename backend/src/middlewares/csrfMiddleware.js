@@ -10,7 +10,7 @@ export const generateCsrfToken = (req, res, next) => {
     const secret = csrfProtection.secretSync();
 
     res.cookie('csrf-secret', secret, {
-      sameSite: 'none',
+      sameSite: 'None',
       secure: true,
     });
     // Se debe añadir esto, para que esté disponible en esta solicitud...
@@ -23,7 +23,7 @@ export const generateCsrfToken = (req, res, next) => {
   );
 
   res.cookie('csrf-token', csrfToken, {
-    sameSite: 'none',
+    sameSite: 'None',
     secure: true,
   });
   res.locals.csrfToken = csrfToken;

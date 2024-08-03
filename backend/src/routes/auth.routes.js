@@ -9,8 +9,8 @@ router.post('/login', login);
 
 router.post('/logout', logout);
 
-router.get('/check', TokenValidation, (req, res) => {
-  res.json({ isAuthenticated: true });
-});
+// router.get('/check', TokenValidation, (req, res) => {
+//   res.json({ isAuthenticated: true });
+// });
 
 export default router;
