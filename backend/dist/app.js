@@ -36,7 +36,8 @@ app.set('port', process.env.PORT || 8585 || 3070);
 app.use((0, _morgan["default"])('dev'));
 // Aquí, la URL (Front local) debe sustituirse por la URL del Front desplegado...
 app.use((0, _cors["default"])({
-  origin: 'http://localhost:5173',
+  // origin: 'http://localhost:5173',
+  origin: process.env.URL_FRONTEND,
   credentials: true
 }));
 app.use(_express["default"].json());
