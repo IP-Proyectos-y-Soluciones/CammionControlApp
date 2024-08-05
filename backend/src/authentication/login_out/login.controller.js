@@ -49,8 +49,10 @@ export const login = async (req, res) => {
     const userToken = await token(usuarioReg);
 
     res.cookie('auth-token', userToken, {
+      httpOnly: true,
       sameSite: 'none',
       secure: true,
+      partitioned: true,
     });
 
     return res.status(200).json({
