@@ -73,8 +73,10 @@ var login = exports.login = /*#__PURE__*/function () {
         case 24:
           userToken = _context.sent;
           res.cookie('auth-token', userToken, {
-            sameSite: 'none',
-            secure: true
+            httpOnly: true,
+            sameSite: 'None',
+            secure: true,
+            partitioned: true
           });
           return _context.abrupt("return", res.status(200).json({
             message: "El usuario ".concat(usuario, " se ha loggeado exitosamente...!"),
