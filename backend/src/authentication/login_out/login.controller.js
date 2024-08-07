@@ -50,8 +50,8 @@ export const login = async (req, res) => {
 
     res.cookie('auth-token', userToken, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'None',
+      Secure: true,
+      SameSite: 'None',
       // partitioned: true,
     });
 

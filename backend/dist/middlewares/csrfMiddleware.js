@@ -16,8 +16,8 @@ var generateCsrfToken = exports.generateCsrfToken = function generateCsrfToken(r
     var secret = csrfProtection.secretSync();
     res.cookie('csrf-secret', secret, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'None'
+      Secure: true,
+      SameSite: 'None'
       // partitioned: true,
     });
     // Se debe añadir esto, para que esté disponible en esta solicitud...
@@ -26,8 +26,8 @@ var generateCsrfToken = exports.generateCsrfToken = function generateCsrfToken(r
   var csrfToken = csrfProtection.create(req.cookies['csrf-secret'] || csrfProtection.secretSync());
   res.cookie('csrf-token', csrfToken, {
     httpOnly: true,
-    secure: true,
-    sameSite: 'None'
+    Secure: true,
+    SameSite: 'None'
     // partitioned: true,
   });
   res.locals.csrfToken = csrfToken;
