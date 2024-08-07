@@ -15,16 +15,20 @@ var generateCsrfToken = exports.generateCsrfToken = function generateCsrfToken(r
   if (!req.cookies['csrf-secret']) {
     var secret = csrfProtection.secretSync();
     res.cookie('csrf-secret', secret, {
+      httpOnly: true,
       sameSite: 'None',
-      secure: true
+      secure: true,
+      partitioned: true
     });
     // Se debe añadir esto, para que esté disponible en esta solicitud...
     req.cookies['csrf-secret'] = secret;
   }
   var csrfToken = csrfProtection.create(req.cookies['csrf-secret'] || csrfProtection.secretSync());
   res.cookie('csrf-token', csrfToken, {
+    httpOnly: true,
     sameSite: 'None',
-    secure: true
+    secure: true,
+    partitioned: true
   });
   res.locals.csrfToken = csrfToken;
   next();
