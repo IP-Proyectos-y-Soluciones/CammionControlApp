@@ -74,8 +74,8 @@ var login = exports.login = /*#__PURE__*/function () {
           userToken = _context.sent;
           res.cookie('auth-token', userToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'None'
+            Secure: true,
+            SameSite: 'None'
             // partitioned: true,
           });
           return _context.abrupt("return", res.status(200).json({
