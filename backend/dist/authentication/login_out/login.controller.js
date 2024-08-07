@@ -74,9 +74,9 @@ var login = exports.login = /*#__PURE__*/function () {
           userToken = _context.sent;
           res.cookie('auth-token', userToken, {
             httpOnly: true,
-            SameSite: 'Lax',
-            secure: true
-            // partitioned: true,
+            SameSite: 'None',
+            Secure: true,
+            Partitioned: true
           });
           return _context.abrupt("return", res.status(200).json({
             message: "El usuario ".concat(usuario, " se ha loggeado exitosamente...!"),
