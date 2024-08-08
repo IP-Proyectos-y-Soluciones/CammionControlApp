@@ -7,41 +7,45 @@ import {
   getPersonaByID,
   updatePersona,
 } from '../controllers/personas.controller';
-import { TokenValidation } from '../authentication/tokens/verifyToken';
+// import { TokenValidation } from '../authentication/tokens/verifyToken';
 import { validatePerson } from '../middlewares/validatePerson';
 
 const router = Router();
 
 router.post(
   '/addpersona',
-  TokenValidation,
+  // TokenValidation,
   validatePerson,
   createPersona,
 );
 
-router.get('/', TokenValidation, getAllPersonas);
+router.get(
+  '/',
+  // TokenValidation,
+  getAllPersonas,
+);
 
 router.get(
   '/personaced/:cedula',
-  TokenValidation,
+  // TokenValidation,
   getPersonaByDNI,
 );
 
 router.get(
   '/personaid/:_id',
-  TokenValidation,
+  // TokenValidation,
   getPersonaByID,
 );
 
 router.patch(
   '/persona/edit/:_id',
-  TokenValidation,
+  // TokenValidation,
   updatePersona,
 );
 
 router.delete(
   '/persona/delete/:_id',
-  TokenValidation,
+  // TokenValidation,
   deletePersona,
 );
 

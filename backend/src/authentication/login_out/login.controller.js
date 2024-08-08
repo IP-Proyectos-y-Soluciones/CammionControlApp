@@ -1,6 +1,7 @@
 import Usuario from '../../models/Usuario';
 import { decrypted } from '../passwords/decrypted';
-import { token } from '../tokens/token';
+// import { token } from '../tokens/token'; // Activar para la producción...
+import { isLogin } from '../../test/vartest';
 
 const MAX_LOGIN_ATTEMPTS = 3;
 
@@ -36,6 +37,8 @@ export const login = async (req, res) => {
 
       await usuarioReg.save();
 
+      isLogin = true;
+
       return res
         .status(401)
         .json({ message: 'Password inválido...!' });
@@ -46,14 +49,15 @@ export const login = async (req, res) => {
     usuarioReg.ultimoIntento = null;
     await usuarioReg.save();
 
-    const userToken = await token(usuarioReg);
+    // // Esta sección tiene que ser activada en definitiva para la producción...
+    // const userToken = await token(usuarioReg);
 
-    res.cookie('auth-token', userToken, {
-      httpOnly: true,
-      Secure: true,
-      SameSite: 'None',
-      // partitioned: true,
-    });
+    // res.cookie('auth-token', userToken, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   sameSite: 'None',
+    //   // partitioned: true,
+    // });
 
     return res.status(200).json({
       message: `El usuario ${usuario} se ha loggeado exitosamente...!`,

@@ -11,8 +11,8 @@ export const generateCsrfToken = (req, res, next) => {
 
     res.cookie('csrf-secret', secret, {
       httpOnly: true,
-      Secure: true,
-      SameSite: 'None',
+      secure: true,
+      sameSite: 'None',
       // partitioned: true,
     });
     // Se debe añadir esto, para que esté disponible en esta solicitud...
@@ -25,7 +25,7 @@ export const generateCsrfToken = (req, res, next) => {
   );
 
   res.cookie('csrf-token', csrfToken, {
-    httpOnly: true,
+    // httpOnly: true,
     Secure: true,
     SameSite: 'None',
     // partitioned: true,

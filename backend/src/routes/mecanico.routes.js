@@ -6,21 +6,36 @@ import {
   updateMecanico,
   deleteMecanico,
 } from '../controllers/mecanicos.controller';
-import { TokenValidation } from '../authentication/tokens/verifyToken';
+// import { TokenValidation } from '../authentication/tokens/verifyToken';
 
 const router = Router();
 
-router.post('/create', TokenValidation, createMecanico);
-router.get('/', TokenValidation, getAllMecanicos);
-router.get('/:id', TokenValidation, getMecanicoById);
+router.post(
+  '/create',
+  // TokenValidation,
+  createMecanico,
+);
+
+router.get(
+  '/',
+  // TokenValidation,
+  getAllMecanicos,
+);
+
+router.get(
+  '/:id',
+  // TokenValidation,
+  getMecanicoById,
+);
+
 router.patch(
   '/update/:id',
-  TokenValidation,
+  // TokenValidation,
   updateMecanico,
 );
 router.delete(
   '/delete/:id',
-  TokenValidation,
+  // TokenValidation,
   deleteMecanico,
 );
 

@@ -1,5 +1,6 @@
 import Persona from '../models/Persona';
 import Usuario from '../models/Usuario';
+import isLogin from '../test/vartest';
 
 export const createPersona = async (req, res) => {
   const {
@@ -45,6 +46,13 @@ export const createPersona = async (req, res) => {
 
 export const getAllPersonas = async (req, res) => {
   try {
+    console.log(isLogin);
+
+    if (!isLogin)
+      return res
+        .status(401)
+        .json({ message: 'Debe loggearse primero...!' });
+
     const personas = await Persona.find();
 
     if (!personas)
