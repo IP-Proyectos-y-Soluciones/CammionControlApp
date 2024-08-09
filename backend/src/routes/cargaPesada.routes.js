@@ -7,7 +7,7 @@ import {
   getHeavyLoadByFormID,
   // updateHeavyLoadForm,
 } from '../controllers/cargaPesada.controller';
-// import { TokenValidation } from '../authentication/tokens/verifyToken';
+// import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para
 
 const router = Router();
 

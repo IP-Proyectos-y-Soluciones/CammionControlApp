@@ -7,7 +7,7 @@ import {
   getPersonaByID,
   updatePersona,
 } from '../controllers/personas.controller';
-// import { TokenValidation } from '../authentication/tokens/verifyToken';
+// import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 import { validatePerson } from '../middlewares/validatePerson';
 
 const router = Router();

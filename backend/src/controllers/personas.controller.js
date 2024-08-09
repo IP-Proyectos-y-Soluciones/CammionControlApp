@@ -1,6 +1,6 @@
 import Persona from '../models/Persona';
 import Usuario from '../models/Usuario';
-import isLogin from '../test/vartest';
+import { FindLoginStatus } from '../libs/changeStatusLogin';
 
 export const createPersona = async (req, res) => {
   const {
@@ -46,12 +46,16 @@ export const createPersona = async (req, res) => {
 
 export const getAllPersonas = async (req, res) => {
   try {
-    console.log(isLogin);
+    // ------------------------------------------------------------------------------------------------------------- //
+    // **** Esta sección deberá ser removida para la producción... **** //
+    const login = await FindLoginStatus(1);
 
-    if (!isLogin)
-      return res
-        .status(401)
-        .json({ message: 'Debe loggearse primero...!' });
+    if (login === false)
+      return res.status(401).json({
+        message:
+          'Acceso NO permitido: Debe loggearse primero...!!!',
+      });
+    // ------------------------------------------------------------------------------------------------------------- //
 
     const personas = await Persona.find();
 

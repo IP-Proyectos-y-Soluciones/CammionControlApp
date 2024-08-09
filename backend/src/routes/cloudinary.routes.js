@@ -7,7 +7,7 @@ import {
   updateImageById,
 } from '../controllers/cloudinarys.controller';
 import { Router } from 'express';
-// import { TokenValidation } from '../authentication/tokens/verifyToken';
+// import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 const router = Router();
 

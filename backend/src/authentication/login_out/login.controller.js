@@ -1,7 +1,7 @@
 import Usuario from '../../models/Usuario';
+import { ChangeLoginStatus } from '../../libs/changeStatusLogin'; // Remover para la producción...
 import { decrypted } from '../passwords/decrypted';
 // import { token } from '../tokens/token'; // Activar para la producción...
-import { isLogin } from '../../test/vartest';
 
 const MAX_LOGIN_ATTEMPTS = 3;
 
@@ -37,8 +37,6 @@ export const login = async (req, res) => {
 
       await usuarioReg.save();
 
-      isLogin = true;
-
       return res
         .status(401)
         .json({ message: 'Password inválido...!' });
@@ -47,7 +45,19 @@ export const login = async (req, res) => {
     // Resetear intentos fallidos en caso de login exitoso
     usuarioReg.intentosFallidos = 0;
     usuarioReg.ultimoIntento = null;
+
     await usuarioReg.save();
+
+    //
+    // **** Esta sección debe ser removida para la producción... **** //
+    // --------------------------------------------------------------------------------------------------------- //
+    try {
+      await ChangeLoginStatus(true, 1);
+    } catch (error) {
+      return res.status(500).json({ message: err.message });
+    }
+    // --------------------------------------------------------------------------------------------------------- //
+    //
 
     // // Esta sección tiene que ser activada en definitiva para la producción...
     // const userToken = await token(usuarioReg);

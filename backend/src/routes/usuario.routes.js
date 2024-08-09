@@ -6,7 +6,7 @@ import {
   getUsuario,
   updateUsuario,
 } from '../controllers/usuarios.controller';
-// import { TokenValidation } from '../authentication/tokens/verifyToken';
+// import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 import { validateUser } from '../middlewares/validateUser';
 
 const router = Router();

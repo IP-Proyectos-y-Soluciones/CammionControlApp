@@ -1,22 +1,20 @@
-export const logout = (req, res) => {
-  res.cookie('auth-token', '', {
-    expires: new Date(0),
-    sameSite: 'none',
-    secure: true,
-  });
-  res.cookie('csrf-token', '', {
-    expires: new Date(0),
-    sameSite: 'none',
-    secure: true,
-  });
-  res.cookie('csrf-secret', '', {
-    expires: new Date(0),
-    sameSite: 'none',
-    secure: true,
-  });
+import { ChangeLoginStatus } from '../../libs/changeStatusLogin';
 
-  // return res.sendStatus(200);
-  return res
-    .status(200)
-    .json({ message: 'Cierre de sesión exitoso...!' });
+export const logout = (req, res) => {
+  try {
+    ChangeLoginStatus(false, 1);
+
+    return res
+      .status(200)
+      .json({ message: 'You are logout...!' });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Error al intentar cambiar estado de login',
+      error: error.message,
+    });
+  }
+
+  // return res
+  //   .status(200)
+  //   .json({ message: 'Cierre de sesión exitoso...!' });
 };
