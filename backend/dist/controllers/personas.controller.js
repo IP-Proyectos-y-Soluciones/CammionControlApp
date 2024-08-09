@@ -72,7 +72,7 @@ var getAllPersonas = exports.getAllPersonas = /*#__PURE__*/function () {
           return (0, _changeStatusLogin.FindLoginStatus)(1);
         case 3:
           login = _context2.sent;
-          if (login) {
+          if (!(login === false)) {
             _context2.next = 6;
             break;
           }

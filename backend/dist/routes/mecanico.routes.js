@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _express = require("express");
 var _mecanicos = require("../controllers/mecanicos.controller");
-// import { TokenValidation } from '../authentication/tokens/verifyToken';
+// import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 var router = (0, _express.Router)();
 router.post('/create',

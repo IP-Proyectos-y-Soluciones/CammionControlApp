@@ -7,7 +7,7 @@ exports["default"] = void 0;
 var _express = require("express");
 var _usuarios = require("../controllers/usuarios.controller");
 var _validateUser = require("../middlewares/validateUser");
-// import { TokenValidation } from '../authentication/tokens/verifyToken';
+// import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 var router = (0, _express.Router)();
 router.post('/addusuario',
