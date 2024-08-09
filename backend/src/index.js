@@ -6,6 +6,7 @@ import CargaPesada from './models/CargaPesada.js';
 import Cloudinary from './models/Cloudinary.js';
 import Documento from './models/Documento.js';
 import Licencia from './models/Licencia.js';
+import LoginStatus from './models/LoginStatus.js'; // Debe ser removida para la producción...
 import Mecanico from './models/Mecanico.js';
 import Persona from './models/Persona.js';
 import Tanqueo from './models/Tanqueo.js';

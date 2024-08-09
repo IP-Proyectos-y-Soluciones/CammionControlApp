@@ -3,11 +3,14 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import csrfMiddleware, {
-  generateCsrfToken,
-  verifyCsrfToken,
-  handleCsrfError,
-} from './middlewares/csrfMiddleware';
+// import csrfMiddleware, {
+//   generateCsrfToken,
+//   verifyCsrfToken,
+//   handleCsrfError,
+// } from './middlewares/csrfMiddleware'; // Activar para la produccón..
+//
+import { AuxAuthMiddleware } from './middlewares/auxAuthMiddleware'; // Debe suprimirse para producción...
+//
 import authRoutes from './routes/auth.routes';
 import adminRoutes from './routes/admin.routes';
 import cargaPesadaRoutes from './routes/cargaPesada.routes';
@@ -43,31 +46,87 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Middleware para generar el token CSRF...
-app.use(generateCsrfToken);
+// app.use(generateCsrfToken); Activar para la producción... // ******
 
 // Routes...
 app.use('/api/auth', authRoutes);
-app.use('/api/admin', verifyCsrfToken, adminRoutes); // CON PROTECCION CSRF...
+//
+app.use(
+  '/api/admin',
+  // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
+  AuxAuthMiddleware, // Desactivar para la producción...
+  adminRoutes,
+);
+//
 app.use(
   '/api/cargapesada',
-  verifyCsrfToken, // CON PROTECCION CSRF...
+  // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
+  AuxAuthMiddleware, // Desactivar para la producción...
   cargaPesadaRoutes,
 );
-app.use('/api/cloudinary', cloudinaryRoutes);
-app.use('/api/documentos', documentosRoutes);
-app.use('/api/licencias', licenciasRoutes);
-app.use('/api/mecanicos', mecanicosRoutes);
-app.use('/api/personas', verifyCsrfToken, personasRoutes); // CON PROTECCION CSRF...
+//
+app.use(
+  '/api/cloudinary',
+  // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
+  AuxAuthMiddleware, // Desactivar para la producción...
+  cloudinaryRoutes,
+);
+//
+app.use(
+  '/api/documentos',
+  // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
+  AuxAuthMiddleware, // Desactivar para la producción...
+  documentosRoutes,
+);
+//
+app.use(
+  '/api/licencias',
+  // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
+  AuxAuthMiddleware, // Desactivar para la producción...
+  licenciasRoutes,
+);
+//
+app.use(
+  '/api/mecanicos',
+  // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
+  AuxAuthMiddleware, // Desactivar para la producción...
+  mecanicosRoutes,
+);
+//
+app.use(
+  '/api/personas',
+  // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
+  AuxAuthMiddleware, // Desactivar para la producción...
+  personasRoutes,
+);
+//
 app.use('/api/tanqueos', tanqueosRoutes);
-app.use('/api/usuarios', verifyCsrfToken, usuariosRoutes); // CON PROTECCION CSRF...
-app.use('/api/vehiculos', vehiculosRoutes);
-app.use('/api/planillas', volquetasRoutes);
+app.use(
+  '/api/usuarios',
+  // verifyCsrfToken,
+  AuxAuthMiddleware, // Desactivar para la producción...
+  usuariosRoutes,
+);
+//
+app.use(
+  '/api/vehiculos',
+  // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
+  AuxAuthMiddleware, // Desactivar para la producción...
+  vehiculosRoutes,
+);
+//
+app.use(
+  '/api/planillas',
+  // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
+  AuxAuthMiddleware, // Desactivar para la producción...
+  volquetasRoutes,
+);
 
-// Ruta para obtener el token CSRF...
-app.use(csrfMiddleware);
+// // Ruta para obtener el token CSRF... // Activar
+// app.use(csrfMiddleware);
 
-// Middleware para manejo de errores CSRF...
-app.use(handleCsrfError);
+// // Middleware para manejo de errores CSRF...
+// app.use(handleCsrfError);
 
 // Test route...
 app.get('/', (req, res) => {

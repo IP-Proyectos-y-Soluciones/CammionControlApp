@@ -1,6 +1,7 @@
 import Usuario from '../../models/Usuario';
+import { ChangeLoginStatus } from '../../libs/changeStatusLogin'; // Remover para la producción...
 import { decrypted } from '../passwords/decrypted';
-import { token } from '../tokens/token';
+// import { token } from '../tokens/token'; // Activar para la producción...
 
 const MAX_LOGIN_ATTEMPTS = 3;
 
@@ -44,16 +45,29 @@ export const login = async (req, res) => {
     // Resetear intentos fallidos en caso de login exitoso
     usuarioReg.intentosFallidos = 0;
     usuarioReg.ultimoIntento = null;
+
     await usuarioReg.save();
 
-    const userToken = await token(usuarioReg);
+    //
+    // **** Esta sección debe ser removida para la producción... **** //
+    // --------------------------------------------------------------------------------------------------------- //
+    try {
+      await ChangeLoginStatus(true, 1);
+    } catch (error) {
+      return res.status(500).json({ message: err.message });
+    }
+    // --------------------------------------------------------------------------------------------------------- //
+    //
 
-    res.cookie('auth-token', userToken, {
-      httpOnly: true,
-      Secure: true,
-      SameSite: 'None',
-      // partitioned: true,
-    });
+    // // Esta sección tiene que ser activada en definitiva para la producción...
+    // const userToken = await token(usuarioReg);
+
+    // res.cookie('auth-token', userToken, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   sameSite: 'None',
+    //   // partitioned: true,
+    // });
 
     return res.status(200).json({
       message: `El usuario ${usuario} se ha loggeado exitosamente...!`,

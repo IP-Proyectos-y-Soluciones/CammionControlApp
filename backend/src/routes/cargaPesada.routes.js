@@ -7,27 +7,31 @@ import {
   getHeavyLoadByFormID,
   // updateHeavyLoadForm,
 } from '../controllers/cargaPesada.controller';
-import { TokenValidation } from '../authentication/tokens/verifyToken';
+// import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para
 
 const router = Router();
 
 router.post(
   '/addplanillacarga',
-  TokenValidation,
+  // TokenValidation,
   createHeavyLoadForm,
 );
 
-router.get('/', TokenValidation, getAllHeavyLoadForms);
+router.get(
+  '/',
+  // TokenValidation,
+  getAllHeavyLoadForms,
+);
 
 router.get(
   '/planilla/:n_planilla',
-  TokenValidation,
+  // TokenValidation,
   getHeavyLoadByFormNumber,
 );
 
 router.get(
   '/planillaid/:_id',
-  TokenValidation,
+  // TokenValidation,
   getHeavyLoadByFormID,
 );
 

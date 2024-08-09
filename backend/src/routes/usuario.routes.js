@@ -6,27 +6,39 @@ import {
   getUsuario,
   updateUsuario,
 } from '../controllers/usuarios.controller';
-import { TokenValidation } from '../authentication/tokens/verifyToken';
+// import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 import { validateUser } from '../middlewares/validateUser';
 
 const router = Router();
 
 router.post(
   '/addusuario',
-  TokenValidation,
+  // TokenValidation,
   validateUser,
   registrarUsuario,
 );
 
-router.get('/', TokenValidation, getAllUsuarios);
+router.get(
+  '/',
+  // TokenValidation,
+  getAllUsuarios,
+);
 
-router.get('/:usuario', TokenValidation, getUsuario);
+router.get(
+  '/:usuario',
+  // TokenValidation,
+  getUsuario,
+);
 
-router.patch('/edit/:_id', TokenValidation, updateUsuario);
+router.patch(
+  '/edit/:_id',
+  // TokenValidation,
+  updateUsuario,
+);
 
 router.delete(
   '/delete/:_id',
-  TokenValidation,
+  // TokenValidation,
   deleteUsuario,
 );
 
