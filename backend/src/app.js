@@ -37,9 +37,7 @@ app.use(morgan('dev'));
 app.use(
   cors({
     // origin: 'http://localhost:5173',
-    origin:
-      process.env.URL_FRONTEND_PROD ||
-      process.env.URL_FRONTEND_DEV,
+    origin: process.env.URL_FRONTEND_PROD,
     credentials: true,
   }),
 );
