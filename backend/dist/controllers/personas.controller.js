@@ -28,7 +28,7 @@ var createPersona = exports.createPersona = /*#__PURE__*/function () {
             correo: correo,
             telefono: telefono,
             fecha_inicio_contrato: fecha_inicio_contrato,
-            fecha_final_contrato: fecha_final_contrato,
+            fecha_final_contrato: fecha_final_contrato || null,
             tipo_de_contrato: tipo_de_contrato
           });
           _context.next = 5;
@@ -42,16 +42,17 @@ var createPersona = exports.createPersona = /*#__PURE__*/function () {
         case 9:
           _context.prev = 9;
           _context.t0 = _context["catch"](1);
+          console.log(_context.t0);
           if (!(_context.t0 instanceof Error)) {
-            _context.next = 15;
+            _context.next = 16;
             break;
           }
           return _context.abrupt("return", res.status(500).json({
             error: _context.t0.message
           }));
-        case 15:
-          return _context.abrupt("return", res.status(500).json(_context.t0));
         case 16:
+          return _context.abrupt("return", res.status(500).json(_context.t0));
+        case 17:
         case "end":
           return _context.stop();
       }

@@ -24,7 +24,7 @@ export const createPersona = async (req, res) => {
       correo,
       telefono,
       fecha_inicio_contrato,
-      fecha_final_contrato,
+      fecha_final_contrato: fecha_final_contrato || null,
       tipo_de_contrato,
     });
 
@@ -36,6 +36,7 @@ export const createPersona = async (req, res) => {
       savedPersona,
     });
   } catch (error) {
+    console.log(error);
     if (error instanceof Error) {
       return res.status(500).json({ error: error.message });
     } else {
