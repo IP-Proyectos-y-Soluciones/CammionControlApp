@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var _express = _interopRequireDefault(require("express"));
+var _expressSession = _interopRequireDefault(require("express-session"));
+var _connectMongo = _interopRequireDefault(require("connect-mongo"));
 var _morgan = _interopRequireDefault(require("morgan"));
 var _cors = _interopRequireDefault(require("cors"));
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
@@ -37,6 +39,27 @@ var app = (0, _express["default"])();
 
 // Settings...
 app.set('port', process.env.PORT || 8585 || 3070);
+
+// Configuración de express-session con connect-mongo...
+app.use((0, _expressSession["default"])({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: _connectMongo["default"].create({
+    mongoUrl: process.env.URLDB_DEV,
+    // Inhibir para producción...
+    // mongoUrl: process.env.URL_DB, // Activar para producción...
+    collectionName: 'sessions',
+    ttl: 2 * 24 * 60 * 60 // Opcional: Tiempo de vida de la sesión en segundos (aquí: 2 días)...
+  }),
+  cookie: {
+    secure: false,
+    // Cambia a true en producción con HTTPS...
+    httpOnly: true,
+    // Ayuda a prevenir ataques XSS...
+    maxAge: 2 * 24 * 60 * 60 * 1000 // Opcional: Tiempo de vida de la cookie: 2 días en milisegundos...
+  }
+}));
 
 // Middlewares...
 app.use((0, _morgan["default"])('dev'));
@@ -104,7 +127,7 @@ app.use('/api/tanqueos', _tanqueo["default"]);
 app.use('/api/usuarios',
 // verifyCsrfToken,
 _auxAuthMiddleware.AuxAuthMiddleware,
-// Desactivar para la producción...
+// Desactivar para la producción... ////////////////
 _usuario["default"]);
 //
 app.use('/api/vehiculos',

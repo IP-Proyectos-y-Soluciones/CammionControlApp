@@ -6,9 +6,16 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var mongoose = require('mongoose');
 var usuarioSchema = new mongoose.Schema({
+  usuario_cedula: {
+    type: Number,
+    "default": 20,
+    required: true,
+    unique: true
+  },
   usuario: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   password: {
     type: String,
@@ -23,6 +30,10 @@ var usuarioSchema = new mongoose.Schema({
     type: String,
     "enum": ['Activo', 'Inactivo', 'Bloqueado'],
     "default": 'Activo'
+  },
+  logged: {
+    type: Boolean,
+    "default": false
   },
   intentosFallidos: {
     type: Number,

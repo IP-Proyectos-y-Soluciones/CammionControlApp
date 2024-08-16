@@ -1,4 +1,6 @@
 import express from 'express';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -30,6 +32,26 @@ const app = express();
 
 // Settings...
 app.set('port', process.env.PORT || 8585 || 3070);
+
+// Configuración de express-session con connect-mongo...
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.URLDB_DEV, // Inhibir para producción...
+      // mongoUrl: process.env.URL_DB, // Activar para producción...
+      collectionName: 'sessions',
+      ttl: 2 * 24 * 60 * 60, // Opcional: Tiempo de vida de la sesión en segundos (aquí: 2 días)...
+    }),
+    cookie: {
+      secure: false, // Cambia a true en producción con HTTPS...
+      httpOnly: true, // Ayuda a prevenir ataques XSS...
+      maxAge: 2 * 24 * 60 * 60 * 1000, // Opcional: Tiempo de vida de la cookie: 2 días en milisegundos...
+    },
+  }),
+);
 
 // Middlewares...
 app.use(morgan('dev'));
@@ -104,7 +126,7 @@ app.use('/api/tanqueos', tanqueosRoutes);
 app.use(
   '/api/usuarios',
   // verifyCsrfToken,
-  AuxAuthMiddleware, // Desactivar para la producción...
+  AuxAuthMiddleware, // Desactivar para la producción... ////////////////
   usuariosRoutes,
 );
 //

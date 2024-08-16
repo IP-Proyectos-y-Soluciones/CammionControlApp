@@ -2,9 +2,16 @@ const mongoose = require('mongoose');
 
 const usuarioSchema = new mongoose.Schema(
   {
+    usuario_cedula: {
+      type: Number,
+      default: 20,
+      required: true,
+      unique: true,
+    },
     usuario: {
       type: String,
       required: true,
+      unique: true,
     },
     password: {
       type: String,
@@ -19,6 +26,10 @@ const usuarioSchema = new mongoose.Schema(
       type: String,
       enum: ['Activo', 'Inactivo', 'Bloqueado'],
       default: 'Activo',
+    },
+    logged: {
+      type: Boolean,
+      default: false,
     },
     intentosFallidos: {
       type: Number,

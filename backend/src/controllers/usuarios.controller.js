@@ -3,12 +3,20 @@ import Persona from '../models/Persona';
 import { encrypted } from '../authentication/passwords/encrypted';
 
 export const registrarUsuario = async (req, res) => {
-  const { usuario, password, roles, estado, personaId } =
-    req.body;
+  const {
+    usuario_cedula,
+    usuario,
+    password,
+    roles,
+    estado,
+    logged,
+  } = req.body;
 
   try {
     // Verifica si la persona existe
-    const persona = await Persona.findById(personaId);
+    const persona = await Persona.findOne({
+      cedula: usuario_cedula,
+    });
 
     if (!persona) {
       return res.status(404).json({
@@ -22,10 +30,12 @@ export const registrarUsuario = async (req, res) => {
 
     // Crea un nuevo usuario con la referencia a la persona existente
     const newUsuario = new Usuario({
+      usuario_cedula,
       usuario,
       password: passwordEncrypted,
       roles,
       estado,
+      logged,
       persona: persona._id,
     });
 

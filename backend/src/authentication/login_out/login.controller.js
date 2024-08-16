@@ -1,5 +1,4 @@
 import Usuario from '../../models/Usuario';
-import { ChangeLoginStatus } from '../../libs/changeStatusLogin'; // Remover para la producción...
 import { decrypted } from '../passwords/decrypted';
 // import { token } from '../tokens/token'; // Activar para la producción...
 
@@ -19,13 +18,21 @@ export const login = async (req, res) => {
         .json({ message: 'Usuario no encontrado...!' });
     }
 
+    if (usuarioReg.logged === true) {
+      return res.status(304).json({
+        message: 'Ya tiene una sesión abierta...!',
+      });
+    }
+
     if (usuarioReg.estado === 'Bloqueado') {
       return res.status(403).json({
         message:
           'Usuario bloqueado. Contacte al administrador para desbloquearlo.',
       });
     }
+
     if (!(await decrypted(password, usuarioReg.password))) {
+      // Manejo de intentos fallidos y bloqueo...
       usuarioReg.intentosFallidos += 1;
       usuarioReg.ultimoIntento = new Date();
 
@@ -45,19 +52,9 @@ export const login = async (req, res) => {
     // Resetear intentos fallidos en caso de login exitoso
     usuarioReg.intentosFallidos = 0;
     usuarioReg.ultimoIntento = null;
+    usuarioReg.logged = true;
 
     await usuarioReg.save();
-
-    //
-    // **** Esta sección debe ser removida para la producción... **** //
-    // --------------------------------------------------------------------------------------------------------- //
-    try {
-      await ChangeLoginStatus(true, 1);
-    } catch (error) {
-      return res.status(500).json({ message: err.message });
-    }
-    // --------------------------------------------------------------------------------------------------------- //
-    //
 
     // // Esta sección tiene que ser activada en definitiva para la producción...
     // const userToken = await token(usuarioReg);
@@ -69,10 +66,33 @@ export const login = async (req, res) => {
     //   // partitioned: true,
     // });
 
-    return res.status(200).json({
-      message: `El usuario ${usuario} se ha loggeado exitosamente...!`,
-      usuarioReg,
+    // Regenerar el ID de sesión para prevenir ataques de fijación de sesión...
+    req.session.regenerate((err) => {
+      if (err) {
+        return res.status(500).json({
+          message: 'Error al regenerar la sesión.',
+        });
+      }
+
+      // Establecer datos en la nueva sesión...
+      req.session.cedula = usuarioReg.usuario_cedula;
+      req.session.logged = true;
+
+      // Continuar con la respuesta...
+      return res.status(200).json({
+        message: `El usuario ${usuario} se ha loggeado exitosamente...!`,
+        usuarioReg,
+      });
     });
+
+    // // Establecer datos en la nueva sesión...
+    // req.session.cedula = usuarioReg.usuario_cedula;
+    // req.session.logged = true;
+
+    // return res.status(200).json({
+    //   message: `El usuario ${usuario} se ha loggeado exitosamente...!`,
+    //   usuarioReg,
+    // });
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({ error: error.message });

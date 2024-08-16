@@ -14,14 +14,16 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var registrarUsuario = exports.registrarUsuario = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, usuario, password, roles, estado, personaId, persona, passwordEncrypted, newUsuario, savedUsuario;
+    var _req$body, usuario_cedula, usuario, password, roles, estado, logged, persona, passwordEncrypted, newUsuario, savedUsuario;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _req$body = req.body, usuario = _req$body.usuario, password = _req$body.password, roles = _req$body.roles, estado = _req$body.estado, personaId = _req$body.personaId;
+          _req$body = req.body, usuario_cedula = _req$body.usuario_cedula, usuario = _req$body.usuario, password = _req$body.password, roles = _req$body.roles, estado = _req$body.estado, logged = _req$body.logged;
           _context.prev = 1;
           _context.next = 4;
-          return _Persona["default"].findById(personaId);
+          return _Persona["default"].findOne({
+            cedula: usuario_cedula
+          });
         case 4:
           persona = _context.sent;
           if (persona) {
@@ -38,10 +40,12 @@ var registrarUsuario = exports.registrarUsuario = /*#__PURE__*/function () {
           passwordEncrypted = _context.sent;
           // Crea un nuevo usuario con la referencia a la persona existente
           newUsuario = new _Usuario["default"]({
+            usuario_cedula: usuario_cedula,
             usuario: usuario,
             password: passwordEncrypted,
             roles: roles,
             estado: estado,
+            logged: logged,
             persona: persona._id
           });
           _context.next = 13;
