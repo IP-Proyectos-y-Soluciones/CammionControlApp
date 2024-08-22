@@ -37,14 +37,34 @@ router.get(
   getPersonaByID,
 );
 
+// Para realizar actualización del empleado proporcionando
+// por URL el _id del mismo registrado...
 router.patch(
   '/persona/edit/:_id',
   // TokenValidation,
   updatePersona,
 );
 
+// Para realizar actualización del empleado proporcionando
+// por body el número de cédula...
+router.patch(
+  '/persona/edit',
+  // TokenValidation,
+  updatePersona,
+);
+
+// Para eliminar un empleado proporcionando
+// por URL el _id del mismo registrado...
 router.delete(
   '/persona/delete/:_id',
+  // TokenValidation,
+  deletePersona,
+);
+
+// Para eliminar un empleado proporcionando
+// por body el número de cédula...
+router.delete(
+  '/persona/delete',
   // TokenValidation,
   deletePersona,
 );
