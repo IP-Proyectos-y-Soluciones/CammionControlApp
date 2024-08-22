@@ -194,64 +194,81 @@ var getPersonaByID = exports.getPersonaByID = /*#__PURE__*/function () {
 }();
 var updatePersona = exports.updatePersona = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-    var _id, _req$body2, nombres, apellidos, fecha_nacimiento, correo, telefono, fecha_inicio_contrato, fecha_final_contrato, tipo_de_contrato, findPersona, updatedFields, updatedPersona;
+    var _id, cedula, updateData, _filter, findPersona, _updatePersona;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
         case 0:
           _context5.prev = 0;
           _id = req.params._id;
-          _req$body2 = req.body, nombres = _req$body2.nombres, apellidos = _req$body2.apellidos, fecha_nacimiento = _req$body2.fecha_nacimiento, correo = _req$body2.correo, telefono = _req$body2.telefono, fecha_inicio_contrato = _req$body2.fecha_inicio_contrato, fecha_final_contrato = _req$body2.fecha_final_contrato, tipo_de_contrato = _req$body2.tipo_de_contrato;
-          _context5.next = 5;
-          return _Persona["default"].findById(_id);
-        case 5:
+          cedula = req.body.cedula;
+          updateData = req.body;
+          _filter = {};
+          if (!(_id && /^[0-9a-fA-F]{24}$/.test(_id))) {
+            _context5.next = 9;
+            break;
+          }
+          _filter = {
+            _id: _id
+          };
+          _context5.next = 14;
+          break;
+        case 9:
+          if (!cedula) {
+            _context5.next = 13;
+            break;
+          }
+          _filter = {
+            cedula: Number(cedula)
+          };
+          _context5.next = 14;
+          break;
+        case 13:
+          return _context5.abrupt("return", res.status(400).json({
+            message: 'Debe proporcionar _id válido o nro. de cédula...!'
+          }));
+        case 14:
+          _context5.next = 16;
+          return _Persona["default"].findOne(_filter);
+        case 16:
           findPersona = _context5.sent;
           if (findPersona) {
-            _context5.next = 8;
+            _context5.next = 19;
             break;
           }
           return _context5.abrupt("return", res.status(404).json({
-            message: 'Usuario no encontrado...!'
+            message: 'Empleado no encontrado...!'
           }));
-        case 8:
-          // Se crea un objeto con los campos a actualizar...
-          updatedFields = {};
-          if (nombres !== undefined) updatedFields.nombres = nombres;
-          if (apellidos !== undefined) updatedFields.apellidos = apellidos;
-          if (fecha_nacimiento !== undefined) updatedFields.fecha_nacimiento = fecha_nacimiento;
-          if (correo !== undefined) updatedFields.correo = correo;
-          if (telefono !== undefined) updatedFields.telefono = telefono;
-          if (fecha_inicio_contrato !== undefined) updatedFields.fecha_inicio_contrato = fecha_inicio_contrato;
-          if (fecha_final_contrato !== undefined) updatedFields.fecha_final_contrato = fecha_final_contrato;
-          if (tipo_de_contrato !== undefined) updatedFields.tipo_de_contrato = tipo_de_contrato;
-
-          // Se actualiza la persona en la BD...
-          _context5.next = 19;
-          return _Persona["default"].findByIdAndUpdate(_id, {
-            $set: updatedFields
+        case 19:
+          _context5.next = 21;
+          return _Persona["default"].findOneAndUpdate(_filter, {
+            $set: updateData
           }, {
             "new": true
-          } // Para devolver persona actualizada...
+          } // Para devolver el registro actualizado...
           );
-        case 19:
-          updatedPersona = _context5.sent;
-          return _context5.abrupt("return", res.status(200).json(updatedPersona));
-        case 23:
-          _context5.prev = 23;
+        case 21:
+          _updatePersona = _context5.sent;
+          return _context5.abrupt("return", res.status(200).json({
+            message: "El empleado: ".concat(_updatePersona.nombres, " ").concat(_updatePersona.apellidos, " ha sido actualizado satisfactoriamente...!!!"),
+            updatePersona: _updatePersona
+          }));
+        case 25:
+          _context5.prev = 25;
           _context5.t0 = _context5["catch"](0);
           if (!(_context5.t0 instanceof Error)) {
-            _context5.next = 29;
+            _context5.next = 31;
             break;
           }
           return _context5.abrupt("return", res.status(500).json({
             error: _context5.t0.message
           }));
-        case 29:
+        case 31:
           return _context5.abrupt("return", res.status(500).json(_context5.t0));
-        case 30:
+        case 32:
         case "end":
           return _context5.stop();
       }
-    }, _callee5, null, [[0, 23]]);
+    }, _callee5, null, [[0, 25]]);
   }));
   return function updatePersona(_x9, _x10) {
     return _ref5.apply(this, arguments);
@@ -259,61 +276,121 @@ var updatePersona = exports.updatePersona = /*#__PURE__*/function () {
 }();
 var deletePersona = exports.deletePersona = /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
-    var _id, findPersona, findUsuarioPersona, deletedPersona;
+    var _id, cedula, findPersona, findUsuarioPersona;
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
         case 0:
           _context6.prev = 0;
           _id = req.params._id;
-          _context6.next = 4;
-          return _Persona["default"].findById(_id);
-        case 4:
+          cedula = req.body.cedula;
+          if (!(_id && /^[0-9a-fA-F]{24}$/.test(_id))) {
+            _context6.next = 7;
+            break;
+          }
+          filter = {
+            _id: _id
+          };
+          _context6.next = 12;
+          break;
+        case 7:
+          if (!cedula) {
+            _context6.next = 11;
+            break;
+          }
+          filter = {
+            cedula: Number(cedula)
+          };
+          _context6.next = 12;
+          break;
+        case 11:
+          return _context6.abrupt("return", res.status(400).json({
+            message: 'Debe proporcionar _id válido o nro. de cédula...!'
+          }));
+        case 12:
+          _context6.next = 14;
+          return _Persona["default"].findOne(filter);
+        case 14:
           findPersona = _context6.sent;
           if (findPersona) {
-            _context6.next = 7;
+            _context6.next = 17;
             break;
           }
           return _context6.abrupt("return", res.status(404).json({
             message: 'Persona no encontrado...!'
           }));
-        case 7:
-          _context6.next = 9;
+        case 17:
+          _context6.next = 19;
           return _Usuario["default"].findOne({
             persona: findPersona._id
           });
-        case 9:
+        case 19:
           findUsuarioPersona = _context6.sent;
           if (!findUsuarioPersona) {
-            _context6.next = 13;
+            _context6.next = 23;
             break;
           }
-          _context6.next = 13;
+          _context6.next = 23;
           return _Usuario["default"].findByIdAndDelete(findUsuarioPersona._id);
-        case 13:
-          _context6.next = 15;
-          return _Persona["default"].findByIdAndDelete(_id);
-        case 15:
-          deletedPersona = _context6.sent;
+        case 23:
+          _context6.next = 25;
+          return _Persona["default"].findByIdAndDelete(filter);
+        case 25:
           return _context6.abrupt("return", res.sendStatus(200));
-        case 19:
-          _context6.prev = 19;
+        case 28:
+          _context6.prev = 28;
           _context6.t0 = _context6["catch"](0);
           if (!(_context6.t0 instanceof Error)) {
-            _context6.next = 25;
+            _context6.next = 34;
             break;
           }
           return _context6.abrupt("return", res.status(500).json({
             error: _context6.t0.message
           }));
-        case 25:
+        case 34:
           return _context6.abrupt("return", res.status(500).json(_context6.t0));
-        case 26:
+        case 35:
         case "end":
           return _context6.stop();
       }
-    }, _callee6, null, [[0, 19]]);
+    }, _callee6, null, [[0, 28]]);
   }));
   return function deletePersona(_x11, _x12) {
     return _ref6.apply(this, arguments);
   };
 }();
+
+//   try {
+//     const { _id } = req.params;
+
+//     const findPersona = await Persona.findById(_id);
+
+//     if (!findPersona)
+//       return res
+//         .status(404)
+//         .json({ message: 'Persona no encontrado...!' });
+
+//     const findUsuarioPersona = await Usuario.findOne({
+//       persona: findPersona._id,
+//     });
+
+//     // Si tiene un "usuario" creado, se procede a su eliminación...
+//     if (findUsuarioPersona) {
+//       await Usuario.findByIdAndDelete(
+//         findUsuarioPersona._id,
+//       );
+//     }
+
+//     // Se elimina la persona de la BD...
+//     const deletedPersona = await Persona.findByIdAndDelete(
+//       _id,
+//     );
+
+//     return res.sendStatus(200);
+//   } catch (error) {
+//     if (error instanceof Error) {
+//       return res.status(500).json({ error: error.message });
+//     } else {
+//       return res.status(500).json(error);
+//     }
+//   }
+// };

@@ -65,8 +65,8 @@ app.use((0, _expressSession["default"])({
 app.use((0, _morgan["default"])('dev'));
 // Aquí, la URL (Front local) debe sustituirse por la URL del Front desplegado...
 app.use((0, _cors["default"])({
-  // origin: process.env.URL_FRONTEND_DEV,
-  origin: process.env.URL_FRONTEND_PROD,
+  origin: process.env.URL_FRONTEND_DEV,
+  // origin: process.env.URL_FRONTEND_PROD,
   credentials: true
 }));
 app.use(_express["default"].json());
