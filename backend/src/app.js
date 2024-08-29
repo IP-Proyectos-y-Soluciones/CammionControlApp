@@ -11,8 +11,9 @@ import dotenv from 'dotenv';
 //   handleCsrfError,
 // } from './middlewares/csrfMiddleware'; // Activar para la produccón..
 //
-import { AuxAuthMiddleware } from './middlewares/auxAuthMiddleware'; // Debe suprimirse para producción...
+import { AuxAuthMiddleware } from './middlewares/auxAuthMiddleware'; // Debe suprimirse para producción (Posiblemente quede)...
 //
+import { AuthAdmMiddleware } from './middlewares/authAdmMiddleware';
 import authRoutes from './routes/auth.routes';
 import adminRoutes from './routes/admin.routes';
 import cargaPesadaRoutes from './routes/cargaPesada.routes';
@@ -119,10 +120,12 @@ app.use(
   '/api/personas',
   // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
   AuxAuthMiddleware, // Desactivar para la producción...
+  AuthAdmMiddleware,
   personasRoutes,
 );
 //
 app.use('/api/tanqueos', tanqueosRoutes);
+//
 app.use(
   '/api/usuarios',
   // verifyCsrfToken,

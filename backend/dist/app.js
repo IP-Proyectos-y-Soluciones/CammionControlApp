@@ -12,6 +12,7 @@ var _cors = _interopRequireDefault(require("cors"));
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 var _dotenv = _interopRequireDefault(require("dotenv"));
 var _auxAuthMiddleware = require("./middlewares/auxAuthMiddleware");
+var _authAdmMiddleware = require("./middlewares/authAdmMiddleware");
 var _auth = _interopRequireDefault(require("./routes/auth.routes"));
 var _admin = _interopRequireDefault(require("./routes/admin.routes"));
 var _cargaPesada = _interopRequireDefault(require("./routes/cargaPesada.routes"));
@@ -31,7 +32,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default":
 //   handleCsrfError,
 // } from './middlewares/csrfMiddleware'; // Activar para la produccón..
 //
-// Debe suprimirse para producción...
+// Debe suprimirse para producción (Posiblemente quede)...
 //
 
 _dotenv["default"].config();
@@ -121,9 +122,10 @@ app.use('/api/personas',
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
-_persona["default"]);
+_authAdmMiddleware.AuthAdmMiddleware, _persona["default"]);
 //
 app.use('/api/tanqueos', _tanqueo["default"]);
+//
 app.use('/api/usuarios',
 // verifyCsrfToken,
 _auxAuthMiddleware.AuxAuthMiddleware,

@@ -19,7 +19,13 @@ _usuarios.getAllUsuarios);
 router.get('/:usuario',
 // TokenValidation,
 _usuarios.getUsuario);
-router.patch('/edit/:_id',
+
+// Para realizar actualización del usuario proporcionando
+// por URL el _id del mismo registrado...
+router.patch('/usuario/edit/:_id',
+// TokenValidation,
+_usuarios.updateUsuario);
+router.patch('/usuario/edit',
 // TokenValidation,
 _usuarios.updateUsuario);
 router["delete"]('/delete/:_id',

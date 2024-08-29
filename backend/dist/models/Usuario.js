@@ -23,7 +23,7 @@ var usuarioSchema = new mongoose.Schema({
   },
   roles: {
     type: String,
-    "enum": ['Admin', 'Empleado', 'Empresa'],
+    "enum": ['Owner', 'Admin', 'Empleado', 'Empresa'],
     required: true
   },
   estado: {

@@ -30,8 +30,16 @@ router.get(
   getUsuario,
 );
 
+// Para realizar actualización del usuario proporcionando
+// por URL el _id del mismo registrado...
 router.patch(
-  '/edit/:_id',
+  '/usuario/edit/:_id',
+  // TokenValidation,
+  updateUsuario,
+);
+
+router.patch(
+  '/usuario/edit',
   // TokenValidation,
   updateUsuario,
 );
