@@ -17,44 +17,34 @@ import { vencimientoLicenciasDocumentos } from './alertas/vencimientoLicenciasDo
 import { verificacionDeFecha } from './alertas/verificacionDeFecha';
 
 async function main() {
-  try {
-    await startConnection();
-    console.log('Database connected...');
+    try {
+        await startConnection();
+        console.log('Database connected...');
 
-    app.listen(app.get('port'), () => {
-      console.log(
-        `NODE Server is running on port: ${app.get(
-          'port',
-        )}`,
-      );
-    });
+        app.listen(app.get('port'), () => {
+            console.log(`NODE Server is running on port: ${app.get('port')}`);
+        });
 
-    // Apagado satisfactorio con SIGINT o SIGTERM...
-    process.on('SIGINT', () => {
-      console.log(
-        'Received SIGINT signal, shutting down...',
-      );
-      mongoose.connection.close(() => {
-        console.log('MongoDB connection closed...');
-        process.exit(0);
-      });
-    });
-  } catch (error) {
-    console.error(error);
-  }
+        // Apagado satisfactorio con SIGINT o SIGTERM...
+        process.on('SIGINT', () => {
+            console.log('Received SIGINT signal, shutting down...');
+            mongoose.connection.close(() => {
+                console.log('MongoDB connection closed...');
+                process.exit(0);
+            });
+        });
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 main();
 
 cron.schedule('0 8 * * *', () => {
-  console.log(
-    'Ejecutando tarea de cron para verificar vencimientos.',
-  );
-  vencimientoLicenciasDocumentos();
+    console.log('Ejecutando tarea de cron para verificar vencimientos.');
+    vencimientoLicenciasDocumentos();
 });
 cron.schedule('0 0 1 * *', () => {
-  console.log(
-    'Ejecutando tarea de cron para verificar fechas.',
-  );
-  verificacionDeFecha();
+    console.log('Ejecutando tarea de cron para verificar fechas.');
+    verificacionDeFecha();
 });

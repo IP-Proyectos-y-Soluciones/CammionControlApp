@@ -1,36 +1,36 @@
 import { Router } from 'express';
 import {
-  createLicencia,
-  getLicencia,
-  putLicencia,
-  deleteLicencia,
+    createLicencia,
+    getLicencia,
+    putLicencia,
+    deleteLicencia,
 } from '../controllers/licencias.controller';
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 const router = Router();
 
 router.post(
-  '/',
-  // TokenValidation,
-  createLicencia,
+    '/',
+    // TokenValidation,
+    createLicencia,
 );
 
 router.get(
-  '/',
-  // TokenValidation,
-  getLicencia,
+    '/',
+    // TokenValidation,
+    getLicencia,
 );
 
 router.put(
-  '/:id',
-  // TokenValidation,
-  putLicencia,
+    '/:id',
+    // TokenValidation,
+    putLicencia,
 );
 
 router.delete(
-  '/:id',
-  // TokenValidation,
-  deleteLicencia,
+    '/:id',
+    // TokenValidation,
+    deleteLicencia,
 );
 
 export default router;

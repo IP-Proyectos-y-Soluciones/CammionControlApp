@@ -1,43 +1,43 @@
 import { Router } from 'express';
 import {
-  createVehiculo,
-  getAllVehiculos,
-  getVehiculoById,
-  updateVehiculo,
-  deleteVehiculo,
+    createVehiculo,
+    getAllVehiculos,
+    getVehiculoById,
+    updateVehiculo,
+    deleteVehiculo,
 } from '../controllers/vehiculos.controller.js';
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 const router = Router();
 
 router.post(
-  '/create',
-  // TokenValidation,
-  createVehiculo,
+    '/create',
+    // TokenValidation,
+    createVehiculo,
 );
 
 router.get(
-  '/',
-  // TokenValidation,
-  getAllVehiculos,
+    '/',
+    // TokenValidation,
+    getAllVehiculos,
 );
 
 router.get(
-  '/:id',
-  // TokenValidation,
-  getVehiculoById,
+    '/:id',
+    // TokenValidation,
+    getVehiculoById,
 );
 
 router.patch(
-  '/update/:id',
-  // TokenValidation,
-  updateVehiculo,
+    '/update/:id',
+    // TokenValidation,
+    updateVehiculo,
 );
 
 router.delete(
-  '/delete/:id',
-  // TokenValidation,
-  deleteVehiculo,
+    '/delete/:id',
+    // TokenValidation,
+    deleteVehiculo,
 );
 
 export default router;

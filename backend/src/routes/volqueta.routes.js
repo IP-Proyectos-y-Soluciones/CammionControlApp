@@ -1,36 +1,36 @@
 import { Router } from 'express';
 import {
-  createVolqueta,
-  getVolqueta,
-  putVolqueta,
-  deleteVolqueta,
+    createVolqueta,
+    getVolqueta,
+    putVolqueta,
+    deleteVolqueta,
 } from '../controllers/volquetas.controller';
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 const router = Router();
 
 router.post(
-  '/',
-  // TokenValidation,
-  createVolqueta,
+    '/',
+    // TokenValidation,
+    createVolqueta,
 );
 
 router.get(
-  '/',
-  // TokenValidation,
-  getVolqueta,
+    '/',
+    // TokenValidation,
+    getVolqueta,
 );
 
 router.put(
-  '/:id',
-  // TokenValidation,
-  putVolqueta,
+    '/:id',
+    // TokenValidation,
+    putVolqueta,
 );
 
 router.delete(
-  '/:id',
-  // TokenValidation,
-  deleteVolqueta,
+    '/:id',
+    // TokenValidation,
+    deleteVolqueta,
 );
 
 export default router;
