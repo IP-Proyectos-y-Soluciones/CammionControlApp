@@ -1,38 +1,38 @@
 import { Router } from 'express';
 import {
-  createHeavyLoadForm,
-  // deleteHeavyLoadForm,
-  getAllHeavyLoadForms,
-  getHeavyLoadByFormNumber,
-  getHeavyLoadByFormID,
-  // updateHeavyLoadForm,
+    createHeavyLoadForm,
+    // deleteHeavyLoadForm,
+    getAllHeavyLoadForms,
+    getHeavyLoadByFormNumber,
+    getHeavyLoadByFormID,
+    // updateHeavyLoadForm,
 } from '../controllers/cargaPesada.controller';
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para
 
 const router = Router();
 
 router.post(
-  '/addplanillacarga',
-  // TokenValidation,
-  createHeavyLoadForm,
+    '/addplanillacarga',
+    // TokenValidation,
+    createHeavyLoadForm,
 );
 
 router.get(
-  '/',
-  // TokenValidation,
-  getAllHeavyLoadForms,
+    '/',
+    // TokenValidation,
+    getAllHeavyLoadForms,
 );
 
 router.get(
-  '/planilla/:n_planilla',
-  // TokenValidation,
-  getHeavyLoadByFormNumber,
+    '/planilla/:n_planilla',
+    // TokenValidation,
+    getHeavyLoadByFormNumber,
 );
 
 router.get(
-  '/planillaid/:_id',
-  // TokenValidation,
-  getHeavyLoadByFormID,
+    '/planillaid/:_id',
+    // TokenValidation,
+    getHeavyLoadByFormID,
 );
 
 // router.patch(

@@ -6,10 +6,10 @@ import { AuxAuthMiddleware } from '../middlewares/auxAuthMiddleware';
 const router = Router();
 
 router.post(
-  '/unlock-user',
-  // TokenValidation, // Activar para la producción...
-  AuxAuthMiddleware, // Debe suprimirse para la producción...
-  unlockUser,
+    '/unlock-user',
+    // TokenValidation, // Activar para la producción...
+    AuxAuthMiddleware, // Debe suprimirse para la producción...
+    unlockUser,
 );
 
 export default router;

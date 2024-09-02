@@ -15,7 +15,7 @@ router.post('/logout', logout);
 // });
 
 router.get('/checklogin', AuxAuthMiddleware, (req, res) => {
-  res.json({ isAuthenticated: true });
+    res.json({ isAuthenticated: true });
 });
 
 export default router;

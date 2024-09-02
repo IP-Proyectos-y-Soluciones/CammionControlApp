@@ -1,10 +1,10 @@
 import {
-  uploadImage,
-  parser,
-  getImagesFromCloudinay,
-  deleteImageById,
-  getImageById,
-  updateImageById,
+    uploadImage,
+    parser,
+    getImagesFromCloudinay,
+    deleteImageById,
+    getImageById,
+    updateImageById,
 } from '../controllers/cloudinarys.controller';
 import { Router } from 'express';
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
@@ -12,34 +12,34 @@ import { Router } from 'express';
 const router = Router();
 
 router.post(
-  '/upload',
-  // TokenValidation,
-  parser,
-  uploadImage,
+    '/upload',
+    // TokenValidation,
+    parser,
+    uploadImage,
 );
 
 router.get(
-  '/',
-  //TokenValidation,
-  getImagesFromCloudinay,
+    '/',
+    //TokenValidation,
+    getImagesFromCloudinay,
 );
 
 router.delete(
-  '/delete/:id',
-  // TokenValidation,
-  deleteImageById,
+    '/delete/:id',
+    // TokenValidation,
+    deleteImageById,
 );
 
 router.get(
-  '/:id',
-  // TokenValidation,
-  getImageById,
+    '/:id',
+    // TokenValidation,
+    getImageById,
 );
 
 router.put(
-  '/update/:id',
-  // TokenValidation,
-  updateImageById,
+    '/update/:id',
+    // TokenValidation,
+    updateImageById,
 );
 
 export default router;
