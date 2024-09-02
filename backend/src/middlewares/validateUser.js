@@ -13,7 +13,7 @@ export const validateUser = [
         .withMessage('El nombre de usuario es requerido...'),
     body('password').notEmpty().withMessage('El password es requerido...'),
     body('roles')
-        .isIn(['Admin', 'Empleado', 'Empresa'])
+        .isIn(['Owner', 'Admin', 'Empleado', 'Empresa'])
         .withMessage('Rol inválido...'),
     body('estado')
         .optional()

@@ -130,6 +130,7 @@ app.use(
     '/api/usuarios',
     // verifyCsrfToken,
     AuxAuthMiddleware, // Desactivar para la producción... ////////////////
+    AuthAdmMiddleware,
     usuariosRoutes,
 );
 //
