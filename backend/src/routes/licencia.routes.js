@@ -10,7 +10,7 @@ import {
 const router = Router();
 
 router.post(
-    '/',
+    '/addlicencia',
     // TokenValidation,
     createLicencia,
 );
@@ -22,13 +22,13 @@ router.get(
 );
 
 router.put(
-    '/:id',
+    '/edit/:id',
     // TokenValidation,
     putLicencia,
 );
 
 router.delete(
-    '/:id',
+    '/del/:id',
     // TokenValidation,
     deleteLicencia,
 );

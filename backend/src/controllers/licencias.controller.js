@@ -2,9 +2,42 @@ import Licencia from '../models/Licencia';
 import Persona from '../models/Persona';
 
 export const createLicencia = async (req, res) => {
+    // try {
+    //     const {
+    //         conductor,
+    //         licencia_N,
+    //         categoria,
+    //         clase_de_vehiculo,
+    //         servicio,
+    //         fecha_expedicion,
+    //         fecha_vencimiento,
+    //     } = req.body;
+    //     const persona = await Persona.findById(conductor);
+    //     if (!persona) {
+    //         return res.status(404).json({
+    //             message: 'El id de la persona no existe',
+    //         });
+    //     }
+    //     const newLicencia = new Licencia({
+    //         conductor,
+    //         licencia_N,
+    //         categoria,
+    //         clase_de_vehiculo,
+    //         servicio,
+    //         fecha_expedicion,
+    //         fecha_vencimiento,
+    //     });
+    //     await newLicencia.save();
+    //     res.status(200).json({
+    //         message: 'la licencia ha sido guardada correctamente!',
+    //         newLicencia,
+    //     });
+    // } catch (error) {
+    //     res.status(500).json(error);
+    // }
     try {
         const {
-            conductor,
+            conductor_cedula,
             licencia_N,
             categoria,
             clase_de_vehiculo,
@@ -13,14 +46,17 @@ export const createLicencia = async (req, res) => {
             fecha_vencimiento,
         } = req.body;
 
-        const persona = await Persona.findById(conductor);
-        if (!persona) {
+        const driver = await Persona.findOne({ cedula: conductor_cedula });
+
+        if (!driver) {
             return res.status(404).json({
-                message: 'El id de la persona no existe',
+                message: `El conductor con cédula: ${conductor_cedula} no se encuentra registrado...!`,
             });
         }
+
         const newLicencia = new Licencia({
-            conductor,
+            conductor: driver._id,
+            conductor_cedula,
             licencia_N,
             categoria,
             clase_de_vehiculo,
@@ -28,13 +64,26 @@ export const createLicencia = async (req, res) => {
             fecha_expedicion,
             fecha_vencimiento,
         });
-        await newLicencia.save();
-        res.status(200).json({
-            message: 'la licencia ha sido guardada correctamente!',
-            newLicencia,
+
+        const savedLicencia = await newLicencia.save();
+
+        const updateDataDriver = { licencias: savedLicencia._id };
+        await Persona.findOneAndUpdate(
+            driver._id,
+            { $set: updateDataDriver },
+            { new: true },
+        );
+
+        res.status(201).json({
+            message: 'Licencia creada exitosamente...!!!',
+            savedLicencia,
         });
     } catch (error) {
-        res.status(500).json(error);
+        if (error instanceof Error) {
+            return res.status(500).json({ error: error.message });
+        } else {
+            return res.status(500).json(error);
+        }
     }
 };
 

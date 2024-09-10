@@ -4,7 +4,11 @@ const licenciaSchema = new mongoose.Schema(
     {
         conductor: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Usuario',
+            ref: 'Persona',
+        },
+        conductor_cedula: {
+            type: Number,
+            required: true,
         },
         licencia_N: {
             type: Number,
@@ -15,15 +19,19 @@ const licenciaSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        clase_de_vehiculo: String,
-        servicio: String,
+        clase_de_vehiculo: {
+            type: String,
+        },
+        servicio: {
+            type: String,
+        },
         fecha_expedicion: {
             type: Date,
-            require: true,
+            required: true,
         },
         fecha_vencimiento: {
             type: Date,
-            require: true,
+            required: true,
         },
     },
     {

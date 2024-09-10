@@ -21,7 +21,10 @@ router.post('/logout', _logout.logout);
 
 router.get('/checklogin', _auxAuthMiddleware.AuxAuthMiddleware, function (req, res) {
   res.json({
-    isAuthenticated: true
+    isAuthenticated: true,
+    user: {
+      roles: ['Owner', 'Admin', 'Empleado']
+    }
   });
 });
 var _default = exports["default"] = router;

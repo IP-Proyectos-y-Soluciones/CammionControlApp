@@ -4,7 +4,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.putVolqueta = exports.getVolqueta = exports.deleteVolqueta = exports.createVolqueta = void 0;
+exports.putVolqueta = exports.getVolqueta = exports.getAllVolquetasForms = exports.deleteVolqueta = exports.createVolqueta = void 0;
 var _Volqueta = _interopRequireDefault(require("../models/Volqueta"));
 var _Persona = _interopRequireDefault(require("../models/Persona"));
 var _Vehiculo = _interopRequireDefault(require("../models/Vehiculo"));
@@ -14,54 +14,64 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, n_planilla, fecha, placas, conductor, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, persona, vehiculo_id, total_horas, start, end, total_km_dia, newVolqueta;
+    var _req$body, n_planilla, fecha, placa_vehiculo, cedula, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, driver, vehicle, total_horas, startH, endH, start, end, timezoneOffset, total_km_dia, volquetaData, newVolqueta, updateDataDriver, updateDataVehicle;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _req$body = req.body, n_planilla = _req$body.n_planilla, fecha = _req$body.fecha, placas = _req$body.placas, conductor = _req$body.conductor, cliente = _req$body.cliente, volmts3 = _req$body.volmts3, n_viajes = _req$body.n_viajes, material = _req$body.material, hora_inicio = _req$body.hora_inicio, hora_final = _req$body.hora_final, km_inicial = _req$body.km_inicial, km_final = _req$body.km_final, lugar_de_cargue = _req$body.lugar_de_cargue, lugar_de_descargue = _req$body.lugar_de_descargue, observacion = _req$body.observacion;
+          _req$body = req.body, n_planilla = _req$body.n_planilla, fecha = _req$body.fecha, placa_vehiculo = _req$body.placa_vehiculo, cedula = _req$body.cedula, cliente = _req$body.cliente, volmts3 = _req$body.volmts3, n_viajes = _req$body.n_viajes, material = _req$body.material, hora_inicio = _req$body.hora_inicio, hora_final = _req$body.hora_final, km_inicial = _req$body.km_inicial, km_final = _req$body.km_final, lugar_de_cargue = _req$body.lugar_de_cargue, lugar_de_descargue = _req$body.lugar_de_descargue, observacion = _req$body.observacion;
           _context.next = 4;
-          return _Persona["default"].findById(conductor);
+          return _Persona["default"].findOne({
+            cedula: cedula
+          });
         case 4:
-          persona = _context.sent;
-          if (persona) {
+          driver = _context.sent;
+          if (driver) {
             _context.next = 7;
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: 'El id de la persona no existe'
+            message: "El conductor con la c\xE9dula ".concat(cedula, " NO se encuentra registrado...!")
           }));
         case 7:
           _context.next = 9;
-          return _Vehiculo["default"].findById(placas);
+          return _Vehiculo["default"].findOne({
+            placa: placa_vehiculo
+          });
         case 9:
-          vehiculo_id = _context.sent;
-          if (vehiculo_id) {
+          vehicle = _context.sent;
+          if (vehicle) {
             _context.next = 12;
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: 'Las placas del vehiculo no existen'
+            message: "El veh\xEDculo con placa ".concat(placa, " NO se encuentra registrado...!")
           }));
         case 12:
           total_horas = 0;
           if (hora_inicio && hora_final) {
             start = new Date(hora_inicio);
-            end = new Date(hora_final);
-            total_horas = (end - start) / (1000 * 60 * 60);
+            end = new Date(hora_final); //
+            timezoneOffset = new Date().getTimezoneOffset(); // Devuelve el offset en minutos...
+            //
+            startH = new Date(start.getTime() - timezoneOffset * 60000);
+            endH = new Date(end.getTime() - timezoneOffset * 60000);
+            total_horas = (endH - startH) / (1000 * 60 * 60);
           }
           total_km_dia = km_final - km_inicial;
-          newVolqueta = new _Volqueta["default"]({
+          volquetaData = new _Volqueta["default"]({
             n_planilla: n_planilla,
             fecha: fecha,
-            placas: placas,
-            conductor: conductor,
+            placa_vehiculo: placa_vehiculo,
+            placa: vehicle._id,
+            conductor_cedula: cedula,
+            conductor: driver._id,
             cliente: cliente,
             volmts3: volmts3,
             n_viajes: n_viajes,
             material: material,
-            hora_inicio: hora_inicio,
-            hora_final: hora_final,
+            hora_inicio: startH,
+            hora_final: endH,
             total_horas: total_horas,
             km_inicial: km_inicial,
             km_final: km_final,
@@ -71,49 +81,119 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
             observacion: observacion
           });
           _context.next = 18;
-          return newVolqueta.save();
+          return volquetaData.save();
         case 18:
-          res.status(200).json({
+          newVolqueta = _context.sent;
+          updateDataDriver = {
+            volquetas: newVolqueta._id
+          };
+          _context.next = 22;
+          return _Persona["default"].findOneAndUpdate(driver._id, {
+            $set: updateDataDriver
+          }, {
+            "new": true
+          });
+        case 22:
+          //
+          updateDataVehicle = {
+            volquetas: newVolqueta._id
+          };
+          _context.next = 25;
+          return _Vehiculo["default"].findOneAndUpdate(vehicle._id, {
+            $set: updateDataVehicle
+          }, {
+            "new": true
+          });
+        case 25:
+          return _context.abrupt("return", res.status(201).json({
             message: 'El formulario fue guardado correctamente!',
             newVolqueta: newVolqueta
-          });
-          _context.next = 24;
-          break;
-        case 21:
-          _context.prev = 21;
+          }));
+        case 28:
+          _context.prev = 28;
           _context.t0 = _context["catch"](0);
-          res.status(500).json(_context.t0);
-        case 24:
+          if (!(_context.t0 instanceof Error)) {
+            _context.next = 34;
+            break;
+          }
+          return _context.abrupt("return", res.status(500).json({
+            error: _context.t0.message
+          }));
+        case 34:
+          return _context.abrupt("return", res.status(500).json(_context.t0));
+        case 35:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 21]]);
+    }, _callee, null, [[0, 28]]);
   }));
   return function createVolqueta(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();
-var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
+var getAllVolquetasForms = exports.getAllVolquetasForms = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var _req$query, n_planilla, _conductor_id, placas, query, planilla;
+    var allVolquetasForm;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
+          _context2.next = 3;
+          return _Volqueta["default"].find();
+        case 3:
+          allVolquetasForm = _context2.sent;
+          if (allVolquetasForm) {
+            _context2.next = 6;
+            break;
+          }
+          return _context2.abrupt("return", res.status(404).json({
+            message: 'No existe ninguna planilla de volquetas registrada...!'
+          }));
+        case 6:
+          return _context2.abrupt("return", res.status(200).json(allVolquetasForm));
+        case 9:
+          _context2.prev = 9;
+          _context2.t0 = _context2["catch"](0);
+          if (!(_context2.t0 instanceof Error)) {
+            _context2.next = 15;
+            break;
+          }
+          return _context2.abrupt("return", res.status(500).json({
+            error: _context2.t0.message
+          }));
+        case 15:
+          return _context2.abrupt("return", res.status(500).json(_context2.t0));
+        case 16:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[0, 9]]);
+  }));
+  return function getAllVolquetasForms(_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+    var _req$query, n_planilla, _conductor_id, placas, query, planilla;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
           _req$query = req.query, n_planilla = _req$query.n_planilla, _conductor_id = _req$query.conductor_id, placas = _req$query.placas;
           query = {};
           if (n_planilla) query.n_planilla = n_planilla;
           if (_conductor_id) query.conductor = _conductor_id; // debe ser "conductor" en lugar de "conductor_id"
           if (placas) query.placas = placas;
-          _context2.next = 8;
+          _context3.next = 8;
           return _Volqueta["default"].find(query).populate('conductor').populate('placas');
         case 8:
-          planilla = _context2.sent;
+          planilla = _context3.sent;
           if (!(planilla.length === 0)) {
-            _context2.next = 11;
+            _context3.next = 11;
             break;
           }
-          return _context2.abrupt("return", res.status(404).json({
+          return _context3.abrupt("return", res.status(404).json({
             message: 'Planilla no encontrada'
           }));
         case 11:
@@ -121,54 +201,54 @@ var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
             message: 'Planilla encontrada',
             planilla: planilla
           });
-          _context2.next = 17;
+          _context3.next = 17;
           break;
         case 14:
-          _context2.prev = 14;
-          _context2.t0 = _context2["catch"](0);
+          _context3.prev = 14;
+          _context3.t0 = _context3["catch"](0);
           res.status(500).json({
             message: 'Error al obtener las planillas',
-            error: _context2.t0.message
+            error: _context3.t0.message
           });
         case 17:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
-    }, _callee2, null, [[0, 14]]);
+    }, _callee3, null, [[0, 14]]);
   }));
-  return function getVolqueta(_x3, _x4) {
-    return _ref2.apply(this, arguments);
+  return function getVolqueta(_x5, _x6) {
+    return _ref3.apply(this, arguments);
   };
 }();
 var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
     var _req$body2, n_planilla, fecha, placas, conductor, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, persona, vehiculo_id, total_horas, start, end, total_km_dia, planilla;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
         case 0:
-          _context3.prev = 0;
+          _context4.prev = 0;
           _req$body2 = req.body, n_planilla = _req$body2.n_planilla, fecha = _req$body2.fecha, placas = _req$body2.placas, conductor = _req$body2.conductor, cliente = _req$body2.cliente, volmts3 = _req$body2.volmts3, n_viajes = _req$body2.n_viajes, material = _req$body2.material, hora_inicio = _req$body2.hora_inicio, hora_final = _req$body2.hora_final, km_inicial = _req$body2.km_inicial, km_final = _req$body2.km_final, lugar_de_cargue = _req$body2.lugar_de_cargue, lugar_de_descargue = _req$body2.lugar_de_descargue, observacion = _req$body2.observacion;
-          _context3.next = 4;
+          _context4.next = 4;
           return _Persona["default"].findById(conductor_id);
         case 4:
-          persona = _context3.sent;
+          persona = _context4.sent;
           if (persona) {
-            _context3.next = 7;
+            _context4.next = 7;
             break;
           }
-          return _context3.abrupt("return", res.status(404).json({
+          return _context4.abrupt("return", res.status(404).json({
             message: 'El id de la persona no existe'
           }));
         case 7:
-          _context3.next = 9;
+          _context4.next = 9;
           return _Vehiculo["default"].findById(placas);
         case 9:
-          vehiculo_id = _context3.sent;
+          vehiculo_id = _context4.sent;
           if (vehiculo_id) {
-            _context3.next = 12;
+            _context4.next = 12;
             break;
           }
-          return _context3.abrupt("return", res.status(404).json({
+          return _context4.abrupt("return", res.status(404).json({
             message: 'Las placas del vehiculo no existen'
           }));
         case 12:
@@ -179,7 +259,7 @@ var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
             total_horas = (end - start) / (1000 * 60 * 60);
           }
           total_km_dia = km_final - km_inicial;
-          _context3.next = 17;
+          _context4.next = 17;
           return _Volqueta["default"].findByIdAndUpdate(req.params.id, {
             n_planilla: n_planilla,
             fecha: fecha,
@@ -202,12 +282,12 @@ var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
             "new": true
           });
         case 17:
-          planilla = _context3.sent;
+          planilla = _context4.sent;
           if (planilla) {
-            _context3.next = 20;
+            _context4.next = 20;
             break;
           }
-          return _context3.abrupt("return", res.status(404).json({
+          return _context4.abrupt("return", res.status(404).json({
             message: 'Planilla no encontrada'
           }));
         case 20:
@@ -215,38 +295,38 @@ var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
             message: 'El formulario fue actualizado correctamente!',
             planilla: planilla
           });
-          _context3.next = 26;
+          _context4.next = 26;
           break;
         case 23:
-          _context3.prev = 23;
-          _context3.t0 = _context3["catch"](0);
-          res.status(500).json(_context3.t0);
+          _context4.prev = 23;
+          _context4.t0 = _context4["catch"](0);
+          res.status(500).json(_context4.t0);
         case 26:
         case "end":
-          return _context3.stop();
+          return _context4.stop();
       }
-    }, _callee3, null, [[0, 23]]);
+    }, _callee4, null, [[0, 23]]);
   }));
-  return function putVolqueta(_x5, _x6) {
-    return _ref3.apply(this, arguments);
+  return function putVolqueta(_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 }();
 var deleteVolqueta = exports.deleteVolqueta = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
     var planilla;
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
         case 0:
-          _context4.prev = 0;
-          _context4.next = 3;
+          _context5.prev = 0;
+          _context5.next = 3;
           return _Volqueta["default"].findByIdAndDelete(req.params.id);
         case 3:
-          planilla = _context4.sent;
+          planilla = _context5.sent;
           if (planilla) {
-            _context4.next = 6;
+            _context5.next = 6;
             break;
           }
-          return _context4.abrupt("return", res.status(404).json({
+          return _context5.abrupt("return", res.status(404).json({
             message: 'Planilla no encontrada'
           }));
         case 6:
@@ -254,19 +334,19 @@ var deleteVolqueta = exports.deleteVolqueta = /*#__PURE__*/function () {
             message: 'La planilla ha sido eliminada correctamente!',
             planilla: planilla
           });
-          _context4.next = 12;
+          _context5.next = 12;
           break;
         case 9:
-          _context4.prev = 9;
-          _context4.t0 = _context4["catch"](0);
-          res.status(500).json(_context4.t0);
+          _context5.prev = 9;
+          _context5.t0 = _context5["catch"](0);
+          res.status(500).json(_context5.t0);
         case 12:
         case "end":
-          return _context4.stop();
+          return _context5.stop();
       }
-    }, _callee4, null, [[0, 9]]);
+    }, _callee5, null, [[0, 9]]);
   }));
-  return function deleteVolqueta(_x7, _x8) {
-    return _ref4.apply(this, arguments);
+  return function deleteVolqueta(_x9, _x10) {
+    return _ref5.apply(this, arguments);
   };
 }();

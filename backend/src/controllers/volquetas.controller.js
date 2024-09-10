@@ -7,8 +7,8 @@ export const createVolqueta = async (req, res) => {
         const {
             n_planilla,
             fecha,
-            placas,
-            conductor,
+            placa_vehiculo,
+            cedula,
             cliente,
             volmts3,
             n_viajes,
@@ -22,39 +22,53 @@ export const createVolqueta = async (req, res) => {
             observacion,
         } = req.body;
 
-        const persona = await Persona.findById(conductor);
-        if (!persona) {
+        const driver = await Persona.findOne({ cedula: cedula });
+
+        if (!driver) {
             return res.status(404).json({
-                message: 'El id de la persona no existe',
+                message: `El conductor con la cédula ${cedula} NO se encuentra registrado...!`,
             });
         }
-        const vehiculo_id = await Vehiculo.findById(placas);
-        if (!vehiculo_id) {
+
+        const vehicle = await Vehiculo.findOne({ placa: placa_vehiculo });
+
+        if (!vehicle) {
             return res.status(404).json({
-                message: 'Las placas del vehiculo no existen',
+                message: `El vehículo con placa ${placa} NO se encuentra registrado...!`,
             });
         }
 
         let total_horas = 0;
+        let startH;
+        let endH;
+
         if (hora_inicio && hora_final) {
             const start = new Date(hora_inicio);
             const end = new Date(hora_final);
-            total_horas = (end - start) / (1000 * 60 * 60);
+            //
+            const timezoneOffset = new Date().getTimezoneOffset(); // Devuelve el offset en minutos...
+            //
+            startH = new Date(start.getTime() - timezoneOffset * 60000);
+            endH = new Date(end.getTime() - timezoneOffset * 60000);
+
+            total_horas = (endH - startH) / (1000 * 60 * 60);
         }
 
         const total_km_dia = km_final - km_inicial;
 
-        const newVolqueta = new Volqueta({
+        const volquetaData = new Volqueta({
             n_planilla,
             fecha,
-            placas,
-            conductor,
+            placa_vehiculo,
+            placa: vehicle._id,
+            conductor_cedula: cedula,
+            conductor: driver._id,
             cliente,
             volmts3,
             n_viajes,
             material,
-            hora_inicio,
-            hora_final,
+            hora_inicio: startH,
+            hora_final: endH,
             total_horas,
             km_inicial,
             km_final,
@@ -64,14 +78,123 @@ export const createVolqueta = async (req, res) => {
             observacion,
         });
 
-        await newVolqueta.save();
+        const newVolqueta = await volquetaData.save();
 
-        res.status(200).json({
+        const updateDataDriver = { volquetas: newVolqueta._id };
+        await Persona.findOneAndUpdate(
+            driver._id,
+            { $set: updateDataDriver },
+            { new: true },
+        );
+        //
+        const updateDataVehicle = { volquetas: newVolqueta._id };
+        await Vehiculo.findOneAndUpdate(
+            vehicle._id,
+            { $set: updateDataVehicle },
+            { new: true },
+        );
+
+        return res.status(201).json({
             message: 'El formulario fue guardado correctamente!',
             newVolqueta,
         });
     } catch (error) {
-        res.status(500).json(error);
+        if (error instanceof Error) {
+            return res.status(500).json({ error: error.message });
+        } else {
+            return res.status(500).json(error);
+        }
+    }
+    // try {
+    //     const {
+    //         n_planilla,
+    //         fecha,
+    //         placas,
+    //         conductor,
+    //         cliente,
+    //         volmts3,
+    //         n_viajes,
+    //         material,
+    //         hora_inicio,
+    //         hora_final,
+    //         km_inicial,
+    //         km_final,
+    //         lugar_de_cargue,
+    //         lugar_de_descargue,
+    //         observacion,
+    //     } = req.body;
+
+    //     const persona = await Persona.findById(conductor);
+    //     if (!persona) {
+    //         return res.status(404).json({
+    //             message: 'El id de la persona no existe',
+    //         });
+    //     }
+    //     const vehiculo_id = await Vehiculo.findById(placas);
+    //     if (!vehiculo_id) {
+    //         return res.status(404).json({
+    //             message: 'Las placas del vehiculo no existen',
+    //         });
+    //     }
+
+    //     let total_horas = 0;
+    //     if (hora_inicio && hora_final) {
+    //         const start = new Date(hora_inicio);
+    //         const end = new Date(hora_final);
+    //         total_horas = (end - start) / (1000 * 60 * 60);
+    //     }
+
+    //     const total_km_dia = km_final - km_inicial;
+
+    //     const newVolqueta = new Volqueta({
+    //         n_planilla,
+    //         fecha,
+    //         placas,
+    //         conductor,
+    //         cliente,
+    //         volmts3,
+    //         n_viajes,
+    //         material,
+    //         hora_inicio,
+    //         hora_final,
+    //         total_horas,
+    //         km_inicial,
+    //         km_final,
+    //         total_km_dia,
+    //         lugar_de_cargue,
+    //         lugar_de_descargue,
+    //         observacion,
+    //     });
+
+    //     await newVolqueta.save();
+
+    //     res.status(200).json({
+    //         message: 'El formulario fue guardado correctamente!',
+    //         newVolqueta,
+    //     });
+    // } catch (error) {
+    //     res.status(500).json(error);
+    // }
+};
+
+export const getAllVolquetasForms = async (req, res) => {
+    try {
+        const allVolquetasForm = await Volqueta.find();
+
+        if (!allVolquetasForm) {
+            return res.status(404).json({
+                message:
+                    'No existe ninguna planilla de volquetas registrada...!',
+            });
+        }
+
+        return res.status(200).json(allVolquetasForm);
+    } catch (error) {
+        if (error instanceof Error) {
+            return res.status(500).json({ error: error.message });
+        } else {
+            return res.status(500).json(error);
+        }
     }
 };
 

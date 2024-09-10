@@ -11,6 +11,10 @@ var cargaPesadaSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  vehiculo_placa: {
+    type: String,
+    required: true
+  },
   fecha_inicio: {
     type: Date,
     "default": Date.now,

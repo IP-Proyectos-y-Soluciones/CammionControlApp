@@ -18,6 +18,12 @@ _vehiculosController.getAllVehiculos);
 router.get('/:id',
 // TokenValidation,
 _vehiculosController.getVehiculoById);
+router.get('/placa/:placa',
+// TokenValidation,
+_vehiculosController.getVehiculoByPlaca);
+router.patch('/vehiculo/asignacion',
+// TokenValidation,
+_vehiculosController.assignDriverToVehicle);
 router.patch('/update/:id',
 // TokenValidation,
 _vehiculosController.updateVehiculo);

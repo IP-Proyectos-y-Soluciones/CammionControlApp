@@ -9,16 +9,16 @@ var _licencias = require("../controllers/licencias.controller");
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 var router = (0, _express.Router)();
-router.post('/',
+router.post('/addlicencia',
 // TokenValidation,
 _licencias.createLicencia);
 router.get('/',
 // TokenValidation,
 _licencias.getLicencia);
-router.put('/:id',
+router.put('/edit/:id',
 // TokenValidation,
 _licencias.putLicencia);
-router["delete"]('/:id',
+router["delete"]('/del/:id',
 // TokenValidation,
 _licencias.deleteLicencia);
 var _default = exports["default"] = router;

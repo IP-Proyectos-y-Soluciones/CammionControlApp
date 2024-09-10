@@ -15,9 +15,17 @@ var volquetaSchema = new mongoose.Schema({
     type: Date,
     "default": Date.now
   },
-  placas: {
+  placa_vehiculo: {
+    type: String,
+    required: true
+  },
+  placa: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Vehiculo'
+  },
+  conductor_cedula: {
+    type: Number,
+    required: true
   },
   conductor: {
     type: mongoose.Schema.Types.ObjectId,
@@ -48,7 +56,9 @@ var volquetaSchema = new mongoose.Schema({
     type: Date,
     "default": ''
   },
-  total_horas: Number,
+  total_horas: {
+    type: Number
+  },
   km_inicial: {
     type: String,
     required: true

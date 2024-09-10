@@ -9,9 +9,12 @@ var _volquetas = require("../controllers/volquetas.controller");
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 var router = (0, _express.Router)();
-router.post('/',
+router.post('/addplanilla',
 // TokenValidation,
 _volquetas.createVolqueta);
+router.get('/allforms',
+// TokenValidation,
+_volquetas.getAllVolquetasForms);
 router.get('/',
 // TokenValidation,
 _volquetas.getVolqueta);

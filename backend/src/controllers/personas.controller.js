@@ -1,6 +1,6 @@
 import Persona from '../models/Persona';
 import Usuario from '../models/Usuario';
-import { FindLoginStatus } from '../libs/changeSessionStatus';
+// import { FindLoginStatus } from '../libs/changeSessionStatus';
 
 export const createPersona = async (req, res) => {
     const {
@@ -206,39 +206,3 @@ export const deletePersona = async (req, res) => {
         }
     }
 };
-
-//   try {
-//     const { _id } = req.params;
-
-//     const findPersona = await Persona.findById(_id);
-
-//     if (!findPersona)
-//       return res
-//         .status(404)
-//         .json({ message: 'Persona no encontrado...!' });
-
-//     const findUsuarioPersona = await Usuario.findOne({
-//       persona: findPersona._id,
-//     });
-
-//     // Si tiene un "usuario" creado, se procede a su eliminación...
-//     if (findUsuarioPersona) {
-//       await Usuario.findByIdAndDelete(
-//         findUsuarioPersona._id,
-//       );
-//     }
-
-//     // Se elimina la persona de la BD...
-//     const deletedPersona = await Persona.findByIdAndDelete(
-//       _id,
-//     );
-
-//     return res.sendStatus(200);
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       return res.status(500).json({ error: error.message });
-//     } else {
-//       return res.status(500).json(error);
-//     }
-//   }
-// };

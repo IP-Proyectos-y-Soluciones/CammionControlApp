@@ -3,6 +3,8 @@ import {
     createVehiculo,
     getAllVehiculos,
     getVehiculoById,
+    getVehiculoByPlaca,
+    assignDriverToVehicle,
     updateVehiculo,
     deleteVehiculo,
 } from '../controllers/vehiculos.controller.js';
@@ -26,6 +28,18 @@ router.get(
     '/:id',
     // TokenValidation,
     getVehiculoById,
+);
+
+router.get(
+    '/placa/:placa',
+    // TokenValidation,
+    getVehiculoByPlaca,
+);
+
+router.patch(
+    '/vehiculo/asignacion',
+    // TokenValidation,
+    assignDriverToVehicle,
 );
 
 router.patch(

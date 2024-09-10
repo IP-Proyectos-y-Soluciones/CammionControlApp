@@ -124,21 +124,25 @@ _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _authAdmMiddleware.AuthAdmMiddleware, _persona["default"]);
 //
-app.use('/api/tanqueos', _tanqueo["default"]);
+app.use('/api/tanqueos',
+// verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
+_auxAuthMiddleware.AuxAuthMiddleware,
+// Desactivar para la producción...
+_tanqueo["default"]);
 //
 app.use('/api/usuarios',
 // verifyCsrfToken,
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción... ////////////////
-_usuario["default"]);
+_authAdmMiddleware.AuthAdmMiddleware, _usuario["default"]);
 //
 app.use('/api/vehiculos',
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
-_vehiculo["default"]);
+_authAdmMiddleware.AuthAdmMiddleware, _vehiculo["default"]);
 //
-app.use('/api/planillas',
+app.use('/api/volquetas',
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...

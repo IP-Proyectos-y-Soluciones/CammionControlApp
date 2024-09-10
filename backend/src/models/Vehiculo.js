@@ -28,7 +28,15 @@ const vehiculoSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        color: String,
+        persona_cedula: {
+            // Para referenciar directamente al modelo 'Persona'...
+            type: Number,
+            default: 0,
+        },
+        color: {
+            type: String,
+            required: true,
+        },
         propietario: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Persona',

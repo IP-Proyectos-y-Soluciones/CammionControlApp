@@ -16,6 +16,11 @@ var documentoSchema = new mongoose.Schema({
     "enum": ['Poliza de seguro', 'Soat', 'tecnomecanica'],
     required: true
   },
+  vehiculo_placa: {
+    type: String,
+    required: true,
+    unique: true
+  },
   fecha_expedicion: Date,
   fecha_vencimiento: Date,
   vehiculo: {

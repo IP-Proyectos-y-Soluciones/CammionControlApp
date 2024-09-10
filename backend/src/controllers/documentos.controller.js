@@ -3,33 +3,64 @@ import Vehiculo from '../models/Vehiculo';
 
 export const createDocumento = async (req, res) => {
     try {
+        // const {
+        //     cerificado_N,
+        //     tipo,
+        //     fecha_expedicion,
+        //     fecha_vencimiento,
+        //     vehiculo,
+        // } = req.body;
         const {
             cerificado_N,
             tipo,
+            vehiculo_placa,
             fecha_expedicion,
             fecha_vencimiento,
-            vehiculo,
         } = req.body;
-        const vehiculoId = await Vehiculo.findById(vehiculo);
-        if (!vehiculoId) {
+        // const vehiculoId = await Vehiculo.findById(vehiculo);
+        const vehiculo = await Vehiculo.findOne({ placa: vehiculo_placa });
+
+        console.log('ID del vehículo: ', vehiculo._id); ///////////
+
+        if (!vehiculo) {
             return res.status(404).json({
                 message: 'El id del vehiculo no existe',
             });
         }
+
         const newDocumento = new Documento({
             cerificado_N,
             tipo,
+            vehiculo_placa,
             fecha_expedicion,
             fecha_vencimiento,
-            vehiculo,
+            vehiculo: vehiculo._id,
         });
-        await newDocumento.save();
+
+        // await newDocumento.save();
+        const newDocumentAssigned = await newDocumento.save();
+        console.log('ID del documento creado: ', newDocumentAssigned._id); //////////
+        await Vehiculo.findOneAndUpdate(
+            vehiculo._id,
+            { $set: { documentos: newDocumentAssigned._id } },
+            { new: true },
+        );
+
+        // res.status(201).json({
+        //     message: 'El documento  ha sido guardado correctamente!',
+        //     newDocumento,
+        // });
         res.status(201).json({
             message: 'El documento  ha sido guardado correctamente!',
-            newDocumento,
+            newDocumentAssigned,
         });
     } catch (error) {
-        res.status(500).json(error);
+        // res.status(500).json(error);
+        if (error instanceof Error) {
+            return res.status(500).json({ error: error.message });
+        } else {
+            return res.status(500).json(error);
+        }
     }
 };
 

@@ -9,7 +9,7 @@ var _documentos = require("../controllers/documentos.controller");
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; Activar para la producción...
 
 var router = (0, _express.Router)();
-router.post('/',
+router.post('/newdoc',
 // TokenValidation,
 _documentos.createDocumento);
 router.get('/',

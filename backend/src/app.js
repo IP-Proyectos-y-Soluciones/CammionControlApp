@@ -124,7 +124,12 @@ app.use(
     personasRoutes,
 );
 //
-app.use('/api/tanqueos', tanqueosRoutes);
+app.use(
+    '/api/tanqueos',
+    // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
+    AuxAuthMiddleware, // Desactivar para la producción...
+    tanqueosRoutes,
+);
 //
 app.use(
     '/api/usuarios',
@@ -138,11 +143,12 @@ app.use(
     '/api/vehiculos',
     // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
     AuxAuthMiddleware, // Desactivar para la producción...
+    AuthAdmMiddleware,
     vehiculosRoutes,
 );
 //
 app.use(
-    '/api/planillas',
+    '/api/volquetas',
     // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
     AuxAuthMiddleware, // Desactivar para la producción...
     volquetasRoutes,

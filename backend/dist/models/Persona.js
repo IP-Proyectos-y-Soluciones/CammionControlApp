@@ -45,7 +45,7 @@ var personaSchema = new mongoose.Schema({
     "enum": ['Fijo', 'Indefinido'],
     required: true
   },
-  Usuario: {
+  usuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Usuario'
   },

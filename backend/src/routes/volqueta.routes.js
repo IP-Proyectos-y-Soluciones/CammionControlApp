@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
     createVolqueta,
+    getAllVolquetasForms,
     getVolqueta,
     putVolqueta,
     deleteVolqueta,
@@ -10,9 +11,15 @@ import {
 const router = Router();
 
 router.post(
-    '/',
+    '/addplanilla',
     // TokenValidation,
     createVolqueta,
+);
+
+router.get(
+    '/allforms',
+    // TokenValidation,
+    getAllVolquetasForms,
 );
 
 router.get(

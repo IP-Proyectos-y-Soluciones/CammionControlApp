@@ -1,7 +1,6 @@
 import Usuario from '../models/Usuario';
 import Persona from '../models/Persona';
 import { encrypted } from '../authentication/passwords/encrypted';
-import { updatePersona } from './personas.controller';
 
 export const registrarUsuario = async (req, res) => {
     const { usuario_cedula, usuario, password, roles, estado, logged } =
@@ -36,16 +35,30 @@ export const registrarUsuario = async (req, res) => {
 
         const savedUsuario = await newUsuario.save();
 
+        // Se actualiza la id ('usuario') en la colección 'personas' de la DB...
+        const updateDataPersonaUser = { usuario: savedUsuario._id };
+        const updatedPersona = await Persona.findOneAndUpdate(
+            { _id: persona._id },
+            { $set: updateDataPersonaUser },
+            { new: true },
+        );
+
+        if (!updatedPersona) {
+            return res.status(500).json({
+                message: 'Error al actualizar la persona con el nuevo usuario.',
+            });
+        }
+
         return res.status(201).json({
             message: 'El nuevo usuario ha sido creado exitosamente...!',
             savedUsuario,
         });
     } catch (error) {
-        // if (error instanceof Error) {
-        //   return res.status(500).json({ error: error.message });
-        // } else {
-        return res.status(500).json(error);
-        // }
+        if (error instanceof Error) {
+            return res.status(500).json({ error: error.message });
+        } else {
+            return res.status(500).json(error);
+        }
     }
 };
 
@@ -125,7 +138,7 @@ export const updateUsuario = async (req, res) => {
 
         return res.status(200).json({
             message: `El usuario ${updateUser.usuario} ha sido actualizado satisfactoriamente...!`,
-            updatePersona,
+            updateUser,
         });
     } catch (error) {
         if (error instanceof Error) {

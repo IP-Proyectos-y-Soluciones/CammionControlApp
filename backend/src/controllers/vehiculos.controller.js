@@ -1,38 +1,47 @@
 import Vehiculo from '../models/Vehiculo';
+import Persona from '../models/Persona';
 
 // Crear un nuevo vehiculo
 export const createVehiculo = async (req, res) => {
-    const {
-        placa,
-        tipo_de_combustible,
-        clase_de_vehiculo,
-        marca,
-        color,
-        propietario,
-        documentos,
-        volquetas,
-        tanqueos,
-    } = req.body;
+    const { placa, tipo_de_combustible, clase_de_vehiculo, marca, color } =
+        req.body;
     const vehiculo = new Vehiculo({
         placa,
         tipo_de_combustible,
         clase_de_vehiculo,
         marca,
         color,
-        propietario,
-        documentos,
-        volquetas,
-        tanqueos,
     });
 
     try {
-        await vehiculo.save();
+        const newVehicle = new Vehiculo({
+            placa,
+            tipo_de_combustible,
+            clase_de_vehiculo,
+            marca,
+            color,
+        });
+
+        const savedVehicle = await newVehicle.save();
+
+        // await vehiculo.save();
+        // res.status(201).json({
+        //     message: 'Registro de vehiculo exitoso',
+        //     data: vehiculo,
+        // });
+
         res.status(201).json({
             message: 'Registro de vehiculo exitoso',
-            data: vehiculo,
+            savedVehicle,
         });
     } catch (error) {
-        res.status(400).json(error);
+        // res.status(400).json(error);
+        console.log(error);
+        if (error instanceof Error) {
+            return res.status(500).json({ error: error.message });
+        } else {
+            return res.status(500).json(error);
+        }
     }
 };
 
@@ -61,6 +70,76 @@ export const getVehiculoById = async (req, res) => {
         });
     } catch (error) {
         res.status(500).json(error);
+    }
+};
+
+// Obtener vehículo por placa...
+export const getVehiculoByPlaca = async (req, res) => {
+    const { placa } = req.params;
+
+    try {
+        const vehiculo = await Vehiculo.findOne({ placa: placa });
+
+        if (!vehiculo) {
+            return res.status(404).json({
+                message: `El vehículo con placas: ${placa} no se encuentra o no está registrado...!`,
+            });
+        }
+
+        return res
+            .status(200)
+            .json({ message: 'Vehículo encontrado:', vehiculo });
+    } catch (error) {
+        if (error instanceof Error) {
+            return res.status(500).json({ error: error.message });
+        } else {
+            return res.status(500).json(error);
+        }
+    }
+};
+
+// Asignar conductor a un vehículo determinado...
+export const assignDriverToVehicle = async (req, res) => {
+    const { cedula, placa } = req.body;
+
+    try {
+        const verifyDriver = await Persona.findOne({ cedula });
+        const verifyVehicle = await Vehiculo.findOne({ placa });
+
+        if (!verifyDriver || !verifyVehicle) {
+            return res.status(404).json({
+                message:
+                    'Este conductor (o vehículo) no se encuentra(n) registrado(s)...!',
+            });
+        }
+
+        const updateData = {
+            persona_cedula: verifyDriver.cedula,
+            propietario: verifyDriver._id,
+        };
+        const assignDriver = await Vehiculo.findOneAndUpdate(
+            verifyVehicle._id,
+            { $set: updateData },
+            { new: true },
+        );
+
+        const updateDataDriver = { vehiculos: verifyVehicle._id };
+        await Persona.findOneAndUpdate(
+            verifyDriver._id,
+            { $set: updateDataDriver },
+            { new: true },
+        );
+
+        return res.status(201).json({
+            message: 'Asignación de vehículo exitosa...!!!',
+            assignDriver,
+        });
+    } catch (error) {
+        if (error instanceof Error) {
+            return res.status(500).json({ error: error.message });
+        } else {
+            return res.status(500).json(error);
+        }
     }
 };
 

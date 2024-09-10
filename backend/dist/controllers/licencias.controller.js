@@ -13,26 +13,29 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var createLicencia = exports.createLicencia = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, conductor, licencia_N, categoria, clase_de_vehiculo, servicio, fecha_expedicion, fecha_vencimiento, persona, newLicencia;
+    var _req$body, conductor_cedula, licencia_N, categoria, clase_de_vehiculo, servicio, fecha_expedicion, fecha_vencimiento, driver, newLicencia, savedLicencia, updateDataDriver;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _req$body = req.body, conductor = _req$body.conductor, licencia_N = _req$body.licencia_N, categoria = _req$body.categoria, clase_de_vehiculo = _req$body.clase_de_vehiculo, servicio = _req$body.servicio, fecha_expedicion = _req$body.fecha_expedicion, fecha_vencimiento = _req$body.fecha_vencimiento;
+          _req$body = req.body, conductor_cedula = _req$body.conductor_cedula, licencia_N = _req$body.licencia_N, categoria = _req$body.categoria, clase_de_vehiculo = _req$body.clase_de_vehiculo, servicio = _req$body.servicio, fecha_expedicion = _req$body.fecha_expedicion, fecha_vencimiento = _req$body.fecha_vencimiento;
           _context.next = 4;
-          return _Persona["default"].findById(conductor);
+          return _Persona["default"].findOne({
+            cedula: conductor_cedula
+          });
         case 4:
-          persona = _context.sent;
-          if (persona) {
+          driver = _context.sent;
+          if (driver) {
             _context.next = 7;
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: 'El id de la persona no existe'
+            message: "El conductor con c\xE9dula: ".concat(conductor_cedula, " no se encuentra registrado...!")
           }));
         case 7:
           newLicencia = new _Licencia["default"]({
-            conductor: conductor,
+            conductor: driver._id,
+            conductor_cedula: conductor_cedula,
             licencia_N: licencia_N,
             categoria: categoria,
             clase_de_vehiculo: clase_de_vehiculo,
@@ -43,21 +46,40 @@ var createLicencia = exports.createLicencia = /*#__PURE__*/function () {
           _context.next = 10;
           return newLicencia.save();
         case 10:
-          res.status(200).json({
-            message: 'la licencia ha sido guardada correctamente!',
-            newLicencia: newLicencia
+          savedLicencia = _context.sent;
+          updateDataDriver = {
+            licencias: savedLicencia._id
+          };
+          _context.next = 14;
+          return _Persona["default"].findOneAndUpdate(driver._id, {
+            $set: updateDataDriver
+          }, {
+            "new": true
           });
-          _context.next = 16;
+        case 14:
+          res.status(201).json({
+            message: 'Licencia creada exitosamente...!!!',
+            savedLicencia: savedLicencia
+          });
+          _context.next = 24;
           break;
-        case 13:
-          _context.prev = 13;
+        case 17:
+          _context.prev = 17;
           _context.t0 = _context["catch"](0);
-          res.status(500).json(_context.t0);
-        case 16:
+          if (!(_context.t0 instanceof Error)) {
+            _context.next = 23;
+            break;
+          }
+          return _context.abrupt("return", res.status(500).json({
+            error: _context.t0.message
+          }));
+        case 23:
+          return _context.abrupt("return", res.status(500).json(_context.t0));
+        case 24:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 13]]);
+    }, _callee, null, [[0, 17]]);
   }));
   return function createLicencia(_x, _x2) {
     return _ref.apply(this, arguments);
