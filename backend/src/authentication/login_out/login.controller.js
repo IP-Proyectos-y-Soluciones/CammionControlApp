@@ -71,6 +71,8 @@ export const login = async (req, res) => {
             }
 
             // Establecer datos en la nueva sesión...
+            req.session._id = usuarioReg._id;
+            req.session.roles = usuarioReg.roles;
             req.session.cedula = usuarioReg.usuario_cedula;
             req.session.logged = true;
 
@@ -80,15 +82,6 @@ export const login = async (req, res) => {
                 usuarioReg,
             });
         });
-
-        // // Establecer datos en la nueva sesión...
-        // req.session.cedula = usuarioReg.usuario_cedula;
-        // req.session.logged = true;
-
-        // return res.status(200).json({
-        //   message: `El usuario ${usuario} se ha loggeado exitosamente...!`,
-        //   usuarioReg,
-        // });
     } catch (error) {
         if (error instanceof Error) {
             return res.status(500).json({ error: error.message });

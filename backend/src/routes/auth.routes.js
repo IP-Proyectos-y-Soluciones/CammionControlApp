@@ -18,7 +18,7 @@ router.get('/checklogin', AuxAuthMiddleware, (req, res) => {
     res.json({
         isAuthenticated: true,
         user: {
-            roles: ['Owner', 'Admin', 'Empleado'],
+            roles: req.session.roles,
         },
     });
 });
