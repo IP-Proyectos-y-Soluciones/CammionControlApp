@@ -98,6 +98,8 @@ var login = exports.login = /*#__PURE__*/function () {
             }
 
             // Establecer datos en la nueva sesión...
+            req.session._id = usuarioReg._id;
+            req.session.roles = usuarioReg.roles;
             req.session.cedula = usuarioReg.usuario_cedula;
             req.session.logged = true;
 
@@ -107,15 +109,6 @@ var login = exports.login = /*#__PURE__*/function () {
               usuarioReg: usuarioReg
             });
           });
-
-          // // Establecer datos en la nueva sesión...
-          // req.session.cedula = usuarioReg.usuario_cedula;
-          // req.session.logged = true;
-
-          // return res.status(200).json({
-          //   message: `El usuario ${usuario} se ha loggeado exitosamente...!`,
-          //   usuarioReg,
-          // });
           _context.next = 35;
           break;
         case 28:

@@ -23,7 +23,7 @@ router.get('/checklogin', _auxAuthMiddleware.AuxAuthMiddleware, function (req, r
   res.json({
     isAuthenticated: true,
     user: {
-      roles: ['Owner', 'Admin', 'Empleado']
+      roles: req.session.roles
     }
   });
 });
