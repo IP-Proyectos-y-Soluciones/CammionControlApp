@@ -80,17 +80,19 @@ export const createVolqueta = async (req, res) => {
 
         const newVolqueta = await volquetaData.save();
 
-        const updateDataDriver = { volquetas: newVolqueta._id };
+        // const updateDataDriver = { volquetas: newVolqueta._id };
         await Persona.findOneAndUpdate(
             driver._id,
-            { $set: updateDataDriver },
+            // { $set: updateDataDriver },
+            { $push: { volquetas: newVolqueta._id } },
             { new: true },
         );
         //
-        const updateDataVehicle = { volquetas: newVolqueta._id };
+        // const updateDataVehicle = { volquetas: newVolqueta._id };
         await Vehiculo.findOneAndUpdate(
             vehicle._id,
-            { $set: updateDataVehicle },
+            // { $set: updateDataVehicle },
+            { $push: { volquetas: newVolqueta._id } },
             { new: true },
         );
 
