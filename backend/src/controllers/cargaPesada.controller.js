@@ -8,8 +8,8 @@ export const createHeavyLoadForm = async (req, res) => {
             n_planilla,
             fecha_inicio,
             fecha_final,
-            placas,
-            conductorId,
+            placa_vehiculo,
+            conductor_cedula,
             ciudad_inicio,
             ciudad_destino,
             empresa,
@@ -23,21 +23,25 @@ export const createHeavyLoadForm = async (req, res) => {
             otros,
         } = req.body;
 
-        // Se verifica si existe la persona...
-        const person = await Persona.findById(conductorId);
-
-        if (!person)
-            return res
-                .status(404)
-                .json({ message: 'Persona no encontrada...!' });
+        // Se verifica si existe el conductor...
+        const driver = await Persona.findOne({ cedula: conductor_cedula });
+        //
+        if (!driver) {
+            return res.status(404).json({
+                message: `El conductor con la cédula ${conductor_cedula} NO se encuentra registrado...!`,
+            });
+        }
 
         // Se verifica si existe el vehículo...
-        const vehicle = await Vehiculo.findById(placas);
-
-        if (!vehicle)
-            return res
-                .status(404)
-                .json({ message: 'Vehículo no encontrado...!' });
+        const vehicle = await Vehiculo.findOne({
+            placa: placa_vehiculo,
+        });
+        //
+        if (!vehicle) {
+            return res.status(404).json({
+                message: `El vehículo con placa ${placa_vehiculo} NO se encuentra registrado...!`,
+            });
+        }
 
         // Sumatoria de todos los anticipos recibidos...
         let totalAdvance =
@@ -58,8 +62,10 @@ export const createHeavyLoadForm = async (req, res) => {
             n_planilla,
             fecha_inicio,
             fecha_final,
-            placas: vehicle._id,
-            conductor: person._id,
+            placa_vehiculo,
+            placa: vehicle._id,
+            conductor_cedula,
+            conductor: driver._id,
             ciudad_inicio,
             ciudad_destino,
             empresa,
@@ -78,9 +84,20 @@ export const createHeavyLoadForm = async (req, res) => {
 
         const savedHeavyLoad = await newHeavyLoad.save();
 
+        await Persona.findByIdAndUpdate(
+            driver._id,
+            { $push: { carga_pesada: savedHeavyLoad._id } },
+            { new: true },
+        );
+
+        await Vehiculo.findByIdAndUpdate(
+            vehicle._id,
+            { $push: { cargaPesada: savedHeavyLoad._id } },
+            { new: true },
+        );
+
         return res.status(201).json({
-            message:
-                'Una nueva planilla de "Carga Pesada" ha sido registrada exitosamente...!',
+            message: `La planilla de "Carga Pesada" Nº ${savedHeavyLoad.n_planilla} ha sido registrada exitosamente...!!!`,
             savedHeavyLoad,
         });
     } catch (error) {

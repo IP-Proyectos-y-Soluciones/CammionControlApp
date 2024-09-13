@@ -82,9 +82,10 @@ app.use(
 );
 //
 app.use(
-    '/api/cargapesada',
+    '/api/heavyload',
     // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
     AuxAuthMiddleware, // Desactivar para la producción...
+    AuthAdmMiddleware,
     cargaPesadaRoutes,
 );
 //
@@ -99,6 +100,7 @@ app.use(
     '/api/documentos',
     // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
     AuxAuthMiddleware, // Desactivar para la producción...
+    AuthAdmMiddleware,
     documentosRoutes,
 );
 //
@@ -106,6 +108,7 @@ app.use(
     '/api/licencias',
     // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
     AuxAuthMiddleware, // Desactivar para la producción...
+    AuthAdmMiddleware,
     licenciasRoutes,
 );
 //

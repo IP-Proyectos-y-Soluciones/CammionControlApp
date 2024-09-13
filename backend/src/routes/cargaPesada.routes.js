@@ -12,7 +12,7 @@ import {
 const router = Router();
 
 router.post(
-    '/addplanillacarga',
+    '/addheavyloadform',
     // TokenValidation,
     createHeavyLoadForm,
 );

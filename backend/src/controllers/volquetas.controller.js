@@ -80,7 +80,6 @@ export const createVolqueta = async (req, res) => {
 
         const newVolqueta = await volquetaData.save();
 
-        // const updateDataDriver = { volquetas: newVolqueta._id };
         await Persona.findOneAndUpdate(
             driver._id,
             // { $set: updateDataDriver },
@@ -88,7 +87,6 @@ export const createVolqueta = async (req, res) => {
             { new: true },
         );
         //
-        // const updateDataVehicle = { volquetas: newVolqueta._id };
         await Vehiculo.findOneAndUpdate(
             vehicle._id,
             // { $set: updateDataVehicle },

@@ -69,6 +69,12 @@ const personaSchema = new mongoose.Schema(
                 ref: 'Tanqueo',
             },
         ],
+        carga_pesada: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'CargaPesada',
+            },
+        ],
     },
     {
         timestamps: true,

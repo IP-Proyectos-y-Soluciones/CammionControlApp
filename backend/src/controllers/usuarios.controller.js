@@ -8,11 +8,11 @@ export const registrarUsuario = async (req, res) => {
 
     try {
         // Verifica si la persona existe
-        const persona = await Persona.findOne({
+        const employee = await Persona.findOne({
             cedula: usuario_cedula,
         });
 
-        if (!persona) {
+        if (!employee) {
             return res.status(404).json({
                 message:
                     'Persona no encontrada. No se puede crear el usuario sin una persona válida.',
@@ -23,27 +23,27 @@ export const registrarUsuario = async (req, res) => {
         const passwordEncrypted = await encrypted(password);
 
         // Crea un nuevo usuario con la referencia a la persona existente
-        const newUsuario = new Usuario({
+        const newUser = new Usuario({
             usuario_cedula,
             usuario,
             password: passwordEncrypted,
             roles,
             estado,
             logged,
-            persona: persona._id,
+            persona: employee._id,
         });
 
-        const savedUsuario = await newUsuario.save();
+        const savedUser = await newUser.save();
 
         // Se actualiza la id ('usuario') en la colección 'personas' de la DB...
-        const updateDataPersonaUser = { usuario: savedUsuario._id };
-        const updatedPersona = await Persona.findOneAndUpdate(
-            { _id: persona._id },
-            { $set: updateDataPersonaUser },
+        const updateDataEmployeeUser = { usuario: savedUser._id };
+        const updatedEmployee = await Persona.findOneAndUpdate(
+            { _id: employee._id },
+            { $set: updateDataEmployeeUser },
             { new: true },
         );
 
-        if (!updatedPersona) {
+        if (!updatedEmployee) {
             return res.status(500).json({
                 message: 'Error al actualizar la persona con el nuevo usuario.',
             });
@@ -51,7 +51,7 @@ export const registrarUsuario = async (req, res) => {
 
         return res.status(201).json({
             message: 'El nuevo usuario ha sido creado exitosamente...!',
-            savedUsuario,
+            savedUser,
         });
     } catch (error) {
         if (error instanceof Error) {
