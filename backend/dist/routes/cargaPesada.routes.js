@@ -9,7 +9,7 @@ var _cargaPesada = require("../controllers/cargaPesada.controller");
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para
 
 var router = (0, _express.Router)();
-router.post('/addplanillacarga',
+router.post('/addheavyloadform',
 // TokenValidation,
 _cargaPesada.createHeavyLoadForm);
 router.get('/',

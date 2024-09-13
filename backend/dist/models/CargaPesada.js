@@ -11,10 +11,6 @@ var cargaPesadaSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  vehiculo_placa: {
-    type: String,
-    required: true
-  },
   fecha_inicio: {
     type: Date,
     "default": Date.now,
@@ -22,11 +18,19 @@ var cargaPesadaSchema = new mongoose.Schema({
   },
   fecha_final: {
     type: Date,
-    "default": ''
+    required: true
   },
-  placas: {
+  placa_vehiculo: {
+    type: String,
+    required: true
+  },
+  placa: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Vehiculo'
+  },
+  conductor_cedula: {
+    type: Number,
+    required: true
   },
   conductor: {
     type: mongoose.Schema.Types.ObjectId,
@@ -40,18 +44,55 @@ var cargaPesadaSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  empresa: String,
-  valor_flete: Number,
-  anticipo_empresa: Number,
-  anticipo_cliente: Number,
-  acpm: Number,
-  peaje: Number,
-  mantenimiento: Number,
-  mecanico: Number,
-  otros: Number,
-  total_anticipos_fletesPagados: Number,
-  total_gastos: Number,
-  total_saldo: Number
+  empresa: {
+    type: String,
+    required: true
+  },
+  valor_flete: {
+    type: Number,
+    "default": 0,
+    required: true
+  },
+  anticipo_empresa: {
+    type: Number,
+    "default": 0
+  },
+  anticipo_cliente: {
+    type: Number,
+    "default": 0
+  },
+  acpm: {
+    type: Number,
+    "default": 0
+  },
+  peaje: {
+    type: Number,
+    "default": 0
+  },
+  mantenimiento: {
+    type: Number,
+    "default": 0
+  },
+  mecanico: {
+    type: Number,
+    "default": 0
+  },
+  otros: {
+    type: Number,
+    "default": 0
+  },
+  total_anticipos_fletesPagados: {
+    type: Number,
+    "default": 0
+  },
+  total_gastos: {
+    type: Number,
+    "default": 0
+  },
+  total_saldo: {
+    type: Number,
+    "default": 0
+  }
 }, {
   timestamps: false,
   autoCreate: false

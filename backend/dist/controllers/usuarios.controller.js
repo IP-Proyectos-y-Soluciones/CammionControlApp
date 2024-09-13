@@ -14,7 +14,7 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var registrarUsuario = exports.registrarUsuario = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, usuario_cedula, usuario, password, roles, estado, logged, persona, passwordEncrypted, newUsuario, savedUsuario, updateDataPersonaUser, updatedPersona;
+    var _req$body, usuario_cedula, usuario, password, roles, estado, logged, employee, passwordEncrypted, newUser, savedUser, updateDataEmployeeUser, updatedEmployee;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -25,8 +25,8 @@ var registrarUsuario = exports.registrarUsuario = /*#__PURE__*/function () {
             cedula: usuario_cedula
           });
         case 4:
-          persona = _context.sent;
-          if (persona) {
+          employee = _context.sent;
+          if (employee) {
             _context.next = 7;
             break;
           }
@@ -39,34 +39,34 @@ var registrarUsuario = exports.registrarUsuario = /*#__PURE__*/function () {
         case 9:
           passwordEncrypted = _context.sent;
           // Crea un nuevo usuario con la referencia a la persona existente
-          newUsuario = new _Usuario["default"]({
+          newUser = new _Usuario["default"]({
             usuario_cedula: usuario_cedula,
             usuario: usuario,
             password: passwordEncrypted,
             roles: roles,
             estado: estado,
             logged: logged,
-            persona: persona._id
+            persona: employee._id
           });
           _context.next = 13;
-          return newUsuario.save();
+          return newUser.save();
         case 13:
-          savedUsuario = _context.sent;
+          savedUser = _context.sent;
           // Se actualiza la id ('usuario') en la colección 'personas' de la DB...
-          updateDataPersonaUser = {
-            usuario: savedUsuario._id
+          updateDataEmployeeUser = {
+            usuario: savedUser._id
           };
           _context.next = 17;
           return _Persona["default"].findOneAndUpdate({
-            _id: persona._id
+            _id: employee._id
           }, {
-            $set: updateDataPersonaUser
+            $set: updateDataEmployeeUser
           }, {
             "new": true
           });
         case 17:
-          updatedPersona = _context.sent;
-          if (updatedPersona) {
+          updatedEmployee = _context.sent;
+          if (updatedEmployee) {
             _context.next = 20;
             break;
           }
@@ -76,7 +76,7 @@ var registrarUsuario = exports.registrarUsuario = /*#__PURE__*/function () {
         case 20:
           return _context.abrupt("return", res.status(201).json({
             message: 'El nuevo usuario ha sido creado exitosamente...!',
-            savedUsuario: savedUsuario
+            savedUser: savedUser
           }));
         case 23:
           _context.prev = 23;

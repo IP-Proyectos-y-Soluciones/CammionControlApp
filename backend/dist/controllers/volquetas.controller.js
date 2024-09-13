@@ -14,7 +14,7 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, n_planilla, fecha, placa_vehiculo, cedula, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, driver, vehicle, total_horas, startH, endH, start, end, timezoneOffset, total_km_dia, volquetaData, newVolqueta, updateDataDriver, updateDataVehicle;
+    var _req$body, n_planilla, fecha, placa_vehiculo, cedula, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, driver, vehicle, total_horas, startH, endH, start, end, timezoneOffset, total_km_dia, volquetaData, newVolqueta;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -84,48 +84,49 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           return volquetaData.save();
         case 18:
           newVolqueta = _context.sent;
-          updateDataDriver = {
-            volquetas: newVolqueta._id
-          };
-          _context.next = 22;
-          return _Persona["default"].findOneAndUpdate(driver._id, {
-            $set: updateDataDriver
+          _context.next = 21;
+          return _Persona["default"].findOneAndUpdate(driver._id,
+          // { $set: updateDataDriver },
+          {
+            $push: {
+              volquetas: newVolqueta._id
+            }
           }, {
             "new": true
           });
-        case 22:
-          //
-          updateDataVehicle = {
-            volquetas: newVolqueta._id
-          };
-          _context.next = 25;
-          return _Vehiculo["default"].findOneAndUpdate(vehicle._id, {
-            $set: updateDataVehicle
+        case 21:
+          _context.next = 23;
+          return _Vehiculo["default"].findOneAndUpdate(vehicle._id,
+          // { $set: updateDataVehicle },
+          {
+            $push: {
+              volquetas: newVolqueta._id
+            }
           }, {
             "new": true
           });
-        case 25:
+        case 23:
           return _context.abrupt("return", res.status(201).json({
             message: 'El formulario fue guardado correctamente!',
             newVolqueta: newVolqueta
           }));
-        case 28:
-          _context.prev = 28;
+        case 26:
+          _context.prev = 26;
           _context.t0 = _context["catch"](0);
           if (!(_context.t0 instanceof Error)) {
-            _context.next = 34;
+            _context.next = 32;
             break;
           }
           return _context.abrupt("return", res.status(500).json({
             error: _context.t0.message
           }));
-        case 34:
+        case 32:
           return _context.abrupt("return", res.status(500).json(_context.t0));
-        case 35:
+        case 33:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 28]]);
+    }, _callee, null, [[0, 26]]);
   }));
   return function createVolqueta(_x, _x2) {
     return _ref.apply(this, arguments);

@@ -88,11 +88,11 @@ _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _admin["default"]);
 //
-app.use('/api/cargapesada',
+app.use('/api/heavyload',
 // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
-_cargaPesada["default"]);
+_authAdmMiddleware.AuthAdmMiddleware, _cargaPesada["default"]);
 //
 app.use('/api/cloudinary',
 // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
@@ -104,13 +104,13 @@ app.use('/api/documentos',
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
-_documento["default"]);
+_authAdmMiddleware.AuthAdmMiddleware, _documento["default"]);
 //
 app.use('/api/licencias',
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
-_licencia["default"]);
+_authAdmMiddleware.AuthAdmMiddleware, _licencia["default"]);
 //
 app.use('/api/mecanicos',
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
