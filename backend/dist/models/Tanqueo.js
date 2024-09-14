@@ -19,11 +19,23 @@ var tanqueoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  cantidad_galones: String,
-  valor_tanqueo: Number,
+  cantidad_galones: {
+    type: String
+  },
+  valor_tanqueo: {
+    type: Number
+  },
+  vehiculo_placa: {
+    type: String,
+    required: true
+  },
   vehiculo: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Vehiculo',
+    required: true
+  },
+  conductor_cedula: {
+    type: Number,
     required: true
   },
   conductor: {

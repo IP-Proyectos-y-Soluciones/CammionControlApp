@@ -1,49 +1,66 @@
-// importar los modelos con importimport
+// importar los modelos con import
 import Tanqueo from '../models/Tanqueo';
 import Persona from '../models/Persona';
 import Vehiculo from '../models/Vehiculo';
+import { findVehicleAndDriver } from '../libs/FindVehicleAndDriver';
 
 // Crear un nuevo tanqueo
 export const createTanqueo = async (req, res) => {
-    const {
-        fecha_tanqueo,
-        n_recibo,
-        estacion,
-        cantidad_galones,
-        valor_tanqueo,
-        vehiculo,
-        conductor,
-    } = req.body;
-
     try {
-        const persona = await Persona.findById(conductor);
-
-        if (!persona) {
-            return res.status(404).json({ message: 'persona no encontrada' });
-        }
-        const vehiculoById = await Vehiculo.findById(vehiculo);
-        if (!vehiculoById) {
-            return res
-                .status(404)
-                .json({ message: 'no se encontro el vehículo' });
-        }
-
-        const tanqueo = new Tanqueo({
+        const {
             fecha_tanqueo,
             n_recibo,
             estacion,
             cantidad_galones,
             valor_tanqueo,
-            vehiculo: vehiculoById._id,
-            conductor: persona._id,
+            placas,
+            cedula,
+        } = req.body;
+
+        const queryResult = await findVehicleAndDriver(placas, cedula);
+
+        console.log(queryResult.found);
+
+        if (!queryResult.found) {
+            return res.status(404).json({ message: queryResult.message });
+        }
+
+        const refuelingData = new Tanqueo({
+            fecha_tanqueo,
+            n_recibo,
+            estacion,
+            cantidad_galones,
+            valor_tanqueo,
+            vehiculo_placa: placas,
+            vehiculo: queryResult.vehicleId,
+            conductor_cedula: cedula,
+            conductor: queryResult.driverId,
         });
-        await tanqueo.save();
-        res.status(201).json({
-            message: ' Tanqueo creado exitosamente',
-            data: tanqueo,
+
+        const newRefueling = await refuelingData.save();
+
+        await Persona.findByIdAndUpdate(
+            queryResult.driverId,
+            { $push: { tanqueos: newRefueling._id } },
+            { new: true },
+        );
+
+        await Vehiculo.findByIdAndUpdate(
+            queryResult.vehicleId,
+            { $push: { tanqueos: newRefueling._id } },
+            { new: true },
+        );
+
+        return res.status(201).json({
+            message: 'El formulario se ha registrado correctamente...!',
+            newRefueling,
         });
     } catch (error) {
-        res.status(400).json(error);
+        if (error instanceof Error) {
+            return res.status(500).json({ error: error.message });
+        } else {
+            return res.status(500).json(error);
+        }
     }
 };
 
