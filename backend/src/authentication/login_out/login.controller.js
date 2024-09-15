@@ -1,4 +1,5 @@
 import Usuario from '../../models/Usuario';
+import Persona from '../../models/Persona';
 import { decrypted } from '../passwords/decrypted';
 // import { token } from '../tokens/token'; // Activar para la producción...
 
@@ -17,6 +18,13 @@ export const login = async (req, res) => {
                 .status(404)
                 .json({ message: 'Usuario no encontrado...!' });
         }
+
+        // Se obtiene el nombre completo del usuario loggeado para pasarlo junto
+        // al resto de la data al Front...
+        const employee = await Persona.findOne({
+            cedula: usuarioReg.usuario_cedula,
+        });
+        const employeeFullName = employee.nombres + ' ' + employee.apellidos;
 
         if (usuarioReg.logged === true) {
             return res.status(304).json({
@@ -79,6 +87,7 @@ export const login = async (req, res) => {
             // Continuar con la respuesta...
             return res.status(200).json({
                 message: `El usuario ${usuario} se ha loggeado exitosamente...!`,
+                employeeFullName,
                 usuarioReg,
             });
         });
