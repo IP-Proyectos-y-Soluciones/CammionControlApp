@@ -13,9 +13,9 @@ const Header = () => {
     navigate(-1);
   };
 
-  const handleProfileClick = () => {
-    navigate('/employees/employee/:_id'); // Redirige a la página del perfil del usuario
-  };
+  // const handleProfileClick = () => {
+  //   navigate('/employees/employee/:_id'); // Redirige a la página del perfil del usuario
+  // };
 
   return (
     <header className="flex bg-red-600 items-center justify-between p-1">
@@ -39,7 +39,7 @@ const Header = () => {
       
       <div
         className="flex items-center cursor-pointer p-2 rounded-full hover:bg-white"
-        onClick={handleProfileClick}
+       // onClick={handleProfileClick}
       >
         
         <FontAwesomeIcon
