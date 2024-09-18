@@ -1,11 +1,28 @@
 import Volqueta from '../models/Volqueta';
 import Persona from '../models/Persona';
 import Vehiculo from '../models/Vehiculo';
+import { generateRandomFormNumber } from '../libs/GenRandomControlNumb';
 
 export const createVolqueta = async (req, res) => {
     try {
+        // const {
+        //     n_planilla,
+        //     fecha,
+        //     placa_vehiculo,
+        //     cedula,
+        //     cliente,
+        //     volmts3,
+        //     n_viajes,
+        //     material,
+        //     hora_inicio,
+        //     hora_final,
+        //     km_inicial,
+        //     km_final,
+        //     lugar_de_cargue,
+        //     lugar_de_descargue,
+        //     observacion,
+        // } = req.body;
         const {
-            n_planilla,
             fecha,
             placa_vehiculo,
             cedula,
@@ -56,8 +73,11 @@ export const createVolqueta = async (req, res) => {
 
         const total_km_dia = km_final - km_inicial;
 
+        // Se genera número aleatorio de control para la planilla de volquetas...
+        const generateCN = await generateRandomFormNumber();
+
         const volquetaData = new Volqueta({
-            n_planilla,
+            n_planilla: generateCN,
             fecha,
             placa_vehiculo,
             placa: vehicle._id,
