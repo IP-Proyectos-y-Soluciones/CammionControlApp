@@ -5,23 +5,6 @@ import { generateRandomFormNumber } from '../libs/GenRandomControlNumb';
 
 export const createVolqueta = async (req, res) => {
     try {
-        // const {
-        //     n_planilla,
-        //     fecha,
-        //     placa_vehiculo,
-        //     cedula,
-        //     cliente,
-        //     volmts3,
-        //     n_viajes,
-        //     material,
-        //     hora_inicio,
-        //     hora_final,
-        //     km_inicial,
-        //     km_final,
-        //     lugar_de_cargue,
-        //     lugar_de_descargue,
-        //     observacion,
-        // } = req.body;
         const {
             fecha,
             placa_vehiculo,
