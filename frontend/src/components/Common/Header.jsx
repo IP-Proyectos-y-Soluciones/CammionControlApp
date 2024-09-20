@@ -18,7 +18,7 @@ const Header = () => {
   // };
 
   return (
-    <header className="flex bg-red-600 items-center justify-between p-1">
+    <header className="flex bg-red-600 items-center justify-between p-2 h-20">
       <button
         className="text-xl p-2 rounded-full hover:bg-white"
         onClick={handleBackClick}
@@ -31,7 +31,7 @@ const Header = () => {
 
       <div className="flex-1 text-center">
         <img
-          className="h-40 mx-auto cursor-pointer"
+          className="h-28 mx-auto cursor-pointer"
           src={logo}
           alt="Company Logo"          
         />
@@ -44,7 +44,7 @@ const Header = () => {
         
         <FontAwesomeIcon
           icon={faUser} 
-          className="h-10 w-10 text-gray-800"
+          className="h-8 w-8 text-gray-800"
         />
 
       </div>

@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
+import '../../styles/global.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export function EmployeesFormAddPage() {
   const {
@@ -59,6 +62,11 @@ export function EmployeesFormAddPage() {
       setIsLoading(false);
     }
   };
+
+  const onCancel=()=>{
+    reset();
+    navigate('/general_access');
+  }  
 
   return (
     <div>
@@ -244,7 +252,7 @@ export function EmployeesFormAddPage() {
                   type="date"
                   {...register('fecha_final_contrato')}
                 />
-                {errors.fecha_final_contrato && (
+                {errors.fecha_final_contrato && ( 
                   <p className="text-red-700">
                     {errors.fecha_final_contrato.message}
                   </p>
@@ -252,13 +260,33 @@ export function EmployeesFormAddPage() {
               </div>
             </div>
 
+            <div className='flex justify-end gap-5 mt-3'>
+              <div>
+                <Button
+                type="button"
+                onClick={onCancel}
+                className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+                >
+                  <FontAwesomeIcon
+                  icon={faAngleLeft}
+                  className='absolute left-3 text-lg'
+                  />
+                 <span>Cancelar</span>
+                </Button>
+              </div>
+
             <div className="flex justify-end">
               <Button
                 type="submit"
-                className="bg-slate-500 w-1/3 mt-3 mb-4 hover:bg-slate-400"
+                 className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
               >
-                Aceptar
+                <span>Aceptar</span>
+                <FontAwesomeIcon
+                icon={faAngleRight}
+                className='absolute right-3 text-lg'
+                />
               </Button>
+            </div>
             </div>
           </form>
         </div>

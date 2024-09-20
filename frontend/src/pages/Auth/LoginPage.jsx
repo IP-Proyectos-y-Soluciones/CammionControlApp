@@ -41,7 +41,7 @@ export function LoginPage() {
                 if (role === 'Owner' || role === 'Admin') {
                     navigate('/employees');
                 } else if (role === 'Empleado') {
-                    navigate('/volquetas');
+                    navigate('/general_access');
                     // navigate('/volquetas/planilla/add');
                 } else {
                     navigate('/unauthorized');

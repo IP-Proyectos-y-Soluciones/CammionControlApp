@@ -47,7 +47,7 @@ export const EmployeeFormDropdown = () => {
                             </Link>
 
                             <Link
-                                to={'tanqueos/planilla/add'}
+                                to={'refueling/planilla/add'}
                                 onClick={() => setIsOpen(false)}
                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             >

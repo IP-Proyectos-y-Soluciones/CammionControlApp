@@ -290,7 +290,7 @@ const FormularioRegistroVolquetas = () => {
 
         <div className="flex mt-8 space-x-8 justify-center">
           <button
-          className="flex items-center justify-between bg-gray-600 text-white px-8 py-3 rounded-full shadow-lg mt-8 hover:bg-red-600 transition-colors"
+          className="flex items-center justify-between bg-white border-2 border-red-600 text-red-600 px-8 py-3 rounded-full shadow-lg mt-8 hover:bg-red-600 hover:text-white transition-colors"
           style={{ width: 'auto', minWidth: '150px' }}
           onClick={handleBackClick}
           >            
@@ -303,7 +303,7 @@ const FormularioRegistroVolquetas = () => {
 
           <button
           type="submit"
-          className="flex items-center justify-between bg-gray-600 text-white px-10 py-3 rounded-full shadow-lg mt-8 hover:bg-red-600 transition-colors"
+          className="flex items-center justify-between bg-white border-2 border-red-600 text-red-600 px-10 py-3 rounded-full shadow-lg mt-8 hover:bg-red-600 hover:text-white transition-colors"
           style={{ width: 'auto', minWidth: '120px' }}
         >
           <span className="flex-grow text-left">Enviar</span>

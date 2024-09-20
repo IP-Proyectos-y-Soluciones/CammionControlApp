@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export function VolquetasFormPage() {
     const {
@@ -32,6 +34,7 @@ export function VolquetasFormPage() {
             const response = await createNewVolquetaForm(data);
 
             if (response.status === 201) {
+                setIsLoading(false)
                 swal2.fire({
                     title: 'Registro exitoso...!',
                     text: `La planilla Nº ${data.n_planilla} ha sido registrada exitosamente...!!!`,
@@ -47,6 +50,7 @@ export function VolquetasFormPage() {
                 text: `Ha ocurrido un error inesperado: ${error.message}. Si el error persiste, contacte con el Desarrollador del software...!!!`,
                 icon: 'error',
             });
+            setIsLoading(false)
         }
     };
 
@@ -66,8 +70,8 @@ export function VolquetasFormPage() {
             <div className="flex h-[calc(100vh-100px)] items-center justify-center mt-24">
                 <div className="bg-zinc-100 border-4 border-red-600 max-w-md w-full p-0 rounded-md">
                     <div className="bg-red-600 flex items-stretch">
-                        <h2 className="text-2xl font-bold italic ml-32 mb-2 text-gray-100">
-                            Nueva Planilla
+                        <h2 className="text-2xl font-bold italic ml-30 mb-2 text-gray-100">
+                            Nueva Planilla de Volquetas
                         </h2>
                     </div>
 
@@ -352,17 +356,25 @@ export function VolquetasFormPage() {
                                 <Button
                                     type="button"
                                     onClick={onCancel}
-                                    className="bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white"
+                                    className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
                                 >
-                                    Cancelar
+                                    <FontAwesomeIcon
+                                    icon={faAngleLeft}
+                                    className='absolute left-3'
+                                    />
+                                    <span>Cancelar</span>
                                 </Button>
                             </div>
                             <div>
                                 <Button
                                     type="submit"
-                                    className="bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white"
+                                    className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
                                 >
-                                    Aceptar
+                                    <span>Aceptar</span>
+                                    <FontAwesomeIcon
+                                    icon={faAngleRight}
+                                    className='absolute right-3 text-lg'
+                                    />
                                 </Button>
                             </div>
                         </div>

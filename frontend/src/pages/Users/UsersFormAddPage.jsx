@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export function UsersFormAddPage() {
   const {
@@ -58,6 +60,11 @@ export function UsersFormAddPage() {
       setIsLoading(false)
     }
   };
+
+  const onCancel= () =>{
+    reset();
+    navigate('/employees');
+  }
 
   return (
     <div>
@@ -152,13 +159,33 @@ export function UsersFormAddPage() {
                 </p>
               )}
             </div>
+
+            <div className='flex justify-end gap-5 mt-3'>
+              <div>
+                <Button
+                type="button"
+                onClick={onCancel}
+                className='relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center'
+                >
+                  <FontAwesomeIcon
+                  icon={faAngleLeft}
+                  className='absolute left-3 text-xl'
+                  />
+                  <span> Cancelar</span>                 
+                </Button>
+              </div>
             <div className="flex justify-end">
               <Button
                 type="submit"
-                className="bg-slate-500 w-1/3 mt-3 mb-4 hover:bg-slate-400"
+                className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
               >
-                Aceptar
+               <span>Aceptar</span>
+               <FontAwesomeIcon
+               icon={faAngleRight}
+               className='absolute right-3 text-xl'
+               />
               </Button>
+            </div>
             </div>
           </form>
         </div>

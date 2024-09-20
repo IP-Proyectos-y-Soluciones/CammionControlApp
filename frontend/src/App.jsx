@@ -22,11 +22,12 @@ import { UsersPage } from './pages/Users/UsersPage.jsx';
 import { UsersFormAddPage } from './pages/Users/UsersFormAddPage.jsx';
 import { UsersFormLockUnlockPage } from './pages/Users/UsersFormLockUnlockPage.jsx';
 import { UserProfileDetail } from './pages/UserDetail/UserProfileDetail.jsx';
-import { VolquetasPage } from './pages/VolquetasForm/VolquetasPage.jsx';
 import { VolquetasFormPage } from './pages/VolquetasForm/VolquetasFormPage.jsx';
 import { UnauthorizedPage } from './pages/UnauthorizedPage/UnauthorizedPage.jsx';
 import LandingPage from './pages/LandingPage/LandingPage.jsx';
 import RegisterPage from './pages/Auth/RegisterPage.jsx';
+import { GeneralAccessPage } from './pages/GeneralAccess/GeneralAccessPage.jsx';
+import { RefuelingFormPage } from './pages/Refueling/RefuelingFormPage.jsx';
 
 function App() {
   return (
@@ -129,7 +130,11 @@ function App() {
                   </ProtectedRoute>
               }
               />
-              <Route path="/volquetas" element={<VolquetasPage />} />
+              <Route
+              path="/general_access"
+              element={<GeneralAccessPage />}
+              />
+
               <Route 
                path="/volquetas/planilla/add"
                element={
@@ -139,6 +144,17 @@ function App() {
                        <VolquetasFormPage />
                    </ProtectedRoute>
                }
+              />
+
+              <Route
+              path="/refueling/planilla/add"
+              element={
+                <ProtectedRoute
+                allowed={['Admin', 'Owner', 'Empleado']}
+                >
+                  <RefuelingFormPage />
+                </ProtectedRoute>
+              }
               />
               
               <Route

@@ -6,12 +6,18 @@ import { useState } from 'react';
 import { getEmployeeByDniRequest } from '../../../api/employees';
 import { EmployeesDetailsCard } from '../../components/Employees/EmployeesDetailsCard';
 import { Loading } from '../../components/Common/Loading';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export function EmployeeByDniPage() {
   const [cedula, setCedula] = useState('');
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const {reset} =useForm();
+  const navigate =useNavigate();
 
   const handleInputChange = (e) => {
     setCedula(e.target.value);
@@ -34,6 +40,11 @@ export function EmployeeByDniPage() {
       setLoading(false);
     }
   };
+
+  const onCancel =()=>{
+    reset(),
+    navigate('/employees')
+  }
 
   return (
     <div>
@@ -63,13 +74,33 @@ export function EmployeeByDniPage() {
               </div>
             </div>
 
+            <div className='flex justify-end gap-5 mt-3'>
+              <div>
+                <Button
+                type="button"
+                onClick={onCancel}
+                className='relative bg-white border-2 border-red-600 text-red-600 w-48 hover:bg-red-600 hover:text-white flex items-center justify-center'
+                >
+                  <FontAwesomeIcon
+                  icon={faAngleLeft}
+                  className='absolute left-3 text-lg'
+                  />
+                  <span>Cancelar</span>
+                </Button>
+            </div>
             <div className="flex justify-end">
               <Button
+                type="submit"
                 onClick={handleSearch}
-                className="bg-slate-500 w-1/3 mt-3 mb-4 hover:bg-slate-400"
+                className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
               >
-                Aceptar
+                <span>Aceptar</span>
+                <FontAwesomeIcon
+                icon={faAngleRight}
+                className='absolute right-3 text-lg'
+                />
               </Button>
+            </div>
             </div>
           </form>
         </div>

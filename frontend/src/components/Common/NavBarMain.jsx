@@ -24,9 +24,14 @@ export function NavBarMain() {
     }
   };
 
+  // const handleDashboardLink =()=>{
+  //   if
+  // } 
+
   const isAuthorized =
   userRole === import.meta.env.VITE_RAD ||
   userRole === import.meta.env.VITE_ROW;
+
 
   return (
     <nav className="bg-gray-800 py-3 px-8 rounded-lg flex justify-between items-center">

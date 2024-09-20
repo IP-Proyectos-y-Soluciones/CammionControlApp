@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export function UpdateEmployeeByDni() {
   const {
@@ -29,6 +31,7 @@ export function UpdateEmployeeByDni() {
       );
 
       if (response.status === 200) {
+        setIsLoading(false)
         swal2
           .fire({
             title: 'Actualización exitosa',
@@ -111,6 +114,11 @@ export function UpdateEmployeeByDni() {
       }
     }
   };
+
+  const onCancel =()=>{
+    reset();
+    navigate('/employees')
+  }
 
   return (
     <div>
@@ -305,13 +313,32 @@ export function UpdateEmployeeByDni() {
               </div>
             </div>
 
+            <div className='flex justufy-end gap-5 mt-3'>
+              <div>
+                <Button
+                type="button"
+                onClick={onCancel}
+                className='relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center'
+                >
+                  <FontAwesomeIcon
+                  icon={faAngleLeft}
+                  className='absolute left-3 text-lg'
+                  />
+                  <span>Cancelar</span>
+                </Button>
+              </div>
             <div className="flex justify-end">
               <Button
                 type="submit"
-                className="bg-slate-500 w-1/3 mt-3 mb-4 hover:bg-slate-400"
+                className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
               >
-                Actualizar
+                <span>Actualizar</span>
+                <FontAwesomeIcon
+                icon={faAngleRight}
+                className='absolute right-3 text-lg'
+                />
               </Button>
+            </div>
             </div>
           </form>
         </div>
