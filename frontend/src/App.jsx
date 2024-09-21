@@ -5,7 +5,7 @@ import { ProtectedRoute } from './pages/ProtectedRoutes/ProtectedRoutes.jsx';
 import { NavBarMain } from './components/Common/NavBarMain.jsx';
 import FormularioRegistroVolquetas from './pages/ServicesForm/FormularioRegistroVolquetas.jsx';
 import FormularioRegistroTanqueo from './pages/ServicesForm/FormularioRegistroTanqueo.jsx';
-import Layout from './components/Common/Layout.jsx';
+// import Layout from './components/Common/Layout.jsx';
 import ExcellTractomulas from './components/ExcellVistaPrevia/ExcellTractomulas';
 import ExcellTanqueos from './components/ExcellVistaPrevia/ExcellTanqueos';
 import ExcellVolquetas from './components/ExcellVistaPrevia/ExcellVolquetas';
