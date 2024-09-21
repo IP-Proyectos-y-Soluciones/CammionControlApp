@@ -1,93 +1,118 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBirthdayCake, faIdCard, faEnvelope, faPhone, faFile } from '@fortawesome/free-solid-svg-icons';
+import {
+    faBirthdayCake,
+    faIdCard,
+    faEnvelope,
+    faPhone,
+    faFile,
+} from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../context/AuthContext'; // Asumiendo que estás usando un contexto para obtener el empleado
 
 export function UserProfileDetail() {
-  const { userName } = useAuth(); // Obtiene los detalles del empleado del contexto
-  console.log('aquiuiui', userName)
+    const { userName } = useAuth(); // Obtiene los detalles del empleado del contexto
+    console.log('aquiuiui', userName);
 
-  const formatDate = (dateString) => {
-    if (!dateString) return 'N/A';
-    const date = new Date(dateString);
-    return `${date.getUTCDate().toString().padStart(2, '0')}-${(date.getUTCMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
-  };
+    const formatDate = (dateString) => {
+        if (!dateString) return 'N/A';
+        const date = new Date(dateString);
+        return `${date.getUTCDate().toString().padStart(2, '0')}-${(date.getUTCMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+    };
 
-  const handleCardClick = () => {
-    // Aquí puedes implementar la lógica para manejar el clic en la tarjeta
-    console.log('Card clicked');
-  };
+    const handleCardClick = () => {
+        // Aquí puedes implementar la lógica para manejar el clic en la tarjeta
+        console.log('Card clicked');
+    };
 
-  if (!employee) {
-    return <p>Cargando...</p>;
-  }
+    if (!employee) {
+        return <p>Cargando...</p>;
+    }
 
-  return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md cursor-pointer" onClick={handleCardClick}>
-        <h2 className="text-2xl text-gray-600 font-semibold mb-4">
-          {employee.nombres || 'Nombre'} {employee.apellidos || 'Apellido'}
-        </h2>
+    return (
+        <div className="p-8 bg-gray-100 min-h-screen">
+            <div
+                className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md cursor-pointer"
+                onClick={handleCardClick}
+            >
+                <h2 className="text-2xl text-gray-600 font-semibold mb-4">
+                    {employee.nombres || 'Nombre'}{' '}
+                    {employee.apellidos || 'Apellido'}
+                </h2>
 
-        <div className="mb-4 text-gray-600">
-          <div className='flex items-center'>
-            <FontAwesomeIcon icon={faIdCard} className='mr-2' />
-            <strong className="underline">Cédula:</strong> {employee.cedula || 'N/A'}
-          </div>
-          <hr className='border-gray-300 my-1' />
-        </div>
+                <div className="mb-4 text-gray-600">
+                    <div className="flex items-center">
+                        <FontAwesomeIcon icon={faIdCard} className="mr-2" />
+                        <strong className="underline">Cédula:</strong>{' '}
+                        {employee.cedula || 'N/A'}
+                    </div>
+                    <hr className="border-gray-300 my-1" />
+                </div>
 
-        <div className="mb-4 text-gray-600">
-          <div className='flex items-center'>
-            <FontAwesomeIcon icon={faBirthdayCake} className='mr-2' />
-            <strong className="underline">Fecha de Nacimiento:</strong> {formatDate(employee.fecha_nacimiento)}
-          </div>
-          <hr className='border-gray-300 my-1' />
-        </div>
+                <div className="mb-4 text-gray-600">
+                    <div className="flex items-center">
+                        <FontAwesomeIcon
+                            icon={faBirthdayCake}
+                            className="mr-2"
+                        />
+                        <strong className="underline">
+                            Fecha de Nacimiento:
+                        </strong>{' '}
+                        {formatDate(employee.fecha_nacimiento)}
+                    </div>
+                    <hr className="border-gray-300 my-1" />
+                </div>
 
-        <div className="mb-4 text-gray-600">
-          <div className='flex items-center'>
-            <FontAwesomeIcon icon={faEnvelope} className='mr-2' />
-            <strong className="underline">Correo:</strong> {employee.correo || 'N/A'}
-          </div>
-        </div>
+                <div className="mb-4 text-gray-600">
+                    <div className="flex items-center">
+                        <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
+                        <strong className="underline">Correo:</strong>{' '}
+                        {employee.correo || 'N/A'}
+                    </div>
+                </div>
 
-        <div className="mb-4 text-gray-600">
-          <div className='flex items-center'>
-            <FontAwesomeIcon icon={faPhone} className='mr-2' />
-            <strong className="underline">Teléfono:</strong> {employee.telefono || 'N/A'}
-          </div>
-        </div>
+                <div className="mb-4 text-gray-600">
+                    <div className="flex items-center">
+                        <FontAwesomeIcon icon={faPhone} className="mr-2" />
+                        <strong className="underline">Teléfono:</strong>{' '}
+                        {employee.telefono || 'N/A'}
+                    </div>
+                </div>
 
-        <div className="mb-4 text-gray-600">
-          <div className='flex items-center'>
-            <FontAwesomeIcon icon={faFile} className='mr-2' />
-            <strong className="underline">Fecha de Inicio de Contrato:</strong> {formatDate(employee.fecha_inicio_contrato)}
-          </div>
-        </div>
+                <div className="mb-4 text-gray-600">
+                    <div className="flex items-center">
+                        <FontAwesomeIcon icon={faFile} className="mr-2" />
+                        <strong className="underline">
+                            Fecha de Inicio de Contrato:
+                        </strong>{' '}
+                        {formatDate(employee.fecha_inicio_contrato)}
+                    </div>
+                </div>
 
-        {employee.fecha_final_contrato && (
-          <div className="mb-4 text-gray-600">
-            <div className='flex items-center'>
-              <FontAwesomeIcon icon={faFile} className='mr-2' />
-              <strong className="underline">Fecha Final de Contrato:</strong> {formatDate(employee.fecha_final_contrato)}
+                {employee.fecha_final_contrato && (
+                    <div className="mb-4 text-gray-600">
+                        <div className="flex items-center">
+                            <FontAwesomeIcon icon={faFile} className="mr-2" />
+                            <strong className="underline">
+                                Fecha Final de Contrato:
+                            </strong>{' '}
+                            {formatDate(employee.fecha_final_contrato)}
+                        </div>
+                    </div>
+                )}
+
+                <div className="mb-4 text-gray-600">
+                    <div className="flex items-center">
+                        <FontAwesomeIcon icon={faFile} className="mr-2" />
+                        <strong className="underline">
+                            Tipo de Contrato:
+                        </strong>{' '}
+                        {employee.tipo_de_contrato || 'N/A'}
+                    </div>
+                </div>
             </div>
-          </div>
-        )}
-
-        <div className="mb-4 text-gray-600">
-          <div className='flex items-center'>
-            <FontAwesomeIcon icon={faFile} className='mr-2' />
-            <strong className="underline">Tipo de Contrato:</strong> {employee.tipo_de_contrato || 'N/A'}
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
-
-
-
 
 // import { useQuery } from '@tanstack/react-query';
 // import { useParams } from 'react-router-dom';
@@ -127,7 +152,7 @@ export function UserProfileDetail() {
 //       <h1 className="text-3xl text-gray-600 font-bold text-center mb-6">Detalle del Perfil de Usuario</h1>
 //       <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
 //         <h2 className="text-2xl text-gray-600 font-semibold mb-4">{user.nombres} {user.apellidos}</h2>
-        
+
 //         <div className="mb-4 text-gray-600">
 //           <div className='flex items-center'>
 //             <FontAwesomeIcon icon={faIdCard} className='mr-2' />
@@ -182,7 +207,7 @@ export function UserProfileDetail() {
 //         </div>
 
 //         <h3 className="text-xl text-gray-600 font-bold mt-6 mb-4">Documentos</h3>
-        
+
 //         <div className="flex flex-col">
 //           {user.licencias && user.licencias.length > 0 && (
 //             <div className="mb-4 text-gray-600">

@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { Loading } from '../../components/Common/Loading';
 
 export const ProtectedRoute = ({ children, allowed }) => {
-/*
+    /*
     const isAuthenticated = document.cookie
       .split('; ')
       .find((row) => row.startsWith('auth-token='))
