@@ -12,14 +12,14 @@ var _auxAuthMiddleware = require("../middlewares/auxAuthMiddleware");
 // Eliminar para prodcc...
 
 var router = (0, _express.Router)();
-router.post('/login', _login.login);
-router.post('/logout', _logout.logout);
+router.post("/login", _login.login);
+router.post("/logout", _logout.logout);
 
 // router.get('/check', TokenValidation, (req, res) => {
 //   res.json({ isAuthenticated: true });
 // });
 
-router.get('/checklogin', _auxAuthMiddleware.AuxAuthMiddleware, function (req, res) {
+router.get("/checklogin", _auxAuthMiddleware.AuxAuthMiddleware, function (req, res) {
   res.json({
     isAuthenticated: true,
     user: {
@@ -27,4 +27,15 @@ router.get('/checklogin', _auxAuthMiddleware.AuxAuthMiddleware, function (req, r
     }
   });
 });
+
+// *********** || Rutas auxiliares para el Front... || ************ //
+
+router.get("/driverced/:cedula",
+// TokenValidation,
+_login.getDriverByDNI);
+router.get("/vehicleid/:id",
+// TokenValidation,
+_login.getVehicleById);
+
+// ***************************************************** //
 var _default = exports["default"] = router;

@@ -9,19 +9,30 @@ var _tanqueos = require("../controllers/tanqueos.controller");
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 var router = (0, _express.Router)();
-router.post('/create',
+router.post("/create",
 // TokenValidation,
 _tanqueos.createTanqueo);
-router.get('/',
+router.get("/",
 // TokenValidation,
 _tanqueos.getAllTanqueos);
-router.get('/:id',
+router.get("/:id",
 // TokenValidation,
 _tanqueos.getTanqueoById);
-router.patch('/update/:id',
+router.patch("/update/:id",
 // TokenValidation,
 _tanqueos.updateTanqueo);
-router["delete"]('/delete/:id',
+router["delete"]("/delete/:id",
 // TokenValidation,
 _tanqueos.deleteTanqueo);
+
+// router.get(
+//     '/driverced/:cedula',
+//     // TokenValidation,
+//     getDriverByDNI,
+// );
+// router.get(
+//     '/vehicleid/:id',
+//     // TokenValidation,
+//     getVehicleById,
+// );
 var _default = exports["default"] = router;
