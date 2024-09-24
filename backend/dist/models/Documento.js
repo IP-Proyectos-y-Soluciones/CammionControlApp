@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var documentoSchema = new mongoose.Schema({
   cerificado_N: {
     type: String,
@@ -13,7 +13,7 @@ var documentoSchema = new mongoose.Schema({
   },
   tipo: {
     type: String,
-    "enum": ['Poliza de seguro', 'Soat', 'tecnomecanica'],
+    "enum": ["Póliza de seguro", "Soat", "Tecnomecánica"],
     required: true
   },
   vehiculo_placa: {
@@ -25,11 +25,11 @@ var documentoSchema = new mongoose.Schema({
   fecha_vencimiento: Date,
   vehiculo: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehiculo'
+    ref: "Vehiculo"
   }
 }, {
   timestamps: false,
   autoCreate: false
 });
-var Documento = mongoose.model('Documento', documentoSchema);
+var Documento = mongoose.model("Documento", documentoSchema);
 var _default = exports["default"] = Documento;
