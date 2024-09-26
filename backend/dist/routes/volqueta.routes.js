@@ -9,19 +9,16 @@ var _volquetas = require("../controllers/volquetas.controller");
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 var router = (0, _express.Router)();
-router.post('/addplanilla',
+router.post("/addplanilla",
 // TokenValidation,
 _volquetas.createVolqueta);
-router.get('/allforms',
-// TokenValidation,
-_volquetas.getAllVolquetasForms);
-router.get('/',
+router.get("/",
 // TokenValidation,
 _volquetas.getVolqueta);
-router.put('/:id',
+router.put("/:n_planilla",
 // TokenValidation,
 _volquetas.putVolqueta);
-router["delete"]('/:id',
+router["delete"]("/:n_planilla",
 // TokenValidation,
 _volquetas.deleteVolqueta);
 var _default = exports["default"] = router;

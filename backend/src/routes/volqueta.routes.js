@@ -1,43 +1,36 @@
-import { Router } from 'express';
+import { Router } from "express";
 import {
-    createVolqueta,
-    getAllVolquetasForms,
-    getVolqueta,
-    putVolqueta,
-    deleteVolqueta,
-} from '../controllers/volquetas.controller';
+  createVolqueta,
+  getVolqueta,
+  putVolqueta,
+  deleteVolqueta,
+} from "../controllers/volquetas.controller";
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 const router = Router();
 
 router.post(
-    '/addplanilla',
-    // TokenValidation,
-    createVolqueta,
+  "/addplanilla",
+  // TokenValidation,
+  createVolqueta
 );
 
 router.get(
-    '/allforms',
-    // TokenValidation,
-    getAllVolquetasForms,
-);
-
-router.get(
-    '/',
-    // TokenValidation,
-    getVolqueta,
+  "/",
+  // TokenValidation,
+  getVolqueta
 );
 
 router.put(
-    '/:id',
-    // TokenValidation,
-    putVolqueta,
+  "/:n_planilla",
+  // TokenValidation,
+  putVolqueta
 );
 
 router.delete(
-    '/:id',
-    // TokenValidation,
-    deleteVolqueta,
+  "/:n_planilla",
+  // TokenValidation,
+  deleteVolqueta
 );
 
 export default router;
