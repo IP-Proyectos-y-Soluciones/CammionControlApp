@@ -2,7 +2,7 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 
-export function VolquetasPage() {
+export function GeneralAccessPage() {
     const { userName } = useAuth();
     const fullName = userName;
 

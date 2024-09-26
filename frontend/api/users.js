@@ -1,7 +1,7 @@
 import axios from './axios.js';
 
 export const createNewUserRequest = (user) =>
-    axios.post('/usuarios/addusuario', user);
+  axios.post('/usuarios/addusuario', user);
 
 export const showAllUsersRequest = () => axios.get('/usuarios');
 

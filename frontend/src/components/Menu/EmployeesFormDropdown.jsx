@@ -31,31 +31,30 @@ export const EmployeeFormDropdown = () => {
 
     return (
         <div className="relative" ref={menuRef}>
-            <button onClick={toggleMenu} className="pt-1 hover:text-yellow-200">
+            <button onClick={toggleMenu} className="pt-5 text-white font-bold block hover:scale-110 hover:text-gray-700 transition-all">
                 Empleado
             </button>
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                <div className="absolute right-0 mt-2 w-48 bg-red-700 text-white rounded-md shadow-2xl z-10">
                     {isAuthenticated ? (
                         <>
                             <Link
                                 to={'volquetas/planilla/add'}
                                 onClick={() => setIsOpen(false)}
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                className="block px-4 py-2 text-sm hover:text-gray-700 hover:bg-white "
                             >
                                 Nueva planilla Volquetas
-                            </Link>
-
+                            </Link>                       
                             <Link
-                                to={'tanqueos/planilla/add'}
+                                to={'refueling/planilla/add'}
                                 onClick={() => setIsOpen(false)}
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                className="block px-4 py-2 text-sm hover:text-gray-700 hover:bg-white "
                             >
                                 Nueva planilla Tanqueo
                             </Link>
                         </>
                     ) : (
-                        <p className="block px-4 py-2 text-sm text-gray-700">
+                        <p className="block px-4 py-2 text-sm text-red-700">
                             Debe estar loggeado para acceder...!
                         </p>
                     )}
