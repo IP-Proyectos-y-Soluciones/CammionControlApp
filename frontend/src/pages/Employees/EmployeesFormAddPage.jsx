@@ -69,25 +69,25 @@ export function EmployeesFormAddPage() {
   }  
 
   return (
-    <div>
+    <div className='bg-otherpages min-h-screen '>
       {isLoading && (
         <div>
           <Loading />
         </div>
       )}{' '}
       {/* Se renderiza si es true... */}
-      <div className="flex h-[calc(100vh-100px)] items-center justify-center">
-        <div className="bg-zinc-100 border-4 border-red-600 max-w-md w-full p-0 rounded-md">
-          <div className="bg-red-600 flex items-stretch">
-            <h2 className="text-2xl font-bold italic ml-24 mb-2 text-gray-100">
+      <div className="customDiv-1 flex h-[calc(100vh-100px)] items-center justify-center">
+        <div className="customDiv-2 bg-zinc-100 border-4 border-red-700 max-w-md w-full p-0 rounded-md">
+          <div className="customDivH2 bg-red-700 flex items-stretch">
+            <h2 className="customH2 text-2xl font-bold italic ml-24 mb-2 text-gray-100">
               Nuevo Empleado
             </h2>
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="pt-5 pl-6 pr-6 pb-4"
+            className="customFormDiv pt-5 pl-6 pr-6 pb-4"
           >
-            <div className="grid grid-cols-2 gap-3">
+            <div className="customFormDiv grid grid-cols-2 gap-3">
               <div>
                 <Label htmlFor="nombres" className="block text-gray-600 text-sm font-semibold mb-2">Nombres</Label>
                 <Input
@@ -226,7 +226,7 @@ export function EmployeesFormAddPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="customFormGrid grid grid-cols-2 gap-3">
               <div>
                 <Label htmlFor="fecha_inicio_contrato" className="block text-gray-600 text-sm font-semibold mb-2">
                   Fecha inicio de contrato
@@ -265,7 +265,7 @@ export function EmployeesFormAddPage() {
                 <Button
                 type="button"
                 onClick={onCancel}
-                className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+                className="relative bg-white border-2 border-red-700 text-red-700 w-48 mb-2 hover:bg-red-700 hover:text-white flex items-center justify-center"
                 >
                   <FontAwesomeIcon
                   icon={faAngleLeft}
@@ -278,7 +278,7 @@ export function EmployeesFormAddPage() {
             <div className="flex justify-end">
               <Button
                 type="submit"
-                 className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+                 className="relative bg-white border-2 border-red-700 text-red-700 w-48 mb-2 hover:bg-red-700 hover:text-white flex items-center justify-center"
               >
                 <span>Aceptar</span>
                 <FontAwesomeIcon

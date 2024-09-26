@@ -47,24 +47,24 @@ export function EmployeeByDniPage() {
   }
 
   return (
-    <div>
+    <div className='bg-otherpages min-h-screen'>
       {loading && (
         <div>
           <Loading />
         </div>
       )}{' '}
       {/* Se renderiza si es true... */}
-      <div className="flex flex-col items-center mt-12 mx-auto w-full max-w-md">
-        <div className="bg-zinc-100 border-4 border-red-600 w-full p-0 rounded-md">
-          <div className="bg-red-600 flex items-stretch">
-            <h2 className="text-2xl font-bold italic ml-16 mb-2 text-gray-100">
+      <div className="customDiv-1a flex flex-col items-center mt-12 mx-auto w-full max-w-md">
+        <div className="customDiv-2 bg-zinc-100 border-4 border-red-700 w-full p-0 rounded-md">
+          <div className="customDivH2 bg-red-700 flex items-stretch">
+            <h2 className="customH2 text-2xl font-bold italic ml-16 mb-2 text-gray-100">
               Buscar Empleado por Cédula
             </h2>
           </div>
-          <form className="pt-5 pl-6 pr-6 pb-4">
+          <form className="customFormDiv pt-5 pl-6 pr-6 pb-4">
             <div>
               <div>
-                <Label htmlFor="cedula" className="block text-gray-600 text-sm font-semibold mb-2">Cédula</Label>
+                <Label htmlFor="cedula" className="block text-gray-700 text-sm font-semibold mb-2">Cédula</Label>
                 <Input
                   type="number"
                   value={cedula}
@@ -79,7 +79,7 @@ export function EmployeeByDniPage() {
                 <Button
                 type="button"
                 onClick={onCancel}
-                className='relative bg-white border-2 border-red-600 text-red-600 w-48 hover:bg-red-600 hover:text-white flex items-center justify-center'
+                className='relative bg-white border-2 border-red-700 text-red-700 w-48 hover:bg-red-700 hover:text-white flex items-center justify-center'
                 >
                   <FontAwesomeIcon
                   icon={faAngleLeft}
@@ -92,7 +92,7 @@ export function EmployeeByDniPage() {
               <Button
                 type="submit"
                 onClick={handleSearch}
-                className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+                className="relative bg-white border-2 border-red-700 text-red-700 w-48 mb-2 hover:bg-red-700 hover:text-white flex items-center justify-center"
               >
                 <span>Aceptar</span>
                 <FontAwesomeIcon
@@ -108,7 +108,7 @@ export function EmployeeByDniPage() {
       {/* Mostrar el mensaje de carga, error o detalles del empleado... */}
       {loading && <p>Loading...</p>}
       {error && (
-        <p className="text-red-500 mt-4">{error}</p>
+        <p className="text-red-600 mt-4">{error}</p>
       )}
       {employee && (
         <div className="mt-10 w-full">

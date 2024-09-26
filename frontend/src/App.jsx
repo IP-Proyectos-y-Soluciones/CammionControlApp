@@ -33,7 +33,9 @@ function App() {
   return (
     <AuthProvider>
     <BrowserRouter>
+    <nav className='fixed top-0 left-0 w-full z-50 bg-transparente'>
       <NavBarMain />
+      </nav>  
       <main>
         <Layout>
         <Routes>
