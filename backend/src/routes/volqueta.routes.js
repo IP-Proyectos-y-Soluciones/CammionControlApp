@@ -22,13 +22,13 @@ router.get(
 );
 
 router.put(
-  "/:n_planilla",
+  "/:n_planilla?",
   // TokenValidation,
   putVolqueta
 );
 
 router.delete(
-  "/:n_planilla",
+  "/:n_planilla?",
   // TokenValidation,
   deleteVolqueta
 );

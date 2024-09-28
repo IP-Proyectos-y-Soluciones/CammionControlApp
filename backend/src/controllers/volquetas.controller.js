@@ -53,6 +53,7 @@ export const createVolqueta = async (req, res) => {
       endH = new Date(end.getTime() - timezoneOffset * 60000);
 
       total_horas = (endH - startH) / (1000 * 60 * 60);
+      const horaTotal = total_horas.toFixed(2);
     }
 
     const total_km_dia = km_final - km_inicial;
@@ -70,7 +71,7 @@ export const createVolqueta = async (req, res) => {
       material,
       hora_inicio: startH,
       hora_final: endH,
-      total_horas,
+      total_horas: horaTotal,
       km_inicial,
       km_final,
       total_km_dia,
@@ -146,121 +147,73 @@ export const getVolqueta = async (req, res) => {
 
 export const putVolqueta = async (req, res) => {
   try {
-    /* const {
-      fecha,
-      placa_vehiculo,
-      conductor_cedula,
-      cliente,
-      volmts3,
-      n_viajes,
-      material,
-      hora_inicio,
-      hora_final,
-      km_inicial,
-      km_final,
-      honorarios,
-      lugar_de_cargue,
-      lugar_de_descargue,
-      observacion,
-    } = req.body;*/
-    const { _id, n_planilla } = req.params;
-    const { conductor_cedula } = req.body;
+    const { n_planilla } = req.params;
     const updateData = req.body;
-    let filter = {};
 
-    if (_id && /^[0-9a-fA-F]{24}$/.test(_id)) {
-      filter = { _id };
-    } else if (conductor_cedula) {
-      filter = { conductor_cedula: Number(conductor_cedula) };
-    } else if (n_planilla) {
-      filter = { n_planilla: String(n_planilla) };
+    let query = {};
+    console.log(req.params);
+    if (n_planilla) {
+      query = { n_planilla };
     } else {
-      return res.status(400).json({
-        message: "Debe proporcionar _id válido o nro. de cédula...!",
-      });
+      return res.status(400).json({ message: "n_planilla es requerido" });
     }
 
-    const findPlanilla = await Volqueta.findOne(filter);
-
-    if (!findPlanilla)
-      return res.status(404).json({ message: "Planilla no existe" });
-
-    const driver = await Persona.findOne({ cedula: conductor_cedula });
-    if (!driver) {
-      return res.status(404).json({
-        message: `El conductor con la cédula ${conductor_cedula} NO se encuentra registrado...!`,
-      });
-    }
-    const vehicle = await Vehiculo.findOne({ placa: placa_vehiculo });
-    if (!vehicle) {
-      return res.status(404).json({
-        message: `El vehículo con placas ${placa_vehiculo} NO se encuentra registrado...!`,
-      });
+    // Cálculo de total_horas si `hora_inicio` y `hora_final` están presentes
+    if (updateData.hora_inicio && updateData.hora_final) {
+      const horaInicio = new Date(updateData.hora_inicio);
+      const horaFinal = new Date(updateData.hora_final);
+      const diferenciaHoras = (horaFinal - horaInicio) / (1000 * 60 * 60); // Convertir milisegundos a horas
+      updateData.total_horas = diferenciaHoras.toFixed(2); // Guardar con dos decimales
     }
 
-    let total_horas = 0;
-    let startH;
-    let endH;
-
-    if (hora_inicio && hora_final) {
-      const start = new Date(hora_inicio);
-      const end = new Date(hora_final);
-      //
-      const timezoneOffset = new Date().getTimezoneOffset(); // Devuelve el offset en minutos...
-      //
-      startH = new Date(start.getTime() - timezoneOffset * 60000);
-      endH = new Date(end.getTime() - timezoneOffset * 60000);
-
-      total_horas = (endH - startH) / (1000 * 60 * 60);
+    // Cálculo de total_km_dia si `km_inicial` y `km_final` están presentes
+    if (updateData.km_inicial && updateData.km_final) {
+      const kmInicial = parseFloat(updateData.km_inicial);
+      const kmFinal = parseFloat(updateData.km_final);
+      const totalKm = kmFinal - kmInicial;
+      updateData.total_km_dia = totalKm;
     }
 
-    const total_km_dia = km_final - km_inicial;
-    const planilla = await Volqueta.findByIdAndUpdate(
-      { n_planilla: n_planilla },
+    // Buscar y actualizar el documento
+    const volquetaActualizada = await Volqueta.findOneAndUpdate(
+      query,
+      updateData,
       {
-        fecha,
-        placa_vehiculo,
-        placa: vehicle._id,
-        conductor_cedula: cedula,
-        conductor: driver._id,
-        cliente,
-        volmts3,
-        n_viajes,
-        material,
-        hora_inicio: startH,
-        hora_final: endH,
-        total_horas,
-        km_inicial,
-        km_final,
-        total_km_dia,
-        honorarios,
-        lugar_de_cargue,
-        lugar_de_descargue,
-        observacion,
-      },
-      { new: true }
+        new: true, // Devuelve el documento actualizado
+        runValidators: true, // Ejecuta validaciones del modelo
+      }
     );
 
-    if (!planilla) {
-      return res.status(404).json({
-        message: "Planilla no encontrada",
-      });
+    // Si no encuentra la volqueta, devolver error
+    if (!volquetaActualizada) {
+      return res.status(404).json({ message: "Volqueta no encontrada" });
     }
-    console.log(planilla);
-    plantillaVolquetas([planilla]);
 
-    res.status(200).json({
-      message: "El formulario fue actualizado correctamente!",
-      planilla,
-    });
+    console.log(volquetaActualizada);
+    plantillaVolquetas([volquetaActualizada]);
+
+    // Responder con el documento actualizado
+    res.status(200).json(volquetaActualizada);
   } catch (error) {
-    res.status(500).json(error);
+    res
+      .status(500)
+      .json({ message: "Error actualizando volqueta", error: error.message });
   }
 };
 
 export const deleteVolqueta = async (req, res) => {
   try {
-    const planilla = await Volqueta.findByIdAndDelete(req.params.n_planilla);
+    const { n_planilla } = req.params;
+
+    let query = {};
+    console.log(n_planilla);
+
+    if (n_planilla) {
+      query.n_planilla = n_planilla;
+    } else {
+      return res.status(400).json({ message: "Se requiere el n_planilla." });
+    }
+    const planilla = await Volqueta.findOneAndDelete(query);
     if (!planilla) {
       return res.status(404).json({ message: "Planilla no encontrada" });
     }
@@ -269,6 +222,7 @@ export const deleteVolqueta = async (req, res) => {
       planilla,
     });
   } catch (error) {
-    res.status(500).json(error);
+    //res.status(500).json(error);
+    console.log(error.message);
   }
 };
