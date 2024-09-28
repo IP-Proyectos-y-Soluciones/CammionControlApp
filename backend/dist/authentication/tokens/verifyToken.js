@@ -1,15 +1,13 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
-    value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 exports.TokenValidation = void 0;
-var _dotenv = _interopRequireDefault(require('dotenv'));
-var _jsonwebtoken = _interopRequireDefault(require('jsonwebtoken'));
-function _interopRequireDefault(e) {
-    return e && e.__esModule ? e : { default: e };
-}
-_dotenv['default'].config();
+var _dotenv = _interopRequireDefault(require("dotenv"));
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+_dotenv["default"].config();
 var SECK = process.env.SKEY_TOKEN;
 
 /**
@@ -29,22 +27,16 @@ var SECK = process.env.SKEY_TOKEN;
  * después de que la validación del token sea exitosa, lo que permite que la solicitud
  * @returns La función `TokenValidation` devuelve diferentes respuestas HTTP según ciertas condiciones:
  */
-var TokenValidation = (exports.TokenValidation = function TokenValidation(
-    req,
-    res,
-    next,
-) {
-    var authToken = req.cookies['auth-token'];
-    if (!authToken)
-        return res.status(401).json({
-            message: 'Autorización denegada...!',
-        });
-    _jsonwebtoken['default'].verify(authToken, SECK, function (err, user) {
-        if (err)
-            return res.status(403).json({
-                message: 'Token inválido...',
-            });
-        req.allUserData = user;
-        next();
+var TokenValidation = exports.TokenValidation = function TokenValidation(req, res, next) {
+  var authToken = req.cookies['auth-token'];
+  if (!authToken) return res.status(401).json({
+    message: 'Autorización denegada...!'
+  });
+  _jsonwebtoken["default"].verify(authToken, SECK, function (err, user) {
+    if (err) return res.status(403).json({
+      message: 'Token inválido...'
     });
-});
+    req.allUserData = user;
+    next();
+  });
+};

@@ -1,34 +1,26 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
-    value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-exports['default'] = void 0;
-var _express = require('express');
-var _cargaPesada = require('../controllers/cargaPesada.controller');
+exports["default"] = void 0;
+var _express = require("express");
+var _cargaPesada = require("../controllers/cargaPesada.controller");
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para
 
 var router = (0, _express.Router)();
-router.post(
-    '/addheavyloadform',
-    // TokenValidation,
-    _cargaPesada.createHeavyLoadForm,
-);
-router.get(
-    '/',
-    // TokenValidation,
-    _cargaPesada.getAllHeavyLoadForms,
-);
-router.get(
-    '/planilla/:n_planilla',
-    // TokenValidation,
-    _cargaPesada.getHeavyLoadByFormNumber,
-);
-router.get(
-    '/planillaid/:_id',
-    // TokenValidation,
-    _cargaPesada.getHeavyLoadByFormID,
-);
+router.post('/addheavyloadform',
+// TokenValidation,
+_cargaPesada.createHeavyLoadForm);
+router.get('/',
+// TokenValidation,
+_cargaPesada.getAllHeavyLoadForms);
+router.get('/planilla/:n_planilla',
+// TokenValidation,
+_cargaPesada.getHeavyLoadByFormNumber);
+router.get('/planillaid/:_id',
+// TokenValidation,
+_cargaPesada.getHeavyLoadByFormID);
 
 // router.patch(
 //   '/planilla/edit/:n_planilla',
@@ -41,4 +33,4 @@ router.get(
 //   TokenValidation,
 //   deleteHeavyLoadForm,
 // );
-var _default = (exports['default'] = router);
+var _default = exports["default"] = router;
