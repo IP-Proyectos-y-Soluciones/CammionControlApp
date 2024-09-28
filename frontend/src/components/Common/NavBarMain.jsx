@@ -107,7 +107,7 @@ import { EmployeeFormDropdown } from '../Menu/EmployeesFormDropdown';
 import { useState } from 'react';
 import logo from '../../assets/yadiraLogoBlanco.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 export function NavBarMain() {
@@ -145,6 +145,14 @@ export function NavBarMain() {
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
+    setEmployeeMenuOpen(false);
+    setUserMenuOpen(false);
+  }
+
+  const handleCloseMenu=()=>{
+    setMenuOpen(false);
+    setEmployeeMenuOpen(false);
+    setUserMenuOpen(false);
   }
 
 
@@ -169,8 +177,7 @@ export function NavBarMain() {
   return (
     <nav 
     className={`${isLandingPage ? 'bg-gradient-to-t from-transparent to-red-700 bg-opacity-70' : 'bg-red-700'}
-    sm:bg-transparent sm:bg-black sm:bg-opacity-70
-    py-2 px8 rounded-lg flex justify-between items-center transition-all duration-300`}
+    py-2 px-8 rounded-lg flex justify-between items-center transition-all duration-300`}
     // "bg-red-700 py-3 px-8 rounded-lg flex justify-between items-center"
     >
       <div className='flex items-center space-x-4 ml-4'>
@@ -231,21 +238,21 @@ export function NavBarMain() {
             </Link>
             </>
           )}
-        </div>
-      
+        </div>      
 
         <div className='flex items-center space-x-4 md:hidden'>
           <span className='text-white font-bol italic'>{userName}</span>
         <button className='text-white' onClick={handleMenuToggle} >
           <FontAwesomeIcon
-          icon={menuOpen ? 'times' : faBars}
+          icon={menuOpen ? faTimes : faBars}
           className='h-6 w-6 mr-4'
           />
         </button>
 
         {menuOpen && (
-          <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-20'>
-          <div className='absolute top-28 left-0 w-full bg-gradient-to-t from-black to-red-700 text-white rounded-md shadow-2xl p-0 space-y-2 z-30'>
+          <>
+          <div className='absolute top-0 left-0  w-full h-full bg-black bg-opacity-80 z-10' onClick={handleCloseMenu}></div>
+          <div className='absolute top-20 left-0 w-full h-full bg-gradient-to-t from-black to-red-700 text-white rounded-md shadow-2xl p-0 space-y-2 z-20'>
             {isAuthenticated ?(
               <>
                {isAuthorized ? (
@@ -255,8 +262,7 @@ export function NavBarMain() {
               </div>
               <div onClick={handleUserMenu} className='cursor-pointer pl-4'>
               <UserDropdown />
-              </div>       
-              
+              </div>                     
               </>
             ):(                   
               <EmployeeFormDropdown />
@@ -272,7 +278,7 @@ export function NavBarMain() {
            <>
               <Link 
               to={'/login'}
-              className='pt-5 font-bold block py-2 pl-4 transition-all hover:bg-white hover:text-gray-700 transition-colors pl-4'
+              className='pt-5 font-bold block py-2 pl-4 transition-all hover:bg-white hover:text-gray-700'
               >
                  Ingresar
               </Link>
@@ -283,9 +289,9 @@ export function NavBarMain() {
               Servicios
               </Link>
               </>
-            )}    
-            </div>
+            )}        
        </div>
+       </>
      )}
     </div>
    </nav>
