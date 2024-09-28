@@ -28,8 +28,14 @@ router.get(
     getVolqueta,
 );
 
-router.put(
-    '/:id',
+router.patch(
+    '/edit/:id',
+    // TokenValidation,
+    putVolqueta,
+);
+
+router.patch(
+    '/edit/',
     // TokenValidation,
     putVolqueta,
 );

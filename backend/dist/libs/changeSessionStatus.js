@@ -63,4 +63,4 @@
 //     console.error(error.message);
 //   }
 // };
-"use strict";
+'use strict';

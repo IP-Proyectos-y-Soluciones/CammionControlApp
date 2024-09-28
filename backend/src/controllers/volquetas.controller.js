@@ -1,7 +1,10 @@
 import Volqueta from '../models/Volqueta';
 import Persona from '../models/Persona';
 import Vehiculo from '../models/Vehiculo';
-import { generateRandomFormNumber } from '../libs/GenRandomControlNumb';
+import {
+    generateRandomFormNumber,
+    generarNumeroPlanilla,
+} from '../libs/GenRandomControlNumb';
 
 export const createVolqueta = async (req, res) => {
     try {
@@ -57,7 +60,8 @@ export const createVolqueta = async (req, res) => {
         const total_km_dia = km_final - km_inicial;
 
         // Se genera número aleatorio de control para la planilla de volquetas...
-        const generateCN = await generateRandomFormNumber();
+        // const generateCN = await generateRandomFormNumber();
+        const generateCN = generarNumeroPlanilla();
 
         const volquetaData = new Volqueta({
             n_planilla: generateCN,
@@ -232,81 +236,64 @@ export const getVolqueta = async (req, res) => {
 
 export const putVolqueta = async (req, res) => {
     try {
-        const {
-            n_planilla,
-            fecha,
-            placas,
-            conductor,
-            cliente,
-            volmts3,
-            n_viajes,
-            material,
-            hora_inicio,
-            hora_final,
-            km_inicial,
-            km_final,
-            lugar_de_cargue,
-            lugar_de_descargue,
-            observacion,
-        } = req.body;
+        const { id } = req.params;
+        const { n_planilla, conductor_cedula } = req.body;
 
-        const persona = await Persona.findById(conductor_id);
-        if (!persona) {
-            return res.status(404).json({
-                message: 'El id de la persona no existe',
+        let query = {};
+        //
+        if (id) {
+            query._id = id;
+        } else if (n_planilla) {
+            query.n_planilla = n_planilla;
+        } else if (conductor_cedula) {
+            query.conductor_cedula = conductor_cedula;
+        } else {
+            return res.status(400).json({
+                message:
+                    'Debe proporcionar _id, n_planilla o conductor_cedula para actualizar.',
             });
         }
-        const vehiculo_id = await Vehiculo.findById(placas);
-        if (!vehiculo_id) {
-            return res.status(404).json({
-                message: 'Las placas del vehiculo no existen',
-            });
-        }
-        let total_horas = 0;
-        if (hora_inicio && hora_final) {
-            const start = new Date(hora_inicio);
-            const end = new Date(hora_final);
-            total_horas = (end - start) / (1000 * 60 * 60);
-        }
 
-        const total_km_dia = km_final - km_inicial;
+        const findPlanilla = await Volqueta.findOne(query);
 
-        const planilla = await Volqueta.findByIdAndUpdate(
-            req.params.id,
+        if (!findPlanilla)
+            return res
+                .status(404)
+                .json({ message: 'Planilla de volqueta NO encontrada...!' });
+
+        // Obtener los datos que se van a actualizar del cuerpo de la solicitud (req.body)
+        const updateData = { ...req.body };
+
+        // Evitar modificar el parámetro de búsqueda (si es necesario)...
+        delete updateData._id;
+        delete updateData.n_planilla;
+        delete updateData.conductor_cedula;
+
+        const updatedVolqueta = await Volqueta.findOneAndUpdate(
+            query,
+            updateData,
             {
-                n_planilla,
-                fecha,
-                placas,
-                conductor,
-                cliente,
-                volmts3,
-                n_viajes,
-                material,
-                hora_inicio,
-                hora_final,
-                total_horas,
-                km_inicial,
-                km_final,
-                total_km_dia,
-                lugar_de_cargue,
-                lugar_de_descargue,
-                observacion,
+                new: true,
+                runValidators: true, // Para validar los datos antes de actualizar...
             },
-            { new: true },
         );
 
-        if (!planilla) {
+        if (!updatedVolqueta) {
             return res.status(404).json({
-                message: 'Planilla no encontrada',
+                message:
+                    'Volqueta no encontrada con los parámetros proporcionados.',
             });
         }
 
-        res.status(200).json({
-            message: 'El formulario fue actualizado correctamente!',
-            planilla,
+        return res.status(200).json({
+            message: 'Volqueta actualizada exitosamente...!!!',
+            data: updatedVolqueta,
         });
     } catch (error) {
-        res.status(500).json(error);
+        return res.status(500).json({
+            message: 'Error actualizando la volqueta...!',
+            error: error.message,
+        });
     }
 };
 
