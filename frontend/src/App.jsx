@@ -2,6 +2,7 @@ import {
   BrowserRouter,
   Route,
   Routes,
+  useLocation,
 } from 'react-router-dom';
 import FormularioRegistroTractomulas from './pages/ServicesForm/FormularioRegistroTractomulas.jsx';
 import { HomePage, LoginPage, EmployeesPage } from './pages';
@@ -30,10 +31,12 @@ import { GeneralAccessPage } from './pages/GeneralAccess/GeneralAccessPage.jsx';
 import { RefuelingFormPage } from './pages/Refueling/RefuelingFormPage.jsx';
 
 function App() {
+  // const location = useLocation();
   return (
     <AuthProvider>
     <BrowserRouter>
-    <nav className='fixed top-0 left-0 w-full z-50 bg-transparente'>
+    <nav className='fixed top-0 left-0 w-full z-50 bg-transparent'>
+      {/* {location.pathname !=='/login' && <NavBarMain/>} */}
       <NavBarMain />
       </nav>  
       <main>

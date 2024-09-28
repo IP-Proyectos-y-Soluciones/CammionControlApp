@@ -31,7 +31,7 @@ export const EmployeeFormDropdown = () => {
 
     return (
         <div className="relative" ref={menuRef}>
-            <button onClick={toggleMenu} className="pt-5 text-white font-bold block hover:scale-110 hover:text-gray-700 transition-all">
+            <button onClick={toggleMenu} className="pt-5 text-white font-bold block hover:scale-110 hover:text-gray-700 transition-all sm:hover:text-yellow-400">
                 Empleado
             </button>
             {isOpen && (

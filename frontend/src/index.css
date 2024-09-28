@@ -59,3 +59,16 @@ body{
     background-color: rgba(255, 255, 255, 0.1);
     color: #ffcc00;
 }
+
+@keyframes grow{
+    from{
+        width: 0;
+    }
+    to{
+        width: 100%;
+    }
+}
+
+.animate-grow{
+    animation: grow 1s ease-in-out forwards;
+}

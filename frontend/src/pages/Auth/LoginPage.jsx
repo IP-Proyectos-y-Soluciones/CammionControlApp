@@ -117,10 +117,10 @@ export function LoginPage() {
           >
             ACEPTAR
           </Button>
-          <div className="text-center py-2 text-gray-400">
+          {/* <div className="text-center py-2 text-gray-400">
             ¿Aún no tienes una cuenta? 
             <Link className="underline text-black hover:text-red-800 transition-colors" to="/register">Registrarse</Link>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>

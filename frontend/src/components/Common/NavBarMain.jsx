@@ -139,7 +139,7 @@ export function NavBarMain() {
     }else if(userRole === 'Empleado'){
       return '/general_access';
     }else{
-      return '/unauthorized';
+      return '/';
     }
   } 
 
@@ -168,6 +168,10 @@ export function NavBarMain() {
     setEmployeeMenuOpen(false);
   }
 
+  const handleLinkClick = ()=>{
+    setMenuOpen(false)
+  }
+
   const isAuthorized =
   userRole === import.meta.env.VITE_RAD ||
   userRole === import.meta.env.VITE_ROW;
@@ -176,13 +180,15 @@ export function NavBarMain() {
 
   return (
     <nav 
-    className={`${isLandingPage ? 'bg-gradient-to-t from-transparent to-red-700 bg-opacity-70' : 'bg-red-700'}
-    py-2 px-8 rounded-lg flex justify-between items-center transition-all duration-300`}
+    className={`${isLandingPage ? 'bg-gradient-to-t from-transparent to-red-800 bg-opacity-70' : 'bg-red-700'}
+    py-2 px-8 rounded-lg flex justify-between items-center transition-all duration-300 
+    ${menuOpen ? '' : '' }`}
     // "bg-red-700 py-3 px-8 rounded-lg flex justify-between items-center"
     >
       <div className='flex items-center space-x-4 ml-4'>
       <Link to={handleDashboardLink()} className="text-white flex items-center">       
-        <img src={logo} alt='Company Logo' className='h-[6.4rem] w-auto cursor-pointer transition-transform hover:scale-105' />         
+        <img src={logo} alt='Company Logo' className={`h-[4.2rem] w-auto cursor-pointer transition-transform hover:scale-105 z-30
+        ${menuOpen ? 'brightness-150': '' }`} />         
       </Link>
       </div>
 
@@ -242,7 +248,7 @@ export function NavBarMain() {
 
         <div className='flex items-center space-x-4 md:hidden'>
           <span className='text-white font-bol italic'>{userName}</span>
-        <button className='text-white' onClick={handleMenuToggle} >
+        <button className={`text-white hover:scale-110 ${menuOpen?'text-white':''} z-30`} onClick={handleMenuToggle} >
           <FontAwesomeIcon
           icon={menuOpen ? faTimes : faBars}
           className='h-6 w-6 mr-4'
@@ -251,16 +257,16 @@ export function NavBarMain() {
 
         {menuOpen && (
           <>
-          <div className='absolute top-0 left-0  w-full h-full bg-black bg-opacity-80 z-10' onClick={handleCloseMenu}></div>
-          <div className='absolute top-20 left-0 w-full h-full bg-gradient-to-t from-black to-red-700 text-white rounded-md shadow-2xl p-0 space-y-2 z-20'>
+          <div className='fixed inset-0 w-full h-full bg-black bg-opacity-80 z-10' onClick={handleCloseMenu}></div>
+          <div className='menu-open-fullscreen border-t-4 border-red-600 text-white p-2 space-y-2'>
             {isAuthenticated ?(
               <>
                {isAuthorized ? (
                 <>
-                 <div onClick={handleEmployeeMenu} className='cursor-pointer pl-4 w-full hover:bg-gray-200 hover:text-gray-700'>
+                 <div onClick={handleEmployeeMenu} className='cursor-pointer pl-4 w-full hover:text-yellow-400'>
                    <EmployeeDropdown />
               </div>
-              <div onClick={handleUserMenu} className='cursor-pointer pl-4'>
+              <div onClick={handleUserMenu} className='cursor-pointer pl-4 w-full hover:text-yellow-400'>
               <UserDropdown />
               </div>                     
               </>
@@ -268,8 +274,11 @@ export function NavBarMain() {
               <EmployeeFormDropdown />
             )}
            <button
-           onClick={handleLogout}
-           className="pt-5 font-bold block py-2 pl-4 transition-all hover:text-gray-700 hover:bg-white"
+           onClick={()=>{
+            handleLogout();
+            handleCloseMenu();
+           }}
+           className="pt-5 font-bold block py-2 pl-4 transition-all hover:text-yellow-400"
            >
              Cerrar Sesión
            </button>
@@ -278,13 +287,15 @@ export function NavBarMain() {
            <>
               <Link 
               to={'/login'}
-              className='pt-5 font-bold block py-2 pl-4 transition-all hover:bg-white hover:text-gray-700'
+              className='pt-5 font-bold block py-2 pl-4 transition-all hover:text-yellow-400'
+              onClick={handleCloseMenu}
               >
                  Ingresar
               </Link>
               <Link
                to={'/home'}
-               className="pt-5 font-bold block py-2 pl-4 transition-all hover:bg-white hover:text-gray-700"
+               className="pt-5 font-bold block py-2 pl-4 transition-all hover:text-yellow-400"
+               onClick={handleCloseMenu}
               >
               Servicios
               </Link>
