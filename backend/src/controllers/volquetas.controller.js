@@ -146,7 +146,7 @@ export const getVolqueta = async (req, res) => {
 
 export const putVolqueta = async (req, res) => {
   try {
-    const {
+    /* const {
       fecha,
       placa_vehiculo,
       conductor_cedula,
@@ -162,9 +162,28 @@ export const putVolqueta = async (req, res) => {
       lugar_de_cargue,
       lugar_de_descargue,
       observacion,
-    } = req.body;
+    } = req.body;*/
+    const { _id, n_planilla } = req.params;
+    const { conductor_cedula } = req.body;
+    const updateData = req.body;
+    let filter = {};
 
-    const n_planilla = req.params.n_planilla;
+    if (_id && /^[0-9a-fA-F]{24}$/.test(_id)) {
+      filter = { _id };
+    } else if (conductor_cedula) {
+      filter = { conductor_cedula: Number(conductor_cedula) };
+    } else if (n_planilla) {
+      filter = { n_planilla: String(n_planilla) };
+    } else {
+      return res.status(400).json({
+        message: "Debe proporcionar _id válido o nro. de cédula...!",
+      });
+    }
+
+    const findPlanilla = await Volqueta.findOne(filter);
+
+    if (!findPlanilla)
+      return res.status(404).json({ message: "Planilla no existe" });
 
     const driver = await Persona.findOne({ cedula: conductor_cedula });
     if (!driver) {

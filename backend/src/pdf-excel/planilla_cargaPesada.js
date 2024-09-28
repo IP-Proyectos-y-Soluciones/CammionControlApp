@@ -9,7 +9,7 @@ export function plantillaCargaPesada(data) {
         n_planilla,
         fecha_inicio,
         fecha_final,
-        placas,
+        placa,
         conductor,
         ciudad_inicio,
         ciudad_destino,
@@ -25,7 +25,6 @@ export function plantillaCargaPesada(data) {
         total_anticipos_fletesPagados,
         total_gastos,
         total_saldo,
-        total_km_dia,
       } = item;
 
       const doc = new PDFDocument();
@@ -63,17 +62,16 @@ export function plantillaCargaPesada(data) {
         [
           `Ciudad Inicio: ${ciudad_inicio}`,
           `Ciudad Destino: ${ciudad_destino}`,
-          `Placa: ${placas.placa}`,
+          `Placa: ${placa.placa}`,
         ],
         [
           `Empresa: ${empresa}`,
           `Conductor: ${conductor.nombres} ${conductor.apellidos}`,
-          `KM Recorridos: ${total_km_dia}`,
+          `Valor Flete: ${valor_flete}`,
         ],
         [
           `Fecha Inicio: ${new Date(fecha_inicio).toLocaleDateString()}`,
           `Fecha Final: ${new Date(fecha_final).toLocaleDateString()}`,
-          `Valor Flete: ${valor_flete}`,
         ],
       ];
 

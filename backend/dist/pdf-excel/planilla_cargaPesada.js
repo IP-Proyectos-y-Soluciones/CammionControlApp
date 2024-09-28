@@ -14,7 +14,7 @@ function plantillaCargaPesada(data) {
       var n_planilla = item.n_planilla,
         fecha_inicio = item.fecha_inicio,
         fecha_final = item.fecha_final,
-        placas = item.placas,
+        placa = item.placa,
         conductor = item.conductor,
         ciudad_inicio = item.ciudad_inicio,
         ciudad_destino = item.ciudad_destino,
@@ -29,8 +29,7 @@ function plantillaCargaPesada(data) {
         otros = item.otros,
         total_anticipos_fletesPagados = item.total_anticipos_fletesPagados,
         total_gastos = item.total_gastos,
-        total_saldo = item.total_saldo,
-        total_km_dia = item.total_km_dia;
+        total_saldo = item.total_saldo;
       var doc = new _pdfkit["default"]();
       var nombreArchivo = _path["default"].join(__dirname, "Planilla_".concat(n_planilla, ".pdf"));
       var salida = _fs["default"].createWriteStream(nombreArchivo);
@@ -52,7 +51,7 @@ function plantillaCargaPesada(data) {
       var cellWidth = 170;
       var cellHeight = 20;
       var currentY = startY;
-      var detallesGenerales = [["Ciudad Inicio: ".concat(ciudad_inicio), "Ciudad Destino: ".concat(ciudad_destino), "Placa: ".concat(placas.placa)], ["Empresa: ".concat(empresa), "Conductor: ".concat(conductor.nombres, " ").concat(conductor.apellidos), "KM Recorridos: ".concat(total_km_dia)], ["Fecha Inicio: ".concat(new Date(fecha_inicio).toLocaleDateString()), "Fecha Final: ".concat(new Date(fecha_final).toLocaleDateString()), "Valor Flete: ".concat(valor_flete)]];
+      var detallesGenerales = [["Ciudad Inicio: ".concat(ciudad_inicio), "Ciudad Destino: ".concat(ciudad_destino), "Placa: ".concat(placa.placa)], ["Empresa: ".concat(empresa), "Conductor: ".concat(conductor.nombres, " ").concat(conductor.apellidos), "Valor Flete: ".concat(valor_flete)], ["Fecha Inicio: ".concat(new Date(fecha_inicio).toLocaleDateString()), "Fecha Final: ".concat(new Date(fecha_final).toLocaleDateString())]];
       detallesGenerales.forEach(function (row) {
         row.forEach(function (text, index) {
           var xPos = startX + index * cellWidth;

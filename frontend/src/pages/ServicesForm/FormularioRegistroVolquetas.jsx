@@ -36,7 +36,7 @@ const FormularioRegistroVolquetas = () => {
             if (response.status === 201) {
                 swal2.fire({
                     title: 'Registro exitoso...!',
-                    text: `La planilla Nº ${data.n_planilla} ha sido registrada exitosamente...!!!`,
+                    text: `La planilla ha sido registrada exitosamente...!!!`,
                     icon: 'success',
                     confirmButtonText: 'Aceptar',
                 });

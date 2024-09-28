@@ -85,8 +85,8 @@ app.use(
 app.use(
   "/api/heavyload",
   // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
-  AuxAuthMiddleware, // Desactivar para la producción...
-  AuthAdmMiddleware,
+  /* AuxAuthMiddleware, // Desactivar para la producción...
+  AuthAdmMiddleware,*/
   cargaPesadaRoutes
 );
 //
