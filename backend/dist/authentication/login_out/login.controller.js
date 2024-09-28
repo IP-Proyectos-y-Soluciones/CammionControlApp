@@ -35,7 +35,7 @@ var login = exports.login = /*#__PURE__*/function () {
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: "Usuario no encontrado...!"
+            message: 'Usuario no encontrado...!'
           }));
         case 7:
           _context.next = 9;
@@ -44,21 +44,21 @@ var login = exports.login = /*#__PURE__*/function () {
           });
         case 9:
           employee = _context.sent;
-          employeeFullName = employee.nombres + " " + employee.apellidos;
+          employeeFullName = employee.nombres + ' ' + employee.apellidos;
           if (!(usuarioReg.logged === true)) {
             _context.next = 13;
             break;
           }
           return _context.abrupt("return", res.status(304).json({
-            message: "Ya tiene una sesión abierta...!"
+            message: 'Ya tiene una sesión abierta...!'
           }));
         case 13:
-          if (!(usuarioReg.estado === "Bloqueado")) {
+          if (!(usuarioReg.estado === 'Bloqueado')) {
             _context.next = 15;
             break;
           }
           return _context.abrupt("return", res.status(403).json({
-            message: "Usuario bloqueado. Contacte al administrador para desbloquearlo."
+            message: 'Usuario bloqueado. Contacte al administrador para desbloquearlo.'
           }));
         case 15:
           _context.next = 17;
@@ -72,13 +72,13 @@ var login = exports.login = /*#__PURE__*/function () {
           usuarioReg.intentosFallidos += 1;
           usuarioReg.ultimoIntento = new Date();
           if (usuarioReg.intentosFallidos >= MAX_LOGIN_ATTEMPTS) {
-            usuarioReg.estado = "Bloqueado";
+            usuarioReg.estado = 'Bloqueado';
           }
           _context.next = 23;
           return usuarioReg.save();
         case 23:
           return _context.abrupt("return", res.status(401).json({
-            message: "Password inválido...!"
+            message: 'Password inválido...!'
           }));
         case 24:
           // Resetear intentos fallidos en caso de login exitoso
@@ -102,7 +102,7 @@ var login = exports.login = /*#__PURE__*/function () {
           req.session.regenerate(function (err) {
             if (err) {
               return res.status(500).json({
-                message: "Error al regenerar la sesión."
+                message: 'Error al regenerar la sesión.'
               });
             }
 
@@ -165,7 +165,7 @@ var getDriverByDNI = exports.getDriverByDNI = /*#__PURE__*/function () {
             break;
           }
           return _context2.abrupt("return", res.status(404).json({
-            message: "Persona no encontrada...!"
+            message: 'Persona no encontrada...!'
           }));
         case 7:
           return _context2.abrupt("return", res.status(200).json(persona));
@@ -207,10 +207,10 @@ var getVehicleById = exports.getVehicleById = /*#__PURE__*/function () {
             _context3.next = 7;
             break;
           }
-          return _context3.abrupt("return", res.status(404).send("ID no encontrado"));
+          return _context3.abrupt("return", res.status(404).send('ID no encontrado'));
         case 7:
           res.status(200).json({
-            message: "Búsqueda por ID exitosa",
+            message: 'Búsqueda por ID exitosa',
             data: vehiculo
           });
           _context3.next = 13;

@@ -18,7 +18,10 @@ _volquetas.getAllVolquetasForms);
 router.get('/',
 // TokenValidation,
 _volquetas.getVolqueta);
-router.put('/:id',
+router.patch('/edit/:id',
+// TokenValidation,
+_volquetas.putVolqueta);
+router.patch('/edit/',
 // TokenValidation,
 _volquetas.putVolqueta);
 router["delete"]('/:id',

@@ -69,7 +69,7 @@ var createTanqueo = exports.createTanqueo = /*#__PURE__*/function () {
           });
         case 16:
           return _context.abrupt("return", res.status(201).json({
-            message: "El formulario se ha registrado correctamente...!",
+            message: 'El formulario se ha registrado correctamente...!',
             newRefueling: newRefueling
           }));
         case 19:
@@ -108,7 +108,7 @@ var getAllTanqueos = exports.getAllTanqueos = /*#__PURE__*/function () {
         case 3:
           tanqueos = _context2.sent;
           res.status(200).json({
-            message: " Tanqueo traidos exitosamente",
+            message: ' Tanqueo traidos exitosamente',
             data: tanqueos
           });
           _context2.next = 10;
@@ -148,7 +148,7 @@ var getTanqueoById = exports.getTanqueoById = /*#__PURE__*/function () {
           return _context3.abrupt("return", res.status(404).json());
         case 7:
           res.status(200).json({
-            message: " Tanqueo encontrado exitosamente",
+            message: ' Tanqueo encontrado exitosamente',
             data: tanqueo
           });
           _context3.next = 13;
@@ -204,7 +204,7 @@ var updateTanqueo = exports.updateTanqueo = /*#__PURE__*/function () {
           return _context4.abrupt("return", res.status(404).json());
         case 10:
           res.status(200).json({
-            message: " Tanqueo actualizado exitosamente",
+            message: ' Tanqueo actualizado exitosamente',
             data: tanqueo
           });
           _context4.next = 16;
@@ -241,9 +241,9 @@ var deleteTanqueo = exports.deleteTanqueo = /*#__PURE__*/function () {
             _context5.next = 7;
             break;
           }
-          return _context5.abrupt("return", res.status(404).send("id no encontrado"));
+          return _context5.abrupt("return", res.status(404).send('id no encontrado'));
         case 7:
-          res.status(200).json(id + " eliminado con éxito");
+          res.status(200).json(id + ' eliminado con éxito');
           _context5.next = 13;
           break;
         case 10:

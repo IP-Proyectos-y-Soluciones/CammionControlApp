@@ -1,57 +1,57 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
-  createVehiculo,
-  getAllVehiculos,
-  getVehiculoById,
-  getVehiculoByPlaca,
-  assignDriverToVehicle,
-  updateVehiculo,
-  deleteVehiculo,
-} from "../controllers/vehiculos.controller.js";
+    createVehiculo,
+    getAllVehiculos,
+    getVehiculoById,
+    getVehiculoByPlaca,
+    assignDriverToVehicle,
+    updateVehiculo,
+    deleteVehiculo,
+} from '../controllers/vehiculos.controller.js';
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 const router = Router();
 
 router.post(
-  "/create",
-  // TokenValidation,
-  createVehiculo
+    '/create',
+    // TokenValidation,
+    createVehiculo,
 );
 
 router.get(
-  "/",
-  // TokenValidation,
-  getAllVehiculos
+    '/',
+    // TokenValidation,
+    getAllVehiculos,
 );
 
 router.get(
-  "/:id",
-  // TokenValidation,
-  getVehiculoById
+    '/:id',
+    // TokenValidation,
+    getVehiculoById,
 );
 
 router.get(
-  "/placa/:placa",
-  // TokenValidation,
-  getVehiculoByPlaca
+    '/placa/:placa',
+    // TokenValidation,
+    getVehiculoByPlaca,
 );
 
 router.post(
-  "/vehiculo/asignacion",
-  // TokenValidation,
-  assignDriverToVehicle
+    '/vehiculo/asignacion',
+    // TokenValidation,
+    assignDriverToVehicle,
 );
 
 router.patch(
-  "/update/:id",
-  // TokenValidation,
-  updateVehiculo
+    '/update/:id',
+    // TokenValidation,
+    updateVehiculo,
 );
 
 router.delete(
-  "/delete/:id",
-  // TokenValidation,
-  deleteVehiculo
+    '/delete/:id',
+    // TokenValidation,
+    deleteVehiculo,
 );
 
 export default router;
