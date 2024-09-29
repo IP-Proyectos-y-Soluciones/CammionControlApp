@@ -211,7 +211,7 @@ export function NavBarMain() {
           )}
           <button
           onClick={handleLogout}
-          className='pt-5 text-white font-bold block py-2 hover:scale-110 hover:text-gray-800  transition-colors mt-2'
+          className='pt-5 text-white font-bold block py-2 hover:scale-110 hover:text-yellow-400  transition-colors mt-2'
           >
             Cerrar Sesión
           </button>
