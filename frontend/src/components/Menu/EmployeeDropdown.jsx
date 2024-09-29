@@ -44,7 +44,7 @@ export const EmployeeDropdown = () => {
 
       {isOpen && (
         <>
-        <div className='fixed inset-0 bg-black bg-opacity-90 z-10' onClick={()=>setIsOpen(false)}></div>
+        <div className='fixed inset-0 bg-gray bg-opacity-90 z-10' onClick={()=>setIsOpen(false)}></div>
         {/* <div className='w-full h-1 bg-red-600 animate-grow'></div> */}
         {/*  <div className="absolute right-0 mt-2 w-48 bg-red-700 text-white rounded-md shadow-2xl z-10 sm:bg-black sm:opacity-80 sm:w-screen "> */}
           <div className='fixed top-20 left-0 w-full h-full bg-black bg-opacity-80 z-20 flex flex-col items-start justify-start space-y-4 text-white p-24'>

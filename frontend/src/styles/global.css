@@ -35,3 +35,18 @@
 .menu-open-fullscreen{
     @apply fixed top-20 left-0 w-full h-[calc(100vh-5rem)] bg-black bg-opacity-80 z-20;
 }
+
+.button-fixed {
+    position: fixed;
+    bottom: 20px; /* Ajusta el valor según la distancia deseada desde el borde inferior */
+    right: 20px;  /* Ajusta el valor según la distancia deseada desde el borde derecho */
+    z-index: 10; /* Asegúrate de que el botón esté por encima de otros elementos */
+  }
+    
+.bg-gradient {
+    background: linear-gradient(to right, black, #4e4e4e); 
+  } 
+  
+/* .bg-gradient {
+    background: linear-gradient(to right, black, #860e01); 
+  }  */

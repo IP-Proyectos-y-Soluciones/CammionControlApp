@@ -12,7 +12,7 @@ export function LoginPage() {
   const { register, handleSubmit } = useForm();
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
-  const {setIsAuthenticated, userRole, setUserRole, userName, setUserName} = useAuth();
+  const {setIsAuthenticated, userRole, setUserRole, userName, setUserName, setDNI, setVehicleRegistrationPlate} = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {
@@ -27,6 +27,9 @@ export function LoginPage() {
       //console.log(response.data);
 
       if (response.status === 200) {
+        
+
+
         const role = response.data.usuarioReg.roles || [];
                 const fullName = response.data.employeeFullName;
                 //
@@ -71,39 +74,39 @@ export function LoginPage() {
   }, [errors]);
 
   return (    
-    <div className="min-h-screen flex items-center justify-center bg-gray-600">
+    <div className="min-h-screen flex items-center justify-center bg-gradient">
         {isLoading && (
-      <div className="absolute inset-0 flex items-center justify-center bg-gray-600 bg-opacity-75 z-50">
+      <div className="absolute inset-0 flex items-center justify-center bg-gray-600 bg-opacity-75 ">
         <Loading/>
       </div>
     )}{' '}
     {/* Se renderiza si es true... */}
    
     {/* <div className="min-h-screen flex items-center justify-center bg-gray-600"> */}
-      <div className="bg-gray-600 p-8 rounded-lg  w-full max-w-md">        
-        <div className="flex justify-center mb-10">
+      <div className="bg-transparent p-8 rounded-lg w-full max-w-md">        
+        <div className="flex justify-center mb-16">
           <img src={logo} alt="imagen" className="h-30 w-auto" />
         </div>
-        <h1 className="text-4xl text-center mb-6 text-white">Iniciar Sesión</h1>
+        {/* <h1 className="text-4xl text-center mb-6 text-white">Iniciar Sesión</h1> */}
 
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
           <div>
-          <Label htmlFor="inputValue" className='text-white'>Usuario</Label>
+          {/* <Label htmlFor="inputValue" className='text-white'>Usuario</Label> */}
           <Input
             type="text"
-            placeholder="Escriba su 'usuario'..."
+            placeholder="Usuario"
             {...register('usuario')}
-            className="w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-gray-900"          
+            className="w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder:text-gray-500 text-gray-900"          
           />
           </div>
 
           <div>
-          <Label className='text-white' htmlFor="password">Contraseña</Label>
+          {/* <Label className='text-white' htmlFor="password">Contraseña</Label> */}
           <Input
             type="password"
-            placeholder="*******"
+            placeholder="Contraseña"
             {...register('password')}
-            className="w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-gray-900"
+            className="w-full mb-8 px-4 py-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder:text-gray-500 text-gray-900"
           />
           </div>
 
@@ -111,12 +114,14 @@ export function LoginPage() {
             <p className="text-white-600 text-center">{errors.join(', ')}</p>
           )}
 
+          <div className='mt-6'>
           <Button
             type="submit"
-            className='w-full px-4 py-3 bg-white text-red-700 font-bold rounded-full hover:bg-red-700 hover:text-white transition-colors'
+            className='w-full px-4 py-3 bg-transparent border border-white text-white font-bold rounded-full hover:bg-gray-800 hover:font-bold transition-colors'
           >
-            ACEPTAR
+            INICIAR SESIÓN
           </Button>
+          </div>
           {/* <div className="text-center py-2 text-gray-400">
             ¿Aún no tienes una cuenta? 
             <Link className="underline text-black hover:text-red-800 transition-colors" to="/register">Registrarse</Link>
@@ -126,3 +131,4 @@ export function LoginPage() {
     </div>
   );
 }
+

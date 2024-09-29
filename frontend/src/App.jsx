@@ -1,5 +1,5 @@
 import {
-  BrowserRouter,
+//  BrowserRouter,
   Route,
   Routes,
   useLocation,
@@ -14,7 +14,7 @@ import Layout from './components/Common/Layout.jsx';
 import ExcellTractomulas from './components/ExcellVistaPrevia/ExcellTractomulas';
 import ExcellTanqueos from './components/ExcellVistaPrevia/ExcellTanqueos';
 import ExcellVolquetas from './components/ExcellVistaPrevia/ExcellVolquetas';
-import { AuthProvider } from './context/AuthContext';
+//import { AuthProvider } from './context/AuthContext';
 import { EmployeesDetailsCard } from './components/Employees/EmployeesDetailsCard.jsx';
 import { EmployeesFormAddPage } from './pages/Employees/EmployeesFormAddPage';
 import { EmployeeByDniPage } from './pages/Employees/EmployeesByDniPage.jsx';
@@ -29,16 +29,39 @@ import LandingPage from './pages/LandingPage/LandingPage.jsx';
 import RegisterPage from './pages/Auth/RegisterPage.jsx';
 import { GeneralAccessPage } from './pages/GeneralAccess/GeneralAccessPage.jsx';
 import { RefuelingFormPage } from './pages/Refueling/RefuelingFormPage.jsx';
+import './styles/global.css';
+import './index.css';
+import { useEffect, useState } from 'react';
 
 function App() {
-  // const location = useLocation();
+  const location = useLocation();
+  const[isNavBarVisible, setIsNavBarVisible] = useState(true);
+
+  useEffect(()=>{
+    const handleResize = ()=>{
+      const isSmallScreen = window.innerWidth <= 768;
+      setIsNavBarVisible(!isSmallScreen || location.pathname !== '/login');
+    }
+
+    handleResize();      //inicializa el estado
+
+    window.addEventListener('resize', handleResize);  //añade el listener para el evento change
+
+    return ()=>{                                           //limpia el listener al desmontar el componente
+      window.removeEventListener('resize', handleResize);  
+    }
+  }, [location.pathname]);
+
   return (
-    <AuthProvider>
-    <BrowserRouter>
-    <nav className='fixed top-0 left-0 w-full z-50 bg-transparent'>
-      {/* {location.pathname !=='/login' && <NavBarMain/>} */}
-      <NavBarMain />
-      </nav>  
+    <>
+    {/* <AuthProvider>
+    <BrowserRouter>    */}
+      {/* {location.pathname !=='/login' && ( */}
+      {isNavBarVisible && ( 
+         <nav className='fixed top-0 left-0 w-full z-50 bg-transparent'>
+        <NavBarMain/>
+        </nav>  
+        )}     
       <main>
         <Layout>
         <Routes>
@@ -171,8 +194,8 @@ function App() {
         </Routes>
         </Layout>
       </main>
-    </BrowserRouter>
-    </AuthProvider>
+      </>
+
   );
 }
 

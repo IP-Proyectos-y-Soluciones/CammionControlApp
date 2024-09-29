@@ -257,8 +257,8 @@ export function NavBarMain() {
 
         {menuOpen && (
           <>
-          <div className='fixed inset-0 w-full h-full bg-black bg-opacity-80 z-10' onClick={handleCloseMenu}></div>
-          <div className='menu-open-fullscreen border-t-4 border-red-600 text-white p-2 space-y-2'>
+          <div className='fixed inset-0 w-full h-full bg-black bg-opacity-80 z-20' onClick={handleCloseMenu}></div>
+          <div className='menu-open-fullscreen border-t-4 border-red-600 text-white p-2 space-y-30'>
             {isAuthenticated ?(
               <>
                {isAuthorized ? (
