@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export const EmployeeDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,22 +34,24 @@ export const EmployeeDropdown = () => {
 
   return (
     <div className="relative" ref={menuRef}>
-      <div className={`navbar transition-all ${isOpen?'bg-black opacity-80':''}duration-300`}>
+      <div className={`navbar transition-all ${isOpen?'text-yellow-400':''}duration-300`}>
       <button
         onClick={toggleMenu}
-        // className={`navbar transition-all ${isOpen ?'bg-black opacity-80 text-yellow-400': ''} duration-300 pt-5 font-bold md:hover:scale-110 md:hover:text-gray-700 sm:hover:text-yellow-400`}
-        className={`pt-5 text-white bg-transparent font-bold transition-all md:hover:scale-110 hover:text-yellow-400 ${isOpen ? 'text-yellow-400 z-20 sm:z-30 relative': 'text-white'}`}
+        className={`pt-5 text-white font-bold flex justify-between items-center transition-all md:hover:scale-110 hover:text-yellow-400 ${isOpen ? 'text-yellow-400 z-20 sm:z-30 relative': 'text-white'}`}
       >
-        Personal
+      <span className='text-left pr-2'>Personal</span>
+      <FontAwesomeIcon
+      icon={faAngleRight}
+      className='ml-1 hidden sm:inline'
+      />
       </button>
       </div>
 
       {isOpen && (
         <>
         <div className='fixed inset-0 bg-gray bg-opacity-90 z-10' onClick={()=>setIsOpen(false)}></div>
-        {/* <div className='w-full h-1 bg-red-600 animate-grow'></div> */}
-        {/*  <div className="absolute right-0 mt-2 w-48 bg-red-700 text-white rounded-md shadow-2xl z-10 sm:bg-black sm:opacity-80 sm:w-screen "> */}
-          <div className='fixed top-20 left-0 w-full h-full bg-black bg-opacity-80 z-20 flex flex-col items-start justify-start space-y-4 text-white p-24'>
+          <div className='fixed sm:top-2.5 sm:left-12 md:left-0 md:top-0 w-full h-full md:bg-black md:bg-opacity-80 z-20 flex flex-col items-start justify-start space-y-4 text-white p-24'>
+          <div className='md:mt-6 md:space-y-2 md:ml-0'>
           {isAuthenticated ? (
             <>
               <Link
@@ -84,6 +88,7 @@ export const EmployeeDropdown = () => {
               Debe estar loggeado para acceder...!
             </p>
           )}
+        </div>
         </div>
         </>
       )}

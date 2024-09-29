@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export const UserDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,14 +10,14 @@ export const UserDropdown = () => {
   const menuRef = useRef(null);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    //setIsOpen(!isOpen);
+    setIsOpen((prev)=>!prev);
   };
 
   const handleClickOutside = (event) => {
     if (
       menuRef.current &&
-      !menuRef.current.contains(event.target)
-    ) {
+      !menuRef.current.contains(event.target)){
       setIsOpen(false);
     }
   };
@@ -28,27 +28,30 @@ export const UserDropdown = () => {
 
     // Limpiar el listener cuando el componente se desmonta...
     return () => {
-      document.removeEventListener(
-        'click',
-        handleClickOutside,
-      );
+      document.removeEventListener('click', handleClickOutside);
     };
   }, []);
 
   return (
     <div className="relative" ref={menuRef}>
+      <div className={`navbar transition-all ${isOpen?'text-yellow-400':''}duration-300`}>
       <button
         onClick={toggleMenu}
-        className="pt-5 text-white font-bold flex justify-between items-center md:hover:scale-110 md:hover:text-gray-700 transition-all sm:hover:text-yellow-400"
+        className={`pt-5 text-white font-bold flex justify-between items-center transition-all md:hover:scale-110 hover:text-yellow-400 ${isOpen ? 'text-yellow-400 z-20 sm:z-30 relative': 'text-white'}`}
       >
        <span className='text-left pr-2'>Usuario</span>
        <FontAwesomeIcon
        icon={faAngleRight}
-       className='ml-2 hidden sm:inline'
+       className='ml-1 hidden sm:inline'
        />
       </button>
+      </div>
+
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 md:bg-red-700 md:text-white rounded-md shadow-2xl z-10 sm:bg-black sm:opcity-80 sm:w-screen">
+        <>
+        <div className='fixed inset-0 bg-gray bg-opacity-90 z-10' onClick={()=>setIsOpen(false)}></div>
+        <div className='fixed sm:top-2.5 sm:left-12 md:left-0 md:top-0 w-full h-full md:bg-black md:bg-opacity-80 z-20 flex flex-col items-start justify-start space-y-4 text-white p-24'>
+        <div className="md:mt-6 md:space-y-2 md:ml-0">
           {isAuthenticated ? (
             <>
               <Link
@@ -107,6 +110,8 @@ export const UserDropdown = () => {
             </p>
           )}
         </div>
+        </div>
+        </>
       )}
     </div>
   );
