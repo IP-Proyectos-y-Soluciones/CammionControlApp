@@ -176,11 +176,14 @@ export function NavBarMain() {
   userRole === import.meta.env.VITE_RAD ||
   userRole === import.meta.env.VITE_ROW;
 
-  const isLandingPage = location.pathname === '/';
+  const isLandingPage = location.pathname === '/' | location.pathname === '/login';
 
   return (
     <nav 
-    className={`${isLandingPage ? 'bg-gradient-to-t from-transparent to-red-800 bg-opacity-70' : 'bg-red-700'}
+    // className={`${isLandingPage ? 'bg-gradient-to-t from-transparent to-red-800 bg-opacity-70' : 'bg-red-700'}
+    // py-2 px-8 rounded-lg flex justify-between items-center transition-all duration-300 
+    // ${menuOpen ? '' : '' }`}
+    className={`${isLandingPage ? 'bg-opacity-70 backdrop-filter backdrop-blur-lg ' : 'bg-gradient-to-r from-red-950 to-red-700 bg-opacity-70'}
     py-2 px-8 rounded-lg flex justify-between items-center transition-all duration-300 
     ${menuOpen ? '' : '' }`}
     // "bg-red-700 py-3 px-8 rounded-lg flex justify-between items-center"
