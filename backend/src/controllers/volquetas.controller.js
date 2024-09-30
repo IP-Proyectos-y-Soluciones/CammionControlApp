@@ -1,6 +1,7 @@
 import Volqueta from '../models/Volqueta';
 import Persona from '../models/Persona';
 import Vehiculo from '../models/Vehiculo';
+import { plantillaVolquetas } from '../pdf-excel/plantilla_volquetas';
 import {
     generateRandomFormNumber,
     generarNumeroPlanilla,
@@ -87,6 +88,15 @@ export const createVolqueta = async (req, res) => {
 
         const newVolqueta = await volquetaData.save();
 
+        const volquetaCompleta = await Volqueta.findById(newVolqueta._id)
+            .populate('conductor', 'nombres apellidos')
+            .populate('placa', 'placa');
+
+        console.log('Llamando a la función plantillaVolquetas con los datos:');
+        console.log(volquetaCompleta);
+
+        plantillaVolquetas([volquetaCompleta]);
+
         await Persona.findOneAndUpdate(
             driver._id,
             // { $set: updateDataDriver },
@@ -112,76 +122,6 @@ export const createVolqueta = async (req, res) => {
             return res.status(500).json(error);
         }
     }
-    // try {
-    //     const {
-    //         n_planilla,
-    //         fecha,
-    //         placas,
-    //         conductor,
-    //         cliente,
-    //         volmts3,
-    //         n_viajes,
-    //         material,
-    //         hora_inicio,
-    //         hora_final,
-    //         km_inicial,
-    //         km_final,
-    //         lugar_de_cargue,
-    //         lugar_de_descargue,
-    //         observacion,
-    //     } = req.body;
-
-    //     const persona = await Persona.findById(conductor);
-    //     if (!persona) {
-    //         return res.status(404).json({
-    //             message: 'El id de la persona no existe',
-    //         });
-    //     }
-    //     const vehiculo_id = await Vehiculo.findById(placas);
-    //     if (!vehiculo_id) {
-    //         return res.status(404).json({
-    //             message: 'Las placas del vehiculo no existen',
-    //         });
-    //     }
-
-    //     let total_horas = 0;
-    //     if (hora_inicio && hora_final) {
-    //         const start = new Date(hora_inicio);
-    //         const end = new Date(hora_final);
-    //         total_horas = (end - start) / (1000 * 60 * 60);
-    //     }
-
-    //     const total_km_dia = km_final - km_inicial;
-
-    //     const newVolqueta = new Volqueta({
-    //         n_planilla,
-    //         fecha,
-    //         placas,
-    //         conductor,
-    //         cliente,
-    //         volmts3,
-    //         n_viajes,
-    //         material,
-    //         hora_inicio,
-    //         hora_final,
-    //         total_horas,
-    //         km_inicial,
-    //         km_final,
-    //         total_km_dia,
-    //         lugar_de_cargue,
-    //         lugar_de_descargue,
-    //         observacion,
-    //     });
-
-    //     await newVolqueta.save();
-
-    //     res.status(200).json({
-    //         message: 'El formulario fue guardado correctamente!',
-    //         newVolqueta,
-    //     });
-    // } catch (error) {
-    //     res.status(500).json(error);
-    // }
 };
 
 export const getAllVolquetasForms = async (req, res) => {
