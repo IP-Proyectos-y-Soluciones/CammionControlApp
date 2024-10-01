@@ -15,10 +15,10 @@ _volquetas.createVolqueta);
 router.get("/",
 // TokenValidation,
 _volquetas.getVolqueta);
-router.put("/:n_planilla",
+router.put("/:n_planilla?",
 // TokenValidation,
 _volquetas.putVolqueta);
-router["delete"]("/:n_planilla",
+router["delete"]("/:n_planilla?",
 // TokenValidation,
 _volquetas.deleteVolqueta);
 var _default = exports["default"] = router;
