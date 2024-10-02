@@ -8,6 +8,7 @@ exports.putVolqueta = exports.getVolqueta = exports.getAllVolquetasForms = expor
 var _Volqueta = _interopRequireDefault(require("../models/Volqueta"));
 var _Persona = _interopRequireDefault(require("../models/Persona"));
 var _Vehiculo = _interopRequireDefault(require("../models/Vehiculo"));
+var _plantilla_volquetas = require("../pdf-excel/plantilla_volquetas");
 var _GenRandomControlNumb = require("../libs/GenRandomControlNumb");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -20,12 +21,28 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, fecha, placa_vehiculo, cedula, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, driver, vehicle, total_horas, startH, endH, start, end, timezoneOffset, total_km_dia, generateCN, volquetaData, newVolqueta;
+    var _req$body, n_planilla, fecha, placa_vehiculo, cedula, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, driver, vehicle, total_horas, startH, endH, start, end, timezoneOffset, total_km_dia, volquetaData, newVolqueta, volquetaCompleta;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _req$body = req.body, fecha = _req$body.fecha, placa_vehiculo = _req$body.placa_vehiculo, cedula = _req$body.cedula, cliente = _req$body.cliente, volmts3 = _req$body.volmts3, n_viajes = _req$body.n_viajes, material = _req$body.material, hora_inicio = _req$body.hora_inicio, hora_final = _req$body.hora_final, km_inicial = _req$body.km_inicial, km_final = _req$body.km_final, lugar_de_cargue = _req$body.lugar_de_cargue, lugar_de_descargue = _req$body.lugar_de_descargue, observacion = _req$body.observacion;
+          // const {
+          //     fecha,
+          //     placa_vehiculo,
+          //     cedula,
+          //     cliente,
+          //     volmts3,
+          //     n_viajes,
+          //     material,
+          //     hora_inicio,
+          //     hora_final,
+          //     km_inicial,
+          //     km_final,
+          //     lugar_de_cargue,
+          //     lugar_de_descargue,
+          //     observacion,
+          // } = req.body;
+          _req$body = req.body, n_planilla = _req$body.n_planilla, fecha = _req$body.fecha, placa_vehiculo = _req$body.placa_vehiculo, cedula = _req$body.cedula, cliente = _req$body.cliente, volmts3 = _req$body.volmts3, n_viajes = _req$body.n_viajes, material = _req$body.material, hora_inicio = _req$body.hora_inicio, hora_final = _req$body.hora_final, km_inicial = _req$body.km_inicial, km_final = _req$body.km_final, lugar_de_cargue = _req$body.lugar_de_cargue, lugar_de_descargue = _req$body.lugar_de_descargue, observacion = _req$body.observacion;
           _context.next = 4;
           return _Persona["default"].findOne({
             cedula: cedula
@@ -66,9 +83,10 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           }
           total_km_dia = km_final - km_inicial; // Se genera número aleatorio de control para la planilla de volquetas...
           // const generateCN = await generateRandomFormNumber();
-          generateCN = (0, _GenRandomControlNumb.generarNumeroPlanilla)();
+          // // // const generateCN = generarNumeroPlanilla();
           volquetaData = new _Volqueta["default"]({
-            n_planilla: generateCN,
+            // n_planilla: generateCN,
+            n_planilla: n_planilla,
             fecha: fecha,
             placa_vehiculo: placa_vehiculo,
             placa: vehicle._id,
@@ -88,11 +106,18 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
             lugar_de_descargue: lugar_de_descargue,
             observacion: observacion
           });
-          _context.next = 19;
+          _context.next = 18;
           return volquetaData.save();
-        case 19:
+        case 18:
           newVolqueta = _context.sent;
-          _context.next = 22;
+          _context.next = 21;
+          return _Volqueta["default"].findById(newVolqueta._id).populate('conductor', 'nombres apellidos').populate('placa', 'placa');
+        case 21:
+          volquetaCompleta = _context.sent;
+          console.log('Llamando a la función plantillaVolquetas con los datos:');
+          console.log(volquetaCompleta);
+          (0, _plantilla_volquetas.plantillaVolquetas)([volquetaCompleta]);
+          _context.next = 27;
           return _Persona["default"].findOneAndUpdate(driver._id,
           // { $set: updateDataDriver },
           {
@@ -102,8 +127,8 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           }, {
             "new": true
           });
-        case 22:
-          _context.next = 24;
+        case 27:
+          _context.next = 29;
           return _Vehiculo["default"].findOneAndUpdate(vehicle._id,
           // { $set: updateDataVehicle },
           {
@@ -113,28 +138,28 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           }, {
             "new": true
           });
-        case 24:
+        case 29:
           return _context.abrupt("return", res.status(201).json({
             message: 'El formulario fue guardado correctamente!',
             newVolqueta: newVolqueta
           }));
-        case 27:
-          _context.prev = 27;
+        case 32:
+          _context.prev = 32;
           _context.t0 = _context["catch"](0);
           if (!(_context.t0 instanceof Error)) {
-            _context.next = 33;
+            _context.next = 38;
             break;
           }
           return _context.abrupt("return", res.status(500).json({
             error: _context.t0.message
           }));
-        case 33:
+        case 38:
           return _context.abrupt("return", res.status(500).json(_context.t0));
-        case 34:
+        case 39:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 27]]);
+    }, _callee, null, [[0, 32]]);
   }));
   return function createVolqueta(_x, _x2) {
     return _ref.apply(this, arguments);
