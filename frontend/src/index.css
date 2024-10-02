@@ -18,9 +18,12 @@ body{
     min-height: 100vh;
 }
 
-
-.bg-otherpages{
+.bg-otherpages {
     position: relative;
+}
+
+.bg-homepage,
+.bg-otherpages{
     min-height: 100vh;
     background-size: 75%;
     background-position: center;
@@ -29,10 +32,9 @@ body{
     overflow-y: auto;
 }
 
-/* .bg-homepage{
+.bg-homepage{
     background-image: url('/frontend/src/assets/logoWhite.png');
-} */
-
+}
 
 .bg-otherpages::before{
     content: '';

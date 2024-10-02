@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 import { UsersList } from '../../components/Users/UsersList';
 
 export function UsersPage() {

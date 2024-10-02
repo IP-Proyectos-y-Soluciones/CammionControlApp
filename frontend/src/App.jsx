@@ -32,6 +32,11 @@ import { RefuelingFormPage } from './pages/Refueling/RefuelingFormPage.jsx';
 import './styles/global.css';
 import './index.css';
 import { useEffect, useState } from 'react';
+import { VehiclesPage } from './pages/Vehicles/VehiclesPage.jsx';
+import { VehicleFormAddPage } from './pages/Vehicles/VehicleFormAddPage.jsx';
+import { AssignDriverToVehicleFormPage } from './pages/Vehicles/AssignDriverToVehicleForm.jsx';
+import { DriverLicenseFormAddPage } from './pages/Licenses/DriverLicenseFormAddPage.jsx';
+import { VehicleDocumentRegisterPage } from './pages/Documents/VehicleDocumentRegPage.jsx';
 
 function App() {
   const location = useLocation();
@@ -69,7 +74,6 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          {/* <Route path="/lock-unlock" element={<LockUnlockPage />} /> */}
           <Route path='/formTractomulas' element={<FormularioRegistroTractomulas />} />
           <Route path='/formVolquetas' element={<FormularioRegistroVolquetas />} />
           <Route path='/formTanqueos' element={<FormularioRegistroTanqueo />} />
@@ -78,14 +82,6 @@ function App() {
           <Route path='/volquetaspdf' element={<ExcellVolquetas />} />
           <Route path='/usuarios/:usuario' element={<UserProfileDetail />} />
 
-          {/* <Route
-            path="/*"
-            element={
-              <ProtectedRoute>
-                <ProtectedRoutes />
-              </ProtectedRoute>
-            }
-          > */}
            <Route
                 path="employees"
                 element={
@@ -158,6 +154,48 @@ function App() {
                   </ProtectedRoute>
               }
               />
+              
+              <Route
+              path='/vehicles'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                  <VehiclesPage />
+                </ProtectedRoute>
+              }
+              />
+              <Route 
+              path='/vehicles/planilla/add'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                  <VehicleFormAddPage />
+                </ProtectedRoute>
+              }
+              />
+              <Route
+              path='/vehicles/vehassign'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                  <AssignDriverToVehicleFormPage />
+                </ProtectedRoute>
+              } 
+              />
+              <Route 
+              path='/driverlicenses/add'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                  <DriverLicenseFormAddPage />
+                </ProtectedRoute>
+              }
+              />
+              <Route
+              path='/documents/add'
+              element={
+                <ProtectedRoute>
+                  <VehicleDocumentRegisterPage />
+                </ProtectedRoute>
+              }
+              />
+
               <Route
               path="/general_access"
               element={<GeneralAccessPage />}
@@ -189,8 +227,6 @@ function App() {
                   path="/unauthorized"
                   element={<UnauthorizedPage />}
                />
-
-            {/* </Route>     */}
         </Routes>
         </Layout>
       </main>

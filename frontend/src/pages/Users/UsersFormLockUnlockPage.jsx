@@ -59,7 +59,7 @@ export function UsersFormLockUnlockPage() {
             )}
           </div>
 
-          <div className='flex justify-en gap-5 mt-3'>
+          <div className='flex justify-end gap-5 mt-3'>
             <div>
               <Button
               type="button"

@@ -67,7 +67,7 @@ export function UsersFormAddPage() {
   }
 
   return (
-    <div>
+    <div className='bg-otherpages min-h-screen'>
       {isLoading && (
         <div>
           <Loading />

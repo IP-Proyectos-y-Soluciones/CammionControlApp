@@ -9,6 +9,7 @@ import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../../context/AuthContext';
 
 export function VolquetasFormPage() {
     const {
@@ -17,12 +18,19 @@ export function VolquetasFormPage() {
         formState: { errors },
         reset,
     } = useForm();
+    const {dni, vehicleRegistrationPlate} = useAuth();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = async (data) => {
         try {
             setIsLoading(true);
+
+            const _data= {
+                ...data,
+                cedula: dni,
+                placa_vehiculo: vehicleRegistrationPlate,
+            }
 
             data.hora_inicio = new Date(data.hora_inicio);
             data.hora_final = new Date(data.hora_final);
@@ -34,7 +42,6 @@ export function VolquetasFormPage() {
             const response = await createNewVolquetaForm(data);
 
             if (response.status === 201) {
-                setIsLoading(false)
                 swal2.fire({
                     title: 'Registro exitoso...!',
                     text: `La planilla Nº ${data.n_planilla} ha sido registrada exitosamente...!!!`,
@@ -43,6 +50,8 @@ export function VolquetasFormPage() {
                 });
 
                 reset();
+
+                setIsLoading(false);
             }
         } catch (error) {
             swal2.fire({
@@ -80,7 +89,7 @@ export function VolquetasFormPage() {
                         className="pt-5 pl-6 pr-6 pb-4"
                     >
                         {/* Nro de planilla --- Fecha */}
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-3 gap-3">
                             <div>
                                 <Label htmlFor="n_planilla" className="block text-gray-600 text-sm font-semibold mb-2" >Nº Planilla</Label>
                                 <Input
@@ -111,48 +120,38 @@ export function VolquetasFormPage() {
                                     </p>
                                 )}
                             </div>
+
+                            <div>
+                                <Label htmlFor='cedula'>Cédula Conductor</Label>
+                                <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1'>
+                                    {dni || 'Cargando...'}
+                                </p>
+                            </div>
                         </div>
 
                         {/* Placa --- Cédula */}
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-3 gap-3">
                             <div>
                                 <Label htmlFor="placa_vehiculo" className="block text-gray-600 text-sm font-semibold mb-2">Placa</Label>
-                                <Input
+                                <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1.5 mb-3'>
+                                    {vehicleRegistrationPlate || 'Cargando...'}
+                                </p>
+                                {/* <Input
                                     type="text"
                                     placeholder="Escriba la placa..."
                                     {...register('placa_vehiculo', {
                                         required: 'Este campo es obligatorio',
                                     })}
-                                />
-                                {errors.placa_vehiculo && (
+                                /> */}
+                                {/* {errors.placa_vehiculo && (
                                     <p className="text-red-700">
                                         {errors.placa_vehiculo.message}
                                     </p>
-                                )}
+                                )} */}
                             </div>
-
-                            <div>
-                                <Label htmlFor="cedula" className="block text-gray-600 text-sm font-semibold mb-2">
-                                    Cédula del Conductor
-                                </Label>
-                                <Input
-                                    type="number"
-                                    placeholder="Escriba el nro de cédula..."
-                                    {...register('cedula', {
-                                        required: 'Este campo es obligatorio',
-                                    })}
-                                />
-                                {errors.cedula && (
-                                    <p className="text-red-700">
-                                        {errors.cedula.message}
-                                    </p>
-                                )}
-                            </div>
-                        </div>
 
                         {/* Cliente --- Volumen de carga */}
-                        <div className="grid grid-cols-2 gap-3">
-                            <div>
+                        <div>
                                 <Label htmlFor="cliente" className="block text-gray-600 text-sm font-semibold mb-2">Cliente</Label>
                                 <Input
                                     type="text"
@@ -188,25 +187,7 @@ export function VolquetasFormPage() {
                         </div>
 
                         {/* Nro de viajes --- Material */}
-                        <div className="grid grid-cols-2 gap-3">
-                            <div>
-                                <Label htmlFor="n_viajes" className="block text-gray-600 text-sm font-semibold mb-2">
-                                    Cantidad de viajes
-                                </Label>
-                                <Input
-                                    type="number"
-                                    placeholder="Escriba la cantidad de viajes..."
-                                    {...register('n_viajes', {
-                                        required: 'Este campo es obligatorio',
-                                    })}
-                                />
-                                {errors.n_viajes && (
-                                    <p className="text-red-700">
-                                        {errors.n_viajes.message}
-                                    </p>
-                                )}
-                            </div>
-
+                        <div className="grid grid-cols-3 gap-3">
                             <div>
                                 <Label htmlFor="material" className="block text-gray-600 text-sm font-semibold mb-2">Material</Label>
                                 <Input
@@ -222,80 +203,7 @@ export function VolquetasFormPage() {
                                     </p>
                                 )}
                             </div>
-                        </div>
 
-                        {/* Hora Inicio --- Hora Final */}
-                        <div className="grid grid-cols-2 gap-3">
-                            <div>
-                                <Label htmlFor="hora_inicio" className="block text-gray-600 text-sm font-semibold mb-2">Hora Inicio</Label>
-                                <Input
-                                    type="datetime-local"
-                                    placeholder="Coloque hora de inicio..."
-                                    {...register('hora_inicio', {
-                                        required: 'Este campo es obligatorio',
-                                    })}
-                                />
-                                {errors.hora_inicio && (
-                                    <p className="text-red-700">
-                                        {errors.hora_inicio.message}
-                                    </p>
-                                )}
-                            </div>
-
-                            <div>
-                                <Label htmlFor="hora_final" className="block text-gray-600 text-sm font-semibold mb-2">Hora Final</Label>
-                                <Input
-                                    type="datetime-local"
-                                    placeholder="Coloque hora de fin..."
-                                    {...register('hora_final', {
-                                        required: 'Este campo es obligatorio',
-                                    })}
-                                />
-                                {errors.hora_final && (
-                                    <p className="text-red-700">
-                                        {errors.hora_final.message}
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Kilometraje Inicio --- Kilometraje Final */}
-                        <div className="grid grid-cols-2 gap-3">
-                            <div>
-                                <Label htmlFor="km_inicial" className="block text-gray-600 text-sm font-semibold mb-2">Klm Inicial</Label>
-                                <Input
-                                    type="number"
-                                    placeholder="Coloque klm de inicial..."
-                                    {...register('km_inicial', {
-                                        required: 'Este campo es obligatorio',
-                                    })}
-                                />
-                                {errors.km_inicial && (
-                                    <p className="text-red-700">
-                                        {errors.km_inicial.message}
-                                    </p>
-                                )}
-                            </div>
-
-                            <div>
-                                <Label htmlFor="km_final" className="block text-gray-600 text-sm font-semibold mb-2">Klm Final</Label>
-                                <Input
-                                    type="number"
-                                    placeholder="Coloque klm de final..."
-                                    {...register('km_final', {
-                                        required: 'Este campo es obligatorio',
-                                    })}
-                                />
-                                {errors.km_final && (
-                                    <p className="text-red-700">
-                                        {errors.km_final.message}
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Lugar de carga --- Lugar de descarga */}
-                        <div className="grid grid-cols-2 gap-3">
                             <div>
                                 <Label htmlFor="lugar_de_cargue" className="block text-gray-600 text-sm font-semibold mb-2">
                                     Lugar de Carga
@@ -333,11 +241,98 @@ export function VolquetasFormPage() {
                             </div>
                         </div>
 
+                        {/* Hora Inicio --- Hora Final */}
+                        <div className="grid grid-cols-3 gap-3">
+                        <div>
+                                <Label htmlFor="n_viajes" className="block text-gray-600 text-sm font-semibold mb-2">
+                                    Cantidad de viajes
+                                </Label>
+                                <Input
+                                    type="number"
+                                    placeholder="Escriba la cantidad de viajes..."
+                                    {...register('n_viajes', {
+                                        required: 'Este campo es obligatorio',
+                                    })}
+                                />
+                                {errors.n_viajes && (
+                                    <p className="text-red-700">
+                                        {errors.n_viajes.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div>
+                                <Label htmlFor="hora_inicio" className="block text-gray-600 text-sm font-semibold mb-2">Hora Inicio</Label>
+                                <Input
+                                    type="datetime-local"
+                                    placeholder="Coloque hora de inicio..."
+                                    {...register('hora_inicio', {
+                                        required: 'Este campo es obligatorio',
+                                    })}
+                                />
+                                {errors.hora_inicio && (
+                                    <p className="text-red-700">
+                                        {errors.hora_inicio.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div>
+                                <Label htmlFor="hora_final" className="block text-gray-600 text-sm font-semibold mb-2">Hora Final</Label>
+                                <Input
+                                    type="datetime-local"
+                                    placeholder="Coloque hora de fin..."
+                                    {...register('hora_final', {
+                                        required: 'Este campo es obligatorio',
+                                    })}
+                                />
+                                {errors.hora_final && (
+                                    <p className="text-red-700">
+                                        {errors.hora_final.message}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Kilometraje Inicio --- Kilometraje Final */}
+                        <div className="grid grid-cols-4 gap-3">
+                            <div className='col-span-1'>
+                                <Label htmlFor="km_inicial" className="block text-gray-600 text-sm font-semibold mb-2">Klm Inicial</Label>
+                                <Input
+                                    type="number"
+                                    placeholder="Coloque klm de inicial..."
+                                    {...register('km_inicial', {
+                                        required: 'Este campo es obligatorio',
+                                    })}
+                                />
+                                {errors.km_inicial && (
+                                    <p className="text-red-700">
+                                        {errors.km_inicial.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className='col-span-1'>
+                                <Label htmlFor="km_final" className="block text-gray-600 text-sm font-semibold mb-2">Klm Final</Label>
+                                <Input
+                                    type="number"
+                                    placeholder="Coloque klm de final..."
+                                    {...register('km_final', {
+                                        required: 'Este campo es obligatorio',
+                                    })}
+                                />
+                                {errors.km_final && (
+                                    <p className="text-red-700">
+                                        {errors.km_final.message}
+                                    </p>
+                                )}
+                            </div>
+                        
                         {/* Observaciones */}
-                        <div className="grid grid-cols-1 gap-3">
+                        <div className="col-span-2">
                             <Label htmlFor="observacion" className="block text-gray-600 text-sm font-semibold mb-2">Observación</Label>
                             <textarea
-                                rows="3"
+                                rows="2"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 placeholder="Escriba sus observaciones..."
                                 {...register('observacion', {
@@ -350,6 +345,7 @@ export function VolquetasFormPage() {
                                 </p>
                             )}
                         </div>
+                    </div>
 
                         <div className="flex justify-end gap-5 mt-3">
                             <div>
