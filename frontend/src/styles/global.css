@@ -55,13 +55,13 @@
     z-index: 10; /* Asegúrate de que el botón esté por encima de otros elementos */
   }
     
-.bg-gradient {
-    background: linear-gradient(to right, black, #5c5c5c); 
-  } 
-  
 /* .bg-gradient {
-    background: linear-gradient(to right, black, #860e01); 
+    background: linear-gradient(to right, black, #5c5c5c); 
   }  */
+  
+.bg-gradient {
+    background: linear-gradient(to right, black, #860e01); 
+  } 
 
 
 /* global.css */

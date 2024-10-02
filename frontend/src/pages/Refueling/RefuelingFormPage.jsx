@@ -9,14 +9,17 @@ import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../../context/AuthContext';
 
 export function RefuelingFormPage() {
     const {
         register,
         handleSubmit,
         formState: { errors },
+        setValue,
         reset,
     } = useForm();
+    const {dni, vehicleRegistrationPlate} = useAuth();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -24,13 +27,19 @@ export function RefuelingFormPage() {
         try {
             setIsLoading(true);
 
-            const response = await createNewRefuelingForm(data);
+            const _data = {
+                ...data,
+                cedula: dni,
+                placas: vehicleRegistrationPlate,
+            };
+
+            const response = await createNewRefuelingForm(_data);
 
             if (response.status === 201) {
                 setIsLoading(false)
                 swal2.fire({
                     title: 'Registro exitoso...!',
-                    text: `La nueva planilla de tanqueo Nº ${data.n_planilla} ha sido registrada exitosamente...!!!\n\nDesea agregar un nuevo empleado?`,
+                    text: `La nueva planilla de tanqueo Nº ${data.n_recibo} ha sido registrada exitosamente...!!!\n\nDesea agregar un nuevo empleado?`,
                     icon: 'success',
                     confirmButtonText: 'Aceptar',
                 });
@@ -39,6 +48,7 @@ export function RefuelingFormPage() {
             reset();
             setIsLoading(false);
         } catch (error) {
+            console.log(error);
             swal2.fire({
                 title: 'Error inesperado...!',
                 text: `Ha ocurrido un error inesperado: ${error.message}. Si el error persiste, contacte con el Desarrollador del software...!!!`,
@@ -78,18 +88,9 @@ export function RefuelingFormPage() {
                                 <Label htmlFor="cedula" className="block text-gray-600 text-sm font-semibold mb-2">
                                     Cédula del Conductor
                                 </Label>
-                                <Input
-                                    type="number"
-                                    placeholder="Escriba el nro de cédula..."
-                                    {...register('cedula', {
-                                        required: 'Este campo es obligatorio',
-                                    })}
-                                />
-                                {errors.cedula && (
-                                    <p className="text-red-700">
-                                        {errors.cedula.message}
-                                    </p>
-                                )}
+                                <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1'>
+                                    { dni || 'Cargando...'}
+                                </p>
                             </div>
 
                             <div>
@@ -185,19 +186,10 @@ export function RefuelingFormPage() {
                         {/* Placas */}
                         <div className="grid grid-cols-2 gap-3">
                             <div>
-                                <Label htmlFor="vehiculo_placa" className="block text-gray-600 text-sm font-semibold mb-2">Placas</Label>
-                                <Input
-                                    type="text"
-                                    placeholder="Escriba la placa..."
-                                    {...register('vehiculo_placa', {
-                                        required: 'Este campo es obligatorio',
-                                    })}
-                                />
-                                {errors.vehiculo_placa && (
-                                    <p className="text-red-700">
-                                        {errors.vehiculo_placa.message}
-                                    </p>
-                                )}
+                                <Label htmlFor="placas" className="block text-gray-600 text-sm font-semibold mb-2">Placas</Label>
+                               <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1.5 mb-3'>
+                                {vehicleRegistrationPlate || 'Cargando... '}
+                               </p>
                             </div>
                         </div>
 

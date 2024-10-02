@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Input, Label, Button} from '../../components/UI';
 import { useForm } from 'react-hook-form';
-import { loginRequest } from '../../../api/auth';
+import { getDriverByDniRequest, getVehicleByIDRequest, loginRequest } from '../../../api/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import logo from '../../assets/yadiraLogoColor2.png'
@@ -27,8 +27,17 @@ export function LoginPage() {
       //console.log(response.data);
 
       if (response.status === 200) {
-        
+        const driverData = await getDriverByDniRequest(
+          response.data.usuarioReg.usuario_cedula,
+        );
+        setDNI(driverData.data.cedula);
 
+        if(driverData.data.vehiculos[0] !== undefined){
+          const getVehRegPlate = await getVehicleByIDRequest(
+            driverData.data.vehiculos[0],
+          );
+          setVehicleRegistrationPlate(getVehRegPlate.data.data.placa);
+        }
 
         const role = response.data.usuarioReg.roles || [];
                 const fullName = response.data.employeeFullName;
@@ -75,11 +84,11 @@ export function LoginPage() {
 
   return (    
     <div className="min-h-screen flex items-center justify-center bg-gradient">
-        {isLoading && (
-      <div className="absolute inset-0 flex items-center justify-center bg-gray-600 bg-opacity-75 ">
+        {/* {isLoading && (
+      <div>
         <Loading/>
       </div>
-    )}{' '}
+    )}{' '} */}
     {/* Se renderiza si es true... */}
    
     {/* <div className="min-h-screen flex items-center justify-center bg-gray-600"> */}
