@@ -9,7 +9,24 @@ import {
 
 export const createVolqueta = async (req, res) => {
     try {
+        // const {
+        //     fecha,
+        //     placa_vehiculo,
+        //     cedula,
+        //     cliente,
+        //     volmts3,
+        //     n_viajes,
+        //     material,
+        //     hora_inicio,
+        //     hora_final,
+        //     km_inicial,
+        //     km_final,
+        //     lugar_de_cargue,
+        //     lugar_de_descargue,
+        //     observacion,
+        // } = req.body;
         const {
+            n_planilla,
             fecha,
             placa_vehiculo,
             cedula,
@@ -62,10 +79,11 @@ export const createVolqueta = async (req, res) => {
 
         // Se genera número aleatorio de control para la planilla de volquetas...
         // const generateCN = await generateRandomFormNumber();
-        const generateCN = generarNumeroPlanilla();
+        // // // const generateCN = generarNumeroPlanilla();
 
         const volquetaData = new Volqueta({
-            n_planilla: generateCN,
+            // n_planilla: generateCN,
+            n_planilla,
             fecha,
             placa_vehiculo,
             placa: vehicle._id,
