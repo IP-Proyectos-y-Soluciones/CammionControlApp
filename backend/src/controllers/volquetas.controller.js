@@ -1,11 +1,8 @@
 import Volqueta from '../models/Volqueta';
 import Persona from '../models/Persona';
 import Vehiculo from '../models/Vehiculo';
-import { plantillaVolquetas } from '../pdf-excel/plantilla_volquetas';
-import {
-    generateRandomFormNumber,
-    generarNumeroPlanilla,
-} from '../libs/GenRandomControlNumb';
+import { plantillaVolquetas } from '../others/plantilla_volquetas';
+// import { generarNumeroPlanilla } from '../libs/GenRandomControlNumb';
 
 export const createVolqueta = async (req, res) => {
     try {
