@@ -1,20 +1,19 @@
 import { useState } from 'react';
-import { createNewRefuelingForm } from '../../../api/refueling';
+import { createNewLicense } from '../../../api/documentos';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 
-const FormularioTanqueo = () => {
+const FormularioLicencias = () => {
     const [formData, setFormData] = useState({
-        fecha_tanqueo: '',
-        n_recibo: '',
-        estacion: '',
-        cantidad_galones: '',
-        valor_tanqueo: '',
-        placas: '',
-        cedula: '',
+        conductor_cedula: '',
+        categoria: '',
+        clase_de_vehiculo: '',
+        servicio: '',
+        fecha_expedicion: '',
+        fecha_vencimiento: '',
     });
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +33,7 @@ const FormularioTanqueo = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-
+        console.log(file);
         if (!file) {
             swal2.fire({
                 title: 'Error',
@@ -52,7 +51,7 @@ const FormularioTanqueo = () => {
         });
 
         try {
-            const response = await createNewRefuelingForm(data);
+            const response = await createNewLicense(data);
             if (response.status === 201) {
                 swal2.fire({
                     title: 'Registro exitoso...!',
@@ -61,15 +60,15 @@ const FormularioTanqueo = () => {
                     confirmButtonText: 'Aceptar',
                 });
                 setFormData({
-                    fecha_tanqueo: '',
-                    n_recibo: '',
-                    estacion: '',
-                    cantidad_galones: '',
-                    valor_tanqueo: '',
-                    placas: '',
-                    cedula: '',
+                    conductor_cedula: '',
+                    categoria: '',
+                    clase_de_vehiculo: '',
+                    servicio: '',
+                    fecha_expedicion: '',
+                    fecha_vencimiento: '',
                 });
                 setFile(null); // Limpiar el archivo
+                document.querySelector("input[type='file']").value = '';
             }
             setIsLoading(false);
         } catch (error) {
@@ -79,7 +78,6 @@ const FormularioTanqueo = () => {
                 icon: 'error',
             });
             setIsLoading(false);
-            document.querySelector("input[type='file']").value = '';
         }
     };
 
@@ -95,111 +93,135 @@ const FormularioTanqueo = () => {
                 </div>
             )}{' '}
             <h1 className="text-3xl text-gray-600 font-bold text-center mb-6">
-                Control Tanqueo de Combustible
+                Creacion de Licencias
             </h1>
             <form
                 onSubmit={handleSubmit}
                 className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md"
             >
                 <div className="mb-4">
-                    <label htmlFor="fecha" className="block text-gray-700">
-                        Fecha de Tanqueo:
+                    <label htmlFor="cedula" className="block text-gray-700">
+                        Numero de Cedula:
+                    </label>
+                    <input
+                        type="number"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                        name="conductor_cedula"
+                        value={formData.conductor_cedula}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="categoria" className="block text-gray-700">
+                        Tipo de categoria:
+                    </label>
+                    <select
+                        name="categoria"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                        value={formData.categoria}
+                        onChange={handleInputChange}
+                        required
+                    >
+                        <option value="">Seleccionar tipo</option>
+                        <option value="A1">A1</option>
+                        <option value="A2">A2</option>
+                        <option value="B1">B1</option>
+                        <option value="B2">B2</option>
+                        <option value="B3">B3</option>
+                        <option value="C1">C1</option>
+                        <option value="C2">C2</option>
+                        <option value="C3">C3</option>
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="Clase" className="block text-gray-700">
+                        Clase de Vehiculo:
+                    </label>
+                    <select
+                        name="clase_de_vehiculo"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                        value={formData.clase_de_vehiculo}
+                        onChange={handleInputChange}
+                        required
+                    >
+                        <option value="">Seleccionar tipo</option>
+                        <option value="A1">
+                            Motocicletas hasta de 125 c.c. de cilindrada.
+                        </option>
+                        <option value="A2">
+                            Motocicletas, motociclos y mototriciclos de más de
+                            125 c.c. de cilindrada.
+                        </option>
+                        <option value="B1">
+                            Automóviles, camperos, camionetas y microbuses de
+                            servicio particular.
+                        </option>
+                        <option value="B2">
+                            Camiones, rígidos, busetas y buses para el servicio
+                            particular.
+                        </option>
+                        <option value="B3">
+                            Vehículos articulados de servicio particular
+                        </option>
+                        <option value="C1">
+                            Automóviles, camperos, camionetas y microbuses de
+                            servicio público.
+                        </option>
+                        <option value="C2">
+                            Camiones, rígidos, busetas y buses para el servicio
+                            público.
+                        </option>
+                        <option value="C3">
+                            Vehículos articulados para el servicio público
+                        </option>
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="servicio" className="block text-gray-700">
+                        Tipo de servicio:
+                    </label>
+                    <select
+                        name="servicio"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                        value={formData.servicio}
+                        onChange={handleInputChange}
+                        required
+                    >
+                        <option value="">Seleccionar tipo</option>
+                        <option value="Publico">Publico</option>
+                        <option value="Particular">Particular</option>
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label
+                        htmlFor="fecha_expedicion"
+                        className="block text-gray-700"
+                    >
+                        Fecha de Expedicion:
                     </label>
                     <input
                         type="date"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                        name="fecha_tanqueo"
-                        value={formData.fecha_tanqueo}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="noRecibo" className="block text-gray-700">
-                        Número de Recibo:
-                    </label>
-                    <input
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                        placeholder="Escriba el nro del recibo..."
-                        name="n_recibo"
-                        value={formData.n_recibo}
+                        name="fecha_expedicion"
+                        value={formData.fecha_expedicion}
                         onChange={handleInputChange}
                         required
                     />
                 </div>
                 <div className="mb-4">
                     <label
-                        htmlFor="nombreEstacion"
+                        htmlFor="fecha_vencimiento"
                         className="block text-gray-700"
                     >
-                        Estación:
+                        Fecha de Vencimiento:
                     </label>
                     <input
-                        type="text"
+                        type="date"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                        name="estacion"
-                        placeholder="Escriba nombre Estación..."
-                        value={formData.estacion}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="cantidadGalones"
-                        className="block text-gray-700"
-                    >
-                        Cantidad de Galones:
-                    </label>
-                    <input
-                        type="number"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                        name="cantidad_galones"
-                        placeholder="Escriba la cantidad..."
-                        value={formData.cantidad_galones}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="valor" className="block text-gray-700">
-                        Valor del Tanqueo:
-                    </label>
-                    <input
-                        type="number"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                        name="valor_tanqueo"
-                        placeholder="Escriba costo..."
-                        value={formData.valor_tanqueo}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="placas" className="block text-gray-700">
-                        Placas del Vehiculo:
-                    </label>
-                    <input
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                        name="placas"
-                        placeholder="Escriba la placa..."
-                        value={formData.placas}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="cedula" className="block text-gray-700">
-                        Cédula del Conductor:
-                    </label>
-                    <input
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                        name="cedula"
-                        placeholder="Escriba el nro de cédula..."
-                        value={formData.cedula}
+                        name="fecha_vencimiento"
+                        placeholder="Escriba fecha de vencimiento..."
+                        value={formData.fecha_vencimiento}
                         onChange={handleInputChange}
                         required
                     />
@@ -245,4 +267,4 @@ const FormularioTanqueo = () => {
     );
 };
 
-export default FormularioTanqueo;
+export default FormularioLicencias;
