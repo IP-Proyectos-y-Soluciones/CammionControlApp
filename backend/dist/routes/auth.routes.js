@@ -27,4 +27,15 @@ router.get('/checklogin', _auxAuthMiddleware.AuxAuthMiddleware, function (req, r
     }
   });
 });
+
+// *********** || Rutas auxiliares para el Front... || ************ //
+
+router.get('/driverced/:cedula',
+// TokenValidation,
+_login.getDriverByDNI);
+router.get('/vehicleid/:id',
+// TokenValidation,
+_login.getVehicleById);
+
+// ***************************************************** //
 var _default = exports["default"] = router;

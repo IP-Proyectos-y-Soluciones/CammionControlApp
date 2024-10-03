@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { login } from '../authentication/login_out/login.controller';
+import {
+    login,
+    getDriverByDNI,
+    getVehicleById,
+} from '../authentication/login_out/login.controller';
 import { logout } from '../authentication/login_out/logout.controller';
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 import { AuxAuthMiddleware } from '../middlewares/auxAuthMiddleware'; // Eliminar para prodcc...
@@ -22,5 +26,20 @@ router.get('/checklogin', AuxAuthMiddleware, (req, res) => {
         },
     });
 });
+
+// *********** || Rutas auxiliares para el Front... || ************ //
+
+router.get(
+    '/driverced/:cedula',
+    // TokenValidation,
+    getDriverByDNI,
+);
+router.get(
+    '/vehicleid/:id',
+    // TokenValidation,
+    getVehicleById,
+);
+
+// ***************************************************** //
 
 export default router;

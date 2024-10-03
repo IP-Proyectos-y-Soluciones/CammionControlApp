@@ -9,7 +9,7 @@ const documentoSchema = new mongoose.Schema(
         },
         tipo: {
             type: String,
-            enum: ['Poliza de seguro', 'Soat', 'tecnomecanica'],
+            enum: ['Póliza de seguro', 'Soat', 'Tecnomecánica'],
             required: true,
         },
         vehiculo_placa: {

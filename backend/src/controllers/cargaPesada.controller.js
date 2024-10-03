@@ -1,9 +1,28 @@
 import CargaPesada from '../models/CargaPesada';
 import Persona from '../models/Persona';
 import Vehiculo from '../models/Vehiculo';
+import { plantillaCargaPesada } from '../others/planilla_cargaPesada';
+import { generarNumeroPlanilla } from '../libs/GenRandomControlNumb';
 
 export const createHeavyLoadForm = async (req, res) => {
     try {
+        // const {
+        //     fecha_inicio,
+        //     fecha_final,
+        //     placa_vehiculo,
+        //     conductor_cedula,
+        //     ciudad_inicio,
+        //     ciudad_destino,
+        //     empresa,
+        //     valor_flete,
+        //     anticipo_empresa,
+        //     anticipo_cliente,
+        //     acpm,
+        //     peaje,
+        //     mantenimiento,
+        //     mecanico,
+        //     otros,
+        // } = req.body;
         const {
             n_planilla,
             fecha_inicio,
@@ -43,6 +62,8 @@ export const createHeavyLoadForm = async (req, res) => {
             });
         }
 
+        // // // const generateCN = generarNumeroPlanilla();
+
         // Sumatoria de todos los anticipos recibidos...
         let totalAdvance =
             parseInt(anticipo_empresa) + parseInt(anticipo_cliente);
@@ -59,6 +80,7 @@ export const createHeavyLoadForm = async (req, res) => {
         let totalBalance = parseInt(valor_flete) - totalAdvance - totalSpends;
 
         const newHeavyLoad = new CargaPesada({
+            // n_planilla: generateCN,
             n_planilla,
             fecha_inicio,
             fecha_final,
@@ -83,6 +105,14 @@ export const createHeavyLoadForm = async (req, res) => {
         });
 
         const savedHeavyLoad = await newHeavyLoad.save();
+
+        const upHeavyLoad = await CargaPesada.findById(savedHeavyLoad._id)
+            .populate('conductor', 'nombres apellidos')
+            .populate('placa', 'placa');
+
+        console.log(upHeavyLoad);
+
+        plantillaCargaPesada([upHeavyLoad]);
 
         await Persona.findByIdAndUpdate(
             driver._id,

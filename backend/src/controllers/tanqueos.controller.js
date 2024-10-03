@@ -153,3 +153,47 @@ export const deleteTanqueo = async (req, res) => {
         res.status(500).json(error);
     }
 };
+
+// // ********** Funciones auxiliares para uso directo en el Front ********** //
+
+// export const getDriverByDNI = async (req, res) => {
+//     try {
+//         const { cedula } = req.params;
+
+//         const persona = await Persona.findOne({
+//             cedula: cedula,
+//         });
+
+//         if (!persona)
+//             return res
+//                 .status(404)
+//                 .json({ message: 'Persona no encontrada...!' });
+
+//         return res.status(200).json(persona);
+//     } catch (error) {
+//         if (error instanceof Error) {
+//             return res.status(500).json({ error: error.message });
+//         } else {
+//             return res.status(500).json(error);
+//         }
+//     }
+// };
+
+// export const getVehicleById = async (req, res) => {
+//     const { id } = req.params;
+
+//     try {
+//         const vehiculo = await Vehiculo.findById(id);
+//         if (!vehiculo) {
+//             return res.status(404).send('ID no encontrado');
+//         }
+//         res.status(200).json({
+//             message: 'Búsqueda por ID exitosa',
+//             data: vehiculo,
+//         });
+//     } catch (error) {
+//         res.status(500).json(error);
+//     }
+// };
+
+// // *********************************************************** //

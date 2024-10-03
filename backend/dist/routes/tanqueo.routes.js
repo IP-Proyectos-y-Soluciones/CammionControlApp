@@ -24,4 +24,15 @@ _tanqueos.updateTanqueo);
 router["delete"]('/delete/:id',
 // TokenValidation,
 _tanqueos.deleteTanqueo);
+
+// router.get(
+//     '/driverced/:cedula',
+//     // TokenValidation,
+//     getDriverByDNI,
+// );
+// router.get(
+//     '/vehicleid/:id',
+//     // TokenValidation,
+//     getVehicleById,
+// );
 var _default = exports["default"] = router;

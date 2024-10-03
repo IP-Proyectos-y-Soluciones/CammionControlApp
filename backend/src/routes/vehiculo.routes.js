@@ -36,7 +36,7 @@ router.get(
     getVehiculoByPlaca,
 );
 
-router.patch(
+router.post(
     '/vehiculo/asignacion',
     // TokenValidation,
     assignDriverToVehicle,
