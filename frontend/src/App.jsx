@@ -67,7 +67,7 @@ function App() {
         <NavBarMain/>
         </nav>  
         )}     
-      <main className='pt-0'>
+      <main className={`${location.pathname === '/' || location.pathname === '/login' ? 'pt-0': 'pt-28'}`}>
         {/* <Layout> */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
