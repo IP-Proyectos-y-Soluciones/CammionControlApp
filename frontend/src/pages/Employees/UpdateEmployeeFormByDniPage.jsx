@@ -26,9 +26,7 @@ export function UpdateEmployeeByDni() {
     try {
       setIsLoading(true);
 
-      const response = await updateEmployeeByDniRequest(
-        data,
-      );
+      const response = await updateEmployeeByDniRequest(data);
 
       if (response.status === 200) {
         setIsLoading(false)

@@ -33,7 +33,7 @@ body{
 }
 
 .bg-homepage{
-    background-image: url('/frontend/src/assets/logoWhite.png');
+    background-image: url('../src/assets/logoWhite.png');
 }
 
 .bg-otherpages::before{
@@ -43,35 +43,17 @@ body{
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('/frontend/src/assets/logoWhite.png');
+    background-image: url('../src/assets/logoWhite.png');
     background-size: inherit;
     background-position: inherit;
     background-repeat: inherit;
     background-color: inherit;
-    opacity: 0.2;
+    opacity: 0.3;
     z-index: 0;
 }
 
 .bg-otherpages >*{
     position: relative;
     z-index: 1;
-}
-
-.active-menu{
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffcc00;
-}
-
-@keyframes grow{
-    from{
-        width: 0;
-    }
-    to{
-        width: 100%;
-    }
-}
-
-.animate-grow{
-    animation: grow 1s ease-in-out forwards;
 }
 

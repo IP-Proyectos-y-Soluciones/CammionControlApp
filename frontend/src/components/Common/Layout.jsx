@@ -32,7 +32,7 @@ const Layout = ({children}) => {
   const applyPaddingTop = location.pathname !== '/' && location.pathname !== '/login';
 
   return (
-    <div className={`flex flex-col min-h-screen bg-gray-100 ${applyPaddingTop ? 'pt-40' : ''}`}>
+    <div className={`flex flex-col min-h-screen ${applyPaddingTop ? 'pt-40' : ''}`}>
         {/* <Header /> */}
         <main className='flex-1'>{children}</main> 
         {/* Ajusta el padding para diferentes tamaños de pantalla */}

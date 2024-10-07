@@ -39,15 +39,13 @@ export function LoginPage() {
           setVehicleRegistrationPlate(getVehRegPlate.data.data.placa);
         }
 
-        const role = response.data.usuarioReg.roles || [];
+                const role = response.data.usuarioReg.roles || [];
                 const fullName = response.data.employeeFullName;
                 //
                 setUserName(fullName);
                 setUserRole(role);
                 setIsAuthenticated(true);
                 setIsLoading(false);
-
-                //console.log(role)
 
                 // Redirigir según el rol del usuario...
                 if (role === 'Owner' || role === 'Admin') {

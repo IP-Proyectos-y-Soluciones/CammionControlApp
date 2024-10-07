@@ -92,9 +92,7 @@ export function EmployeesList() {
             <tr
               key={employee._id}
               className="border-b-4 cursor-pointer"
-              onClick={() =>
-                navigate(`employee/${employee._id}`)
-              }
+              onClick={() => navigate(`employee/${employee._id}`)}
             >
               <td className="px-4 py-2 border-b pl-10">
                 {employee.cedula}

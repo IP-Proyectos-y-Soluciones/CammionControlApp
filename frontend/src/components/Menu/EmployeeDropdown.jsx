@@ -55,19 +55,23 @@ export const EmployeeDropdown = () => {
           {isAuthenticated ? (
             <>
               <Link
+                to={'/employees'}
+                onClick={() => setIsOpen(false)}
+                className="block px-4 py-2 text-sm  hover:text-yellow-400"
+              >
+                Mostrar todos...
+              </Link>  
+
+              <hr className='bg-white border-white h-0.3 mt-2 mb-1 w-screen'/>
+
+              <Link
                 to={'employees/add'}
                 onClick={() => setIsOpen(false)}
                 className="block px-4 py-2 text-sm hover:text-yellow-400"
               >
                 Agregar nuevo...
               </Link>              
-              <Link
-                to={'/employees'}
-                onClick={() => setIsOpen(false)}
-                className="block px-4 py-2 text-sm  hover:text-yellow-400"
-              >
-                Mostrar todos...
-              </Link>             
+           
               <Link
                 to={'/employees/bydni'}
                 onClick={() => setIsOpen(false)}
@@ -75,12 +79,22 @@ export const EmployeeDropdown = () => {
               >
                 Buscar por cédula...
               </Link>             
+
+              <hr className='bg-white border-white h-0.3 mt-2 mb-1 w-screen'/>
+
               <Link
                 to={'/employees/employee/edit'}
                 onClick={() => setIsOpen(false)}
                 className="block px-4 py-2 text-sm hover:text-yellow-400"
               >
                 Actualizar Empleado...
+              </Link>
+              <Link
+              to={'/employees/employee/del'}
+              onClick={()=> setIsOpen(false)}
+              className='customSubMenu'
+              >
+              Eliminar Empleado...
               </Link>
             </>
           ) : (

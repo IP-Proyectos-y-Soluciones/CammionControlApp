@@ -104,20 +104,22 @@ import { useAuth } from '../../context/AuthContext';
 import { EmployeeDropdown } from '../Menu/EmployeeDropdown';
 import { UserDropdown } from '../Menu/UserDropdown';
 import { EmployeeFormDropdown } from '../Menu/EmployeesFormDropdown';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import logo from '../../assets/yadiraLogoBlanco.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { VehicleFormDropdown } from '../Menu/VehicleFormDropdown';
 
 
 export function NavBarMain() {
   const { logout, setIsAuthenticated, isAuthenticated, userRole, userName } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const menuRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [employeeMenuOpen, setEmployeeMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  
+    
 
   const handleLogout = async () => {
     try {
@@ -168,9 +170,18 @@ export function NavBarMain() {
     setEmployeeMenuOpen(false);
   }
 
-  const handleLinkClick = ()=>{
-    setMenuOpen(false)
-  }
+  // const handleClickOutside = (event)=>{
+  //   if(menuRef.current && !menuRef.current.contains(event.target)){
+  //     setMenuOpen(false)
+  //   }
+  // }
+
+  // useEffect(()=>{
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return ()=>{
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   }
+  // },[]);
 
   const isAuthorized =
   userRole === import.meta.env.VITE_RAD ||
@@ -180,9 +191,6 @@ export function NavBarMain() {
 
   return (
     <nav 
-    // className={`${isLandingPage ? 'bg-gradient-to-t from-transparent to-red-800 bg-opacity-70' : 'bg-red-700'}
-    // py-2 px-8 rounded-lg flex justify-between items-center transition-all duration-300 
-    // ${menuOpen ? '' : '' }`}
     className={`${isLandingPage ? 'bg-opacity-70 backdrop-filter backdrop-blur-lg ' : 'bg-gradient-to-r from-red-950 to-red-700 bg-opacity-70'}
     py-2 px-8 rounded-lg flex justify-between items-center transition-all duration-300 
     ${menuOpen ? '' : '' }`}
@@ -200,13 +208,16 @@ export function NavBarMain() {
       <>
       {isAuthorized ?(
         <>
+
          <div className='cursor-pointer'>
-          <EmployeeDropdown />
-      </div>      
-      
-      <div  className='cursor-pointer'>
-          <UserDropdown />
-      </div>
+           <EmployeeDropdown />
+         </div>        
+         <div  className='cursor-pointer'>
+           <UserDropdown />
+         </div>
+         <div  className='cursor-pointer'>
+           <VehicleFormDropdown />
+         </div>
       
        </>
        ):(         
@@ -221,7 +232,6 @@ export function NavBarMain() {
           </>
         ) : (
       <>
-    
        </>
      )}
     </div>
@@ -261,17 +271,20 @@ export function NavBarMain() {
         {menuOpen && (
           <>
           <div className='fixed inset-0 w-full h-full bg-black bg-opacity-80 z-20' onClick={handleCloseMenu}></div>
-          <div className='menu-open-fullscreen border-t-4 border-red-600 text-white p-2 space-y-30'>
+          <div className='menu-open-fullscreen z-50 border-t-4 border-red-600 text-white p-2 space-y-30'>
             {isAuthenticated ?(
               <>
                {isAuthorized ? (
                 <>
                  <div onClick={handleEmployeeMenu} className='cursor-pointer pl-4 w-full hover:text-yellow-400'>
                    <EmployeeDropdown />
-              </div>
-              <div onClick={handleUserMenu} className='cursor-pointer pl-4 w-full hover:text-yellow-400'>
-              <UserDropdown />
-              </div>                     
+                 </div>
+                 <div onClick={handleUserMenu} className='cursor-pointer pl-4 w-full hover:text-yellow-400'>
+                   <UserDropdown />
+                 </div>
+                 <div onClick={handleUserMenu} className='cursor-pointer pl-4 w-full hover:text-yellow-400'>
+                   <VehicleFormDropdown /> 
+                 </div>                     
               </>
             ):(                   
               <EmployeeFormDropdown />

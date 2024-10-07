@@ -34,7 +34,9 @@ export function EmployeeByDniPage() {
       const response = await getEmployeeByDniRequest(cedula);
 
       setEmployee(response.data);
+      setLoading(false);
     } catch (error) {
+      setLoading(false)
       setError('Empleado no encontrado...!!!');
     } finally {
       setLoading(false);
