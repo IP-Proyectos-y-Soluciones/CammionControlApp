@@ -193,7 +193,7 @@ export function NavBarMain() {
     <nav 
     className={`${isLandingPage ? 'bg-opacity-70 backdrop-filter backdrop-blur-lg ' : 'bg-gradient-to-r from-red-950 to-red-700 bg-opacity-70'}
     py-2 px-8 rounded-lg flex justify-between items-center transition-all duration-300 
-    ${menuOpen ? '' : '' }`}
+    ${menuOpen ? 'z-30' : 'z-20' }`}
     // "bg-red-700 py-3 px-8 rounded-lg flex justify-between items-center"
     >
       <div className='flex items-center space-x-4 ml-4'>

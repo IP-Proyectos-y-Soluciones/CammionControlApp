@@ -67,7 +67,7 @@ function App() {
         <NavBarMain/>
         </nav>  
         )}     
-      <main className='pt-24'>
+      <main className='pt-0'>
         {/* <Layout> */}
         <Routes>
           <Route path="/" element={<LandingPage />} />

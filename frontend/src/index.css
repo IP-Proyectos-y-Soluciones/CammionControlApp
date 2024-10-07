@@ -9,15 +9,30 @@
     margin: 0;
 } */
 
-body{
+html, body{
     margin: 0;
     padding: 0;
     background: #ffffff;
-    color: #eeeeee;
     overflow-x: hidden;
-    min-height: 100vh;
+    overflow-y: hidden;
+    height: 100%;
 }
 
+nav {
+    top: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 100;
+}
+
+.min-h-screen{
+    height: 100vh;
+}
+
+.pt-24{
+    padding-top: 0;
+}
 .bg-otherpages {
     position: relative;
 }
@@ -48,7 +63,7 @@ body{
     background-position: inherit;
     background-repeat: inherit;
     background-color: inherit;
-    opacity: 0.3;
+    opacity: 0.2;
     z-index: 0;
 }
 
@@ -57,3 +72,10 @@ body{
     z-index: 1;
 }
 
+.fixed-button{
+    position: fixed;
+    bottom: 50px;
+    left:88%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
