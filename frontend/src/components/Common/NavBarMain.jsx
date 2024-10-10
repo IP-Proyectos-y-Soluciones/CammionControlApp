@@ -137,7 +137,7 @@ export function NavBarMain() {
 
   const handleDashboardLink =()=>{
     if(userRole === 'Owner' || userRole === 'Admin'){
-      return '/employees';
+      return '/general_access_admin';
     }else if(userRole === 'Empleado'){
       return '/general_access';
     }else{
@@ -191,7 +191,7 @@ export function NavBarMain() {
 
   return (
     <nav 
-    className={`${isLandingPage ? 'bg-opacity-70 backdrop-filter backdrop-blur-lg ' : 'bg-gradient-to-r from-red-950 to-red-700 bg-opacity-70'}
+    className={`${isLandingPage ? 'bg-opacity-70 backdrop-filter backdrop-blur-lg ' : 'bg-gradient-to-r from-gray-800 to-red-700 bg-opacity-70'}
     py-2 px-8 rounded-lg flex justify-between items-center transition-all duration-300 
     ${menuOpen ? 'z-30' : 'z-20' }`}
     // "bg-red-700 py-3 px-8 rounded-lg flex justify-between items-center"
@@ -308,13 +308,13 @@ export function NavBarMain() {
               >
                  Ingresar
               </Link>
-              <Link
+              {/* <Link
                to={'/home'}
                className="pt-5 font-bold block py-2 pl-4 transition-all hover:text-yellow-400"
                onClick={handleCloseMenu}
               >
               Servicios
-              </Link>
+              </Link> */}
               </>
             )}        
        </div>

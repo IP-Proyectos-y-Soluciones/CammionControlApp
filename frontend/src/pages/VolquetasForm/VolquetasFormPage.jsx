@@ -4,7 +4,7 @@ import { Button, Input, Label } from '../../components/UI';
 import { useForm } from 'react-hook-form';
 import { createNewVolquetaForm } from '../../../api/volquetas';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,10 +17,23 @@ export function VolquetasFormPage() {
         handleSubmit,
         formState: { errors },
         reset,
+        watch,
     } = useForm();
     const {dni, vehicleRegistrationPlate} = useAuth();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const [totalKm, setTotalKm] = useState(0);
+
+    const kmInicial = watch('km_inicial');
+    const kmFinal = watch('km_final');
+
+    useEffect(()=>{
+        if(kmInicial && kmFinal){
+            setTotalKm(Math.abs(kmFinal - kmInicial));
+        }else{
+            setTotalKm(0);
+        }
+    }, [kmInicial, kmFinal])
 
     const onSubmit = async (data) => {
         try {
@@ -30,6 +43,7 @@ export function VolquetasFormPage() {
                 ...data,
                 cedula: dni,
                 placa_vehiculo: vehicleRegistrationPlate,
+                total_km: totalKm,
             }
 
             data.hora_inicio = new Date(data.hora_inicio);
@@ -65,7 +79,8 @@ export function VolquetasFormPage() {
 
     const onCancel = () =>{
         reset();
-        navigate('/general_access');
+        navigate(-1);
+        // navigate('/general_access');
     }
 
     return (
@@ -77,10 +92,10 @@ export function VolquetasFormPage() {
             )}{' '}
             {/* Se renderiza si es true... */}
             <div className="flex h-[calc(100vh-100px)] items-center justify-center mt-24">
-                <div className="bg-zinc-100 border-4 border-red-600 max-w-md w-full p-0 rounded-md">
-                    <div className="bg-red-600 flex items-stretch">
-                        <h2 className="text-2xl font-bold italic ml-30 mb-2 text-gray-100">
-                            Nueva Planilla de Volquetas
+                <div className="bg-zinc-100 border-2 border-gray-600 max-w-md w-full p-0 rounded-md">
+                    <div className="bg-gray-600 flex justify-center items-stretch">
+                        <h2 className="text-2xl font-bold italic mb-2 text-gray-100 mt-3">
+                            Nuevo registro de Viaje de Volqueta
                         </h2>
                     </div>
 
@@ -90,8 +105,8 @@ export function VolquetasFormPage() {
                     >
                         {/* Nro de planilla --- Fecha */}
                         <div className="grid grid-cols-3 gap-3">
-                            <div>
-                                <Label htmlFor="n_planilla" className="block text-gray-600 text-sm font-semibold mb-2" >Nº Planilla</Label>
+                            <div className='flex flex-col'>
+                                <Label htmlFor="n_planilla" className="block text-gray-600 text-sm font-semibold mb-5" >Nº Planilla</Label>
                                 <Input
                                     type="text"
                                     placeholder="Escriba el nro de la planilla..."
@@ -106,8 +121,8 @@ export function VolquetasFormPage() {
                                 )}
                             </div>
 
-                            <div>
-                                <Label htmlFor="fecha" className="block text-gray-600 text-sm font-semibold mb-2">Fecha</Label>
+                            <div className='flex flex-col'>
+                                <Label htmlFor="fecha" className="block text-gray-600 text-sm font-semibold mb-5">Fecha</Label>
                                 <Input
                                     type="date"
                                     {...register('fecha', {
@@ -121,37 +136,27 @@ export function VolquetasFormPage() {
                                 )}
                             </div>
 
-                            <div>
-                                <Label htmlFor='cedula'>Cédula Conductor</Label>
-                                <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1'>
-                                    {dni || 'Cargando...'}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Placa --- Cédula */}
-                        <div className="grid grid-cols-3 gap-3">
-                            <div>
-                                <Label htmlFor="placa_vehiculo" className="block text-gray-600 text-sm font-semibold mb-2">Placa</Label>
-                                <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1.5 mb-3'>
-                                    {vehicleRegistrationPlate || 'Cargando...'}
-                                </p>
-                                {/* <Input
-                                    type="text"
-                                    placeholder="Escriba la placa..."
-                                    {...register('placa_vehiculo', {
+                            <div className='flex flex-col'>
+                                <Label htmlFor="n_viajes" className="block text-gray-600 text-sm font-semibold">
+                                    Nro de Viaje por Día
+                                </Label>
+                                <Input
+                                    type="number"
+                                    placeholder="Escriba la cantidad de viajes..."
+                                    {...register('n_viajes', {
                                         required: 'Este campo es obligatorio',
                                     })}
-                                /> */}
-                                {/* {errors.placa_vehiculo && (
+                                />
+                                {errors.n_viajes && (
                                     <p className="text-red-700">
-                                        {errors.placa_vehiculo.message}
+                                        {errors.n_viajes.message}
                                     </p>
-                                )} */}
+                                )}
                             </div>
+                           </div>
 
-                        {/* Cliente --- Volumen de carga */}
-                        <div>
+                          <div className='grid grid-cols-2 gap-28'> 
+                          <div className='w-56'>
                                 <Label htmlFor="cliente" className="block text-gray-600 text-sm font-semibold mb-2">Cliente</Label>
                                 <Input
                                     type="text"
@@ -167,9 +172,33 @@ export function VolquetasFormPage() {
                                 )}
                             </div>
 
+                            <div className='w-28'>
+                                <Label htmlFor="fecha" className="block text-gray-600 text-sm font-semibold mb-2">DESALOJO</Label>
+                                <Input
+                                placeholder=' SI / NO' />
+                            </div>
+                          </div>  
+
+                          <div className='grid grid-cols-2 gap-3'>  
+                            <div>
+                                <Label htmlFor='cedula' className="block text-gray-600 text-sm font-semibold mb-2">Cédula Conductor</Label>
+                                <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1'>
+                                    {dni || 'Cargando...'}
+                                </p>
+                            </div>
+
+                            <div>
+                                <Label htmlFor="placa_vehiculo" className="block text-gray-600 text-sm font-semibold mb-2">Placa</Label>
+                                <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1.5 mb-3'>
+                                    {vehicleRegistrationPlate || 'Cargando...'}
+                                </p>
+                            </div>
+                           </div> 
+
+                          <div className='grid grid-cols-2 gap-3'> 
                             <div>
                                 <Label htmlFor="volmts3" className="block text-gray-600 text-sm font-semibold mb-2">
-                                    Volumen de Carga
+                                    Cantidad metros Cubicos
                                 </Label>
                                 <Input
                                     type="text"
@@ -184,10 +213,7 @@ export function VolquetasFormPage() {
                                     </p>
                                 )}
                             </div>
-                        </div>
 
-                        {/* Nro de viajes --- Material */}
-                        <div className="grid grid-cols-3 gap-3">
                             <div>
                                 <Label htmlFor="material" className="block text-gray-600 text-sm font-semibold mb-2">Material</Label>
                                 <Input
@@ -203,7 +229,9 @@ export function VolquetasFormPage() {
                                     </p>
                                 )}
                             </div>
+                           </div>
 
+                          <div className='grid grid-cols-2 gap-3'>
                             <div>
                                 <Label htmlFor="lugar_de_cargue" className="block text-gray-600 text-sm font-semibold mb-2">
                                     Lugar de Carga
@@ -241,30 +269,12 @@ export function VolquetasFormPage() {
                             </div>
                         </div>
 
-                        {/* Hora Inicio --- Hora Final */}
-                        <div className="grid grid-cols-3 gap-3">
-                        <div>
-                                <Label htmlFor="n_viajes" className="block text-gray-600 text-sm font-semibold mb-2">
-                                    Cantidad de viajes
-                                </Label>
-                                <Input
-                                    type="number"
-                                    placeholder="Escriba la cantidad de viajes..."
-                                    {...register('n_viajes', {
-                                        required: 'Este campo es obligatorio',
-                                    })}
-                                />
-                                {errors.n_viajes && (
-                                    <p className="text-red-700">
-                                        {errors.n_viajes.message}
-                                    </p>
-                                )}
-                            </div>
-
+                        {/*Nro de Viaje por Dia --- Hora Inicio --- Hora Final */}
+                        <div className="grid grid-cols-2 gap-3">
                             <div>
                                 <Label htmlFor="hora_inicio" className="block text-gray-600 text-sm font-semibold mb-2">Hora Inicio</Label>
                                 <Input
-                                    type="datetime-local"
+                                    type="time"
                                     placeholder="Coloque hora de inicio..."
                                     {...register('hora_inicio', {
                                         required: 'Este campo es obligatorio',
@@ -280,7 +290,7 @@ export function VolquetasFormPage() {
                             <div>
                                 <Label htmlFor="hora_final" className="block text-gray-600 text-sm font-semibold mb-2">Hora Final</Label>
                                 <Input
-                                    type="datetime-local"
+                                    type="time"
                                     placeholder="Coloque hora de fin..."
                                     {...register('hora_final', {
                                         required: 'Este campo es obligatorio',
@@ -295,7 +305,7 @@ export function VolquetasFormPage() {
                         </div>
 
                         {/* Kilometraje Inicio --- Kilometraje Final */}
-                        <div className="grid grid-cols-4 gap-3">
+                        <div className="grid grid-cols-3 gap-3">
                             <div className='col-span-1'>
                                 <Label htmlFor="km_inicial" className="block text-gray-600 text-sm font-semibold mb-2">Klm Inicial</Label>
                                 <Input
@@ -327,6 +337,15 @@ export function VolquetasFormPage() {
                                     </p>
                                 )}
                             </div>
+                           </div> 
+
+                        <div className='grid grid-cols-2 gap-3'>                             
+                            <div className='col-span-2'>
+                            <Label htmlFor="total_km" className="block text-gray-600 text-sm font-semibold mb-2">Total kilometros Recorridos Diarios</Label>
+                            <span className='block border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1 text-gray-700'>
+                                {totalKm}
+                            </span>
+                            </div>
                         
                         {/* Observaciones */}
                         <div className="col-span-2">
@@ -347,12 +366,12 @@ export function VolquetasFormPage() {
                         </div>
                     </div>
 
-                        <div className="flex justify-end gap-5 mt-3">
+                        <div className="flex justify-between mt-3">
                             <div>
                                 <Button
                                     type="button"
                                     onClick={onCancel}
-                                    className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+                                    className="rounded-md "
                                 >
                                     <FontAwesomeIcon
                                     icon={faAngleLeft}
@@ -364,7 +383,7 @@ export function VolquetasFormPage() {
                             <div>
                                 <Button
                                     type="submit"
-                                    className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+                                    className="rounded-md"
                                 >
                                     <span>Aceptar</span>
                                     <FontAwesomeIcon

@@ -49,7 +49,7 @@ export function LoginPage() {
 
                 // Redirigir según el rol del usuario...
                 if (role === 'Owner' || role === 'Admin') {
-                    navigate('/employees');
+                    navigate('/general_access_admin');
                 } else if (role === 'Empleado') {
                     navigate('/general_access');
                     // navigate('/volquetas/planilla/add');
@@ -124,7 +124,7 @@ export function LoginPage() {
           <div className='mt-6'>
           <Button
             type="submit"
-            className='w-full px-4 py-3 bg-transparent border border-white text-white font-bold rounded-full hover:bg-red-700 hover:font-bold transition-colors'
+            className='w-full px-4 py-3 bg-transparent border border-white text-white font-bold rounded-full hover:bg-red-600 hover:font-bold transition-colors'
           >
             INICIAR SESIÓN
           </Button>

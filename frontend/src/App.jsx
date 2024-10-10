@@ -5,7 +5,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import FormularioRegistroTractomulas from './pages/ServicesForm/FormularioRegistroTractomulas.jsx';
-import { HomePage, LoginPage, EmployeesPage } from './pages';
+import { HomePageEmpleado, LoginPage, EmployeesPage } from './pages';
 import { ProtectedRoute } from './pages/ProtectedRoutes/ProtectedRoutes.jsx';
 import { NavBarMain } from './components/Common/NavBarMain.jsx';
 import FormularioRegistroVolquetas from './pages/ServicesForm/FormularioRegistroVolquetas.jsx';
@@ -37,6 +37,7 @@ import { VehicleFormAddPage } from './pages/Vehicles/VehicleFormAddPage.jsx';
 import { AssignDriverToVehicleFormPage } from './pages/Vehicles/AssignDriverToVehicleForm.jsx';
 import { DriverLicenseFormAddPage } from './pages/Licenses/DriverLicenseFormAddPage.jsx';
 import { VehicleDocumentRegisterPage } from './pages/Documents/VehicleDocumentRegPage.jsx';
+import { GeneralAccessPageAdmin } from './pages/GeneralAccess/GeneralAccessPageAdmin.jsx';
 
 function App() {
   const location = useLocation();
@@ -71,7 +72,7 @@ function App() {
         {/* <Layout> */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/home" element={<HomePageEmpleado />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path='/formTractomulas' element={<FormularioRegistroTractomulas />} />
@@ -83,11 +84,19 @@ function App() {
           <Route path='/usuarios/:usuario' element={<UserProfileDetail />} />
 
            <Route
-                path="employees"
+                path="/employees"
                 element={
                   <ProtectedRoute allowed={['Admin', 'Owner']}>
                     <EmployeesPage />
                   </ProtectedRoute>
+              }
+              />
+              <Route 
+              path='/general_access_admin'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                  <GeneralAccessPageAdmin />
+                </ProtectedRoute>
               }
               />
               <Route

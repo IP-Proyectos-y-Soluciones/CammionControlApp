@@ -72,8 +72,8 @@ export function RefuelingFormPage() {
             )}{' '}
             {/* Se renderiza si es true... */}
             <div className="flex h-[calc(100vh-100px)] items-center justify-center">
-                <div className="bg-zinc-100 border-4 border-red-600 max-w-md w-full p-0 rounded-md">
-                    <div className="bg-red-600 flex justify-center items-center">
+                <div className="bg-zinc-100 border-2 border-gray-600 max-w-md w-full p-0 rounded-md">
+                    <div className="bg-gray-600 flex justify-center items-center">
                         <h2 className="text-2xl font-bold italic mb-2 text-gray-100">
                             Nueva Planilla de Tanqueos
                         </h2>
@@ -193,12 +193,12 @@ export function RefuelingFormPage() {
                             </div>
                         </div>
 
-                        <div className="flex justify-between">
+                        <div className="flex justify-between mt-3">
                             <div>
                                 <Button
                                     type="button"
                                     onClick={onCancel}
-                                    className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+                                    className="rounded-md"
                                 >
                                     <FontAwesomeIcon
                                     icon={faAngleLeft}
@@ -210,7 +210,7 @@ export function RefuelingFormPage() {
                             <div>
                                 <Button
                                     type="submit"
-                                    className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+                                    className="rounded-md"
                                 >
                                     <span>Aceptar</span>
                                     <FontAwesomeIcon

@@ -4,7 +4,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => {
   const navigate = useNavigate(); // Obtén la función navigate
-
+  
   const handleBackClick = () => {
     navigate(-1); // Navega a la página anterior
   };

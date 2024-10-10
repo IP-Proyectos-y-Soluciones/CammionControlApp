@@ -165,7 +165,7 @@ export function UsersFormAddPage() {
                 <Button
                 type="button"
                 onClick={onCancel}
-                className='relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center'
+                className='hover:bg-red-600 hover:text-white'
                 >
                   <FontAwesomeIcon
                   icon={faAngleLeft}

@@ -37,7 +37,7 @@ export const EmployeeDropdown = () => {
       <div className={`navbar transition-all ${isOpen?'text-yellow-400':''}duration-300`}>
       <button
         onClick={toggleMenu}
-        className={`pt-5 text-white font-bold flex justify-between items-center transition-all md:hover:scale-110 hover:text-yellow-400 ${isOpen ? 'text-yellow-400 z-20 sm:z-30 relative': 'text-white'}`}
+        className={`pt-5 text-white font-bold flex justify-between items-center transition-all md:hover:scale-110 hover:text-yellow-400 ${isOpen ? 'text-yellow-400 z-20 sm:z-30 relative': ''}`}
       >
       <span className='text-left pr-2'>Personal</span>
       <FontAwesomeIcon

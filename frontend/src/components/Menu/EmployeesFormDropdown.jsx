@@ -54,14 +54,14 @@ export const EmployeeFormDropdown = () => {
                     {isAuthenticated ? (
                         <>
                             <Link
-                                to={'volquetas/planilla/add'}
+                                to={'/volquetas/planilla/add'}
                                 onClick={() => setIsOpen(false)}
                                 className="block px-4 py-2 text-sm hover:text-yellow-400"
                             >
                                 Nueva planilla Volquetas
                             </Link>                       
                             <Link
-                                to={'refueling/planilla/add'}
+                                to={'/refueling/planilla/add'}
                                 onClick={() => setIsOpen(false)}
                                 className="block px-4 py-2 text-sm hover:text-yellow-400"
                             >

@@ -1,4 +1,4 @@
-export { HomePage } from './Home/HomePage';
+export { HomePageEmpleado } from './Home/HomePageEmpleado';
 export { LoginPage } from './Auth/LoginPage';
 export { EmployeesPage } from './Employees/EmployeesPage';
 export { EmployeesFormAddPage } from './Employees/EmployeesFormAddPage';
