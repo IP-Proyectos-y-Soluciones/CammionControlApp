@@ -90,7 +90,7 @@ export const EmployeeDropdown = () => {
                 Actualizar Empleado...
               </Link>
               <Link
-              to={'/employees/employee/del'}
+              // to={'/employees/employee/del'}
               onClick={()=> setIsOpen(false)}
               className='customSubMenu'
               >

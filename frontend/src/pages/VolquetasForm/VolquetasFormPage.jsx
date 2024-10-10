@@ -91,10 +91,10 @@ export function VolquetasFormPage() {
                 </div>
             )}{' '}
             {/* Se renderiza si es true... */}
-            <div className="flex h-[calc(100vh-100px)] items-center justify-center mt-24">
-                <div className="bg-zinc-100 border-2 border-gray-600 max-w-md w-full p-0 rounded-md">
-                    <div className="bg-gray-600 flex justify-center items-stretch">
-                        <h2 className="text-2xl font-bold italic mb-2 text-gray-100 mt-3">
+            <div className="customDiv-1 sm:mt-56">
+                <div className="customDiv-2">
+                    <div className="customDivH2">
+                        <h2 className="customH2">
                             Nuevo registro de Viaje de Volqueta
                         </h2>
                     </div>
@@ -106,7 +106,7 @@ export function VolquetasFormPage() {
                         {/* Nro de planilla --- Fecha */}
                         <div className="grid grid-cols-3 gap-3">
                             <div className='flex flex-col'>
-                                <Label htmlFor="n_planilla" className="block text-gray-600 text-sm font-semibold mb-5" >Nº Planilla</Label>
+                                <Label htmlFor="n_planilla">Nº Planilla</Label>
                                 <Input
                                     type="text"
                                     placeholder="Escriba el nro de la planilla..."
@@ -122,7 +122,7 @@ export function VolquetasFormPage() {
                             </div>
 
                             <div className='flex flex-col'>
-                                <Label htmlFor="fecha" className="block text-gray-600 text-sm font-semibold mb-5">Fecha</Label>
+                                <Label htmlFor="fecha">Fecha</Label>
                                 <Input
                                     type="date"
                                     {...register('fecha', {
@@ -137,7 +137,7 @@ export function VolquetasFormPage() {
                             </div>
 
                             <div className='flex flex-col'>
-                                <Label htmlFor="n_viajes" className="block text-gray-600 text-sm font-semibold">
+                                <Label htmlFor="n_viajes">
                                     Nro de Viaje por Día
                                 </Label>
                                 <Input
@@ -157,7 +157,7 @@ export function VolquetasFormPage() {
 
                           <div className='grid grid-cols-2 gap-28'> 
                           <div className='w-56'>
-                                <Label htmlFor="cliente" className="block text-gray-600 text-sm font-semibold mb-2">Cliente</Label>
+                                <Label htmlFor="cliente">Cliente</Label>
                                 <Input
                                     type="text"
                                     placeholder="Escriba nombre del cliente..."
@@ -173,7 +173,7 @@ export function VolquetasFormPage() {
                             </div>
 
                             <div className='w-28'>
-                                <Label htmlFor="fecha" className="block text-gray-600 text-sm font-semibold mb-2">DESALOJO</Label>
+                                <Label htmlFor="fecha">DESALOJO</Label>
                                 <Input
                                 placeholder=' SI / NO' />
                             </div>
@@ -181,15 +181,15 @@ export function VolquetasFormPage() {
 
                           <div className='grid grid-cols-2 gap-3'>  
                             <div>
-                                <Label htmlFor='cedula' className="block text-gray-600 text-sm font-semibold mb-2">Cédula Conductor</Label>
-                                <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1'>
+                                <Label htmlFor='cedula'>Cédula Conductor</Label>
+                                <p className='border border-gray-400 bg-gray-200 rounded-md p-1.5 mt-1'>
                                     {dni || 'Cargando...'}
                                 </p>
                             </div>
 
                             <div>
-                                <Label htmlFor="placa_vehiculo" className="block text-gray-600 text-sm font-semibold mb-2">Placa</Label>
-                                <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1.5 mb-3'>
+                                <Label htmlFor="placa_vehiculo">Placa</Label>
+                                <p className='border border-gray-400 bg-gray-200 rounded-md p-1.5 mt-1.5 mb-3'>
                                     {vehicleRegistrationPlate || 'Cargando...'}
                                 </p>
                             </div>
@@ -197,7 +197,7 @@ export function VolquetasFormPage() {
 
                           <div className='grid grid-cols-2 gap-3'> 
                             <div>
-                                <Label htmlFor="volmts3" className="block text-gray-600 text-sm font-semibold mb-2">
+                                <Label htmlFor="volmts3">
                                     Cantidad metros Cubicos
                                 </Label>
                                 <Input
@@ -215,7 +215,7 @@ export function VolquetasFormPage() {
                             </div>
 
                             <div>
-                                <Label htmlFor="material" className="block text-gray-600 text-sm font-semibold mb-2">Material</Label>
+                                <Label htmlFor="material">Material</Label>
                                 <Input
                                     type="text"
                                     placeholder="Escriba el tipo de material..."
@@ -233,7 +233,7 @@ export function VolquetasFormPage() {
 
                           <div className='grid grid-cols-2 gap-3'>
                             <div>
-                                <Label htmlFor="lugar_de_cargue" className="block text-gray-600 text-sm font-semibold mb-2">
+                                <Label htmlFor="lugar_de_cargue">
                                     Lugar de Carga
                                 </Label>
                                 <Input
@@ -251,7 +251,7 @@ export function VolquetasFormPage() {
                             </div>
 
                             <div>
-                                <Label htmlFor="lugar_de_descargue" className="block text-gray-600 text-sm font-semibold mb-2">
+                                <Label htmlFor="lugar_de_descargue">
                                     Lugar de Descarga
                                 </Label>
                                 <Input
@@ -272,7 +272,7 @@ export function VolquetasFormPage() {
                         {/*Nro de Viaje por Dia --- Hora Inicio --- Hora Final */}
                         <div className="grid grid-cols-2 gap-3">
                             <div>
-                                <Label htmlFor="hora_inicio" className="block text-gray-600 text-sm font-semibold mb-2">Hora Inicio</Label>
+                                <Label htmlFor="hora_inicio">Hora Inicio</Label>
                                 <Input
                                     type="time"
                                     placeholder="Coloque hora de inicio..."
@@ -288,7 +288,7 @@ export function VolquetasFormPage() {
                             </div>
 
                             <div>
-                                <Label htmlFor="hora_final" className="block text-gray-600 text-sm font-semibold mb-2">Hora Final</Label>
+                                <Label htmlFor="hora_final">Hora Final</Label>
                                 <Input
                                     type="time"
                                     placeholder="Coloque hora de fin..."
@@ -307,7 +307,7 @@ export function VolquetasFormPage() {
                         {/* Kilometraje Inicio --- Kilometraje Final */}
                         <div className="grid grid-cols-3 gap-3">
                             <div className='col-span-1'>
-                                <Label htmlFor="km_inicial" className="block text-gray-600 text-sm font-semibold mb-2">Klm Inicial</Label>
+                                <Label htmlFor="km_inicial">Klm Inicial</Label>
                                 <Input
                                     type="number"
                                     placeholder="Coloque klm de inicial..."
@@ -323,7 +323,7 @@ export function VolquetasFormPage() {
                             </div>
 
                             <div className='col-span-1'>
-                                <Label htmlFor="km_final" className="block text-gray-600 text-sm font-semibold mb-2">Klm Final</Label>
+                                <Label htmlFor="km_final">Klm Final</Label>
                                 <Input
                                     type="number"
                                     placeholder="Coloque klm de final..."
@@ -341,18 +341,18 @@ export function VolquetasFormPage() {
 
                         <div className='grid grid-cols-2 gap-3'>                             
                             <div className='col-span-2'>
-                            <Label htmlFor="total_km" className="block text-gray-600 text-sm font-semibold mb-2">Total kilometros Recorridos Diarios</Label>
-                            <span className='block border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1 text-gray-700'>
+                            <Label htmlFor="total_km">Total kilometros Recorridos Diarios</Label>
+                            <span className='block border border-gray-400 bg-gray-200 rounded-md p-1.5 mt-1 text-gray-700'>
                                 {totalKm}
                             </span>
                             </div>
                         
                         {/* Observaciones */}
                         <div className="col-span-2">
-                            <Label htmlFor="observacion" className="block text-gray-600 text-sm font-semibold mb-2">Observación</Label>
+                            <Label htmlFor="observacion">Observación</Label>
                             <textarea
                                 rows="2"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border rounded border-gray-400 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 placeholder="Escriba sus observaciones..."
                                 {...register('observacion', {
                                     required: 'Este campo es obligatorio',
@@ -375,9 +375,9 @@ export function VolquetasFormPage() {
                                 >
                                     <FontAwesomeIcon
                                     icon={faAngleLeft}
-                                    className='absolute left-3'
+                                    className='absolute left-3 text-lg'
                                     />
-                                    <span>Cancelar</span>
+                                    <span className='text-red-700'>Cancelar</span>
                                 </Button>
                             </div>
                             <div>
@@ -385,7 +385,7 @@ export function VolquetasFormPage() {
                                     type="submit"
                                     className="rounded-md"
                                 >
-                                    <span>Aceptar</span>
+                                    <span className='text-red-700'>Aceptar</span>
                                     <FontAwesomeIcon
                                     icon={faAngleRight}
                                     className='absolute right-3 text-lg'

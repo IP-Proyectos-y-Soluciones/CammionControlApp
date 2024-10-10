@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import '../../styles/global.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export function DriverLicenseFormAddPage() {
     const {
@@ -64,7 +66,7 @@ export function DriverLicenseFormAddPage() {
                 <div className="customDiv-2">
                     <div className="customDivH2">
                         <h2 className="customH2 ml-28">
-                            Registro de Licencias
+                            Registrar Licencia
                         </h2>
                     </div>
 
@@ -116,7 +118,7 @@ export function DriverLicenseFormAddPage() {
                                         required:
                                             'Este campo es obligatorio...!',
                                     })}
-                                    className="w-full bg-gray-200 text-blue-700 px-4 py-2 rounded-md my-3 mt-1 mb-3"
+                                    className="w-full bg-gray-200 text-blue-700 px-4 py-2 rounded-md my-3 mt-1 mb-3 border border-gray-400"
                                 >
                                     <option value="">
                                         Seleccione una opción...
@@ -206,22 +208,30 @@ export function DriverLicenseFormAddPage() {
                         </div>
 
                         {/* Botones 'Cancel' y 'Aceptar'... */}
-                        <div className="flex justify-between">
+                        <div className="flex justify-between gap-5 mt-3">
                             <div>
                                 <Button
                                     type="button"
                                     onClick={onCancel}
-                                    className="bg-red-600 w-36 mb-2 hover:bg-red-400"
+                                    className="rounded-md"
                                 >
-                                    Cancelar
+                                    <FontAwesomeIcon
+                                    icon={faAngleLeft}
+                                    className='absolute left-3 text-lg'
+                                    />
+                                    <span className='text-red-700'>Cancelar</span>
                                 </Button>
                             </div>
                             <div>
                                 <Button
                                     type="submit"
-                                    className="bg-slate-500 w-36 mb-2 hover:bg-slate-400"
+                                    className="rounded-md"
                                 >
-                                    Aceptar
+                                    <FontAwesomeIcon
+                                    icon={faAngleRight}
+                                    className='absolute right-3 text-lg'
+                                    />
+                                    <span className='text-red-700'>Aceptar</span>
                                 </Button>
                             </div>
                         </div>

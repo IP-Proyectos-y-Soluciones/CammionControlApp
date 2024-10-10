@@ -71,10 +71,10 @@ export function RefuelingFormPage() {
                 </div>
             )}{' '}
             {/* Se renderiza si es true... */}
-            <div className="flex h-[calc(100vh-100px)] items-center justify-center">
-                <div className="bg-zinc-100 border-2 border-gray-600 max-w-md w-full p-0 rounded-md">
-                    <div className="bg-gray-600 flex justify-center items-center">
-                        <h2 className="text-2xl font-bold italic mb-2 text-gray-100">
+            <div className="customDiv-1">
+                <div className="customDiv-2">
+                    <div className="customDivH2">
+                        <h2 className="customH2">
                             Nueva Planilla de Tanqueos
                         </h2>
                     </div>
@@ -85,16 +85,16 @@ export function RefuelingFormPage() {
                         {/* Cédula --- Fecha */}
                         <div className="grid grid-cols-2 gap-3">
                             <div>
-                                <Label htmlFor="cedula" className="block text-gray-600 text-sm font-semibold mb-2">
+                                <Label htmlFor="cedula">
                                     Cédula del Conductor
                                 </Label>
-                                <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1'>
+                                <p className='border border-gray-400 bg-gray-200 rounded-md p-1.5 mt-1'>
                                     { dni || 'Cargando...'}
                                 </p>
                             </div>
 
                             <div>
-                                <Label htmlFor="fecha_tanqueo" className="block text-gray-600 text-sm font-semibold mb-2">Fecha</Label>
+                                <Label htmlFor="fecha_tanqueo">Fecha</Label>
                                 <Input
                                     type="date"
                                     {...register('fecha_tanqueo', {
@@ -112,7 +112,7 @@ export function RefuelingFormPage() {
                         {/* Nro Recibo --- Estación */}
                         <div className="grid grid-cols-2 gap-3">
                             <div>
-                                <Label htmlFor="n_recibo" className="block text-gray-600 text-sm font-semibold mb-2">Nº Recibo</Label>
+                                <Label htmlFor="n_recibo">Nº Recibo</Label>
                                 <Input
                                     type="text"
                                     placeholder="Escriba el nro del recibo..."
@@ -128,7 +128,7 @@ export function RefuelingFormPage() {
                             </div>
 
                             <div>
-                                <Label htmlFor="estacion" className="block text-gray-600 text-sm font-semibold mb-2">Estación</Label>
+                                <Label htmlFor="estacion">Estación</Label>
                                 <Input
                                     type="text"
                                     placeholder="Escriba nombre Estación..."
@@ -147,7 +147,7 @@ export function RefuelingFormPage() {
                         {/* Cantidad galones --- Valor Tanqueo */}
                         <div className="grid grid-cols-2 gap-3">
                             <div>
-                                <Label htmlFor="cantidad_galones" className="block text-gray-600 text-sm font-semibold mb-2">
+                                <Label htmlFor="cantidad_galones">
                                     Cantidad galones
                                 </Label>
                                 <Input
@@ -165,7 +165,7 @@ export function RefuelingFormPage() {
                             </div>
 
                             <div>
-                                <Label htmlFor="valor_tanqueo" className="block text-gray-600 text-sm font-semibold mb-2">
+                                <Label htmlFor="valor_tanqueo">
                                     Costo Tanqueo
                                 </Label>
                                 <Input
@@ -186,8 +186,8 @@ export function RefuelingFormPage() {
                         {/* Placas */}
                         <div className="grid grid-cols-2 gap-3">
                             <div>
-                                <Label htmlFor="placas" className="block text-gray-600 text-sm font-semibold mb-2">Placas</Label>
-                               <p className='border border-gray-300 bg-gray-200 rounded-md p-1.5 mt-1.5 mb-3'>
+                                <Label htmlFor="placas">Placas</Label>
+                               <p className='border border-gray-400 bg-gray-200 rounded-md p-1.5 mt-1.5 mb-3'>
                                 {vehicleRegistrationPlate || 'Cargando... '}
                                </p>
                             </div>
@@ -204,7 +204,7 @@ export function RefuelingFormPage() {
                                     icon={faAngleLeft}
                                     className='absolute left-3 text-lg'
                                     />
-                                    <span>Cancelar</span>
+                                    <span className='text-red-700'>Cancelar</span>
                                 </Button>
                             </div>
                             <div>
@@ -212,7 +212,7 @@ export function RefuelingFormPage() {
                                     type="submit"
                                     className="rounded-md"
                                 >
-                                    <span>Aceptar</span>
+                                    <span className='text-red-700'>Aceptar</span>
                                     <FontAwesomeIcon
                                     icon={faAngleRight}
                                     className='absolute right-3 text-lg'

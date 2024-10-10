@@ -1,12 +1,14 @@
 //import { Link } from 'react-router-dom'; // Importa Link
+//import Footer from '../../components/Common/Footer';
 import { CardLink } from './CardLink';
 
 export function HomePageAdmin() {
   return (
-    <div className='flex justify-center items-start gap-20 min-h-screen mx-8 mt-4'>      
+    <div className='flex flex-col min-h-screen'>
+    <div className='flex justify-center items-start md:gap-20 sm:gap-6 min-h-screen mx-8 mt-4'>      
       <div className='flex flex-col items-center'>
         <h2 className='text-2xl font-bold mb-4'>Personal</h2>
-        <div className='grid grid-cols-2 gap-8'>
+        <div className='grid md:grid-cols-1 gap-40 sm:grid-cols-1 sm:gap-4'>
           <CardLink to='/employees' title='LISTA DEL PERSONAL' />
           <CardLink to='/employees/add' title='AGREGAR PERSONAL' />
           <CardLink to='/employees/bydni' title='BUSCAR POR CÉDULA' />
@@ -17,7 +19,7 @@ export function HomePageAdmin() {
 
       <div className='flex flex-col items-center'>
         <h2 className='text-2xl font-bold mb-4'>Usuario</h2>
-        <div className='grid grid-cols-2 gap-8'>
+        <div className='grid md:grid-cols-1 gap-8 sm:grid-cols-1 sm:gap-4'>
           <CardLink to='/users/add' title='NUEVO USUARIO' />
           <CardLink to='/users' title='TODOS LOS USUARIOS' />
           <CardLink to='/employees/search' title='BUSCAR USUARIO' />
@@ -30,7 +32,7 @@ export function HomePageAdmin() {
 
       <div className='flex flex-col items-center'>
         <h2 className='text-2xl font-bold mb-4'>Vehículos</h2>
-        <div className='grid grid-cols-2 gap-8'>
+        <div className='grid md:grid-cols-1 gap-8 sm:grid-cols-1 sm:gap-4'>
           <CardLink to='/driverlicenses/add' title='REGISTRAR LICENCIA' />
           <CardLink to='/vehicles/planilla/add' title='REGISTRO NUEVO VEHÍCULO' />
           <CardLink to='/vehicles' title='MOSTRAR FLOTA' />
@@ -39,6 +41,8 @@ export function HomePageAdmin() {
         </div>
       </div>
     </div>
+    </div>
+    
   );
 }
 

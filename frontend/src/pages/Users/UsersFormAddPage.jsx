@@ -74,10 +74,10 @@ export function UsersFormAddPage() {
         </div>
       )}{' '}
       {/* Se renderiza si es true... */}
-      <div className="flex h-[calc(100vh-100px)] items-center justify-center">
-        <div className="bg-zinc-100 border-4 border-red-600 max-w-md w-full p-0 rounded-md">
-          <div className="bg-red-600 flex items-stretch">
-            <h2 className="text-2xl font-bold italic ml-24 mb-2 text-gray-100">
+      <div className="customDiv-1">
+        <div className="customDiv-2">
+          <div className="customDivH2">
+            <h2 className="customH2">
               Nuevo Usuario
             </h2>
           </div>
@@ -86,7 +86,7 @@ export function UsersFormAddPage() {
             className="pt-5 pl-6 pr-6 pb-4"
           >
             <div>
-              <Label htmlFor="cedula" className="block text-gray-600 text-sm font-semibold mb-2">Cédula</Label>
+              <Label htmlFor="cedula">Cédula</Label>
               <Input
                 type="number"
                 placeholder="Su nro. de Cédula..."
@@ -106,7 +106,7 @@ export function UsersFormAddPage() {
               )}
             </div>
             <div>
-              <Label htmlFor="usuario" className="block text-gray-600 text-sm font-semibold mb-2">Usuario</Label>
+              <Label htmlFor="usuario">Usuario</Label>
               <Input
                 type="text"
                 placeholder="Escriba su usuario..."
@@ -122,7 +122,7 @@ export function UsersFormAddPage() {
               )}
             </div>
             <div>
-              <Label htmlFor="password" className="block text-gray-600 text-sm font-semibold mb-2">Password</Label>
+              <Label htmlFor="password">Password</Label>
               <Input
                 type="password"
                 placeholder="Escriba su password..."
@@ -139,7 +139,7 @@ export function UsersFormAddPage() {
             </div>
 
             <div>
-              <Label htmlFor="roles" className="block text-gray-600 text-sm font-semibold mb-2">Roles</Label>
+              <Label htmlFor="roles">Roles</Label>
               <select
                 {...register('roles', {
                   required: 'Este campo es obligatorio...!',
@@ -165,21 +165,21 @@ export function UsersFormAddPage() {
                 <Button
                 type="button"
                 onClick={onCancel}
-                className='hover:bg-red-600 hover:text-white'
+                className='rounded-md'
                 >
                   <FontAwesomeIcon
                   icon={faAngleLeft}
                   className='absolute left-3 text-xl'
                   />
-                  <span> Cancelar</span>                 
+                  <span className='text-red-700'> Cancelar</span>                 
                 </Button>
               </div>
             <div className="flex justify-end">
               <Button
                 type="submit"
-                className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+                className="rounded-md"
               >
-               <span>Aceptar</span>
+               <span className='text-red-700'>Aceptar</span>
                <FontAwesomeIcon
                icon={faAngleRight}
                className='absolute right-3 text-xl'

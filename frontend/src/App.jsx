@@ -38,6 +38,7 @@ import { AssignDriverToVehicleFormPage } from './pages/Vehicles/AssignDriverToVe
 import { DriverLicenseFormAddPage } from './pages/Licenses/DriverLicenseFormAddPage.jsx';
 import { VehicleDocumentRegisterPage } from './pages/Documents/VehicleDocumentRegPage.jsx';
 import { GeneralAccessPageAdmin } from './pages/GeneralAccess/GeneralAccessPageAdmin.jsx';
+import Footer  from './components/Common/Footer.jsx';
 
 function App() {
   const location = useLocation();
@@ -68,7 +69,7 @@ function App() {
         <NavBarMain/>
         </nav>  
         )}     
-      <main className={`${location.pathname === '/' || location.pathname === '/login' ? 'pt-0': 'pt-28'}`}>
+      <main className={location.pathname === '/' || location.pathname === '/login' ? 'pt-0 pb-16': 'pt-28 pb-16'}>
         {/* <Layout> */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -239,6 +240,7 @@ function App() {
         </Routes>
         {/* </Layout> */}
       </main>
+      <Footer/>
       </>
 
   );

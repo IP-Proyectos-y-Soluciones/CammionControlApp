@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import '../../styles/global.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
 export function AssignDriverToVehicleFormPage() {
     const {
@@ -109,22 +111,30 @@ export function AssignDriverToVehicleFormPage() {
                         </div>
 
                         {/* Botones... */}
-                        <div className="flex justify-between mt-2">
+                        <div className="flex justify-between gap-5 mt-3">
                             <div>
                                 <Button
                                     type="button"
                                     onClick={onCancel}
-                                    className="bg-red-600 w-36 mb-2 hover:bg-red-400"
+                                    className="rounded-md"
                                 >
-                                    Cancelar
+                                    <FontAwesomeIcon
+                                    icon={faAngleLeft}
+                                    className='absolute left-3 text-lg'
+                                    />
+                                    <span className='text-red-700'>Cancelar</span>
                                 </Button>
                             </div>
                             <div>
                                 <Button
                                     type="submit"
-                                    className="bg-slate-500 w-36 mb-2 hover:bg-slate-400"
+                                    className="rounded-md"
                                 >
-                                    Aceptar
+                                    <FontAwesomeIcon
+                                    icon={faAnglesRight}
+                                    className='absolute right-3 text-lg'
+                                    />
+                                    <span className='text-red-700'>Aceptar</span>
                                 </Button>
                             </div>
                         </div>

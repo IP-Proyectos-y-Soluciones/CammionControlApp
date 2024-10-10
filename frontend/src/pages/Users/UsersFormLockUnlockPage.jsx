@@ -35,10 +35,10 @@ export function UsersFormLockUnlockPage() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-100px)] items-center justify-center">
-      <div className="bg-zinc-100 border-4 border-red-600 max-w-md w-full p-0 rounded-md">
-        <div className="bg-red-600 flex items-stretch">
-          <h2 className="text-2xl font-bold italic ml-24 mb-2 text-gray-100">
+    <div className="customDiv-1">
+      <div className="customDiv-2">
+        <div className="customDivH2">
+          <h2 className="customH2">
             Desbloqueo de Usuario
           </h2>
         </div>
@@ -48,7 +48,7 @@ export function UsersFormLockUnlockPage() {
           className="pt-5 pl-6 pr-6 pb-4"
         >
           <div>
-            <Label htmlFor="inputValue" className="block text-gray-600 text-sm font-semibold mb-2">Usuario</Label>
+            <Label htmlFor="inputValue">Usuario</Label>
             <Input
               type="text"
               placeholder="Escriba su 'usuario'..."
@@ -64,22 +64,22 @@ export function UsersFormLockUnlockPage() {
               <Button
               type="button"
               onClick={onCancel}
-              className='relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center'
+              className='rounded-md'
               >
                 <FontAwesomeIcon
                 icon={faAngleLeft}
                 className='absolute left-3 text-lg'
                 />
-                <span>Cancelar</span>
+                <span className='text-red-700'>Cancelar</span>
                
               </Button>
             </div>
           <div className="flex justify-end">
             <Button
               type="submit"
-              className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+              className="rounded-md"
             >
-              <span>Aceptar</span>
+              <span className='text-red-700'>Aceptar</span>
               <FontAwesomeIcon
               icon={faAngleRight}
               className='absolute right-3 text-lg'

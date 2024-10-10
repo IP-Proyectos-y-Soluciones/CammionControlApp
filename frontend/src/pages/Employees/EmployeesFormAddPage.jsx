@@ -65,7 +65,8 @@ export function EmployeesFormAddPage() {
 
   const onCancel=()=>{
     reset();
-    navigate('/general_access');
+    navigate(-1);
+    //navigate('/general_access');
   }  
 
   return (
@@ -76,10 +77,10 @@ export function EmployeesFormAddPage() {
         </div>
       )}{' '}
       {/* Se renderiza si es true... */}
-      <div className="customDiv-1 flex h-[calc(100vh-100px)] items-center justify-center">
-        <div className="customDiv-2 bg-zinc-100 border-4 border-red-700 max-w-md w-full p-0 rounded-md">
-          <div className="customDivH2 bg-red-700 flex items-stretch">
-            <h2 className="customH2 text-2xl font-bold italic ml-24 mb-2 text-gray-100">
+      <div className="customDiv-1 mt-6">
+        <div className="customDiv-2">
+          <div className="customDivH2">
+            <h2 className="customH2">
               Nuevo Empleado
             </h2>
           </div>
@@ -265,22 +266,22 @@ export function EmployeesFormAddPage() {
                 <Button
                 type="button"
                 onClick={onCancel}
-                className="relative bg-white border-2 border-red-700 text-red-700 w-48 mb-2 hover:bg-red-700 hover:text-white flex items-center justify-center"
+                className="rounded-md"
                 >
                   <FontAwesomeIcon
                   icon={faAngleLeft}
                   className='absolute left-3 text-lg'
                   />
-                 <span>Cancelar</span>
+                 <span className='text-red-700'>Cancelar</span>
                 </Button>
               </div>
 
             <div className="flex justify-end">
               <Button
                 type="submit"
-                 className="relative bg-white border-2 border-red-700 text-red-700 w-48 mb-2 hover:bg-red-700 hover:text-white flex items-center justify-center"
+                 className="rounded-md"
               >
-                <span>Aceptar</span>
+                <span className='text-red-700'>Aceptar</span>
                 <FontAwesomeIcon
                 icon={faAngleRight}
                 className='absolute right-3 text-lg'

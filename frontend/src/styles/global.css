@@ -11,12 +11,12 @@
 }
 
 .customDiv-2 {
-    @apply bg-zinc-100 border-4 border-red-600 max-w-md w-full p-0 rounded-md;
+    @apply bg-zinc-100 border-2 border-red-700 max-w-md w-full p-0 rounded-md;
 }
 
 /* Para los titulos tipo '<h2>' */
 .customDivH2 {
-    @apply bg-red-600 flex items-stretch;
+    @apply bg-red-700 flex items-stretch;
 }
 
 .customH2 {
@@ -60,8 +60,12 @@
   }  */
   
 .bg-gradient {
-    background: linear-gradient(to right, black, #860e01); 
+    background: linear-gradient(to right, rgb(22, 22, 22), #860e01); 
   } 
+/* .bg-gradient {
+    background: linear-gradient(135deg, #580101, #b31102 25%, #fd6363 50%, #c91303 75%, #3a0101);
+} */
+
 
 
 /* global.css */

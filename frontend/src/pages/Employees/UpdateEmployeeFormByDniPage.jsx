@@ -126,8 +126,8 @@ export function UpdateEmployeeByDni() {
         </div>
       )}{' '}
       {/* Se renderiza si es true... */}
-      <div className="flex h-[calc(100vh-100px)] items-center justify-center">
-        <div className="bg-zinc-100 border-4 border-red-700 max-w-md w-full p-0 rounded-md">
+      <div className="customDiv-1">
+        <div className="customDiv-2">
           <div className="bg-red-700 flex items-stretch">
             <h2 className="text-2xl font-bold italic ml-24 mb-2 text-gray-100">
               Actualizar Empleado
@@ -316,21 +316,21 @@ export function UpdateEmployeeByDni() {
                 <Button
                 type="button"
                 onClick={onCancel}
-                className='relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center'
+                className='rounded-md'
                 >
                   <FontAwesomeIcon
                   icon={faAngleLeft}
                   className='absolute left-3 text-lg'
                   />
-                  <span>Cancelar</span>
+                  <span className='text-red-700'>Cancelar</span>
                 </Button>
               </div>
             <div className="flex justify-end">
               <Button
                 type="submit"
-                className="relative bg-white border-2 border-red-600 text-red-600 w-48 mb-2 hover:bg-red-600 hover:text-white flex items-center justify-center"
+                className="rounded-md"
               >
-                <span>Actualizar</span>
+                <span className='text-red-700'>Actualizar</span>
                 <FontAwesomeIcon
                 icon={faAngleRight}
                 className='absolute right-3 text-lg'
