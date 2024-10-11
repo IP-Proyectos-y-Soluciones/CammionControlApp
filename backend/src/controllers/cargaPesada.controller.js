@@ -92,7 +92,7 @@ export const createHeavyLoadForm = async (req, res) => {
 
     console.log(upHeavyLoad);
 
-    plantillaCargaPesada([upHeavyLoad]);
+    plantillaCargaPesada([upHeavyLoad], res);
 
     await Persona.findByIdAndUpdate(
       driver._id,
@@ -105,11 +105,6 @@ export const createHeavyLoadForm = async (req, res) => {
       { $push: { cargaPesada: savedHeavyLoad._id } },
       { new: true }
     );
-
-    return res.status(201).json({
-      message: `La planilla de "Carga Pesada" Nº ${savedHeavyLoad.n_planilla} ha sido registrada exitosamente...!!!`,
-      savedHeavyLoad,
-    });
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({ error: error.message });

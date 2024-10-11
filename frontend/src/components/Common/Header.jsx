@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Para la navegación
 //import logo from '../assets/logosinfondo.png'

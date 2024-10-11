@@ -1,19 +1,18 @@
-/* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { Button } from '../UI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
-export const EmployeeFormDropdown = () => {
+export const VehicleFormDropdown = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { isAuthenticated } = useAuth();
     const menuRef = useRef(null);
 
     const toggleMenu = () => {
-        //setIsOpen(!isOpen);
-        setIsOpen((prev) => !prev);
+        setIsOpen(!isOpen);
     };
 
     const handleClickOutside = (event) => {
@@ -39,9 +38,9 @@ export const EmployeeFormDropdown = () => {
             >
                 <button
                     onClick={toggleMenu}
-                    className={`pt-5 text-white font-bold flex justify-between items-center transition-all md:hover:scale-110 hover:text-yellow-400 sm:ml-4 ${isOpen ? 'text-yellow-400 z-20 sm:z-30 relative' : 'text-white'}`}
+                    className={`pt-5 text-white font-bold flex justify-between items-center transition-all md:hover:scale-110 hover:text-yellow-400 ${isOpen ? 'text-yellow-400 z-20 sm:z-30 relative' : 'text-white'}`}
                 >
-                    <span className="text-left pr-2">Empleado</span>
+                    <span className="text-left pr-2">Vehículos</span>
                     <FontAwesomeIcon
                         icon={faAngleRight}
                         className="ml-1 hidden sm:inline"
@@ -60,22 +59,51 @@ export const EmployeeFormDropdown = () => {
                             {isAuthenticated ? (
                                 <>
                                     <Link
-                                        to={'volquetas/planilla/add'}
+                                        to={'/driverlicenses/add'}
                                         onClick={() => setIsOpen(false)}
                                         className="block px-4 py-2 text-sm hover:text-yellow-400"
                                     >
-                                        Nueva planilla Volquetas
+                                        Registrar Licencia
                                     </Link>
+
+                                    <hr className="my-2 border-gray-400 w-screen" />
+
                                     <Link
-                                        to={'refueling/planilla/add'}
+                                        to={'/vehicles/planilla/add'}
                                         onClick={() => setIsOpen(false)}
                                         className="block px-4 py-2 text-sm hover:text-yellow-400"
                                     >
-                                        Nueva planilla Tanqueo
+                                        Registro Nuevo Vehículo
+                                    </Link>
+
+                                    <Link
+                                        to={'/vehicles'}
+                                        onClick={() => setIsOpen(false)}
+                                        className="block px-4 py-2 text-sm hover:text-yellow-400"
+                                    >
+                                        Mostrar Flota
+                                    </Link>
+
+                                    <Link
+                                        to={'/vehicles/vehassign'}
+                                        onClick={() => setIsOpen(false)}
+                                        className="block px-4 py-2 text-sm hover:text-yellow-400"
+                                    >
+                                        Asignación de Vehículo
+                                    </Link>
+
+                                    <hr className="my-2 border-gray-400 w-screen" />
+
+                                    <Link
+                                        to={'/documents/add'}
+                                        onClick={() => setIsOpen(false)}
+                                        className="block px-4 py-2 text-sm hover:text-yellow-400"
+                                    >
+                                        Registrar Documento
                                     </Link>
                                 </>
                             ) : (
-                                <p className="block px-4 py-2 text-sm hover:text-white">
+                                <p className="block px-4 py-2 text-sm text-gray-700">
                                     Debe estar loggeado para acceder...!
                                 </p>
                             )}

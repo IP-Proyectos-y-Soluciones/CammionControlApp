@@ -87,7 +87,7 @@ var createHeavyLoadForm = exports.createHeavyLoadForm = /*#__PURE__*/function ()
         case 22:
           upHeavyLoad = _context.sent;
           console.log(upHeavyLoad);
-          (0, _planilla_cargaPesada.plantillaCargaPesada)([upHeavyLoad]);
+          (0, _planilla_cargaPesada.plantillaCargaPesada)([upHeavyLoad], res);
           _context.next = 27;
           return _Persona["default"].findByIdAndUpdate(driver._id, {
             $push: {
@@ -106,27 +106,25 @@ var createHeavyLoadForm = exports.createHeavyLoadForm = /*#__PURE__*/function ()
             "new": true
           });
         case 29:
-          return _context.abrupt("return", res.status(201).json({
-            message: "La planilla de \"Carga Pesada\" N\xBA ".concat(savedHeavyLoad.n_planilla, " ha sido registrada exitosamente...!!!"),
-            savedHeavyLoad: savedHeavyLoad
-          }));
-        case 32:
-          _context.prev = 32;
+          _context.next = 38;
+          break;
+        case 31:
+          _context.prev = 31;
           _context.t0 = _context["catch"](0);
           if (!(_context.t0 instanceof Error)) {
-            _context.next = 38;
+            _context.next = 37;
             break;
           }
           return _context.abrupt("return", res.status(500).json({
             error: _context.t0.message
           }));
-        case 38:
+        case 37:
           return _context.abrupt("return", res.status(500).json(_context.t0));
-        case 39:
+        case 38:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 32]]);
+    }, _callee, null, [[0, 31]]);
   }));
   return function createHeavyLoadForm(_x, _x2) {
     return _ref.apply(this, arguments);

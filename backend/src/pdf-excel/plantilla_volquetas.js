@@ -33,7 +33,7 @@ export function plantillaVolquetas(volquetas) {
       const salida = fs.createWriteStream(nombreArchivo);
       doc.pipe(salida);
 
-      const logo = path.join(__dirname, "./yadiraLogoColor2.png");
+      const logo = path.join(__dirname, "../icons/yadiraLogoColor2.png");
       doc.image(logo, 50, 3, { width: 200 });
 
       const planillaText = `Planilla N°:- ${volqueta.n_planilla}`;

@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { createNewLicense } from '../../../api/documentos';
+import { registerDriverLicenseRequest } from '../../../api/documents';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 
-const FormularioLicencias = () => {
+const DriverLicenseFormAddPage = () => {
     const [formData, setFormData] = useState({
         conductor_cedula: '',
         categoria: '',
@@ -51,7 +51,7 @@ const FormularioLicencias = () => {
         });
 
         try {
-            const response = await createNewLicense(data);
+            const response = await registerDriverLicenseRequest(data);
             if (response.status === 201) {
                 swal2.fire({
                     title: 'Registro exitoso...!',
@@ -267,4 +267,4 @@ const FormularioLicencias = () => {
     );
 };
 
-export default FormularioLicencias;
+export default DriverLicenseFormAddPage;

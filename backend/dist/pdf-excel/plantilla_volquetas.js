@@ -31,7 +31,7 @@ function plantillaVolquetas(volquetas) {
       var nombreArchivo = path.join(__dirname, "Planilla_".concat(volqueta.n_planilla, ".pdf"));
       var salida = fs.createWriteStream(nombreArchivo);
       doc.pipe(salida);
-      var logo = path.join(__dirname, "./yadiraLogoColor2.png");
+      var logo = path.join(__dirname, "../icons/yadiraLogoColor2.png");
       doc.image(logo, 50, 3, {
         width: 200
       });

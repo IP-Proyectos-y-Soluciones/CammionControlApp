@@ -27,13 +27,13 @@ _cloudinary.v2.config({
 var storage = new _multerStorageCloudinary.CloudinaryStorage({
   cloudinary: _cloudinary.v2,
   params: {
-    folder: 'uploads',
+    folder: "uploads",
     format: function () {
       var _format = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, file) {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              return _context.abrupt("return", 'jpg');
+              return _context.abrupt("return", "jpg");
             case 1:
             case "end":
               return _context.stop();
@@ -46,13 +46,14 @@ var storage = new _multerStorageCloudinary.CloudinaryStorage({
       return format;
     }(),
     public_id: function public_id(req, file) {
-      return file.originalname.split('.')[0];
+      return file.originalname.split(".")[0];
     }
   }
 });
+console.log(_multer["default"]);
 var parser = exports.parser = (0, _multer["default"])({
   storage: storage
-}).single('file');
+}).single("file");
 
 // Función para manejar la respuesta
 var uploadImage = exports.uploadImage = /*#__PURE__*/function () {
@@ -67,7 +68,7 @@ var uploadImage = exports.uploadImage = /*#__PURE__*/function () {
             break;
           }
           return _context2.abrupt("return", res.status(400).json({
-            message: 'No se ha proporcionado ninguna imagen'
+            message: "No se ha proporcionado ninguna imagen"
           }));
         case 3:
           // Obtiene la URL de la imagen cargada a Cloudinary
@@ -85,7 +86,7 @@ var uploadImage = exports.uploadImage = /*#__PURE__*/function () {
           _context2.prev = 10;
           _context2.t0 = _context2["catch"](0);
           return _context2.abrupt("return", res.status(500).json({
-            message: 'Error al subir la imagen',
+            message: "Error al subir la imagen",
             error: _context2.t0.message
           }));
         case 13:
@@ -112,15 +113,15 @@ var getImagesFromCloudinay = exports.getImagesFromCloudinay = /*#__PURE__*/funct
         case 3:
           images = _context3.sent;
           return _context3.abrupt("return", res.status(200).json({
-            message: 'búsqueda de imagenes exitosa',
+            message: "búsqueda de imagenes exitosa",
             data: images
           }));
         case 7:
           _context3.prev = 7;
           _context3.t0 = _context3["catch"](0);
-          console.error('Error al obtener las imágenes:', _context3.t0);
+          console.error("Error al obtener las imágenes:", _context3.t0);
           return _context3.abrupt("return", res.status(500).json({
-            message: 'Error al obtener las imágenes',
+            message: "Error al obtener las imágenes",
             error: _context3.t0.message
           }));
         case 11:
@@ -151,19 +152,19 @@ var getImageById = exports.getImageById = /*#__PURE__*/function () {
             break;
           }
           return _context4.abrupt("return", res.status(404).json({
-            message: 'Imagen no encontrada'
+            message: "Imagen no encontrada"
           }));
         case 7:
           return _context4.abrupt("return", res.status(200).json({
-            message: 'Búsqueda por ID exitosa',
+            message: "Búsqueda por ID exitosa",
             data: image
           }));
         case 10:
           _context4.prev = 10;
           _context4.t0 = _context4["catch"](1);
-          console.error('Error al obtener la imagen:', _context4.t0);
+          console.error("Error al obtener la imagen:", _context4.t0);
           return _context4.abrupt("return", res.status(500).json({
-            message: 'Error al obtener la imagen',
+            message: "Error al obtener la imagen",
             error: _context4.t0.message
           }));
         case 14:
@@ -194,18 +195,18 @@ var deleteImageById = exports.deleteImageById = /*#__PURE__*/function () {
             break;
           }
           return _context5.abrupt("return", res.status(404).json({
-            message: 'Imagen no encontrada'
+            message: "Imagen no encontrada"
           }));
         case 7:
           return _context5.abrupt("return", res.status(200).json({
-            message: 'Imagen eliminada exitosamente'
+            message: "Imagen eliminada exitosamente"
           }));
         case 10:
           _context5.prev = 10;
           _context5.t0 = _context5["catch"](1);
-          console.error('Error al eliminar la imagen:', _context5.t0);
+          console.error("Error al eliminar la imagen:", _context5.t0);
           return _context5.abrupt("return", res.status(500).json({
-            message: 'Error al eliminar la imagen',
+            message: "Error al eliminar la imagen",
             error: _context5.t0.message
           }));
         case 14:
@@ -239,11 +240,11 @@ var updateImageById = exports.updateImageById = /*#__PURE__*/function () {
             break;
           }
           return _context6.abrupt("return", res.status(404).json({
-            message: 'Imagen no encontrada'
+            message: "Imagen no encontrada"
           }));
         case 8:
           return _context6.abrupt("return", res.status(200).json({
-            message: 'Imagen actualizada exitosamente',
+            message: "Imagen actualizada exitosamente",
             data: {
               url: url
             }
@@ -251,9 +252,9 @@ var updateImageById = exports.updateImageById = /*#__PURE__*/function () {
         case 11:
           _context6.prev = 11;
           _context6.t0 = _context6["catch"](2);
-          console.error('Error al actualizar la imagen:', _context6.t0);
+          console.error("Error al actualizar la imagen:", _context6.t0);
           return _context6.abrupt("return", res.status(500).json({
-            message: 'Error al actualizar la imagen',
+            message: "Error al actualizar la imagen",
             error: _context6.t0.message
           }));
         case 15:

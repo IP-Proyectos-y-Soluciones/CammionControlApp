@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { createNewDocument } from '../../../api/documentos';
+import { registerVehicleDocumentRequest } from '../../../api/documents';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 
-const FormularioDocumentos = () => {
+const VehicleDocumentRegisterPage = () => {
     const [formData, setFormData] = useState({
         cerificado_N: '',
         tipo: '',
@@ -50,7 +50,7 @@ const FormularioDocumentos = () => {
         });
 
         try {
-            const response = await createNewDocument(data);
+            const response = await registerVehicleDocumentRequest(data);
             if (response.status === 201) {
                 swal2.fire({
                     title: 'Registro exitoso...!',
@@ -217,4 +217,4 @@ const FormularioDocumentos = () => {
     );
 };
 
-export default FormularioDocumentos;
+export default VehicleDocumentRegisterPage;

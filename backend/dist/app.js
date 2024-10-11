@@ -25,7 +25,6 @@ var _tanqueo = _interopRequireDefault(require("./routes/tanqueo.routes"));
 var _usuario = _interopRequireDefault(require("./routes/usuario.routes"));
 var _vehiculo = _interopRequireDefault(require("./routes/vehiculo.routes"));
 var _volqueta = _interopRequireDefault(require("./routes/volqueta.routes"));
-var _pdf = _interopRequireDefault(require("./routes/pdf.routes"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 // import csrfMiddleware, {
 //   generateCsrfToken,
@@ -148,11 +147,6 @@ app.use("/api/volquetas",
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 //AuxAuthMiddleware, // Desactivar para la producción...
 _volqueta["default"]);
-app.use("/api/doc",
-// verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
-_auxAuthMiddleware.AuxAuthMiddleware,
-// Desactivar para la producción...
-_pdf["default"]);
 
 // // Ruta para obtener el token CSRF... // Activar
 // app.use(csrfMiddleware);

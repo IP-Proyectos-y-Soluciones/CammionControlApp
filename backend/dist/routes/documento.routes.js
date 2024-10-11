@@ -9,16 +9,16 @@ var _documentos = require("../controllers/documentos.controller");
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; Activar para la producción...
 
 var router = (0, _express.Router)();
-router.post('/newdoc',
+router.post("/newdoc",
 // TokenValidation,
-_documentos.createDocumento);
-router.get('/',
+_documentos.parser, _documentos.createDocumento);
+router.get("/",
 // TokenValidation,
 _documentos.getAllDocumento);
-router.put('/:id',
+router.put("/:id",
 // TokenValidation,
 _documentos.putDocumento);
-router["delete"]('/:id',
+router["delete"]("/:id",
 // TokenValidation,
 _documentos.deleteDocumento);
 var _default = exports["default"] = router;
