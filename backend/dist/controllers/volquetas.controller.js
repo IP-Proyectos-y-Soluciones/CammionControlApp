@@ -16,7 +16,7 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, fecha, placa_vehiculo, cedula, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, honorarios, lugar_de_cargue, lugar_de_descargue, observacion, generateCN, driver, vehicle, total_horas, startH, endH, start, end, timezoneOffset, _horaTotal, total_km_dia, volquetaData, newVolqueta, volquetaCompleta;
+    var _req$body, fecha, placa_vehiculo, cedula, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, honorarios, lugar_de_cargue, lugar_de_descargue, observacion, generateCN, driver, vehicle, total_horas, startH, endH, horaTotal, start, end, timezoneOffset, total_km_dia, volquetaData, newVolqueta, volquetaCompleta;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -52,15 +52,15 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           }));
         case 13:
           total_horas = 0;
+          horaTotal = 0;
           if (hora_inicio && hora_final) {
             start = new Date(hora_inicio);
-            end = new Date(hora_final); //
+            end = new Date(hora_final);
             timezoneOffset = new Date().getTimezoneOffset(); // Devuelve el offset en minutos...
-            //
             startH = new Date(start.getTime() - timezoneOffset * 60000);
             endH = new Date(end.getTime() - timezoneOffset * 60000);
             total_horas = (endH - startH) / (1000 * 60 * 60);
-            _horaTotal = total_horas.toFixed(2);
+            horaTotal = total_horas.toFixed(2); // Asigna el valor calculado a horaTotal
           }
           total_km_dia = km_final - km_inicial;
           volquetaData = new _Volqueta["default"]({
@@ -85,18 +85,18 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
             lugar_de_descargue: lugar_de_descargue,
             observacion: observacion
           });
-          _context.next = 19;
+          _context.next = 20;
           return volquetaData.save();
-        case 19:
+        case 20:
           newVolqueta = _context.sent;
-          _context.next = 22;
+          _context.next = 23;
           return _Volqueta["default"].findById(newVolqueta._id).populate("conductor", "nombres apellidos").populate("placa", "placa");
-        case 22:
+        case 23:
           volquetaCompleta = _context.sent;
           console.log("Llamando a la función plantillaVolquetas con los datos:");
           console.log(volquetaCompleta);
-          (0, _plantilla_volquetas.plantillaVolquetas)([volquetaCompleta]);
-          _context.next = 28;
+          (0, _plantilla_volquetas.plantillaVolquetas)([volquetaCompleta], res);
+          _context.next = 29;
           return _Persona["default"].findOneAndUpdate(driver._id,
           // { $set: updateDataDriver },
           {
@@ -106,8 +106,8 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           }, {
             "new": true
           });
-        case 28:
-          _context.next = 30;
+        case 29:
+          _context.next = 31;
           return _Vehiculo["default"].findOneAndUpdate(vehicle._id,
           // { $set: updateDataVehicle },
           {
@@ -117,11 +117,7 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           }, {
             "new": true
           });
-        case 30:
-          res.status(200).json({
-            message: "El formulario fue guardado correctamente!",
-            newVolqueta: newVolqueta
-          });
+        case 31:
           _context.next = 37;
           break;
         case 33:

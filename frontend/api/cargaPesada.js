@@ -5,6 +5,7 @@ export const createNewHeavyloadaForm = async (data) => {
         const response = await axios.post('/heavyload/addheavyloadform', data, {
             responseType: 'blob',
         });
+
         const blob = new Blob([response.data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -14,6 +15,7 @@ export const createNewHeavyloadaForm = async (data) => {
         link.click();
 
         link.parentNode.removeChild(link);
+        return response.status;
     } catch (error) {
         console.error(
             'Error creando la carga pesada o descargando el PDF:',

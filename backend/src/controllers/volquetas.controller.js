@@ -42,18 +42,19 @@ export const createVolqueta = async (req, res) => {
     let total_horas = 0;
     let startH;
     let endH;
+    let horaTotal = 0;
 
     if (hora_inicio && hora_final) {
       const start = new Date(hora_inicio);
       const end = new Date(hora_final);
-      //
+
       const timezoneOffset = new Date().getTimezoneOffset(); // Devuelve el offset en minutos...
-      //
+
       startH = new Date(start.getTime() - timezoneOffset * 60000);
       endH = new Date(end.getTime() - timezoneOffset * 60000);
 
       total_horas = (endH - startH) / (1000 * 60 * 60);
-      const horaTotal = total_horas.toFixed(2);
+      horaTotal = total_horas.toFixed(2); // Asigna el valor calculado a horaTotal
     }
 
     const total_km_dia = km_final - km_inicial;
@@ -90,7 +91,7 @@ export const createVolqueta = async (req, res) => {
     console.log("Llamando a la función plantillaVolquetas con los datos:");
     console.log(volquetaCompleta);
 
-    plantillaVolquetas([volquetaCompleta]);
+    plantillaVolquetas([volquetaCompleta], res);
 
     await Persona.findOneAndUpdate(
       driver._id,
@@ -105,11 +106,6 @@ export const createVolqueta = async (req, res) => {
       { $push: { volquetas: newVolqueta._id } },
       { new: true }
     );
-
-    res.status(200).json({
-      message: "El formulario fue guardado correctamente!",
-      newVolqueta,
-    });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: "Error al crear la planilla" });

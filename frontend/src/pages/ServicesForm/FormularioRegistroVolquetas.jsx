@@ -33,7 +33,7 @@ const FormularioRegistroVolquetas = () => {
 
             const response = await createNewVolquetaForm(data);
 
-            if (response.status === 201) {
+            if (response === 200) {
                 swal2.fire({
                     title: 'Registro exitoso...!',
                     text: `La planilla ha sido registrada exitosamente...!!!`,

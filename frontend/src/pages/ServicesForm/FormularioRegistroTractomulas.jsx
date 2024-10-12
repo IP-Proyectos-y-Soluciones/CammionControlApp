@@ -29,8 +29,7 @@ const FormularioRegistroTractomulas = () => {
             console.log('Enviando datos a la API:', data); // Muestra los datos a enviar
 
             const response = await createNewHeavyloadaForm(data);
-
-            if (response.status === 201) {
+            if (response === 200) {
                 swal2.fire({
                     title: 'Registro exitoso...!',
                     text: `La planilla ha sido registrada exitosamente...!!!`,
@@ -46,6 +45,8 @@ const FormularioRegistroTractomulas = () => {
                 text: `Ha ocurrido un error inesperado: ${error.message}. Si el error persiste, contacte con el Desarrollador del software...!!!`,
                 icon: 'error',
             });
+            setIsLoading(false);
+        } finally {
             setIsLoading(false);
         }
     };

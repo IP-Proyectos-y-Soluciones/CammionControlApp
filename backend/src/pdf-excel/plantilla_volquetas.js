@@ -1,10 +1,18 @@
-const PDFDocument = require("pdfkit");
-const fs = require("fs");
-const path = require("path");
+import PDFDocument from "pdfkit";
+import path from "path";
 
-export function plantillaVolquetas(volquetas) {
-  volquetas.forEach((volqueta) => {
-    try {
+export function plantillaVolquetas(volquetas, res) {
+  try {
+    const doc = new PDFDocument();
+
+    // Configurar las cabeceras para que el navegador lo descargue
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `attachment; filename=Planilla.pdf`);
+
+    // Pipe the PDF into the response
+    doc.pipe(res);
+
+    volquetas.forEach((volqueta) => {
       const {
         fecha,
         placa,
@@ -24,14 +32,6 @@ export function plantillaVolquetas(volquetas) {
         lugar_de_descargue,
         observacion,
       } = volqueta;
-
-      const doc = new PDFDocument();
-      const nombreArchivo = path.join(
-        __dirname,
-        `Planilla_${volqueta.n_planilla}.pdf`
-      );
-      const salida = fs.createWriteStream(nombreArchivo);
-      doc.pipe(salida);
 
       const logo = path.join(__dirname, "../icons/yadiraLogoColor2.png");
       doc.image(logo, 50, 3, { width: 200 });
@@ -133,17 +133,10 @@ export function plantillaVolquetas(volquetas) {
         });
         currentY += cellHeight;
       });
-
       doc.end();
-
-      salida.on("finish", () => {
-        console.log(`Plantilla generada: Plantilla_${volqueta.n_planilla}.pdf`);
-      });
-      salida.on("error", (err) => {
-        console.error(`Error en el flujo de salida: ${err.message}`);
-      });
-    } catch (error) {
-      console.error(`Error generando la plantilla: ${error.message}`);
-    }
-  });
+    });
+  } catch (error) {
+    console.error(`Error generando la plantilla: ${error.message}`);
+    res.status(500).json({ message: "Error generando el PDF", error });
+  }
 }

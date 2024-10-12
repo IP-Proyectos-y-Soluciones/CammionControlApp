@@ -4,12 +4,20 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.plantillaVolquetas = plantillaVolquetas;
-var PDFDocument = require("pdfkit");
-var fs = require("fs");
-var path = require("path");
-function plantillaVolquetas(volquetas) {
-  volquetas.forEach(function (volqueta) {
-    try {
+var _pdfkit = _interopRequireDefault(require("pdfkit"));
+var _path = _interopRequireDefault(require("path"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function plantillaVolquetas(volquetas, res) {
+  try {
+    var doc = new _pdfkit["default"]();
+
+    // Configurar las cabeceras para que el navegador lo descargue
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "attachment; filename=Planilla.pdf");
+
+    // Pipe the PDF into the response
+    doc.pipe(res);
+    volquetas.forEach(function (volqueta) {
       var fecha = volqueta.fecha,
         placa = volqueta.placa,
         conductor_cedula = volqueta.conductor_cedula,
@@ -27,11 +35,7 @@ function plantillaVolquetas(volquetas) {
         lugar_de_cargue = volqueta.lugar_de_cargue,
         lugar_de_descargue = volqueta.lugar_de_descargue,
         observacion = volqueta.observacion;
-      var doc = new PDFDocument();
-      var nombreArchivo = path.join(__dirname, "Planilla_".concat(volqueta.n_planilla, ".pdf"));
-      var salida = fs.createWriteStream(nombreArchivo);
-      doc.pipe(salida);
-      var logo = path.join(__dirname, "../icons/yadiraLogoColor2.png");
+      var logo = _path["default"].join(__dirname, "../icons/yadiraLogoColor2.png");
       doc.image(logo, 50, 3, {
         width: 200
       });
@@ -79,14 +83,12 @@ function plantillaVolquetas(volquetas) {
         currentY += cellHeight;
       });
       doc.end();
-      salida.on("finish", function () {
-        console.log("Plantilla generada: Plantilla_".concat(volqueta.n_planilla, ".pdf"));
-      });
-      salida.on("error", function (err) {
-        console.error("Error en el flujo de salida: ".concat(err.message));
-      });
-    } catch (error) {
-      console.error("Error generando la plantilla: ".concat(error.message));
-    }
-  });
+    });
+  } catch (error) {
+    console.error("Error generando la plantilla: ".concat(error.message));
+    res.status(500).json({
+      message: "Error generando el PDF",
+      error: error
+    });
+  }
 }
