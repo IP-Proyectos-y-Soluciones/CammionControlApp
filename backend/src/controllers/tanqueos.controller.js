@@ -40,17 +40,17 @@ export const createTanqueo = async (req, res) => {
 
         const newRefueling = await refuelingData.save();
 
-        await Persona.findByIdAndUpdate(
-            queryResult.driverId,
-            { $push: { tanqueos: newRefueling._id } },
-            { new: true },
-        );
+        // await Persona.findByIdAndUpdate(
+        //     queryResult.driverId,
+        //     { $push: { tanqueos: newRefueling._id } },
+        //     { new: true },
+        // );
 
-        await Vehiculo.findByIdAndUpdate(
-            queryResult.vehicleId,
-            { $push: { tanqueos: newRefueling._id } },
-            { new: true },
-        );
+        // await Vehiculo.findByIdAndUpdate(
+        //     queryResult.vehicleId,
+        //     { $push: { tanqueos: newRefueling._id } },
+        //     { new: true },
+        // );
 
         await plantillaTanqueo(newRefueling);
 

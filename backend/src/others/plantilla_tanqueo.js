@@ -46,7 +46,7 @@ export async function plantillaTanqueo(data) {
                                         .container div {
                                         border: 1px solid #ddd;
                                         padding: 10px;
-                                        font-size: 14px;
+                                        font-size: 16px;
                                 }
                                 .container .title {
                                         font-weight: bold;
@@ -62,8 +62,8 @@ export async function plantillaTanqueo(data) {
                                 .footer {
                                         text-align: center;
                                         margin-top: 30px;
-                                        font-size: 12px;
-                                        color: #888;
+                                        font-size: 14px;
+                                        color: #555;
                                 }
                         </style>
                 </head>
@@ -77,12 +77,18 @@ export async function plantillaTanqueo(data) {
                                 <div class="value">${FormattedDate}</div>
 
                                 <!-- Segunda fila -->
+                                <div class="title">Conductor</div>
+                                <div class="title">Vehículo Placas</div>
+                                <div class="value">${data.conductor_cedula}</div>
+                                <div class="value">${data.vehiculo_placa}</div>
+
+                                <!-- Tercera fila -->
                                 <div class="title">Estación de Servicio</div>
                                 <div class="title">Cantidad de galones</div>
                                 <div class="value">${data.estacion}</div>
                                 <div class="value">${data.cantidad_galones}</div>
 
-                                <!-- Tercera fila -->
+                                <!-- Cuarta fila -->
                                 <div class="title full-row">Valor del Tanqueo</div>
                                 <div class="value full-row">${data.valor_tanqueo}</div>
                         </div>
@@ -159,9 +165,9 @@ export async function plantillaTanqueo(data) {
         await newImage.save();
         console.log('Imagen guardada correctamente en MongoDB');
 
-        // Eliminar archivos temporales
-        fs.unlinkSync(pdfPath);
-        fs.unlinkSync(imagePath);
+        // // Eliminar archivos temporales
+        // fs.unlinkSync(pdfPath);
+        // fs.unlinkSync(imagePath);
     } catch (error) {
         console.error('Error durante la conversión:', error.message);
         console.error(error.stack); // Esto te mostrará detalles más específicos sobre dónde ocurre el error
