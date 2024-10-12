@@ -7,7 +7,8 @@ const Footer = () => {
       <p>
         &copy; {new Date().getFullYear()}Desarrollado por {''}
         <a
-        href="https://mariana8819.github.io/"
+        // href="https://mariana8819.github.io/"
+        href=""
         target="_blank"
         rel="noopener noreferrer"
         className="underline hover:text-red-500"

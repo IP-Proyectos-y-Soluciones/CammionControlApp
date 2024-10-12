@@ -4,7 +4,7 @@ import { Button, Input, Label } from '../../components/UI';
 import { useForm } from 'react-hook-form';
 import { createNewRefuelingForm } from '../../../api/refueling';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,10 +18,23 @@ export function RefuelingFormPage() {
         formState: { errors },
         setValue,
         reset,
+        watch,
     } = useForm();
     const {dni, vehicleRegistrationPlate} = useAuth();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const [totalKm, setTotalKm] = useState(0);
+
+    const kmInicial = watch('km_inicial');
+    const kmFinal = watch('km_final');
+
+    useEffect(()=>{
+        if(kmInicial && kmFinal){
+            setTotalKm(Math.abs(kmFinal - kmInicial));
+        }else{
+            setTotalKm(0);
+        }
+    }, [kmInicial, kmFinal])
 
     const onSubmit = async (data) => {
         try {
@@ -31,6 +44,7 @@ export function RefuelingFormPage() {
                 ...data,
                 cedula: dni,
                 placas: vehicleRegistrationPlate,
+                total_km: totalKm,
             };
 
             const response = await createNewRefuelingForm(_data);
@@ -71,7 +85,7 @@ export function RefuelingFormPage() {
                 </div>
             )}{' '}
             {/* Se renderiza si es true... */}
-            <div className="customDiv-1">
+            <div className="customDiv-1 sm:mt-8">
                 <div className="customDiv-2">
                     <div className="customDivH2">
                         <h2 className="customH2">
@@ -181,6 +195,48 @@ export function RefuelingFormPage() {
                                     </p>
                                 )}
                             </div>
+                        </div>
+
+                        {/*Km inicial --km final--km total*/}
+                        <div className='grid grid-cols-2 gap-3'>
+                            <div className='col-span-1'>
+                                <Label htmlFor='km_inicial'>Km Inicial</Label>
+                                <Input
+                                type='number'
+                                placeholder='Coloque km inicial...'
+                                {...register('km_inicial', {
+                                    required: 'Este campo es obligatorio',
+                                })}
+                                />
+                                {errors.km_inicial &&(
+                                    <p className='text-red-700'>
+                                        {errors.km_inicial.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className='col-span-1'>
+                                <Label htmlFor='km_final'>Km Final</Label>
+                                <Input
+                                type='number'
+                                placeholder='Coloque km final...'
+                                {...register('km_final', {
+                                    required: 'Este campo es obligatorio'
+                                })}
+                                />
+                                {errors.km_final &&(
+                                    <p className='text-red-700'>
+                                        {errors.km_final.message}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className='col-span-2'>
+                            <Label htmlFor='total_km'>Total Kilometros Recorridos</Label>
+                            <span className='block border border-gray-400 bg-gray-200 rounded-md p-1.5 mt-1 text-gray-700'>
+                                {totalKm}
+                            </span>
                         </div>
 
                         {/* Placas */}

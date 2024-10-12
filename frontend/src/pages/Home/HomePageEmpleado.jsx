@@ -1,35 +1,45 @@
 
 import { Link } from 'react-router-dom'; // Importa Link
 import tanqueo from '../../assets/tanqueo3.jpg'
-import volqueta from '../../assets/volqueta3.jpg'
+import volqueta from '../../assets/volqueta.jpg'
 import camion from '../../assets/camion2.jpg'
+import documentacion from '../../assets/carpeta.jpg'
 
 export function HomePageEmpleado(){
   return(
     <div className='flex flex-col items-center gap-17 mt-10 min-h-screen'>
       <div className='card-container'>
         <Link to='/volquetas/planilla/add'>
-        <div className='relative card' style={{width:'320px', height:'175px'}}>
-        <img src={volqueta} alt='imgVolquetas' className='rounded-lg w-full h-full object-cover'/>
-        <span className='absolute bottom-0 left-0 text-white p-4 text-xl'>VOLQUETA FORMULARIO</span>
+        <div className='relative card w-full h-full'>
+        <img src={volqueta} alt='imgVolquetas' className='rounded-lg w-full h-full object-cover small-img'/>
+        <span className='absolute bottom-3 left-0 text-white p-4 text-xl'>VOLQUETA FORMULARIO</span>
         </div>
         </Link> 
       </div>
 
       <div className='card-container'>
         <Link to='/refueling/planilla/add'>
-        <div className='relative card' style={{width:'320px', height:'175px'}}>
+        <div className='relative card w-full h-full'>
         <img src={camion} alt='imgCamion' className='rounded-lg w-full h-full object-cover' />
-        <span className='absolute bottom-0 left-0 text-white p-4'>CARGA PESADA FORMULARIO</span>
+        <span className='absolute bottom-3 left-0 text-white p-4 text-xl'>CARGA PESADA FORMULARIO</span>
         </div>
         </Link>
       </div>
 
       <div className='card-container'>
         <Link to='/refueling/planilla/add'>
-        <div className='relative card' style={{width:'320px', height:'175px'}}>
+        <div className='relative card w-full h-full'>
         <img src={tanqueo} alt='imgTanqueo' className='rounded-lg w-full h-full object-cover'/>
-        <span className='absolute bottom-0 left-0 text-white p-4'>TANQUEO FORMULARIO</span>
+        <span className='absolute bottom-3 left-0 text-white p-4 text-xl'>TANQUEO FORMULARIO</span>
+        </div>
+        </Link>
+      </div>
+
+      <div className='card-container'>
+        <Link to='/refueling/planilla/add'>
+        <div className='relative card w-full h-full'>
+        <img src={documentacion} alt='imgTanqueo' className='rounded-lg w-full h-full object-cover'/>
+        <span className='absolute bottom-3 left-0 text-white p-4 text-xl'>DOCUMENTACIÓN</span>
         </div>
         </Link>
       </div>
