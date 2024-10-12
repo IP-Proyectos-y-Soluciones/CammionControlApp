@@ -25,6 +25,7 @@ var _tanqueo = _interopRequireDefault(require("./routes/tanqueo.routes"));
 var _usuario = _interopRequireDefault(require("./routes/usuario.routes"));
 var _vehiculo = _interopRequireDefault(require("./routes/vehiculo.routes"));
 var _volqueta = _interopRequireDefault(require("./routes/volqueta.routes"));
+var _image = _interopRequireDefault(require("./routes/image.routes"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 // import csrfMiddleware, {
 //   generateCsrfToken,
@@ -92,13 +93,19 @@ app.use('/api/heavyload',
 // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
-_authAdmMiddleware.AuthAdmMiddleware, _cargaPesada["default"]);
+// AuthAdmMiddleware,
+_cargaPesada["default"]);
 //
 app.use('/api/cloudinary',
 // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _cloudinary["default"]);
+//
+// Esta es una alternativa a cloudinary...
+app.use('/api/images',
+// verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
+_auxAuthMiddleware.AuxAuthMiddleware, _image["default"]);
 //
 app.use('/api/documentos',
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
