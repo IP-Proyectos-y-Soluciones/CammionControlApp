@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { getRefuelingImageByID } from '../controllers/images.controller';
+import { getRefuelingImageByDNIAndInvoice } from '../controllers/images.controller';
 
 const router = Router();
 
-router.get('/image/:refuelingID', getRefuelingImageByID);
+router.get('/image/:cedula/:recibo', getRefuelingImageByDNIAndInvoice);
 
 export default router;
