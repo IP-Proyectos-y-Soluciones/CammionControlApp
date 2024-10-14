@@ -210,13 +210,13 @@ export function NavBarMain() {
         <>
 
          <div className='cursor-pointer'>
-           <EmployeeDropdown />
+           <EmployeeDropdown setMenuOpen={setMenuOpen}/>
          </div>        
          <div  className='cursor-pointer'>
-           <UserDropdown />
+           <UserDropdown setMenuOpen={setMenuOpen}/>
          </div>
          <div  className='cursor-pointer'>
-           <VehicleFormDropdown />
+           <VehicleFormDropdown setMenuOpen={setMenuOpen} />
          </div>
       
        </>
@@ -225,7 +225,7 @@ export function NavBarMain() {
           )}
           <button
           onClick={handleLogout}
-          className='pt-5 text-white font-bold block py-2 hover:scale-110 hover:text-yellow-400  transition-colors mt-2'
+          className='pt-5 text-white font-bold block py-2 text-xl hover:scale-110 hover:text-yellow-400  transition-colors mt-2'
           >
             Cerrar Sesión
           </button>
@@ -271,7 +271,7 @@ export function NavBarMain() {
         {menuOpen && (
           <>
           <div className='fixed inset-0 w-full h-full bg-black bg-opacity-80 z-20' onClick={handleCloseMenu}></div>
-          <div className='menu-open-fullscreen z-50 border-t-4 border-red-600 text-white p-2 space-y-30'>
+          <div className='menu-open-fullscreen z-50 border-t-4 border-red-600 text-white p-2 space-y-30' onClick={handleCloseMenu}>
             {isAuthenticated ?(
               <>
                {isAuthorized ? (
@@ -294,7 +294,7 @@ export function NavBarMain() {
             handleLogout();
             handleCloseMenu();
            }}
-           className="pt-5 font-bold block py-2 pl-4 transition-all hover:text-yellow-400"
+           className="pt-5 font-bold text-xl block py-2 pl-4 transition-all hover:text-yellow-400"
            >
              Cerrar Sesión
            </button>

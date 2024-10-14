@@ -4,11 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* html, body {
-    height: 100%;
-    margin: 0;
-} */
-
 html, body{
     margin: 0;
     padding: 0;
@@ -161,7 +156,13 @@ nav {
 span {
     font-size: 1.25rem;
     font-weight: bold;
-    color: white;
+}
+
+button:hover span {
+    color: #facc15 ;
+}
+button:hover {
+    color:  #facc15 ;
 }
 
 .card:hover span {
@@ -174,6 +175,57 @@ span {
     list-style: none;
 }
 
-button:hover span {
+.btn-container {
+    width: 100%;
+    max-width: 200px;
+    min-width: 180px;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+    border-radius: 0.375rem;  /*es igual a rounded-md*/
+    overflow: hidden;  /*asegura que el contenido no se sobresalga*/
+    box-shadow: 0 4px 6px rgba(0,0 ,0, 0.1);
+    background: linear-gradient(to bottom, #720101, #dc2626);
     color: white;
+    border: 2px solid transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.btn-container:hover {
+    background: white !important;
+    color: #b91c1c !important;
+    border-color: #b30202;
+}
+
+.btn-container:hover .btn-title {
+    color: #b91c1c !important;
+}
+
+.btn-container:hover .btn-icon {
+    color: #b91c1c;
+}
+
+.btn-title {
+    font-size: 1.125rem;
+    margin-top: 5px;
+    margin-bottom: 0.5rem;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.btn-title:hover {
+    color: #b91c1c !important;
+}
+
+.btn-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+/* .button-1menu:hover {
+    color: #facc15 !important;
+} */

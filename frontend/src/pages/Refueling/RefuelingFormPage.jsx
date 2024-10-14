@@ -85,7 +85,7 @@ export function RefuelingFormPage() {
                 </div>
             )}{' '}
             {/* Se renderiza si es true... */}
-            <div className="customDiv-1 sm:mt-8">
+            <div className="customDiv-1 md:mt-0 sm:mt-12">
                 <div className="customDiv-2">
                     <div className="customDivH2">
                         <h2 className="customH2">

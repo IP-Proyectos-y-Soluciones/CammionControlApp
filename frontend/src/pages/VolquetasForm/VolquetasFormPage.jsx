@@ -84,7 +84,7 @@ export function VolquetasFormPage() {
     }
 
     return (
-        <div className="bg-otherpages min-h-screen">
+        <div className="bg-otherpages min-h-screen overflow-auto">
             {isLoading && (
                 <div>
                     <Loading />
@@ -92,7 +92,7 @@ export function VolquetasFormPage() {
             )}{' '}
             {/* Se renderiza si es true... */}
             <div className="customDiv-1 sm:mt-56">
-                <div className="customDiv-2">
+                <div className="customDiv-2 overflow-auto">
                     <div className="customDivH2">
                         <h2 className="customH2">
                             Nuevo registro de Viaje de Volqueta

@@ -5,10 +5,10 @@ const Footer = () => {
     <footer className=" bg-transparent text-gray-600 py-4">
     <div className="container mx-auto text-center">
       <p>
-        &copy; {new Date().getFullYear()}Desarrollado por {''}
+        &copy; {new Date().getFullYear()} Desarrollado por {''}
         <a
-        // href="https://mariana8819.github.io/"
-        href=""
+        //href="https://mariana8819.github.io/"
+         href=""
         target="_blank"
         rel="noopener noreferrer"
         className="underline hover:text-red-500"

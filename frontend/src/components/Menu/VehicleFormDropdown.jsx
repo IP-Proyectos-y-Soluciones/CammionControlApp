@@ -6,7 +6,7 @@ import { Button } from '../UI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
-export const VehicleFormDropdown = () => {
+export const VehicleFormDropdown = (setMenuOpen) => {
     const [isOpen, setIsOpen] = useState(false);
     const { isAuthenticated } = useAuth();
     const menuRef = useRef(null);
@@ -31,6 +31,12 @@ export const VehicleFormDropdown = () => {
         };
     }, []);
 
+    const handleCloseMenu = (e) =>{
+        e.stopPropagation();
+        setIsOpen(false);
+        setMenuOpen(false);
+    }
+
     return (
         <div className="relative" ref={menuRef}>
             <div className={`navbar transition-all ${isOpen ? 'text-yellow-400': ''}duration-300`}>
@@ -41,21 +47,21 @@ export const VehicleFormDropdown = () => {
             <span className='text-left pr-2'>Vehículos</span>
            <FontAwesomeIcon
            icon={faAngleRight}
-           className='ml-1 hidden sm:inline'
+           className='ml-1 hidden sm:inline md:mb-0 sm:mb-3'
            /> 
             </button>
             </div>
             
             {isOpen && (
                 <>
-                <div className='fixed inset-0 bg-gray bg-opacity-90 z-10' onClick={()=>setIsOpen(false)}></div>
-                <div className='fixed sm:top-2.5 sm:left-12 md:left-0 md:top-0 w-full h-full md:bg-black md:bg-opacity-80 z-20 flex flex-col items-start justify-start space-y-4 text-white p-24'>
+                <div className='fixed inset-0 bg-gray bg-opacity-90 z-10'></div>
+                <div className='fixed sm:top-2.5 sm:left-12 md:left-0 md:top-0 w-full h-full md:bg-black md:bg-opacity-80 z-20 flex flex-col items-start justify-start space-y-4 text-white p-24' onClick={toggleMenu}>
                 <div className="md:mt-6 md:space-y-2 md:ml-0">
                     {isAuthenticated ? (
                         <>
                             <Link
                                 to={'/driverlicenses/add'}
-                                onClick={() => setIsOpen(false)}
+                                onClick={handleCloseMenu}
                                 className="block px-4 py-2 text-sm hover:text-yellow-400"
                             >
                                 Registrar Licencia
@@ -65,7 +71,7 @@ export const VehicleFormDropdown = () => {
 
                             <Link
                                 to={'/vehicles/planilla/add'}
-                                onClick={() => setIsOpen(false)}
+                                onClick={handleCloseMenu}
                                 className="block px-4 py-2 text-sm hover:text-yellow-400"
                             >
                                 Registro Nuevo Vehículo
@@ -73,7 +79,7 @@ export const VehicleFormDropdown = () => {
 
                             <Link
                                 to={'/vehicles'}
-                                onClick={() => setIsOpen(false)}
+                                onClick={handleCloseMenu}
                                 className="block px-4 py-2 text-sm hover:text-yellow-400"
                             >
                                 Mostrar Flota
@@ -81,7 +87,7 @@ export const VehicleFormDropdown = () => {
 
                             <Link
                                 to={'/vehicles/vehassign'}
-                                onClick={() => setIsOpen(false)}
+                                onClick={handleCloseMenu}
                                 className="block px-4 py-2 text-sm hover:text-yellow-400"
                             >
                                 Asignación de Vehículo
@@ -91,7 +97,7 @@ export const VehicleFormDropdown = () => {
 
                             <Link
                                 to={'/documents/add'}
-                                onClick={() => setIsOpen(false)}
+                                onClick={handleCloseMenu}
                                 className="block px-4 py-2 text-sm hover:text-yellow-400"
                             >
                                 Registrar Documento

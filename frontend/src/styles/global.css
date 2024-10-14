@@ -3,7 +3,7 @@
 } */
 
 .customDiv-1 {
-    @apply flex h-[calc(100vh-100px)] items-center justify-center;
+    @apply flex h-[calc(100vh-100px)] items-center justify-center ;
 }
 
 .customDiv-1a {
