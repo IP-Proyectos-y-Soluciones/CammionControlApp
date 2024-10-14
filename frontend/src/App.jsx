@@ -232,6 +232,17 @@ function App() {
                 </ProtectedRoute>
               }
               />
+
+              <Route 
+              path='/userdetail'
+              element={
+                <ProtectedRoute
+                allowed={['Admin', 'Owner', 'Empleado']}
+                >
+                  <UserProfileDetail />
+                </ProtectedRoute>
+              }
+              />
               
               <Route
                   path="/unauthorized"

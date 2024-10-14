@@ -92,7 +92,7 @@ export function HomePageEmpleado() {
 
         <div className='flex justify-center'>
         <Link
-          to="/refueling/planilla/add"
+          to="/userdetail"
           className='btn-container'
         >
           <span className="btn-title">DOCUMENTACIÓN</span>              
