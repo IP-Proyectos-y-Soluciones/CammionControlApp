@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { Input, Label, Button} from '../../components/UI';
+import { Input, Label, Button } from '../../components/UI';
 import { useForm } from 'react-hook-form';
 import { getDriverByDniRequest, getVehicleByIDRequest, loginRequest } from '../../../api/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import logo from '../../assets/yadiraLogoColor2.png'
+import logo from '../../assets/yadiraLogoColor2.png';
 import { useAuth } from '../../context/AuthContext';
 import { Loading } from '../../components/Common/Loading';
 
@@ -15,12 +15,9 @@ export function LoginPage() {
   const {setIsAuthenticated, userRole, setUserRole, userName, setUserName, setDNI, setVehicleRegistrationPlate} = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = async (data) => {
-    try {
-
-      setIsLoading(true); // Mostrar spinner de carga...
-
-      //console.log(data);
+    const onSubmit = async (data) => {
+        try {
+            setIsLoading(true); // Mostrar spinner de carga...
 
       const response = await loginRequest(data);
 
@@ -55,30 +52,30 @@ export function LoginPage() {
                     // navigate('/volquetas/planilla/add');
                 } else {
                     navigate('/unauthorized');
-                }                
+                }
             }
-    } catch (error) {
-      setErrors([error.response?.data?.message]);
-    } finally {
-      setIsLoading(false); // Se oculta el spinner de carga...
-    }
-  };
+        } catch (error) {
+            setErrors([error.response?.data?.message]);
+        } finally {
+            setIsLoading(false); // Se oculta el spinner de carga...
+        }
+    };
 
-  useEffect(() => {
-    if (userName) {
-        console.log('Nombre completo actualizado: ', userName);
-    }
-}, [userName]);
+    useEffect(() => {
+        if (userName) {
+            console.log('Nombre completo actualizado: ', userName);
+        }
+    }, [userName]);
 
-  useEffect(() => {
-    if (errors.length > 0) {
-      const timer = setTimeout(() => {
-        setErrors([]);
-      }, 5000);
+    useEffect(() => {
+        if (errors.length > 0) {
+            const timer = setTimeout(() => {
+                setErrors([]);
+            }, 5000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [errors]);
+            return () => clearTimeout(timer);
+        }
+    }, [errors]);
 
   return (    
     <div className="min-h-screen flex items-center justify-center bg-gradient">
@@ -117,9 +114,11 @@ export function LoginPage() {
           />
           </div>
 
-          {errors.length > 0 && (
-            <p className="text-white-600 text-center">{errors.join(', ')}</p>
-          )}
+                    {errors.length > 0 && (
+                        <p className="text-white-600 text-center">
+                            {errors.join(', ')}
+                        </p>
+                    )}
 
           <div className='mt-6'>
           <Button

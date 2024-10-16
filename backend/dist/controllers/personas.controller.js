@@ -195,7 +195,7 @@ var getPersonaByID = exports.getPersonaByID = /*#__PURE__*/function () {
 }();
 var updatePersona = exports.updatePersona = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-    var _id, cedula, updateData, _filter, findPersona, _updatePersona;
+    var _id, cedula, updateData, filter, findPersona, _updatePersona;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
         case 0:
@@ -203,12 +203,12 @@ var updatePersona = exports.updatePersona = /*#__PURE__*/function () {
           _id = req.params._id;
           cedula = req.body.cedula;
           updateData = req.body;
-          _filter = {};
+          filter = {};
           if (!(_id && /^[0-9a-fA-F]{24}$/.test(_id))) {
             _context5.next = 9;
             break;
           }
-          _filter = {
+          filter = {
             _id: _id
           };
           _context5.next = 14;
@@ -218,7 +218,7 @@ var updatePersona = exports.updatePersona = /*#__PURE__*/function () {
             _context5.next = 13;
             break;
           }
-          _filter = {
+          filter = {
             cedula: Number(cedula)
           };
           _context5.next = 14;
@@ -229,7 +229,7 @@ var updatePersona = exports.updatePersona = /*#__PURE__*/function () {
           }));
         case 14:
           _context5.next = 16;
-          return _Persona["default"].findOne(_filter);
+          return _Persona["default"].findOne(filter);
         case 16:
           findPersona = _context5.sent;
           if (findPersona) {
@@ -241,7 +241,7 @@ var updatePersona = exports.updatePersona = /*#__PURE__*/function () {
           }));
         case 19:
           _context5.next = 21;
-          return _Persona["default"].findOneAndUpdate(_filter, {
+          return _Persona["default"].findOneAndUpdate(filter, {
             $set: updateData
           }, {
             "new": true
@@ -277,83 +277,73 @@ var updatePersona = exports.updatePersona = /*#__PURE__*/function () {
 }();
 var deletePersona = exports.deletePersona = /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
-    var _id, cedula, findPersona, findUsuarioPersona;
+    var cedula, findPersona, findUsuarioPersona;
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
         case 0:
           _context6.prev = 0;
-          _id = req.params._id;
           cedula = req.body.cedula;
-          if (!(_id && /^[0-9a-fA-F]{24}$/.test(_id))) {
-            _context6.next = 7;
+          if (cedula) {
+            _context6.next = 4;
             break;
           }
-          filter = {
-            _id: _id
-          };
-          _context6.next = 12;
-          break;
-        case 7:
-          if (!cedula) {
-            _context6.next = 11;
-            break;
-          }
-          filter = {
-            cedula: Number(cedula)
-          };
-          _context6.next = 12;
-          break;
-        case 11:
           return _context6.abrupt("return", res.status(400).json({
-            message: 'Debe proporcionar _id válido o nro. de cédula...!'
+            message: 'Debe proporcionar el número de cédula...!'
           }));
-        case 12:
-          _context6.next = 14;
-          return _Persona["default"].findOne(filter);
-        case 14:
+        case 4:
+          _context6.next = 6;
+          return _Persona["default"].findOne({
+            cedula: Number(cedula)
+          });
+        case 6:
           findPersona = _context6.sent;
+          console.log(findPersona);
           if (findPersona) {
-            _context6.next = 17;
+            _context6.next = 10;
             break;
           }
           return _context6.abrupt("return", res.status(404).json({
-            message: 'Persona no encontrado...!'
+            message: 'Empleado no encontrado...!'
           }));
-        case 17:
-          _context6.next = 19;
+        case 10:
+          _context6.next = 12;
           return _Usuario["default"].findOne({
             persona: findPersona._id
           });
-        case 19:
+        case 12:
           findUsuarioPersona = _context6.sent;
+          console.log(findUsuarioPersona);
           if (!findUsuarioPersona) {
-            _context6.next = 23;
+            _context6.next = 17;
             break;
           }
-          _context6.next = 23;
+          _context6.next = 17;
           return _Usuario["default"].findByIdAndDelete(findUsuarioPersona._id);
-        case 23:
-          _context6.next = 25;
-          return _Persona["default"].findByIdAndDelete(filter);
-        case 25:
-          return _context6.abrupt("return", res.sendStatus(200));
-        case 28:
-          _context6.prev = 28;
+        case 17:
+          _context6.next = 19;
+          return _Persona["default"].findByIdAndDelete(findPersona._id);
+        case 19:
+          return _context6.abrupt("return", res.status(200).json({
+            message: 'El empleado ha sido eliminado correctamente...!'
+          }));
+        case 22:
+          _context6.prev = 22;
           _context6.t0 = _context6["catch"](0);
+          console.error(_context6.t0.message);
           if (!(_context6.t0 instanceof Error)) {
-            _context6.next = 34;
+            _context6.next = 29;
             break;
           }
           return _context6.abrupt("return", res.status(500).json({
             error: _context6.t0.message
           }));
-        case 34:
+        case 29:
           return _context6.abrupt("return", res.status(500).json(_context6.t0));
-        case 35:
+        case 30:
         case "end":
           return _context6.stop();
       }
-    }, _callee6, null, [[0, 28]]);
+    }, _callee6, null, [[0, 22]]);
   }));
   return function deletePersona(_x11, _x12) {
     return _ref6.apply(this, arguments);

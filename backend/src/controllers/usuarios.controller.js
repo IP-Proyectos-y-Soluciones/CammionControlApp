@@ -201,8 +201,14 @@ export const deleteUsuario = async (req, res) => {
                 .status(404)
                 .json({ message: 'Usuario no encontrado...!' });
 
+        // se obtiene el ID de la persona asociada desde el campo 'persona' del usuario...
+        const personaID = findUsuario.persona;
+
         // Se elimina el usuario de la BD...
-        const deletedUsuario = await Usuario.findByIdAndDelete(_id);
+        await Usuario.findByIdAndDelete(_id);
+
+        // Se busca la persona y remover la referencia del campo 'usuario'...
+        await Persona.findByIdAndUpdate(personaID, { $unset: { usuario: 1 } });
 
         return res.sendStatus(200);
     } catch (error) {

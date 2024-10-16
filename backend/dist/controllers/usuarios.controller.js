@@ -271,7 +271,7 @@ var updateUsuario = exports.updateUsuario = /*#__PURE__*/function () {
 }();
 var deleteUsuario = exports.deleteUsuario = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-    var _id, findUsuario, deletedUsuario;
+    var _id, findUsuario, personaID;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
         case 0:
@@ -289,28 +289,36 @@ var deleteUsuario = exports.deleteUsuario = /*#__PURE__*/function () {
             message: 'Usuario no encontrado...!'
           }));
         case 7:
-          _context5.next = 9;
+          // se obtiene el ID de la persona asociada desde el campo 'persona' del usuario...
+          personaID = findUsuario.persona; // Se elimina el usuario de la BD...
+          _context5.next = 10;
           return _Usuario["default"].findByIdAndDelete(_id);
-        case 9:
-          deletedUsuario = _context5.sent;
+        case 10:
+          _context5.next = 12;
+          return _Persona["default"].findByIdAndUpdate(personaID, {
+            $unset: {
+              usuario: 1
+            }
+          });
+        case 12:
           return _context5.abrupt("return", res.sendStatus(200));
-        case 13:
-          _context5.prev = 13;
+        case 15:
+          _context5.prev = 15;
           _context5.t0 = _context5["catch"](0);
           if (!(_context5.t0 instanceof Error)) {
-            _context5.next = 19;
+            _context5.next = 21;
             break;
           }
           return _context5.abrupt("return", res.status(500).json({
             error: _context5.t0.message
           }));
-        case 19:
+        case 21:
           return _context5.abrupt("return", res.status(500).json(_context5.t0));
-        case 20:
+        case 22:
         case "end":
           return _context5.stop();
       }
-    }, _callee5, null, [[0, 13]]);
+    }, _callee5, null, [[0, 15]]);
   }));
   return function deleteUsuario(_x9, _x10) {
     return _ref5.apply(this, arguments);

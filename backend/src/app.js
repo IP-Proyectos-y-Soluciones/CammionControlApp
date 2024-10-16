@@ -26,6 +26,7 @@ import tanqueosRoutes from './routes/tanqueo.routes';
 import usuariosRoutes from './routes/usuario.routes';
 import vehiculosRoutes from './routes/vehiculo.routes';
 import volquetasRoutes from './routes/volqueta.routes';
+import imageRoutes from './routes/image.routes';
 
 dotenv.config();
 
@@ -85,7 +86,7 @@ app.use(
     '/api/heavyload',
     // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
     AuxAuthMiddleware, // Desactivar para la producción...
-    AuthAdmMiddleware,
+    // AuthAdmMiddleware,
     cargaPesadaRoutes,
 );
 //
@@ -94,6 +95,14 @@ app.use(
     // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
     AuxAuthMiddleware, // Desactivar para la producción...
     cloudinaryRoutes,
+);
+//
+// Esta es una alternativa a cloudinary...
+app.use(
+    '/api/images',
+    // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
+    AuxAuthMiddleware,
+    imageRoutes,
 );
 //
 app.use(

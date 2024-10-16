@@ -165,40 +165,40 @@ export const updatePersona = async (req, res) => {
 
 export const deletePersona = async (req, res) => {
     try {
-        const { _id } = req.params;
         const { cedula } = req.body;
 
-        if (_id && /^[0-9a-fA-F]{24}$/.test(_id)) {
-            filter = { _id };
-        } else if (cedula) {
-            filter = { cedula: Number(cedula) };
-        } else {
+        if (!cedula) {
             return res.status(400).json({
-                message: 'Debe proporcionar _id válido o nro. de cédula...!',
+                message: 'Debe proporcionar el número de cédula...!',
             });
         }
 
-        const findPersona = await Persona.findOne(filter);
+        const findPersona = await Persona.findOne({ cedula: Number(cedula) });
+        console.log(findPersona);
 
-        if (!findPersona)
+        if (!findPersona) {
             return res
                 .status(404)
-                .json({ message: 'Persona no encontrado...!' });
+                .json({ message: 'Empleado no encontrado...!' });
+        }
 
+        // Se eliminan registros asociados si existen...
         const findUsuarioPersona = await Usuario.findOne({
             persona: findPersona._id,
         });
+        console.log(findUsuarioPersona);
 
-        // Si tiene un "usuario" creado, se procede a su eliminación...
         if (findUsuarioPersona) {
             await Usuario.findByIdAndDelete(findUsuarioPersona._id);
         }
 
-        // Se elimina la persona de la BD...
-        await Persona.findByIdAndDelete(filter);
+        await Persona.findByIdAndDelete(findPersona._id);
 
-        return res.sendStatus(200);
+        return res.status(200).json({
+            message: 'El empleado ha sido eliminado correctamente...!',
+        });
     } catch (error) {
+        console.error(error.message);
         if (error instanceof Error) {
             return res.status(500).json({ error: error.message });
         } else {

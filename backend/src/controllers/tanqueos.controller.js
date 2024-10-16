@@ -3,6 +3,7 @@ import Tanqueo from '../models/Tanqueo';
 import Persona from '../models/Persona';
 import Vehiculo from '../models/Vehiculo';
 import { findVehicleAndDriver } from '../libs/FindVehicleAndDriver';
+import { plantillaTanqueo } from '../others/plantilla_tanqueo';
 
 // Crear un nuevo tanqueo
 export const createTanqueo = async (req, res) => {
@@ -50,6 +51,8 @@ export const createTanqueo = async (req, res) => {
             { $push: { tanqueos: newRefueling._id } },
             { new: true },
         );
+
+        await plantillaTanqueo(newRefueling);
 
         return res.status(201).json({
             message: 'El formulario se ha registrado correctamente...!',
