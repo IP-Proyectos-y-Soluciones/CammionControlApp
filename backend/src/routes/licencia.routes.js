@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
     createLicencia,
+    getLicenciaByID,
     getLicencia,
     putLicencia,
     deleteLicencia,
@@ -19,6 +20,12 @@ router.get(
     '/',
     // TokenValidation,
     getLicencia,
+);
+
+router.get(
+    '/licencia/:id',
+    // TokenValidation,
+    getLicenciaByID,
 );
 
 router.put(

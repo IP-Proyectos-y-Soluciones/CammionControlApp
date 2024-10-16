@@ -15,6 +15,9 @@ _licencias.createLicencia);
 router.get('/',
 // TokenValidation,
 _licencias.getLicencia);
+router.get('/licencia/:id',
+// TokenValidation,
+_licencias.getLicenciaByID);
 router.put('/edit/:id',
 // TokenValidation,
 _licencias.putLicencia);

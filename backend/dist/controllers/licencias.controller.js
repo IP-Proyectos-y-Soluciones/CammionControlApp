@@ -4,7 +4,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.putLicencia = exports.getLicencia = exports.deleteLicencia = exports.createLicencia = void 0;
+exports.putLicencia = exports.getLicenciaByID = exports.getLicencia = exports.deleteLicencia = exports.createLicencia = void 0;
 var _Licencia = _interopRequireDefault(require("../models/Licencia"));
 var _Persona = _interopRequireDefault(require("../models/Persona"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
@@ -85,26 +85,71 @@ var createLicencia = exports.createLicencia = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-var getLicencia = exports.getLicencia = /*#__PURE__*/function () {
+var getLicenciaByID = exports.getLicenciaByID = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var _req$query, licencia_N, clase_de_vehiculo, query, licencias;
+    var id, response;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
+          id = req.params.id;
+          _context2.next = 4;
+          return _Licencia["default"].findById({
+            _id: id
+          });
+        case 4:
+          response = _context2.sent;
+          if (response) {
+            _context2.next = 7;
+            break;
+          }
+          return _context2.abrupt("return", res.status(404).json({
+            message: 'Licencia no encontrada...!'
+          }));
+        case 7:
+          res.status(200).json({
+            message: 'Detalles de la licencia:',
+            response: response
+          });
+          _context2.next = 13;
+          break;
+        case 10:
+          _context2.prev = 10;
+          _context2.t0 = _context2["catch"](0);
+          res.status(500).json({
+            message: 'Error al obtener las licencias',
+            error: _context2.t0.message
+          });
+        case 13:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[0, 10]]);
+  }));
+  return function getLicenciaByID(_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+var getLicencia = exports.getLicencia = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+    var _req$query, licencia_N, clase_de_vehiculo, query, licencias;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
           _req$query = req.query, licencia_N = _req$query.licencia_N, clase_de_vehiculo = _req$query.clase_de_vehiculo;
           query = {};
           if (licencia_N) query.licencia_N = licencia_N;
           if (clase_de_vehiculo) query.clase_de_vehiculo = clase_de_vehiculo;
-          _context2.next = 7;
+          _context3.next = 7;
           return _Licencia["default"].find(query).populate('conductor');
         case 7:
-          licencias = _context2.sent;
+          licencias = _context3.sent;
           if (!(licencias.length === 0)) {
-            _context2.next = 10;
+            _context3.next = 10;
             break;
           }
-          return _context2.abrupt("return", res.status(404).json({
+          return _context3.abrupt("return", res.status(404).json({
             message: 'Licencia no encontrada'
           }));
         case 10:
@@ -113,46 +158,46 @@ var getLicencia = exports.getLicencia = /*#__PURE__*/function () {
             message: 'Licencia encontrada',
             licencias: licencias
           });
-          _context2.next = 17;
+          _context3.next = 17;
           break;
         case 14:
-          _context2.prev = 14;
-          _context2.t0 = _context2["catch"](0);
+          _context3.prev = 14;
+          _context3.t0 = _context3["catch"](0);
           res.status(500).json({
             message: 'Error al obtener las licencias',
-            error: _context2.t0.message
+            error: _context3.t0.message
           });
         case 17:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
-    }, _callee2, null, [[0, 14]]);
+    }, _callee3, null, [[0, 14]]);
   }));
-  return function getLicencia(_x3, _x4) {
-    return _ref2.apply(this, arguments);
+  return function getLicencia(_x5, _x6) {
+    return _ref3.apply(this, arguments);
   };
 }();
 var putLicencia = exports.putLicencia = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
     var _req$body2, conductor, licencia_N, categoria, clase_de_vehiculo, servicio, fecha_expedicion, fecha_vencimiento, persona, licencia;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
         case 0:
-          _context3.prev = 0;
+          _context4.prev = 0;
           _req$body2 = req.body, conductor = _req$body2.conductor, licencia_N = _req$body2.licencia_N, categoria = _req$body2.categoria, clase_de_vehiculo = _req$body2.clase_de_vehiculo, servicio = _req$body2.servicio, fecha_expedicion = _req$body2.fecha_expedicion, fecha_vencimiento = _req$body2.fecha_vencimiento;
-          _context3.next = 4;
+          _context4.next = 4;
           return _Persona["default"].findById(conductor);
         case 4:
-          persona = _context3.sent;
+          persona = _context4.sent;
           if (persona) {
-            _context3.next = 7;
+            _context4.next = 7;
             break;
           }
-          return _context3.abrupt("return", res.status(404).json({
+          return _context4.abrupt("return", res.status(404).json({
             message: 'El id del persona no existe'
           }));
         case 7:
-          _context3.next = 9;
+          _context4.next = 9;
           return _Licencia["default"].findByIdAndUpdate(req.params.id, {
             conductor: conductor,
             licencia_N: licencia_N,
@@ -166,12 +211,12 @@ var putLicencia = exports.putLicencia = /*#__PURE__*/function () {
             runValidators: true
           });
         case 9:
-          licencia = _context3.sent;
+          licencia = _context4.sent;
           if (licencia) {
-            _context3.next = 12;
+            _context4.next = 12;
             break;
           }
-          return _context3.abrupt("return", res.status(404).json({
+          return _context4.abrupt("return", res.status(404).json({
             message: 'Licencia no fue encontrada'
           }));
         case 12:
@@ -179,41 +224,41 @@ var putLicencia = exports.putLicencia = /*#__PURE__*/function () {
             message: 'La licencia ha sido actualizada correctamente!',
             licencia: licencia
           });
-          _context3.next = 18;
+          _context4.next = 18;
           break;
         case 15:
-          _context3.prev = 15;
-          _context3.t0 = _context3["catch"](0);
+          _context4.prev = 15;
+          _context4.t0 = _context4["catch"](0);
           res.status(500).json({
             message: 'Error al actualizar la licencia',
-            error: _context3.t0.message
+            error: _context4.t0.message
           });
         case 18:
         case "end":
-          return _context3.stop();
+          return _context4.stop();
       }
-    }, _callee3, null, [[0, 15]]);
+    }, _callee4, null, [[0, 15]]);
   }));
-  return function putLicencia(_x5, _x6) {
-    return _ref3.apply(this, arguments);
+  return function putLicencia(_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 }();
 var deleteLicencia = exports.deleteLicencia = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
     var licencia;
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
         case 0:
-          _context4.prev = 0;
-          _context4.next = 3;
+          _context5.prev = 0;
+          _context5.next = 3;
           return _Licencia["default"].findByIdAndDelete(req.params.id);
         case 3:
-          licencia = _context4.sent;
+          licencia = _context5.sent;
           if (licencia) {
-            _context4.next = 6;
+            _context5.next = 6;
             break;
           }
-          return _context4.abrupt("return", res.status(404).json({
+          return _context5.abrupt("return", res.status(404).json({
             message: 'Licencia no encontrada'
           }));
         case 6:
@@ -221,19 +266,19 @@ var deleteLicencia = exports.deleteLicencia = /*#__PURE__*/function () {
             message: 'La licencia ha sido eliminada correctamente!',
             licencia: licencia
           });
-          _context4.next = 12;
+          _context5.next = 12;
           break;
         case 9:
-          _context4.prev = 9;
-          _context4.t0 = _context4["catch"](0);
-          res.status(500).json(_context4.t0);
+          _context5.prev = 9;
+          _context5.t0 = _context5["catch"](0);
+          res.status(500).json(_context5.t0);
         case 12:
         case "end":
-          return _context4.stop();
+          return _context5.stop();
       }
-    }, _callee4, null, [[0, 9]]);
+    }, _callee5, null, [[0, 9]]);
   }));
-  return function deleteLicencia(_x7, _x8) {
-    return _ref4.apply(this, arguments);
+  return function deleteLicencia(_x9, _x10) {
+    return _ref5.apply(this, arguments);
   };
 }();
