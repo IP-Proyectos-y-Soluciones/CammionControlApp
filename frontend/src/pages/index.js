@@ -5,5 +5,5 @@ export { EmployeesFormAddPage } from './Employees/EmployeesFormAddPage';
 export { EmployeeByDniPage } from './Employees/EmployeesByDniPage';
 export { UpdateEmployeeByDni } from './Employees/UpdateEmployeeFormByDniPage';
 export { UsersFormAddPage } from './Users/UsersFormAddPage';
-export { UsersFormLockUnlockPage } from './Users/UsersFormLockUnlockPage';
+export { UsersFormUnlockPage, UsersFormDisablePage } from './Users/UsersFormDisableUnlockPage';
 export { UsersPage } from './Users/UsersPage';

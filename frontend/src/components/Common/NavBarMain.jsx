@@ -12,6 +12,7 @@ import logo from '../../assets/yadiraLogoBlanco.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { VehicleFormDropdown } from '../Menu/VehicleFormDropdown';
+import { InvoicesDropdown } from '../Menu/InvoicesDropdown';
 
 
 export function NavBarMain() {
@@ -121,6 +122,9 @@ export function NavBarMain() {
          <div  className='cursor-pointer'>
            <VehicleFormDropdown setMenuOpen={setMenuOpen} />
          </div>
+         <div  className='cursor-pointer'>
+           <InvoicesDropdown setMenuOpen={setMenuOpen} />
+         </div>
       
        </>
        ):(         
@@ -187,6 +191,9 @@ export function NavBarMain() {
                  </div>
                  <div onClick={handleUserMenu} className='cursor-pointer pl-4 w-full hover:text-yellow-400'>
                    <VehicleFormDropdown /> 
+                 </div>                     
+                 <div onClick={handleUserMenu} className='cursor-pointer pl-4 w-full hover:text-yellow-400'>
+                   <InvoicesDropdown /> 
                  </div>                     
               </>
             ):(                   

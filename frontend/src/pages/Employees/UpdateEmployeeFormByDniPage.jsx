@@ -316,7 +316,7 @@ export function UpdateEmployeeByDni() {
                 <Button
                 type="button"
                 onClick={onCancel}
-                className='rounded-md'
+                className='rounded-md btn-formularios'
                 >
                   <FontAwesomeIcon
                   icon={faAngleLeft}
@@ -328,7 +328,7 @@ export function UpdateEmployeeByDni() {
             <div className="flex justify-end">
               <Button
                 type="submit"
-                className="rounded-md"
+                className="rounded-md btn-formularios"
               >
                 <span className='text-red-700'>Actualizar</span>
                 <FontAwesomeIcon

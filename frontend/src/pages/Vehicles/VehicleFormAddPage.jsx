@@ -9,7 +9,7 @@ import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import '../../styles/global.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDoubleLeft, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export function VehicleFormAddPage() {
     const {
@@ -197,7 +197,7 @@ export function VehicleFormAddPage() {
                                 <Button
                                     type="button"
                                     onClick={onCancel}
-                                    className="rounded-md"
+                                    className="rounded-md btn-formularios"
                                 >
                                     <FontAwesomeIcon
                                     icon={faAngleLeft}
@@ -209,7 +209,7 @@ export function VehicleFormAddPage() {
                             <div>
                                 <Button
                                     type="submit"
-                                    className="rounded-md"
+                                    className="rounded-md btn-formularios"
                                 >
                                     <FontAwesomeIcon
                                     icon={faAngleRight}

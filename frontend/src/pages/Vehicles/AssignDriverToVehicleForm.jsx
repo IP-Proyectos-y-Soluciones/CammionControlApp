@@ -9,7 +9,7 @@ import { Loading } from '../../components/Common/Loading';
 import swal2 from 'sweetalert2';
 import '../../styles/global.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export function AssignDriverToVehicleFormPage() {
     const {
@@ -116,7 +116,7 @@ export function AssignDriverToVehicleFormPage() {
                                 <Button
                                     type="button"
                                     onClick={onCancel}
-                                    className="rounded-md"
+                                    className="rounded-md btn-formularios"
                                 >
                                     <FontAwesomeIcon
                                     icon={faAngleLeft}
@@ -128,10 +128,10 @@ export function AssignDriverToVehicleFormPage() {
                             <div>
                                 <Button
                                     type="submit"
-                                    className="rounded-md"
+                                    className="rounded-md btn-formularios"
                                 >
                                     <FontAwesomeIcon
-                                    icon={faAnglesRight}
+                                    icon={faAngleRight}
                                     className='absolute right-3 text-lg'
                                     />
                                     <span className='text-red-700'>Aceptar</span>

@@ -87,6 +87,12 @@ export function VehiclesList() {
                             <td className="-px-1 py-2 border-b pl-40">
                                 {vehicle.color}
                             </td>
+                            <td
+                            className={`px-0 py-2 border-b pl-12 ${vehicle.persona_cedula !== 0 ? 'text-blue-600 font-bold' : ''}`}>
+                                {vehicle.persona_cedula === 0
+                                ? 'Sin asignar...'
+                            : vehicle.persona_cedula}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

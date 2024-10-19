@@ -213,7 +213,7 @@ export function DriverLicenseFormAddPage() {
                                 <Button
                                     type="button"
                                     onClick={onCancel}
-                                    className="rounded-md"
+                                    className="rounded-md btn-formularios"
                                 >
                                     <FontAwesomeIcon
                                     icon={faAngleLeft}
@@ -225,7 +225,7 @@ export function DriverLicenseFormAddPage() {
                             <div>
                                 <Button
                                     type="submit"
-                                    className="rounded-md"
+                                    className="rounded-md btn-formularios"
                                 >
                                     <FontAwesomeIcon
                                     icon={faAngleRight}

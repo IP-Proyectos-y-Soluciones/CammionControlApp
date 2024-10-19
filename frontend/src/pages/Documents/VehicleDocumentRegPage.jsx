@@ -36,6 +36,8 @@ export function VehicleDocumentRegisterPage() {
                     icon: 'success',
                     confirmButtonText: 'Aceptar',
                 });
+
+                reset();
             }
         } catch (error) {
             console.log(error);
@@ -45,6 +47,7 @@ export function VehicleDocumentRegisterPage() {
                 icon: 'error',
             });
             setIsLoading(false);
+            reset();
         }
     };
 
@@ -167,7 +170,7 @@ export function VehicleDocumentRegisterPage() {
                                 <Button
                                     type="button"
                                     onClick={onCancel}
-                                    className="rounded-md"
+                                    className="rounded-md btn-formularios"
                                 >
                                     <FontAwesomeIcon
                                     icon={faAngleLeft}
@@ -179,7 +182,7 @@ export function VehicleDocumentRegisterPage() {
                             <div>
                                 <Button
                                     type="submit"
-                                    className="rounded-md"
+                                    className="rounded-md btn-formularios"
                                 >
                                     <FontAwesomeIcon
                                     icon={faAngleRight}

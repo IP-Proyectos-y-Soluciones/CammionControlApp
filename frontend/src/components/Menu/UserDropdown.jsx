@@ -63,42 +63,49 @@ export const UserDropdown = (setMenuOpen) => {
           {isAuthenticated ? (
             <>
               <Link
+                to={'/users'}
+                onClick={handleCloseMenu}
+                className="block px-4 py-2 text-sm hover:text-yellow-400"
+              >
+                Todos los ...
+              </Link>
+
+              <hr className="bg-slate-300 h-0.5" />
+
+              <Link
                 to={'/users/add'}
                 onClick={handleCloseMenu}
                 className="block px-4 py-2 text-sm hover:text-yellow-400"
               >
                 Nuevo Usuario...
               </Link>            
+            
               <Link
-                to={'/users'}
+                to={'/users/user/byuser'}
                 onClick={handleCloseMenu}
                 className="block px-4 py-2 text-sm hover:text-yellow-400"
               >
-                Todos los ...
+                Buscar Usuario ...
               </Link>            
-              <Link
-                // to={'/employees/search'}
-                onClick={handleCloseMenu}
-                className="block px-4 py-2 text-sm hover:text-yellow-400"
-              >
-                Buscar Usuario...
-              </Link>           
-              <Link
+              {/* <Link
                 // to={'/employees/search'}
                 onClick={handleCloseMenu}
                 className="block px-4 py-2 text-sm hover:text-yellow-400"
               >
                 Actualizar...
-              </Link>              
+              </Link>               */}
+
+                <hr className="bg-slate-300 h-0.5" />
+
               <Link
-                // to={'/employees/search'}
+                to={'/users/admin/disable-user'}
                 onClick={handleCloseMenu}
                 className="block px-4 py-2 text-sm hover:text-yellow-400"
               >
                 Bloquear Usuario...
               </Link>           
               <Link
-                to={'/users/admin/lock-unlock'}
+                to={'/users/admin/unlock-user'}
                 onClick={handleCloseMenu}
                 className="block px-4 py-2 text-sm hover:text-yellow-400"
               >

@@ -2,17 +2,21 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdCard, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export function UserProfileDetail() {
     const { userName, dni, email, telefono } = useAuth();
+    const navigate = useNavigate();
 
     const handleCardClick = () => {
-        // Logic for card click can be added here
-        console.log('User profile card clicked');
+         navigate('/general_access')
     };
 
     return (
-        <div className="p-8 bg-gray-100 min-h-screen">
+        <div 
+        className="p-8 bg-gray-100 min-h-screen"
+        onClick={handleCardClick}
+        >
             <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md cursor-pointer" onClick={handleCardClick}>
                 <h2 className="text-2xl text-gray-600 font-semibold mb-4">
                     {userName || 'Nombre de Usuario'}

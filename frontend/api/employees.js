@@ -21,5 +21,5 @@ export const updateEmployeeByDniRequest = (data) =>
 // export const deleteEmployeeByIdRequest = (_id) =>
 //   axios.patch(`/personas/persona/delete/${_id}`);
 
-export const deleteEmployeeByDniRequest = (data) =>
-  axios.patch('/personas/persona/delete', data);
+export const deleteEmployeeByDniRequest = (cedula) =>
+  axios.delete('/personas/persona/delete', { data: {cedula} });

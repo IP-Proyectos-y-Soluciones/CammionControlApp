@@ -50,7 +50,7 @@ export const EmployeeDropdown = (setMenuOpen) => {
       <span className='text-left pr-2'>Personal</span>
       <FontAwesomeIcon
       icon={faAngleRight}
-      className='ml-1 hidden sm:inline sm:mb-3'
+      className='ml-1 hidden md:pt-3 sm:inline sm:mb-3'
       />
       </button>
       </div>

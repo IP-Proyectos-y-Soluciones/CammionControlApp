@@ -10,6 +10,7 @@ import swal2 from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../context/AuthContext';
+import { generateFormControlNumber } from '../../libs/generateNumber';
 
 export function VolquetasFormPage() {
     const {
@@ -23,6 +24,7 @@ export function VolquetasFormPage() {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [totalKm, setTotalKm] = useState(0);
+    const [formNumber, setFormNumber] = useState(generateFormControlNumber());
 
     const kmInicial = watch('km_inicial');
     const kmFinal = watch('km_final');
@@ -41,29 +43,33 @@ export function VolquetasFormPage() {
 
             const _data= {
                 ...data,
+                n_planilla: formNumber,
                 cedula: dni,
                 placa_vehiculo: vehicleRegistrationPlate,
                 total_km: totalKm,
             }
 
-            data.hora_inicio = new Date(data.hora_inicio);
-            data.hora_final = new Date(data.hora_final);
+            _data.hora_inicio = new Date(_data.hora_inicio);
+            _data.hora_final = new Date(_data.hora_final);
 
-            if (data.observacion === undefined) {
-                data.observacion = 'S/O';
+            if (_data.observacion === undefined) {
+                _data.observacion = 'S/O';
             }
 
-            const response = await createNewVolquetaForm(data);
+            const response = await createNewVolquetaForm(_data);
 
             if (response.status === 201) {
                 swal2.fire({
                     title: 'Registro exitoso...!',
-                    text: `La planilla Nº ${data.n_planilla} ha sido registrada exitosamente...!!!`,
+                    text: `La planilla Nº ${_data.n_planilla} ha sido registrada exitosamente...!!!`,
                     icon: 'success',
                     confirmButtonText: 'Aceptar',
                 });
 
                 reset();
+
+                //Regenerar un nuevo número de planilla después de registrar...
+                setFormNumber(generateFormControlNumber());
 
                 setIsLoading(false);
             }
@@ -73,7 +79,7 @@ export function VolquetasFormPage() {
                 text: `Ha ocurrido un error inesperado: ${error.message}. Si el error persiste, contacte con el Desarrollador del software...!!!`,
                 icon: 'error',
             });
-            setIsLoading(false)
+            setIsLoading(false);
         }
     };
 
@@ -103,22 +109,13 @@ export function VolquetasFormPage() {
                         onSubmit={handleSubmit(onSubmit)}
                         className="pt-5 pl-6 pr-6 pb-4"
                     >
-                        {/* Nro de planilla --- Fecha */}
+                        {/* Nro de planilla --- Fecha---Nro de viaje */}
                         <div className="grid grid-cols-3 gap-3">
                             <div className='flex flex-col'>
                                 <Label htmlFor="n_planilla">Nº Planilla</Label>
-                                <Input
-                                    type="text"
-                                    placeholder="Escriba el nro de la planilla..."
-                                    {...register('n_planilla', {
-                                        required: 'Este campo es obligatorio',
-                                    })}
-                                />
-                                {errors.n_planilla && (
-                                    <p className="text-red-700">
-                                        {errors.n_planilla.message}
-                                    </p>
-                                )}
+                                <p className='bg-gray-200 text-gray-900 border border-gray-400 px-4 py-2 rounded-md my-3 mt-1 mb-3 p-1.5 text-right'>
+                                    {formNumber}
+                                </p>
                             </div>
 
                             <div className='flex flex-col'>
@@ -269,12 +266,12 @@ export function VolquetasFormPage() {
                             </div>
                         </div>
 
-                        {/*Nro de Viaje por Dia --- Hora Inicio --- Hora Final */}
+                        {/--- Hora Inicio --- Hora Final */}
                         <div className="grid grid-cols-2 gap-3">
                             <div>
                                 <Label htmlFor="hora_inicio">Hora Inicio</Label>
                                 <Input
-                                    type="time"
+                                    type="datetime-local"
                                     placeholder="Coloque hora de inicio..."
                                     {...register('hora_inicio', {
                                         required: 'Este campo es obligatorio',
@@ -290,7 +287,7 @@ export function VolquetasFormPage() {
                             <div>
                                 <Label htmlFor="hora_final">Hora Final</Label>
                                 <Input
-                                    type="time"
+                                    type="datetime-local"
                                     placeholder="Coloque hora de fin..."
                                     {...register('hora_final', {
                                         required: 'Este campo es obligatorio',
@@ -304,7 +301,7 @@ export function VolquetasFormPage() {
                             </div>
                         </div>
 
-                        {/* Kilometraje Inicio --- Kilometraje Final */}
+                        {/* Kilometraje Inicio --- Kilometraje Final ---Km total */}
                         <div className="grid grid-cols-3 gap-3">
                             <div className='col-span-1'>
                                 <Label htmlFor="km_inicial">Klm Inicial</Label>

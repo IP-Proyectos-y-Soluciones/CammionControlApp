@@ -21,7 +21,7 @@ import { EmployeeByDniPage } from './pages/Employees/EmployeesByDniPage.jsx';
 import { UpdateEmployeeByDni } from './pages/Employees/UpdateEmployeeFormByDniPage.jsx';
 import { UsersPage } from './pages/Users/UsersPage.jsx';
 import { UsersFormAddPage } from './pages/Users/UsersFormAddPage.jsx';
-import { UsersFormLockUnlockPage } from './pages/Users/UsersFormLockUnlockPage.jsx';
+import { UsersFormDisablePage, UsersFormUnlockPage } from './pages/Users/UsersFormDisableUnlockPage.jsx';
 import { UserProfileDetail } from './pages/UserDetail/UserProfileDetail.jsx';
 import { VolquetasFormPage } from './pages/VolquetasForm/VolquetasFormPage.jsx';
 import { UnauthorizedPage } from './pages/UnauthorizedPage/UnauthorizedPage.jsx';
@@ -39,6 +39,9 @@ import { DriverLicenseFormAddPage } from './pages/Licenses/DriverLicenseFormAddP
 import { VehicleDocumentRegisterPage } from './pages/Documents/VehicleDocumentRegPage.jsx';
 import { GeneralAccessPageAdmin } from './pages/GeneralAccess/GeneralAccessPageAdmin.jsx';
 import Footer  from './components/Common/Footer.jsx';
+import { UsersSearchPage } from './pages/Users/UsersSearchPage.jsx';
+import { InvoiceSearchFormPage } from './pages/Invoices/InvoiceSearchFormPage.jsx';
+import { InvoiceRefuelingImageView } from './components/Images/InvoiceRefuelingImageView.jsx';
 
 function App() {
   const location = useLocation();
@@ -157,10 +160,28 @@ function App() {
               />
 
               <Route
-                path="users/admin/lock-unlock"
+              path='/users/user/byuser'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                  <UsersSearchPage />
+                </ProtectedRoute>
+              }
+              />
+
+              <Route
+              path='/users/admin/disable-user'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                  <UsersFormDisablePage />
+                </ProtectedRoute>
+              }
+              />
+
+              <Route
+                path="users/admin/unlock-user"
                 element={
                   <ProtectedRoute allowed={['Admin', 'Owner']}>
-                    <UsersFormLockUnlockPage />
+                    <UsersFormUnlockPage />
                   </ProtectedRoute>
               }
               />
@@ -200,8 +221,26 @@ function App() {
               <Route
               path='/documents/add'
               element={
-                <ProtectedRoute>
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
                   <VehicleDocumentRegisterPage />
+                </ProtectedRoute>
+              }
+              />
+
+              <Route
+              path='/search/refueling'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                 <InvoiceSearchFormPage />
+                </ProtectedRoute>
+              }
+              />
+
+              <Route 
+              path='/imgrefueling-view'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                  <InvoiceRefuelingImageView />
                 </ProtectedRoute>
               }
               />
