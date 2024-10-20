@@ -103,9 +103,9 @@ export const InvoicesDropdown = (setMenuOpen) => {
                             >
                                 <button
                                     onClick={toggleSubMenu}
-                                    className="customSubMenu flex items-center justify-between"
+                                    className={`customSubMenu flex items-center justify-between ${isSubMenuOpen ? 'text-yellow-400' : ''}`}
                                 >
-                                    <span className='text-lg' >Buscar Recibo Por...</span>
+                                    <span className='text-lg font-normal' >Buscar Recibo Por...</span>
                                     <FontAwesomeIcon
                                     icon={faAngleDown}
                                     className='ml-2 mt-3 text-xl sm:inline sm:mb-6'
