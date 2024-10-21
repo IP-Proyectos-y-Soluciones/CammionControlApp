@@ -6,9 +6,19 @@ import {
     putVolqueta,
     deleteVolqueta,
 } from '../controllers/volquetas.controller';
+import { generarNumeroPlanilla } from '../libs/GenRandomControlNumb';
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 const router = Router();
+
+router.get(
+    '/gennumber',
+    // TokenValidation,
+    (req, res) => {
+        const numbOfForm = generarNumeroPlanilla();
+        res.json({ numbOfForm });
+    },
+);
 
 router.post(
     '/addplanilla',

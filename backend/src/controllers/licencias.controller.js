@@ -2,39 +2,6 @@ import Licencia from '../models/Licencia';
 import Persona from '../models/Persona';
 
 export const createLicencia = async (req, res) => {
-    // try {
-    //     const {
-    //         conductor,
-    //         licencia_N,
-    //         categoria,
-    //         clase_de_vehiculo,
-    //         servicio,
-    //         fecha_expedicion,
-    //         fecha_vencimiento,
-    //     } = req.body;
-    //     const persona = await Persona.findById(conductor);
-    //     if (!persona) {
-    //         return res.status(404).json({
-    //             message: 'El id de la persona no existe',
-    //         });
-    //     }
-    //     const newLicencia = new Licencia({
-    //         conductor,
-    //         licencia_N,
-    //         categoria,
-    //         clase_de_vehiculo,
-    //         servicio,
-    //         fecha_expedicion,
-    //         fecha_vencimiento,
-    //     });
-    //     await newLicencia.save();
-    //     res.status(200).json({
-    //         message: 'la licencia ha sido guardada correctamente!',
-    //         newLicencia,
-    //     });
-    // } catch (error) {
-    //     res.status(500).json(error);
-    // }
     try {
         const {
             conductor_cedula,
@@ -87,6 +54,30 @@ export const createLicencia = async (req, res) => {
     }
 };
 
+export const getLicenciaByID = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const response = await Licencia.findById({ _id: id });
+
+        if (!response) {
+            return res
+                .status(404)
+                .json({ message: 'Licencia no encontrada...!' });
+        }
+
+        res.status(200).json({
+            message: 'Detalles de la licencia:',
+            response,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error al obtener las licencias',
+            error: error.message,
+        });
+    }
+};
+
 export const getLicencia = async (req, res) => {
     try {
         const { licencia_N, clase_de_vehiculo } = req.query;
@@ -113,6 +104,7 @@ export const getLicencia = async (req, res) => {
         });
     }
 };
+
 export const putLicencia = async (req, res) => {
     try {
         const {
