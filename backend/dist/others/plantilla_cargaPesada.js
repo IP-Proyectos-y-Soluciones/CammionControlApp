@@ -113,20 +113,20 @@ function _heavyLoadTemplate() {
           console.log('Imagen guardada correctamente en MongoDB');
 
           // Eliminar archivos temporales
-          // fs.unlinkSync(pdfPath); /////////////////
-          // fs.unlinkSync(imagePath); ////////////////
-          _context.next = 44;
+          _fs["default"].unlinkSync(pdfPath);
+          _fs["default"].unlinkSync(imagePath);
+          _context.next = 46;
           break;
-        case 40:
-          _context.prev = 40;
+        case 42:
+          _context.prev = 42;
           _context.t0 = _context["catch"](0);
           console.error('Error durante la conversión:', _context.t0.message);
           console.error(_context.t0.stack); // Esto te mostrará detalles más específicos sobre dónde ocurre el error
-        case 44:
+        case 46:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 40]]);
+    }, _callee, null, [[0, 42]]);
   }));
   return _heavyLoadTemplate.apply(this, arguments);
 }
