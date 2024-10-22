@@ -1,28 +1,11 @@
 import CargaPesada from '../models/CargaPesada';
 import Persona from '../models/Persona';
 import Vehiculo from '../models/Vehiculo';
-import { plantillaCargaPesada } from '../others/planilla_cargaPesada';
-import { generarNumeroPlanilla } from '../libs/GenRandomControlNumb';
+import { heavyLoadTemplate } from '../others/plantilla_cargaPesada';
+// import { generarNumeroPlanilla } from '../libs/GenRandomControlNumb';
 
 export const createHeavyLoadForm = async (req, res) => {
     try {
-        // const {
-        //     fecha_inicio,
-        //     fecha_final,
-        //     placa_vehiculo,
-        //     conductor_cedula,
-        //     ciudad_inicio,
-        //     ciudad_destino,
-        //     empresa,
-        //     valor_flete,
-        //     anticipo_empresa,
-        //     anticipo_cliente,
-        //     acpm,
-        //     peaje,
-        //     mantenimiento,
-        //     mecanico,
-        //     otros,
-        // } = req.body;
         const {
             n_planilla,
             fecha_inicio,
@@ -62,7 +45,7 @@ export const createHeavyLoadForm = async (req, res) => {
             });
         }
 
-        // // // const generateCN = generarNumeroPlanilla();
+        // const generateCN = generarNumeroPlanilla(); /////////////////
 
         // Sumatoria de todos los anticipos recibidos...
         let totalAdvance =
@@ -80,7 +63,7 @@ export const createHeavyLoadForm = async (req, res) => {
         let totalBalance = parseInt(valor_flete) - totalAdvance - totalSpends;
 
         const newHeavyLoad = new CargaPesada({
-            // n_planilla: generateCN,
+            // n_planilla: generateCN, /////////////////
             n_planilla,
             fecha_inicio,
             fecha_final,
@@ -106,13 +89,7 @@ export const createHeavyLoadForm = async (req, res) => {
 
         const savedHeavyLoad = await newHeavyLoad.save();
 
-        const upHeavyLoad = await CargaPesada.findById(savedHeavyLoad._id)
-            .populate('conductor', 'nombres apellidos')
-            .populate('placa', 'placa');
-
-        console.log(upHeavyLoad);
-
-        plantillaCargaPesada([upHeavyLoad]);
+        await heavyLoadTemplate(savedHeavyLoad);
 
         await Persona.findByIdAndUpdate(
             driver._id,
@@ -131,6 +108,7 @@ export const createHeavyLoadForm = async (req, res) => {
             savedHeavyLoad,
         });
     } catch (error) {
+        console.error(error.stack); // Esto te mostrará detalles más específicos sobre dónde ocurre el error
         if (error instanceof Error) {
             return res.status(500).json({ error: error.message });
         } else {
