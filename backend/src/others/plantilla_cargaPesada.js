@@ -259,8 +259,8 @@ export async function heavyLoadTemplate(data) {
         console.log('Imagen guardada correctamente en MongoDB');
 
         // Eliminar archivos temporales
-        // fs.unlinkSync(pdfPath); /////////////////
-        // fs.unlinkSync(imagePath); ////////////////
+        fs.unlinkSync(pdfPath);
+        fs.unlinkSync(imagePath);
     } catch (error) {
         console.error('Error durante la conversión:', error.message);
         console.error(error.stack); // Esto te mostrará detalles más específicos sobre dónde ocurre el error
