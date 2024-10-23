@@ -41,6 +41,21 @@ const volquetaSchema = new mongoose.Schema(
     },
     material: {
       type: String,
+      enum: [
+        "Arena",
+        "Grava",
+        "Tierra",
+        "Piedra",
+        "Escombros",
+        "Concreto",
+        "Asfalto",
+        "Roca triturada",
+        "Ripio",
+        "Minerales (por ejemplo, carbón o cobre)",
+        "Basura (en proyectos de demolición o limpieza)",
+        "Material orgánico (en proyectos de paisajismo, como tierra vegetal)",
+        "Otro",
+      ],
       required: true,
     },
     hora_inicio: {

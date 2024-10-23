@@ -47,7 +47,7 @@ export function plantillaVolquetas(volquetas, res) {
         .moveTo(50, 100)
         .stroke();
 
-      const titulo = "Detalles Generales";
+      const titulo = "Detalles De Carga";
       const tituloWidth = doc.widthOfString(titulo);
       const tituloXPosition = (doc.page.width - tituloWidth) / 2;
 

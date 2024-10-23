@@ -15,6 +15,10 @@ const tanqueoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    km_al_tanqueo: {
+      type: String,
+      required: true,
+    },
     cantidad_galones: { type: String },
     valor_tanqueo: { type: Number },
     vehiculo_placa: { type: String, required: true },

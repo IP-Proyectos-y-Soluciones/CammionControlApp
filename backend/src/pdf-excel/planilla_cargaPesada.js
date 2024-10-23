@@ -49,7 +49,7 @@ export function plantillaCargaPesada(data, res) {
         .moveTo(50, 100)
         .stroke();
 
-      const titulo = "Detalles Generales";
+      const titulo = "Detalles Del Viaje";
       const tituloWidth = doc.widthOfString(titulo);
       const tituloXPosition = (doc.page.width - tituloWidth) / 2;
 
@@ -65,10 +65,11 @@ export function plantillaCargaPesada(data, res) {
         [
           `Ciudad Inicio: ${ciudad_inicio}`,
           `Ciudad Destino: ${ciudad_destino}`,
-          `Placa: ${placa.placa}`,
         ],
         [
+          `Placa: ${placa.placa}`,
           `Empresa: ${empresa}`,
+
           `Conductor: ${conductor.nombres} ${conductor.apellidos}`,
           `Valor Flete: ${valor_flete}`,
         ],
@@ -90,7 +91,7 @@ export function plantillaCargaPesada(data, res) {
         currentY += cellHeight;
       });
 
-      const datosAdicionalesTitulo = "Datos Adicionales";
+      const datosAdicionalesTitulo = "Valores";
       const datosAdicionalesTituloWidth = doc.widthOfString(
         datosAdicionalesTitulo
       );

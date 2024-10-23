@@ -26,6 +26,7 @@ import tanqueosRoutes from "./routes/tanqueo.routes";
 import usuariosRoutes from "./routes/usuario.routes";
 import vehiculosRoutes from "./routes/vehiculo.routes";
 import volquetasRoutes from "./routes/volqueta.routes";
+import imageRoutes from "./routes/image.routes";
 
 dotenv.config();
 
@@ -155,6 +156,13 @@ app.use(
   // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
   //AuxAuthMiddleware, // Desactivar para la producción...
   volquetasRoutes
+);
+//
+app.use(
+  "/api/images",
+  // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
+  AuxAuthMiddleware,
+  imageRoutes
 );
 
 // // Ruta para obtener el token CSRF... // Activar
