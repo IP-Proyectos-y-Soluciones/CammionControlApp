@@ -11,7 +11,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export function InvoiceSearchFormPage() {
     const [cedula, setCedula] = useState('');
-    const [invoice, setInvoice] = useState(null);
+    const [invoice, setInvoice] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const {reset} = useForm();
@@ -20,7 +20,7 @@ export function InvoiceSearchFormPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        console.log('error en handlesubmit')
         try {
             setLoading(true);
             setError('');
@@ -29,16 +29,18 @@ export function InvoiceSearchFormPage() {
                 cedula,
                 invoice,
             );
-
+            console.log('este es el response.data:', response.data)
             // Se convierte el blob en un URL para mostrar la imagen...
             const imageBlob = new Blob([response.data], {
                 type: response.headers['Content-Type'],
             });
             const imageUrl = URL.createObjectURL(imageBlob);
-
+            
             // Se navega a la vista de la imagen, pasando la URL de la imagen...
             navigate('/imgrefueling-view', { state: { imageUrl } });
+            console.log('error en imageBlob:', imageBlob)
         } catch (error) {
+            console.error(error.message)
             setLoading(false);
             setError(
                 'No se pudo obtener la imagen, verifique la cédula y el recibo.',

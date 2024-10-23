@@ -81,7 +81,7 @@ export function UsersFormUnlockPage() {
               type="submit"
               className="rounded-md btn-formularios"
             >
-              <span className='text-red-700'>Aceptar</span>
+              <span className='text-red-700'>Desbloquear</span>
               <FontAwesomeIcon
               icon={faAngleRight}
               className='absolute right-3 text-lg'
@@ -199,7 +199,7 @@ export function UsersFormDisablePage(){
               type="submit"
               className="rounded-md btn-formularios"
             >
-              <span className='text-red-700'>Aceptar</span>
+              <span className='text-red-700'>Inhabilitar</span>
               <FontAwesomeIcon
               icon={faAngleRight}
               className='absolute right-3 text-lg'

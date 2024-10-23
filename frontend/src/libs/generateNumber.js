@@ -7,5 +7,5 @@ export const generateFormControlNumber = () =>{
     const day = String(date.getDate()).padStart(2, '0');
     const randomNumber = Math.floor(1000000 + Math.random() * 900000);
 
-    return `${prefix}${year}${month}${day}-${randomNumber};`
+    return `${prefix}${year}${month}${day}-${randomNumber}`;
 }

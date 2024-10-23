@@ -66,6 +66,7 @@ export function VehiclesList() {
                         <th className="px-4 py-2 border-b">Clase</th>
                         <th className="px-4 py-2 border-b">Marca</th>
                         <th className="px-4 py-2 border-b">Color</th>
+                        <th className="px-4 py-2 border-b">Asignado a...</th>
                     </tr>
                 </thead>
                 <tbody>

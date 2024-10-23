@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { showAllUsersRequest } from '../../../api/users';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 export function UsersList() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   useEffect(() => {
     const searchUsers = async () => {

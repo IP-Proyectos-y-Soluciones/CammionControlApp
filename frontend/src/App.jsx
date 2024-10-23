@@ -42,6 +42,7 @@ import Footer  from './components/Common/Footer.jsx';
 import { UsersSearchPage } from './pages/Users/UsersSearchPage.jsx';
 import { InvoiceSearchFormPage } from './pages/Invoices/InvoiceSearchFormPage.jsx';
 import { InvoiceRefuelingImageView } from './components/Images/InvoiceRefuelingImageView.jsx';
+import { InvoiceRefuelingList } from './pages/Invoices/InvoiceRefuelingList.jsx';
 
 function App() {
   const location = useLocation();
@@ -232,6 +233,15 @@ function App() {
               element={
                 <ProtectedRoute allowed={['Admin', 'Owner']}>
                  <InvoiceSearchFormPage />
+                </ProtectedRoute>
+              }
+              />
+
+              <Route 
+              path='/imgrefueling'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                  <InvoiceRefuelingList />
                 </ProtectedRoute>
               }
               />

@@ -34,6 +34,8 @@ export function LoginPage() {
             driverData.data.vehiculos[0],
           );
           setVehicleRegistrationPlate(getVehRegPlate.data.data.placa);
+
+          console.log(getVehRegPlate.data.data.placa)
         }
 
                 const role = response.data.usuarioReg.roles || [];
