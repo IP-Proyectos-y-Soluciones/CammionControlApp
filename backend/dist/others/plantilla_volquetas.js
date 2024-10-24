@@ -3,99 +3,130 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.plantillaVolquetas = plantillaVolquetas;
-var PDFDocument = require('pdfkit');
-var fs = require('fs');
-var path = require('path');
-function plantillaVolquetas(volquetas) {
-  volquetas.forEach(function (volqueta) {
-    try {
-      var fecha = volqueta.fecha,
-        placa = volqueta.placa,
-        conductor_cedula = volqueta.conductor_cedula,
-        cliente = volqueta.cliente,
-        volmts3 = volqueta.volmts3,
-        n_viajes = volqueta.n_viajes,
-        material = volqueta.material,
-        hora_inicio = volqueta.hora_inicio,
-        hora_final = volqueta.hora_final,
-        total_horas = volqueta.total_horas,
-        km_inicial = volqueta.km_inicial,
-        km_final = volqueta.km_final,
-        total_km_dia = volqueta.total_km_dia,
-        honorarios = volqueta.honorarios,
-        lugar_de_cargue = volqueta.lugar_de_cargue,
-        lugar_de_descargue = volqueta.lugar_de_descargue,
-        observacion = volqueta.observacion;
-      var doc = new PDFDocument();
-      // const nombreArchivo = path.join(
-      //   __dirname,
-      //   `Planilla_${volqueta.n_planilla}.pdf`
-      // );
-      var nombreArchivo = path.resolve(__dirname, '../pdf-excel', // Sube un nivel y navega a pdf-excel...
-      "Planilla_".concat(volqueta.n_planilla, ".pdf"));
-      var salida = fs.createWriteStream(nombreArchivo);
-      doc.pipe(salida);
+exports.volquetaTemplate = volquetaTemplate;
+var _puppeteer = _interopRequireDefault(require("puppeteer"));
+var _pdfPoppler = require("pdf-poppler");
+var _fs = _interopRequireDefault(require("fs"));
+var _path = _interopRequireDefault(require("path"));
+var _VolquetaImage = _interopRequireDefault(require("../models/VolquetaImage"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function volquetaTemplate(_x) {
+  return _volquetaTemplate.apply(this, arguments);
+}
+function _volquetaTemplate() {
+  _volquetaTemplate = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(data) {
+    var logoPath, logoBase64, logoDataURL, browser, page, FormattedDate, FormattedStartTime, FormattedEndTime, content, pdfDir, pdfPath, options, result, convertedFiles, imagePath, imageBuffer, newImage;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          // Cargar el logo como base64...
+          logoPath = _path["default"].resolve(__dirname, '../icons/yadiraLogoColor2.png');
+          logoBase64 = _fs["default"].readFileSync(logoPath, 'base64');
+          logoDataURL = "data:image/png;base64,".concat(logoBase64); // Se genera el PDF con 'puppeteer'...
+          _context.next = 6;
+          return _puppeteer["default"].launch();
+        case 6:
+          browser = _context.sent;
+          _context.next = 9;
+          return browser.newPage();
+        case 9:
+          page = _context.sent;
+          // Formatear la fecha en formato dd-mm-yyyy...
+          FormattedDate = new Date(data.fecha).toLocaleDateString('es-CO', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            timeZone: 'America/Bogota' // Zona horaria de Colombia...
+          });
+          FormattedStartTime = new Date(data.hora_inicio).toLocaleTimeString('es-CO', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+            // Ajusta el formato a 24 horas...
+            timeZone: 'America/Bogota' // Zona horaria de Colombia...
+          });
+          FormattedEndTime = new Date(data.hora_final).toLocaleTimeString('es-CO', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+            // Ajusta el formato a 24 horas...
+            timeZone: 'America/Bogota' // Zona horaria de Colombia...
+          });
+          content = "\n            <html>\n                <head>\n                    <style>\n                        body {\n                            font-family: Arial, sans-serif;\n                            margin: 20px;\n                            padding: 0;\n                        }\n                        h1 {\n                            text-align: center;\n                            font-size: 24px;\n                            margin-bottom: 20px;\n                            color: #333;\n                        }\n                        .header {\n                            display: flex;\n                            justify-content: space-between;\n                            align-items: center;\n                        }\n                        .logo {\n                            width: 20%;\n                            height: 20%;\n                        }\n                        .planilla {\n                            font-size: 14px;\n                            color: blue;\n                            text-align: right;\n                        }\n                        table {\n                            width: 100%;\n                            border-collapse: collapse;\n                            margin-top: 20px;\n                        }\n                        th, td {\n                            border: 1px solid #ddd;\n                            padding: 10px;\n                            text-align: left;\n                        }\n                        th {\n                            background-color: #f2f2f2;\n                            font-weight: bold;\n                        }\n                        .right-align {\n                            text-align: right;\n                        }\n                        .subtitulo {\n                            margin-top: 20px;\n                            font-size: 18px;\n                            font-weight: bold;\n                        }\n                        .footer {\n                            text-align: center;\n                            margin-top: 50px;\n                            font-size: 14px;\n                            color: #555;\n                        }\n                    </style>\n                </head>\n                <body>\n                    <!-- Encabezado con logo y n\xFAmero de planilla -->\n                    <div class=\"header\">\n                        <img src=\"".concat(logoDataURL, "\" class=\"logo\" alt=\"Logo\">\n                        <div class=\"planilla\">Planilla N\xBA: ").concat(data.n_planilla, "</div>\n                    </div>\n\n                    <h1>CONTROL DIARIO DE TRANSPORTE DE MATERIALES [VOLQUETAS]</h1>\n\n                    <!-- Tabla de Detalles Generales -->\n                    <h2 class=\"subtitulo\">Detalles Generales</h2>\n                    <table>\n                        <tr>\n                            <th>Conductor</th>\n                            <th>Placas</th>\n                            <th>Fecha</th>\n                        </tr>\n                        <tr>\n                            <td>").concat(data.conductor_cedula, "</td>\n                            <td>").concat(data.placa_vehiculo, "</td>\n                            <td>").concat(FormattedDate, "</td>\n                        </tr>\n                        <tr>\n                            <th>Hora Inicio</th>\n                            <th>Hora Final</th>\n                            <th>Total Horas</th>\n                        </tr>\n                        <tr>\n                            <td>").concat(FormattedStartTime, "</td>\n                            <td>").concat(FormattedEndTime, "</td>\n                            <td>").concat(data.total_horas, "</td>\n                        </tr>\n                        <tr>\n                            <th>Kmt Inicial</th>\n                            <th>Kmt Final</th>\n                            <th>Total Km x d\xEDa</th>\n                        </tr>\n                        <tr>\n                            <td>").concat(data.km_inicial, "</td>\n                            <td>").concat(data.km_final, "</td>\n                            <td>").concat(data.total_km_dia, "</td>\n                        </tr>\n                    </table>\n\n                    <!-- Tabla de Detalles Adicionales -->\n                    <h2 class=\"subtitulo\">Detalles Adicionales</h2>\n                    <table>\n                    <tr>\n                        <th>Cliente</th>\n                        <th>Material</th>\n                        <th>Volumen Mts3</th>\n                    </tr>\n                    <tr>\n                        <td>").concat(data.cliente, "</td>\n                        <td>").concat(data.material, "</td>\n                        <td>").concat(data.volmts3, "</td>\n                    </tr>\n                    <tr>\n                        <th>Cant. Viajes</th>\n                        <th>Lugar de Cargue</th>\n                        <th>Lugar de Descargue</th>\n                    </tr>\n                    <tr>\n                        <td>").concat(data.n_viajes, "</td>\n                        <td>").concat(data.lugar_de_cargue, "</td>\n                        <td>").concat(data.lugar_de_descargue, "</td>\n                    </tr>\n                    <tr>\n                        <th>Observaciones</th>\n                        <td colspan=\"2\">").concat(data.observacion, "</td>\n                    </tr>\n                    </table>\n\n                    <div class=\"footer\">\n                        <p>Este es un documento generado electr\xF3nicamente</p>\n                    </div>\n                </body>\n            </html>\n        "); // Configuración del contenido en la página
+          _context.next = 16;
+          return page.setContent(content);
+        case 16:
+          // Guardar el PDF temporalmente
+          pdfDir = _path["default"].resolve(__dirname, '../pdf-excel');
+          pdfPath = _path["default"].join(pdfDir, "volqueta_".concat(data.n_planilla, ".pdf"));
+          if (!_fs["default"].existsSync(pdfDir)) {
+            _fs["default"].mkdirSync(pdfDir);
+          }
+          _context.next = 21;
+          return page.pdf({
+            path: pdfPath,
+            format: 'A4',
+            printBackground: true
+          });
+        case 21:
+          _context.next = 23;
+          return browser.close();
+        case 23:
+          // Convertir PDF a imagen PNG usando pdf-poppler
+          options = {
+            format: 'png',
+            out_dir: pdfDir,
+            out_prefix: "volqueta_".concat(data.n_planilla),
+            page: null
+          };
+          _context.next = 26;
+          return (0, _pdfPoppler.convert)(pdfPath, options)["catch"](function (err) {
+            throw new Error("Error al convertir el PDF: ".concat(err.message));
+          });
+        case 26:
+          result = _context.sent;
+          // Verificar si la conversión fue exitosa
+          convertedFiles = _fs["default"].readdirSync(pdfDir).filter(function (file) {
+            return file.startsWith(options.out_prefix) && file.endsWith('.png');
+          });
+          if (!(convertedFiles.length === 0)) {
+            _context.next = 30;
+            break;
+          }
+          throw new Error('La conversión de PDF a imagen falló');
+        case 30:
+          imagePath = _path["default"].join(pdfDir, convertedFiles[0]); // Leer la imagen generada
+          imageBuffer = _fs["default"].readFileSync(imagePath); // Guardar la imagen PNG en MongoDB
+          newImage = new _VolquetaImage["default"]({
+            volqueta: data._id,
+            image_data: imageBuffer,
+            mimeType: 'image/png'
+          });
+          _context.next = 35;
+          return newImage.save();
+        case 35:
+          console.log('Imagen guardada correctamente en MongoDB');
 
-      // const logo = path.join(__dirname, './yadiraLogoColor2.png');
-      var logo = path.resolve(__dirname, '../icons',
-      // Sube un nivel y navega a icons...
-      'yadiraLogoColor2.png');
-      doc.image(logo, 50, 3, {
-        width: 200
-      });
-      var planillaText = "Planilla N\xB0:- ".concat(volqueta.n_planilla);
-      var textWidth = doc.widthOfString(planillaText);
-      var textXPosition = doc.page.width - 50 - textWidth;
-      doc.fontSize(8).text(planillaText, textXPosition, 60).moveDown().moveTo(50, 100).stroke();
-      var titulo = 'Detalles Generales';
-      var tituloWidth = doc.widthOfString(titulo);
-      var tituloXPosition = (doc.page.width - tituloWidth) / 2;
-      doc.fontSize(12).text(titulo, tituloXPosition, 120).moveDown(1.5);
-      var startX = 50;
-      var startY = 130;
-      var cellWidth = 170;
-      var cellHeight = 20;
-      var currentY = startY;
-      var detallesGenerales = [["Fecha: ".concat(volqueta.fecha.toLocaleDateString()), "Placa: ".concat(volqueta.placa.placa), "VOL.MTS3: ".concat(volqueta.volmts3)], ["Cliente: ".concat(volqueta.cliente), "Conductor: ".concat(volqueta.conductor.nombres).concat(volqueta.conductor.apellidos), "N_viajes: ".concat(volqueta.n_viajes)], ["Hora Inicio: ".concat(volqueta.hora_inicio.toLocaleTimeString()), "Hora Final: ".concat(volqueta.hora_final.toLocaleTimeString()), "Total horas: ".concat(volqueta.total_horas)], ["KM Inicial: ".concat(volqueta.km_inicial), "KM Final: ".concat(volqueta.km_final), "KM recorridos: ".concat(volqueta.total_km_dia)]];
-      detallesGenerales.forEach(function (row) {
-        row.forEach(function (text, index) {
-          var xPos = startX + index * cellWidth;
-          doc.rect(xPos, currentY, cellWidth, cellHeight).stroke();
-          doc.fontSize(10).text(text, xPos + 5, currentY + 5, {
-            width: cellWidth - 10,
-            align: 'left'
-          });
-        });
-        currentY += cellHeight;
-      });
-      var datosAdicionalesTitulo = 'Datos Adicionales';
-      var datosAdicionalesTituloWidth = doc.widthOfString(datosAdicionalesTitulo);
-      var datosAdicionalesTituloXPosition = (doc.page.width - datosAdicionalesTituloWidth) / 2;
-      doc.fontSize(12).text(datosAdicionalesTitulo, datosAdicionalesTituloXPosition, currentY + 20).moveDown(1.5);
-      currentY += 40;
-      var datosAdicionales = [['Material', volqueta.material], ['Lugar De Cargue', volqueta.lugar_de_cargue], ['Lugar De Descargue', volqueta.lugar_de_descargue], ['Honorarios', volqueta.honorarios], ['Observacion', volqueta.observacion]];
-      var datosCellWidth = 250;
-      datosAdicionales.forEach(function (row) {
-        row.forEach(function (text, index) {
-          var xPos = startX + index * datosCellWidth;
-          doc.rect(xPos, currentY, datosCellWidth, cellHeight).stroke();
-          doc.fontSize(10).text(text, xPos + 5, currentY + 5, {
-            width: datosCellWidth - 10,
-            align: 'left'
-          });
-        });
-        currentY += cellHeight;
-      });
-      doc.end();
-      salida.on('finish', function () {
-        console.log("Plantilla generada: Plantilla_".concat(volqueta.n_planilla, ".pdf"));
-      });
-      salida.on('error', function (err) {
-        console.error("Error en el flujo de salida: ".concat(err.message));
-      });
-    } catch (error) {
-      console.error("Error generando la plantilla: ".concat(error.message));
-    }
-  });
+          // Eliminar archivos temporales
+          _fs["default"].unlinkSync(pdfPath);
+          _fs["default"].unlinkSync(imagePath);
+          _context.next = 44;
+          break;
+        case 40:
+          _context.prev = 40;
+          _context.t0 = _context["catch"](0);
+          console.error('Error durante la generación del documento:', _context.t0.message);
+          console.error(_context.t0.stack);
+        case 44:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[0, 40]]);
+  }));
+  return _volquetaTemplate.apply(this, arguments);
 }

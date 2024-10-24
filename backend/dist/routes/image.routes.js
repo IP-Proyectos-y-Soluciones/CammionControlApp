@@ -8,4 +8,5 @@ var _express = require("express");
 var _images = require("../controllers/images.controller");
 var router = (0, _express.Router)();
 router.get('/image/:cedula/:recibo', _images.getRefuelingImageByDNIAndInvoice);
+router.get('/image-volq/:cedula/:recibo', _images.getVolquetaImageByDNIAndInvoice);
 var _default = exports["default"] = router;
