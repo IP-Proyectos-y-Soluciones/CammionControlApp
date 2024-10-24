@@ -11,9 +11,11 @@ import { NavBarMain } from './components/Common/NavBarMain.jsx';
 import FormularioRegistroVolquetas from './pages/ServicesForm/FormularioRegistroVolquetas.jsx';
 import FormularioRegistroTanqueo from './pages/ServicesForm/FormularioRegistroTanqueo.jsx';
 //import Layout from './components/Common/Layout.jsx';
+//import Layout from './components/Common/Layout.jsx';
 import ExcellTractomulas from './components/ExcellVistaPrevia/ExcellTractomulas';
 import ExcellTanqueos from './components/ExcellVistaPrevia/ExcellTanqueos';
 import ExcellVolquetas from './components/ExcellVistaPrevia/ExcellVolquetas';
+//import { AuthProvider } from './context/AuthContext';
 //import { AuthProvider } from './context/AuthContext';
 import { EmployeesDetailsCard } from './components/Employees/EmployeesDetailsCard.jsx';
 import { EmployeesFormAddPage } from './pages/Employees/EmployeesFormAddPage';
@@ -269,16 +271,16 @@ function App() {
               element={<GeneralAccessPage />}
               />
 
-              <Route 
-               path="/volquetas/planilla/add"
-               element={
-                   <ProtectedRoute
-                       allowed={['Admin', 'Owner', 'Empleado']}
-                   >
-                       <VolquetasFormPage />
-                   </ProtectedRoute>
-               }
-              />
+                    <Route
+                        path="/volquetas/planilla/add"
+                        element={
+                            <ProtectedRoute
+                                allowed={['Admin', 'Owner', 'Empleado']}
+                            >
+                                <VolquetasFormPage />
+                            </ProtectedRoute>
+                        }
+                    />
 
               <Route
               path="/refueling/planilla/add"

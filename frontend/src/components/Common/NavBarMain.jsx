@@ -25,19 +25,19 @@ export function NavBarMain() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
     
 
-  const handleLogout = async () => {
-    try {
-      const response = await logoutRequest();
-      if (response.status === 200) {
-        logout();
-        navigate('/');
-      } else {
-        console.error('Error al cerrar sesión');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+    const handleLogout = async () => {
+        try {
+            const response = await logoutRequest();
+            if (response.status === 200) {
+                logout();
+                navigate('/');
+            } else {
+                console.error('Error al cerrar sesión');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
   const handleDashboardLink =()=>{
     if(userRole === 'Owner' || userRole === 'Admin'){
@@ -87,9 +87,9 @@ export function NavBarMain() {
   //   }
   // },[]);
 
-  const isAuthorized =
-  userRole === import.meta.env.VITE_RAD ||
-  userRole === import.meta.env.VITE_ROW;
+    const isAuthorized =
+        userRole === import.meta.env.VITE_RAD ||
+        userRole === import.meta.env.VITE_ROW;
 
   const isLandingPage = location.pathname === '/' | location.pathname === '/login';
 

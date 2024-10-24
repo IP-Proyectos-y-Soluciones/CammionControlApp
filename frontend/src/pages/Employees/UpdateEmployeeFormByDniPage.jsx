@@ -1,8 +1,9 @@
+/* eslint-disable no-prototype-builtins */
 import { Button, Input, Label } from '../../components//UI';
 import { useForm } from 'react-hook-form';
 import {
-  getEmployeeByDniRequest,
-  updateEmployeeByDniRequest,
+    getEmployeeByDniRequest,
+    updateEmployeeByDniRequest,
 } from '../../../api/employees';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -12,111 +13,111 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export function UpdateEmployeeByDni() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-    reset,
-  } = useForm();
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+        reset,
+    } = useForm();
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = async (data) => {
-    try {
-      setIsLoading(true);
+    const onSubmit = async (data) => {
+        try {
+            setIsLoading(true);
 
       const response = await updateEmployeeByDniRequest(data);
 
-      if (response.status === 200) {
-        setIsLoading(false)
-        swal2
-          .fire({
-            title: 'Actualización exitosa',
-            text: `El empleado con cédula ${response.data.cedula} ha sido actualizado`,
-            icon: 'success',
-            showCancelButton: true,
-            confirmButtonText: 'Sí',
-            cancelButtonText: 'No',
-          })
-          .then((result) => {
-            if (result.isConfirmed) {
-              reset();
-            } else {
-              reset();
-              navigate('/employees');
+            if (response.status === 200) {
+                setIsLoading(false);
+                swal2
+                    .fire({
+                        title: 'Actualización exitosa',
+                        text: `El empleado con cédula ${response.data.cedula} ha sido actualizado`,
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí',
+                        cancelButtonText: 'No',
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            reset();
+                        } else {
+                            reset();
+                            navigate('/employees');
+                        }
+                    });
             }
-          });
-      }
-    } catch (error) {
-      setIsLoading(false);
-      swal2.fire({
-        title: 'Error...',
-        text:
-          error.response?.data?.message ||
-          'No se pudo actualizar al empleado. Deberá repetir la operación...!',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const formatDate = (dateString) => {
-    return dateString
-      ? new Date(dateString).toISOString().split('T')[0]
-      : '';
-  };
-
-  const handleKeyDown = async (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      try {
-        setIsLoading(true);
-
-        const response = await getEmployeeByDniRequest(
-          event.target.value,
-        );
-        const employeeData = response.data;
-
-        // Convertir fechas al formato requerido por los campos de tipo date...
-        employeeData.fecha_nacimiento = formatDate(
-          employeeData.fecha_nacimiento,
-        );
-        employeeData.fecha_inicio_contrato = formatDate(
-          employeeData.fecha_inicio_contrato,
-        );
-        employeeData.fecha_final_contrato = formatDate(
-          employeeData.fecha_final_contrato,
-        );
-
-        // Rellena los campos del formulario con los datos obtenidos del empleado...
-        for (const key in employeeData) {
-          if (employeeData.hasOwnProperty(key)) {
-            setValue(key, employeeData[key]);
-          }
+        } catch (error) {
+            setIsLoading(false);
+            swal2.fire({
+                title: 'Error...',
+                text:
+                    error.response?.data?.message ||
+                    'No se pudo actualizar al empleado. Deberá repetir la operación...!',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+            });
+        } finally {
+            setIsLoading(false);
         }
+    };
 
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        swal2.fire({
-          title: 'Error...',
-          text:
-            error.response?.data?.message ||
-            'Empleado no encontrado...!',
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-        });
-      }
-    }
-  };
+    const formatDate = (dateString) => {
+        return dateString
+            ? new Date(dateString).toISOString().split('T')[0]
+            : '';
+    };
 
-  const onCancel =()=>{
-    reset();
-    navigate('/employees')
-  }
+    const handleKeyDown = async (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            try {
+                setIsLoading(true);
+
+                const response = await getEmployeeByDniRequest(
+                    event.target.value,
+                );
+                const employeeData = response.data;
+
+                // Convertir fechas al formato requerido por los campos de tipo date...
+                employeeData.fecha_nacimiento = formatDate(
+                    employeeData.fecha_nacimiento,
+                );
+                employeeData.fecha_inicio_contrato = formatDate(
+                    employeeData.fecha_inicio_contrato,
+                );
+                employeeData.fecha_final_contrato = formatDate(
+                    employeeData.fecha_final_contrato,
+                );
+
+                // Rellena los campos del formulario con los datos obtenidos del empleado...
+                for (const key in employeeData) {
+                    if (employeeData.hasOwnProperty(key)) {
+                        setValue(key, employeeData[key]);
+                    }
+                }
+
+                setIsLoading(false);
+            } catch (error) {
+                setIsLoading(false);
+                swal2.fire({
+                    title: 'Error...',
+                    text:
+                        error.response?.data?.message ||
+                        'Empleado no encontrado...!',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                });
+            }
+        }
+    };
+
+    const onCancel = () => {
+        reset();
+        navigate('/employees');
+    };
 
   return (
     <div className='bg-otherpages min-h-screen'>
@@ -161,155 +162,186 @@ export function UpdateEmployeeByDni() {
                 )}
               </div>
 
-              <div>
-                <Label htmlFor="fecha_nacimiento" className="block text-gray-600 text-sm font-semibold mb-2">
-                  Fecha de nacimiento
-                </Label>
-                <Input
-                  type="date"
-                  {...register('fecha_nacimiento', {
-                    required: 'Este campo es obligatorio',
-                  })}
-                />
-                {errors.fecha_nacimiento && (
-                  <p className="text-red-700">
-                    {errors.fecha_nacimiento.message}
-                  </p>
-                )}
-              </div>
-            </div>
+                            <div>
+                                <Label
+                                    htmlFor="fecha_nacimiento"
+                                    className="block text-gray-600 text-sm font-semibold mb-2"
+                                >
+                                    Fecha de nacimiento
+                                </Label>
+                                <Input
+                                    type="date"
+                                    {...register('fecha_nacimiento', {
+                                        required: 'Este campo es obligatorio',
+                                    })}
+                                />
+                                {errors.fecha_nacimiento && (
+                                    <p className="text-red-700">
+                                        {errors.fecha_nacimiento.message}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <Label htmlFor="nombres" className="block text-gray-600 text-sm font-semibold mb-2">Nombres</Label>
-                <Input
-                  type="text"
-                  placeholder="Escriba su(s) nombre(s)..."
-                  {...register('nombres', {
-                    required: 'Este campo es obligatorio',
-                  })}
-                />
-                {errors.nombres && (
-                  <p className="text-red-700">
-                    {errors.nombres.message}
-                  </p>
-                )}
-              </div>
+                        <div className="grid grid-cols-2 gap-3">
+                            <div>
+                                <Label
+                                    htmlFor="nombres"
+                                    className="block text-gray-600 text-sm font-semibold mb-2"
+                                >
+                                    Nombres
+                                </Label>
+                                <Input
+                                    type="text"
+                                    placeholder="Escriba su(s) nombre(s)..."
+                                    {...register('nombres', {
+                                        required: 'Este campo es obligatorio',
+                                    })}
+                                />
+                                {errors.nombres && (
+                                    <p className="text-red-700">
+                                        {errors.nombres.message}
+                                    </p>
+                                )}
+                            </div>
 
-              <div>
-                <Label htmlFor="apellidos" className="block text-gray-600 text-sm font-semibold mb-2">Apellidos</Label>
-                <Input
-                  type="text"
-                  placeholder="Escriba su(s) apellido(s)..."
-                  {...register('apellidos', {
-                    required: 'Este campo es obligatorio',
-                  })}
-                />
-                {errors.apellidos && (
-                  <p className="text-red-700">
-                    {errors.apellidos.message}
-                  </p>
-                )}
-              </div>
-            </div>
+                            <div>
+                                <Label
+                                    htmlFor="apellidos"
+                                    className="block text-gray-600 text-sm font-semibold mb-2"
+                                >
+                                    Apellidos
+                                </Label>
+                                <Input
+                                    type="text"
+                                    placeholder="Escriba su(s) apellido(s)..."
+                                    {...register('apellidos', {
+                                        required: 'Este campo es obligatorio',
+                                    })}
+                                />
+                                {errors.apellidos && (
+                                    <p className="text-red-700">
+                                        {errors.apellidos.message}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
 
-            <Label htmlFor="correo" className="block text-gray-600 text-sm font-semibold mb-2">E-mail</Label>
-            <Input
-              type="email"
-              placeholder="Escriba su E-mail..."
-              {...register('correo', {
-                required: 'Este campo es obligatorio',
-                pattern: {
-                  value:
-                    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message:
-                    'Debe ingresar un correo electrónico válido',
-                },
-              })}
-            />
-            {errors.correo && (
-              <p className="text-red-700">
-                {errors.correo.message}
-              </p>
-            )}
+                        <Label
+                            htmlFor="correo"
+                            className="block text-gray-600 text-sm font-semibold mb-2"
+                        >
+                            E-mail
+                        </Label>
+                        <Input
+                            type="email"
+                            placeholder="Escriba su E-mail..."
+                            {...register('correo', {
+                                required: 'Este campo es obligatorio',
+                                pattern: {
+                                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                                    message:
+                                        'Debe ingresar un correo electrónico válido',
+                                },
+                            })}
+                        />
+                        {errors.correo && (
+                            <p className="text-red-700">
+                                {errors.correo.message}
+                            </p>
+                        )}
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <Label htmlFor="telefono" className="block text-gray-600 text-sm font-semibold mb-2">Teléfono</Label>
-                <Input
-                  type="text"
-                  placeholder="Su nro de teléfono..."
-                  {...register('telefono', {
-                    required: 'Este campo es obligatorio',
-                  })}
-                />
-                {errors.telefono && (
-                  <p className="text-red-700">
-                    {errors.telefono.message}
-                  </p>
-                )}
-              </div>
+                        <div className="grid grid-cols-2 gap-3">
+                            <div>
+                                <Label
+                                    htmlFor="telefono"
+                                    className="block text-gray-600 text-sm font-semibold mb-2"
+                                >
+                                    Teléfono
+                                </Label>
+                                <Input
+                                    type="text"
+                                    placeholder="Su nro de teléfono..."
+                                    {...register('telefono', {
+                                        required: 'Este campo es obligatorio',
+                                    })}
+                                />
+                                {errors.telefono && (
+                                    <p className="text-red-700">
+                                        {errors.telefono.message}
+                                    </p>
+                                )}
+                            </div>
 
-              <div>
-                <Label htmlFor="tipo_de_contrato" className="block text-gray-600 text-sm font-semibold mb-2">
-                  Tipo de contrato
-                </Label>
-                <select
-                  {...register('tipo_de_contrato', {
-                    required:
-                      'Este campo es obligatorio...!',
-                  })}
-                  className="w-full bg-gray-200 text-blue-700 px-4 py-2 rounded-md my-3 mt-1 mb-3"
-                >
-                  <option value="">
-                    Seleccione una opción...
-                  </option>
-                  <option value="Fijo">Fijo</option>
-                  <option value="Indefinido">
-                    Indefinido
-                  </option>
-                </select>
-                {errors.tipo_de_contrato && (
-                  <p className="text-red-700">
-                    {errors.tipo_de_contrato.message}
-                  </p>
-                )}
-              </div>
-            </div>
+                            <div>
+                                <Label
+                                    htmlFor="tipo_de_contrato"
+                                    className="block text-gray-600 text-sm font-semibold mb-2"
+                                >
+                                    Tipo de contrato
+                                </Label>
+                                <select
+                                    {...register('tipo_de_contrato', {
+                                        required:
+                                            'Este campo es obligatorio...!',
+                                    })}
+                                    className="w-full bg-gray-200 text-blue-700 px-4 py-2 rounded-md my-3 mt-1 mb-3"
+                                >
+                                    <option value="">
+                                        Seleccione una opción...
+                                    </option>
+                                    <option value="Fijo">Fijo</option>
+                                    <option value="Indefinido">
+                                        Indefinido
+                                    </option>
+                                </select>
+                                {errors.tipo_de_contrato && (
+                                    <p className="text-red-700">
+                                        {errors.tipo_de_contrato.message}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <Label htmlFor="fecha_inicio_contrato" className="block text-gray-600 text-sm font-semibold mb-2">
-                  Fecha inicio de contrato
-                </Label>
-                <Input
-                  type="date"
-                  {...register('fecha_inicio_contrato', {
-                    required: 'Este campo es obligatorio',
-                  })}
-                />
-                {errors.fecha_inicio_contrato && (
-                  <p className="text-red-700">
-                    {errors.fecha_inicio_contrato.message}
-                  </p>
-                )}
-              </div>
+                        <div className="grid grid-cols-2 gap-3">
+                            <div>
+                                <Label
+                                    htmlFor="fecha_inicio_contrato"
+                                    className="block text-gray-600 text-sm font-semibold mb-2"
+                                >
+                                    Fecha inicio de contrato
+                                </Label>
+                                <Input
+                                    type="date"
+                                    {...register('fecha_inicio_contrato', {
+                                        required: 'Este campo es obligatorio',
+                                    })}
+                                />
+                                {errors.fecha_inicio_contrato && (
+                                    <p className="text-red-700">
+                                        {errors.fecha_inicio_contrato.message}
+                                    </p>
+                                )}
+                            </div>
 
-              <div>
-                <Label htmlFor="fecha_final_contrato" className="block text-gray-600 text-sm font-semibold mb-2">
-                  Fecha final de contrato
-                </Label>
-                <Input
-                  type="date"
-                  {...register('fecha_final_contrato')}
-                />
-                {errors.fecha_final_contrato && (
-                  <p className="text-red-700">
-                    {errors.fecha_final_contrato.message}
-                  </p>
-                )}
-              </div>
-            </div>
+                            <div>
+                                <Label
+                                    htmlFor="fecha_final_contrato"
+                                    className="block text-gray-600 text-sm font-semibold mb-2"
+                                >
+                                    Fecha final de contrato
+                                </Label>
+                                <Input
+                                    type="date"
+                                    {...register('fecha_final_contrato')}
+                                />
+                                {errors.fecha_final_contrato && (
+                                    <p className="text-red-700">
+                                        {errors.fecha_final_contrato.message}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
 
             <div className='flex justufy-end gap-5 mt-3'>
               <div>

@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var tanqueoSchema = new mongoose.Schema({
   fecha_tanqueo: {
     type: Date,
@@ -31,7 +31,7 @@ var tanqueoSchema = new mongoose.Schema({
   },
   vehiculo: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehiculo',
+    ref: "Vehiculo",
     required: true
   },
   conductor_cedula: {
@@ -40,12 +40,16 @@ var tanqueoSchema = new mongoose.Schema({
   },
   conductor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Persona',
+    ref: "Persona",
+    required: true
+  },
+  imagen_url: {
+    type: String,
     required: true
   }
 }, {
   timestamps: false,
   autoCreate: false
 });
-var Tanqueo = mongoose.model('Tanqueo', tanqueoSchema);
+var Tanqueo = mongoose.model("Tanqueo", tanqueoSchema);
 var _default = exports["default"] = Tanqueo;

@@ -489,7 +489,6 @@ export function VolquetasFormPage() {
                     icon: 'success',
                     confirmButtonText: 'Aceptar',
                 });
-
                 reset();
              
                 setFormNumber('Cargando...');
@@ -505,12 +504,15 @@ export function VolquetasFormPage() {
                 icon: 'error',
             });
             setIsLoading(false);
+            setIsLoading(false);
         }
     };
 
     const onCancel = () => {
+    const onCancel = () => {
         reset();
         navigate('/general_access');
+    };
     };
 
     return (

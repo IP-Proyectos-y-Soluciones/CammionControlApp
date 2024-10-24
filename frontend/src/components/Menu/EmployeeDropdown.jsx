@@ -125,6 +125,8 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export const EmployeeDropdown = (setMenuOpen) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -144,9 +146,9 @@ export const EmployeeDropdown = (setMenuOpen) => {
     }
   };
 
-  useEffect(() => {
-    // Agregar el listener cuando el componente se monta...
-    document.addEventListener('click', handleClickOutside);
+    useEffect(() => {
+        // Agregar el listener cuando el componente se monta...
+        document.addEventListener('click', handleClickOutside);
 
     // Limpiar el listener cuando el componente se desmonta...
     return () => {

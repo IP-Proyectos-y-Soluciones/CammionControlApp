@@ -1,5 +1,6 @@
-import { Router } from 'express';
+import { Router } from "express";
 import {
+<<<<<<< HEAD
     createTanqueo,
     getAllTanqueos,
     getTanqueoById,
@@ -8,38 +9,49 @@ import {
     // getDriverByDNI,
     // getVehicleById,
 } from '../controllers/tanqueos.controller';
+=======
+  createTanqueo,
+  getAllTanqueos,
+  getTanqueoById,
+  updateTanqueo,
+  deleteTanqueo,
+  parser,
+} from "../controllers/tanqueos.controller";
+>>>>>>> origin/Dianis2
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 const router = Router();
 
 router.post(
-    '/create',
-    // TokenValidation,
-    createTanqueo,
+  "/create",
+  // TokenValidation,
+  parser,
+  createTanqueo
 );
 
 router.get(
-    '/',
-    // TokenValidation,
-    getAllTanqueos,
+  "/",
+  // TokenValidation,
+  getAllTanqueos
 );
 
 router.get(
-    '/:id',
-    // TokenValidation,
-    getTanqueoById,
+  "/:id",
+  // TokenValidation,
+  getTanqueoById
 );
 
 router.patch(
-    '/update/:id',
-    // TokenValidation,
-    updateTanqueo,
+  "/update/:id",
+  // TokenValidation,
+  parser,
+  updateTanqueo
 );
 
 router.delete(
-    '/delete/:id',
-    // TokenValidation,
-    deleteTanqueo,
+  "/delete/:id",
+  // TokenValidation,
+  deleteTanqueo
 );
 
 // router.get(

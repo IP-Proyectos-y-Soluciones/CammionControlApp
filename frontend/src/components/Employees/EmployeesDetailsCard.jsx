@@ -1,10 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import {
-  useNavigate,
-  useLocation,
-  useParams,
-} from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { getEmployeeByIdRequest } from '../../../api/employees';
 import { getDriverLicenseByIDRequest } from '../../../api/driverLicense';
 
@@ -24,12 +20,12 @@ export function EmployeesDetailsCard({ employee: initialEmployee }) {
   const location = useLocation();
   const { _id } = useParams();
 
-  useEffect(() => {
-    const searchEmployee = async () => {
-      if (!_id) {
-        setLoading(false);
-        return;
-      }
+    useEffect(() => {
+        const searchEmployee = async () => {
+            if (!_id) {
+                setLoading(false);
+                return;
+            }
 
       try {
         const response = await getEmployeeByIdRequest(_id);
@@ -87,28 +83,28 @@ export function EmployeesDetailsCard({ employee: initialEmployee }) {
     }
   }, [_id, initialEmployee]);
 
-  const handleCardClick = () => {
-    if (location.pathname.includes('/employees/bydni')) {
-      navigate('/employees/bydni');
-    } else {
-      navigate('/employees');
+    const handleCardClick = () => {
+        if (location.pathname.includes('/employees/bydni')) {
+            navigate('/employees/bydni');
+        } else {
+            navigate('/employees');
+        }
+    };
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+
+        return `${day}-${month}-${year}`;
+
+        // return new Date(dateString).toISOString().split('T')[0];
+    };
+
+    if (loading) {
+        return <p>Cargando...</p>;
     }
-  };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-
-    return `${day}-${month}-${year}`;
-
-    // return new Date(dateString).toISOString().split('T')[0];
-  };
-
-  if (loading) {
-    return <p>Cargando...</p>;
-  }
 
   return (
     <div

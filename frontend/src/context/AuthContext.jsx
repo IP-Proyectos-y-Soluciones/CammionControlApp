@@ -1,20 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
-import {
-    createContext,
-    useContext,
-    useEffect,
-    useState,
-  } from 'react';
-  import { loginCheck } from '../../api/auth';
-  
-  const AuthContext = createContext();
-  
-  export const useAuth = () => {
+import { createContext, useContext, useEffect, useState } from 'react';
+import { loginCheck } from '../../api/auth';
+
+const AuthContext = createContext();
+
+export const useAuth = () => {
     return useContext(AuthContext);
-  };
-  
-  export const AuthProvider = ({ children }) => {
+};
+
+export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     const [loading, setLoading] = useState(true);
     const [userRole, setUserRole] = useState(null);
@@ -24,12 +19,12 @@ import {
     const [vehicleRegistrationPlate, setVehicleRegistrationPlate] = useState(null);
   
     useEffect(() => {
-      const checkAuth = async () => {
-        try {
-          const response = await loginCheck();
-  
-          setIsAuthenticated(response.data.isAuthenticated);
-          setUserRole(response.data.user?.roles); // Se guardar el rol...
+        const checkAuth = async () => {
+            try {
+                const response = await loginCheck();
+
+                setIsAuthenticated(response.data.isAuthenticated);
+                setUserRole(response.data.user?.roles); // Se guardar el rol...
 
         //  console.log('Rol del usuario:', response.data.user?.roles);
         } catch (error) {
@@ -50,13 +45,13 @@ import {
         setLoading(false);
       }
     }, [isAuthenticated]);
-  
+
     const logout = () => {
-      setIsAuthenticated(false);
-      setUserRole(null);
-      setUserName(null);
+        setIsAuthenticated(false);
+        setUserRole(null);
+        setUserName(null);
     };
-  
+
     return (
       <AuthContext.Provider
         value={{
@@ -77,5 +72,4 @@ import {
         {children}
       </AuthContext.Provider>
     );
-  };
-  
+};

@@ -40,7 +40,7 @@ _dotenv["default"].config();
 var app = (0, _express["default"])();
 
 // Settings...
-app.set('port', process.env.PORT || 8585 || 3070);
+app.set("port", process.env.PORT || 8585 || 3070);
 
 // Configuración de express-session con connect-mongo...
 app.use((0, _expressSession["default"])({
@@ -51,7 +51,7 @@ app.use((0, _expressSession["default"])({
     mongoUrl: process.env.URLDB_DEV,
     // Inhibir para producción...
     // mongoUrl: process.env.URL_DB, // Activar para producción...
-    collectionName: 'sessions',
+    collectionName: "sessions",
     ttl: 2 * 24 * 60 * 60 // Opcional: Tiempo de vida de la sesión en segundos (aquí: 2 días)...
   }),
   cookie: {
@@ -64,7 +64,7 @@ app.use((0, _expressSession["default"])({
 }));
 
 // Middlewares...
-app.use((0, _morgan["default"])('dev'));
+app.use((0, _morgan["default"])("dev"));
 // Aquí, la URL (Front local) debe sustituirse por la URL del Front desplegado...
 app.use((0, _cors["default"])({
   origin: process.env.URL_FRONTEND_DEV,
@@ -81,79 +81,87 @@ app.use((0, _cookieParser["default"])());
 // app.use(generateCsrfToken); Activar para la producción... // ******
 
 // Routes...
-app.use('/api/auth', _auth["default"]);
+app.use("/api/auth", _auth["default"]);
 //
-app.use('/api/admin',
+app.use("/api/admin",
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _admin["default"]);
 //
-app.use('/api/heavyload',
+app.use("/api/heavyload",
 // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
+<<<<<<< HEAD
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 // AuthAdmMiddleware,
+=======
+/* AuxAuthMiddleware, // Desactivar para la producción...
+AuthAdmMiddleware,*/
+>>>>>>> origin/Dianis2
 _cargaPesada["default"]);
 //
-app.use('/api/cloudinary',
+app.use("/api/cloudinary",
 // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _cloudinary["default"]);
 //
+<<<<<<< HEAD
 // Esta es una alternativa a cloudinary...
 app.use('/api/images',
 // verifyCsrfToken, // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware, _image["default"]);
 //
 app.use('/api/documentos',
+=======
+app.use("/api/documentos",
+>>>>>>> origin/Dianis2
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _authAdmMiddleware.AuthAdmMiddleware, _documento["default"]);
 //
-app.use('/api/licencias',
+app.use("/api/licencias",
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _authAdmMiddleware.AuthAdmMiddleware, _licencia["default"]);
 //
-app.use('/api/mecanicos',
+app.use("/api/mecanicos",
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _mecanico["default"]);
 //
-app.use('/api/personas',
+app.use("/api/personas",
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _authAdmMiddleware.AuthAdmMiddleware, _persona["default"]);
 //
-app.use('/api/refueling',
+app.use("/api/refueling",
 // antiguamente 'tanqueos'...
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _tanqueo["default"]);
 //
-app.use('/api/usuarios',
+app.use("/api/usuarios",
 // verifyCsrfToken,
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción... ////////////////
 _authAdmMiddleware.AuthAdmMiddleware, _usuario["default"]);
 //
-app.use('/api/vehiculos',
+app.use("/api/vehiculos",
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
 _auxAuthMiddleware.AuxAuthMiddleware,
 // Desactivar para la producción...
 _authAdmMiddleware.AuthAdmMiddleware, _vehiculo["default"]);
 //
-app.use('/api/volquetas',
+app.use("/api/volquetas",
 // verifyCsrfToken,  // CON PROTECCION CSRF... Activar para la producción...
-_auxAuthMiddleware.AuxAuthMiddleware,
-// Desactivar para la producción...
+//AuxAuthMiddleware, // Desactivar para la producción...
 _volqueta["default"]);
 
 // // Ruta para obtener el token CSRF... // Activar
@@ -163,7 +171,7 @@ _volqueta["default"]);
 // app.use(handleCsrfError);
 
 // Test route...
-app.get('/', function (req, res) {
-  res.end("Welcome to Backend Node.js Server. Running on port: ".concat(app.get('port'), "...!"));
+app.get("/", function (req, res) {
+  res.end("Welcome to Backend Node.js Server. Running on port: ".concat(app.get("port"), "...!"));
 });
 var _default = exports["default"] = app;

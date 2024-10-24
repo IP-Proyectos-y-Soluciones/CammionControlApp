@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 //import Header from '././Header'
 import Footer from '././Footer'
@@ -44,6 +43,6 @@ const Layout = ({children}) => {
 // Define las propTypes para el componente
 Layout.propTypes = {
     children: PropTypes.node.isRequired, // Valida que children sea un nodo React y es requerido
-  };
+};
 
-export default Layout
+export default Layout;

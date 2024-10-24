@@ -1,5 +1,6 @@
-import { Router } from 'express';
+import { Router } from "express";
 import {
+<<<<<<< HEAD
     createVolqueta,
     getAllVolquetasForms,
     getVolqueta,
@@ -7,6 +8,13 @@ import {
     deleteVolqueta,
 } from '../controllers/volquetas.controller';
 import { generarNumeroPlanilla } from '../libs/GenRandomControlNumb';
+=======
+  createVolqueta,
+  getVolqueta,
+  putVolqueta,
+  deleteVolqueta,
+} from "../controllers/volquetas.controller";
+>>>>>>> origin/Dianis2
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
 const router = Router();
@@ -21,23 +29,18 @@ router.get(
 );
 
 router.post(
-    '/addplanilla',
-    // TokenValidation,
-    createVolqueta,
+  "/addplanilla",
+  // TokenValidation,
+  createVolqueta
 );
 
 router.get(
-    '/allforms',
-    // TokenValidation,
-    getAllVolquetasForms,
+  "/",
+  // TokenValidation,
+  getVolqueta
 );
 
-router.get(
-    '/',
-    // TokenValidation,
-    getVolqueta,
-);
-
+<<<<<<< HEAD
 router.patch(
     '/edit/:id',
     // TokenValidation,
@@ -48,12 +51,18 @@ router.patch(
     '/edit/',
     // TokenValidation,
     putVolqueta,
+=======
+router.put(
+  "/:n_planilla?",
+  // TokenValidation,
+  putVolqueta
+>>>>>>> origin/Dianis2
 );
 
 router.delete(
-    '/:id',
-    // TokenValidation,
-    deleteVolqueta,
+  "/:n_planilla?",
+  // TokenValidation,
+  deleteVolqueta
 );
 
 export default router;

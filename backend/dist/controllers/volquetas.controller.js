@@ -4,11 +4,16 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.putVolqueta = exports.getVolqueta = exports.getAllVolquetasForms = exports.deleteVolqueta = exports.createVolqueta = void 0;
+exports.putVolqueta = exports.getVolqueta = exports.deleteVolqueta = exports.createVolqueta = void 0;
 var _Volqueta = _interopRequireDefault(require("../models/Volqueta"));
 var _Persona = _interopRequireDefault(require("../models/Persona"));
 var _Vehiculo = _interopRequireDefault(require("../models/Vehiculo"));
+<<<<<<< HEAD
 var _plantilla_volquetas = require("../others/plantilla_volquetas");
+=======
+var _plantilla_volquetas = require("../pdf-excel/plantilla_volquetas");
+var _generarNumeroPlanilla = require("../pdf-excel/generarNumeroPlanilla");
+>>>>>>> origin/Dianis2
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -22,11 +27,16 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
+<<<<<<< HEAD
     var _req$body, n_planilla, fecha, placa_vehiculo, cedula, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, lugar_de_cargue, lugar_de_descargue, observacion, driver, vehicle, total_horas, startH, endH, start, end, timezoneOffset, total_km_dia, volquetaData, newVolqueta, volquetaCompleta;
+=======
+    var _req$body, fecha, placa_vehiculo, cedula, cliente, volmts3, n_viajes, material, hora_inicio, hora_final, km_inicial, km_final, honorarios, lugar_de_cargue, lugar_de_descargue, observacion, generateCN, driver, vehicle, total_horas, startH, endH, horaTotal, start, end, timezoneOffset, total_km_dia, volquetaData, newVolqueta, volquetaCompleta;
+>>>>>>> origin/Dianis2
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
+<<<<<<< HEAD
           // const {
           //     fecha,
           //     placa_vehiculo,
@@ -45,49 +55,59 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           // } = req.body;
           _req$body = req.body, n_planilla = _req$body.n_planilla, fecha = _req$body.fecha, placa_vehiculo = _req$body.placa_vehiculo, cedula = _req$body.cedula, cliente = _req$body.cliente, volmts3 = _req$body.volmts3, n_viajes = _req$body.n_viajes, material = _req$body.material, hora_inicio = _req$body.hora_inicio, hora_final = _req$body.hora_final, km_inicial = _req$body.km_inicial, km_final = _req$body.km_final, lugar_de_cargue = _req$body.lugar_de_cargue, lugar_de_descargue = _req$body.lugar_de_descargue, observacion = _req$body.observacion;
           _context.next = 4;
+=======
+          _req$body = req.body, fecha = _req$body.fecha, placa_vehiculo = _req$body.placa_vehiculo, cedula = _req$body.cedula, cliente = _req$body.cliente, volmts3 = _req$body.volmts3, n_viajes = _req$body.n_viajes, material = _req$body.material, hora_inicio = _req$body.hora_inicio, hora_final = _req$body.hora_final, km_inicial = _req$body.km_inicial, km_final = _req$body.km_final, honorarios = _req$body.honorarios, lugar_de_cargue = _req$body.lugar_de_cargue, lugar_de_descargue = _req$body.lugar_de_descargue, observacion = _req$body.observacion;
+          generateCN = (0, _generarNumeroPlanilla.generarNumeroPlanilla)(); // Genera el número de planilla
+          _context.next = 5;
+>>>>>>> origin/Dianis2
           return _Persona["default"].findOne({
             cedula: cedula
           });
-        case 4:
+        case 5:
           driver = _context.sent;
           if (driver) {
-            _context.next = 7;
+            _context.next = 8;
             break;
           }
           return _context.abrupt("return", res.status(404).json({
             message: "El conductor con la c\xE9dula ".concat(cedula, " NO se encuentra registrado...!")
           }));
-        case 7:
-          _context.next = 9;
+        case 8:
+          _context.next = 10;
           return _Vehiculo["default"].findOne({
             placa: placa_vehiculo
           });
-        case 9:
+        case 10:
           vehicle = _context.sent;
           if (vehicle) {
-            _context.next = 12;
+            _context.next = 13;
             break;
           }
           return _context.abrupt("return", res.status(404).json({
-            message: "El veh\xEDculo con placa ".concat(placa, " NO se encuentra registrado...!")
+            message: "El veh\xEDculo con placas ".concat(placa_vehiculo, " NO se encuentra registrado...!")
           }));
-        case 12:
+        case 13:
           total_horas = 0;
+          horaTotal = 0;
           if (hora_inicio && hora_final) {
             start = new Date(hora_inicio);
-            end = new Date(hora_final); //
+            end = new Date(hora_final);
             timezoneOffset = new Date().getTimezoneOffset(); // Devuelve el offset en minutos...
-            //
             startH = new Date(start.getTime() - timezoneOffset * 60000);
             endH = new Date(end.getTime() - timezoneOffset * 60000);
             total_horas = (endH - startH) / (1000 * 60 * 60);
+            horaTotal = total_horas.toFixed(2); // Asigna el valor calculado a horaTotal
           }
           total_km_dia = km_final - km_inicial; // Se genera número aleatorio de control para la planilla de volquetas...
           // const generateCN = await generateRandomFormNumber();
           // // // const generateCN = generarNumeroPlanilla();
           volquetaData = new _Volqueta["default"]({
+<<<<<<< HEAD
             // n_planilla: generateCN,
             n_planilla: n_planilla,
+=======
+            n_planilla: generateCN,
+>>>>>>> origin/Dianis2
             fecha: fecha,
             placa_vehiculo: placa_vehiculo,
             placa: vehicle._id,
@@ -99,18 +119,20 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
             material: material,
             hora_inicio: startH,
             hora_final: endH,
-            total_horas: total_horas,
+            total_horas: horaTotal,
             km_inicial: km_inicial,
             km_final: km_final,
             total_km_dia: total_km_dia,
+            honorarios: honorarios,
             lugar_de_cargue: lugar_de_cargue,
             lugar_de_descargue: lugar_de_descargue,
             observacion: observacion
           });
-          _context.next = 18;
+          _context.next = 20;
           return volquetaData.save();
-        case 18:
+        case 20:
           newVolqueta = _context.sent;
+<<<<<<< HEAD
           _context.next = 21;
           return _Volqueta["default"].findById(newVolqueta._id).populate('conductor', 'nombres apellidos').populate('placa', 'placa');
         case 21:
@@ -119,6 +141,16 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           console.log(volquetaCompleta);
           (0, _plantilla_volquetas.plantillaVolquetas)([volquetaCompleta]);
           _context.next = 27;
+=======
+          _context.next = 23;
+          return _Volqueta["default"].findById(newVolqueta._id).populate("conductor", "nombres apellidos").populate("placa", "placa");
+        case 23:
+          volquetaCompleta = _context.sent;
+          console.log("Llamando a la función plantillaVolquetas con los datos:");
+          console.log(volquetaCompleta);
+          (0, _plantilla_volquetas.plantillaVolquetas)([volquetaCompleta], res);
+          _context.next = 29;
+>>>>>>> origin/Dianis2
           return _Persona["default"].findOneAndUpdate(driver._id,
           // { $set: updateDataDriver },
           {
@@ -128,8 +160,13 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           }, {
             "new": true
           });
+<<<<<<< HEAD
         case 27:
           _context.next = 29;
+=======
+        case 29:
+          _context.next = 31;
+>>>>>>> origin/Dianis2
           return _Vehiculo["default"].findOneAndUpdate(vehicle._id,
           // { $set: updateDataVehicle },
           {
@@ -139,6 +176,7 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           }, {
             "new": true
           });
+<<<<<<< HEAD
         case 29:
           return _context.abrupt("return", res.status(201).json({
             message: 'El formulario fue guardado correctamente!',
@@ -161,60 +199,87 @@ var createVolqueta = exports.createVolqueta = /*#__PURE__*/function () {
           return _context.stop();
       }
     }, _callee, null, [[0, 32]]);
+=======
+        case 31:
+          _context.next = 37;
+          break;
+        case 33:
+          _context.prev = 33;
+          _context.t0 = _context["catch"](0);
+          console.error(_context.t0.message);
+          res.status(500).json({
+            message: "Error al crear la planilla"
+          });
+        case 37:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[0, 33]]);
+>>>>>>> origin/Dianis2
   }));
   return function createVolqueta(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();
-var getAllVolquetasForms = exports.getAllVolquetasForms = /*#__PURE__*/function () {
+var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var allVolquetasForm;
+    var _req$query, n_planilla, conductor_cedula, placa_vehiculo, query, planilla;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
-          _context2.next = 3;
-          return _Volqueta["default"].find();
-        case 3:
-          allVolquetasForm = _context2.sent;
-          if (allVolquetasForm) {
-            _context2.next = 6;
+          _req$query = req.query, n_planilla = _req$query.n_planilla, conductor_cedula = _req$query.conductor_cedula, placa_vehiculo = _req$query.placa_vehiculo;
+          query = {};
+          if (n_planilla) query.n_planilla = n_planilla;
+          if (conductor_cedula) query.conductor = conductor_cedula;
+          if (placa_vehiculo) query.placa_vehiculo = placa_vehiculo;
+          _context2.next = 8;
+          return _Volqueta["default"].find(query).populate("conductor_cedula").populate("placa_vehiculo");
+        case 8:
+          planilla = _context2.sent;
+          if (!(planilla.length === 0)) {
+            _context2.next = 11;
             break;
           }
           return _context2.abrupt("return", res.status(404).json({
-            message: 'No existe ninguna planilla de volquetas registrada...!'
+            message: "Planilla no encontrada"
           }));
-        case 6:
-          return _context2.abrupt("return", res.status(200).json(allVolquetasForm));
-        case 9:
-          _context2.prev = 9;
+        case 11:
+          res.status(200).json({
+            message: "Planilla encontrada",
+            planilla: planilla
+          });
+          _context2.next = 17;
+          break;
+        case 14:
+          _context2.prev = 14;
           _context2.t0 = _context2["catch"](0);
-          if (!(_context2.t0 instanceof Error)) {
-            _context2.next = 15;
-            break;
-          }
-          return _context2.abrupt("return", res.status(500).json({
+          res.status(500).json({
+            message: "Error al obtener las planillas",
             error: _context2.t0.message
-          }));
-        case 15:
-          return _context2.abrupt("return", res.status(500).json(_context2.t0));
-        case 16:
+          });
+        case 17:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[0, 9]]);
+    }, _callee2, null, [[0, 14]]);
   }));
-  return function getAllVolquetasForms(_x3, _x4) {
+  return function getVolqueta(_x3, _x4) {
     return _ref2.apply(this, arguments);
   };
 }();
-var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
+var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+<<<<<<< HEAD
     var _req$query, n_planilla, conductor_id, placas, query, planilla;
+=======
+    var n_planilla, updateData, query, horaInicio, horaFinal, diferenciaHoras, kmInicial, kmFinal, totalKm, volquetaActualizada;
+>>>>>>> origin/Dianis2
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
+<<<<<<< HEAD
           _req$query = req.query, n_planilla = _req$query.n_planilla, conductor_id = _req$query.conductor_id, placas = _req$query.placas;
           query = {};
           if (n_planilla) query.n_planilla = n_planilla;
@@ -226,42 +291,95 @@ var getVolqueta = exports.getVolqueta = /*#__PURE__*/function () {
           planilla = _context3.sent;
           if (!(planilla.length === 0)) {
             _context3.next = 11;
+=======
+          n_planilla = req.params.n_planilla;
+          updateData = req.body;
+          query = {};
+          console.log(req.params);
+          if (!n_planilla) {
+            _context3.next = 9;
+            break;
+          }
+          query = {
+            n_planilla: n_planilla
+          };
+          _context3.next = 10;
+          break;
+        case 9:
+          return _context3.abrupt("return", res.status(400).json({
+            message: "n_planilla es requerido"
+          }));
+        case 10:
+          // Cálculo de total_horas si `hora_inicio` y `hora_final` están presentes
+          if (updateData.hora_inicio && updateData.hora_final) {
+            horaInicio = new Date(updateData.hora_inicio);
+            horaFinal = new Date(updateData.hora_final);
+            diferenciaHoras = (horaFinal - horaInicio) / (1000 * 60 * 60); // Convertir milisegundos a horas
+            updateData.total_horas = diferenciaHoras.toFixed(2); // Guardar con dos decimales
+          }
+
+          // Cálculo de total_km_dia si `km_inicial` y `km_final` están presentes
+          if (updateData.km_inicial && updateData.km_final) {
+            kmInicial = parseFloat(updateData.km_inicial);
+            kmFinal = parseFloat(updateData.km_final);
+            totalKm = kmFinal - kmInicial;
+            updateData.total_km_dia = totalKm;
+          }
+
+          // Buscar y actualizar el documento
+          _context3.next = 14;
+          return _Volqueta["default"].findOneAndUpdate(query, updateData, {
+            "new": true,
+            // Devuelve el documento actualizado
+            runValidators: true // Ejecuta validaciones del modelo
+          });
+        case 14:
+          volquetaActualizada = _context3.sent;
+          if (volquetaActualizada) {
+            _context3.next = 17;
+>>>>>>> origin/Dianis2
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
-            message: 'Planilla no encontrada'
+            message: "Volqueta no encontrada"
           }));
-        case 11:
-          res.status(200).json({
-            message: 'Planilla encontrada',
-            planilla: planilla
-          });
-          _context3.next = 17;
+        case 17:
+          console.log(volquetaActualizada);
+          (0, _plantilla_volquetas.plantillaVolquetas)([volquetaActualizada]);
+
+          // Responder con el documento actualizado
+          res.status(200).json(volquetaActualizada);
+          _context3.next = 25;
           break;
-        case 14:
-          _context3.prev = 14;
+        case 22:
+          _context3.prev = 22;
           _context3.t0 = _context3["catch"](0);
           res.status(500).json({
-            message: 'Error al obtener las planillas',
+            message: "Error actualizando volqueta",
             error: _context3.t0.message
           });
-        case 17:
+        case 25:
         case "end":
           return _context3.stop();
       }
-    }, _callee3, null, [[0, 14]]);
+    }, _callee3, null, [[0, 22]]);
   }));
-  return function getVolqueta(_x5, _x6) {
+  return function putVolqueta(_x5, _x6) {
     return _ref3.apply(this, arguments);
   };
 }();
-var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
+var deleteVolqueta = exports.deleteVolqueta = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+<<<<<<< HEAD
     var id, _req$body2, n_planilla, conductor_cedula, query, findPlanilla, updateData, updatedVolqueta;
+=======
+    var n_planilla, query, planilla;
+>>>>>>> origin/Dianis2
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
           _context4.prev = 0;
+<<<<<<< HEAD
           id = req.params.id;
           _req$body2 = req.body, n_planilla = _req$body2.n_planilla, conductor_cedula = _req$body2.conductor_cedula;
           query = {}; //
@@ -341,47 +459,53 @@ var putVolqueta = exports.putVolqueta = /*#__PURE__*/function () {
           return _context4.stop();
       }
     }, _callee4, null, [[0, 34]]);
-  }));
-  return function putVolqueta(_x7, _x8) {
-    return _ref4.apply(this, arguments);
-  };
-}();
-var deleteVolqueta = exports.deleteVolqueta = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-    var planilla;
-    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-      while (1) switch (_context5.prev = _context5.next) {
-        case 0:
-          _context5.prev = 0;
-          _context5.next = 3;
-          return _Volqueta["default"].findByIdAndDelete(req.params.id);
-        case 3:
-          planilla = _context5.sent;
-          if (planilla) {
-            _context5.next = 6;
+=======
+          n_planilla = req.params.n_planilla;
+          query = {};
+          console.log(n_planilla);
+          if (!n_planilla) {
+            _context4.next = 8;
             break;
           }
-          return _context5.abrupt("return", res.status(404).json({
-            message: 'Planilla no encontrada'
+          query.n_planilla = n_planilla;
+          _context4.next = 9;
+          break;
+        case 8:
+          return _context4.abrupt("return", res.status(400).json({
+            message: "Se requiere el n_planilla."
           }));
-        case 6:
+        case 9:
+          _context4.next = 11;
+          return _Volqueta["default"].findOneAndDelete(query);
+        case 11:
+          planilla = _context4.sent;
+          if (planilla) {
+            _context4.next = 14;
+            break;
+          }
+          return _context4.abrupt("return", res.status(404).json({
+            message: "Planilla no encontrada"
+          }));
+        case 14:
           res.status(200).json({
-            message: 'La planilla ha sido eliminada correctamente!',
+            message: "La planilla ha sido eliminada correctamente!",
             planilla: planilla
           });
-          _context5.next = 12;
+          _context4.next = 20;
           break;
-        case 9:
-          _context5.prev = 9;
-          _context5.t0 = _context5["catch"](0);
-          res.status(500).json(_context5.t0);
-        case 12:
+        case 17:
+          _context4.prev = 17;
+          _context4.t0 = _context4["catch"](0);
+          //res.status(500).json(error);
+          console.log(_context4.t0.message);
+        case 20:
         case "end":
-          return _context5.stop();
+          return _context4.stop();
       }
-    }, _callee5, null, [[0, 9]]);
+    }, _callee4, null, [[0, 17]]);
+>>>>>>> origin/Dianis2
   }));
-  return function deleteVolqueta(_x9, _x10) {
-    return _ref5.apply(this, arguments);
+  return function deleteVolqueta(_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 }();

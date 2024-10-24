@@ -190,7 +190,7 @@ export function UserProfileDetail() {
 //       <h1 className="text-3xl text-gray-600 font-bold text-center mb-6">Detalle del Perfil de Usuario</h1>
 //       <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
 //         <h2 className="text-2xl text-gray-600 font-semibold mb-4">{user.nombres} {user.apellidos}</h2>
-        
+
 //         <div className="mb-4 text-gray-600">
 //           <div className='flex items-center'>
 //             <FontAwesomeIcon icon={faIdCard} className='mr-2' />
@@ -245,7 +245,7 @@ export function UserProfileDetail() {
 //         </div>
 
 //         <h3 className="text-xl text-gray-600 font-bold mt-6 mb-4">Documentos</h3>
-        
+
 //         <div className="flex flex-col">
 //           {user.licencias && user.licencias.length > 0 && (
 //             <div className="mb-4 text-gray-600">
