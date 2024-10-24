@@ -43,6 +43,7 @@ import { UsersSearchPage } from './pages/Users/UsersSearchPage.jsx';
 import { InvoiceSearchFormPage } from './pages/Invoices/InvoiceSearchFormPage.jsx';
 import { InvoiceRefuelingImageView } from './components/Images/InvoiceRefuelingImageView.jsx';
 import { InvoiceRefuelingList } from './pages/Invoices/InvoiceRefuelingList.jsx';
+import { InvoiceVolquetasList } from './pages/Invoices/InvoiceVolquetasList.jsx';
 
 function App() {
   const location = useLocation();
@@ -245,7 +246,15 @@ function App() {
                 </ProtectedRoute>
               }
               />
-
+              <Route 
+              path='/imgvolq'
+              element={
+                <ProtectedRoute allowed={['Admin', 'Owner']}>
+                  <InvoiceVolquetasList />
+                </ProtectedRoute>
+              }
+              />
+              
               <Route 
               path='/imgrefueling-view'
               element={
