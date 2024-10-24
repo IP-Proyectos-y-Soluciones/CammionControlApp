@@ -1,27 +1,12 @@
 import Volqueta from '../models/Volqueta';
 import Persona from '../models/Persona';
 import Vehiculo from '../models/Vehiculo';
-import { plantillaVolquetas } from '../others/plantilla_volquetas';
-// import { generarNumeroPlanilla } from '../libs/GenRandomControlNumb';
+import { volquetaTemplate } from '../others/plantilla_volquetas';
+import { generarNumeroPlanilla } from '../libs/GenRandomControlNumb'; ////////
+import { DateTime } from 'luxon';
 
 export const createVolqueta = async (req, res) => {
     try {
-        // const {
-        //     fecha,
-        //     placa_vehiculo,
-        //     cedula,
-        //     cliente,
-        //     volmts3,
-        //     n_viajes,
-        //     material,
-        //     hora_inicio,
-        //     hora_final,
-        //     km_inicial,
-        //     km_final,
-        //     lugar_de_cargue,
-        //     lugar_de_descargue,
-        //     observacion,
-        // } = req.body;
         const {
             n_planilla,
             fecha,
@@ -56,30 +41,35 @@ export const createVolqueta = async (req, res) => {
             });
         }
 
-        let total_horas = 0;
+        let totalHours = 0;
         let startH;
         let endH;
 
         if (hora_inicio && hora_final) {
-            const start = new Date(hora_inicio);
-            const end = new Date(hora_final);
-            //
-            const timezoneOffset = new Date().getTimezoneOffset(); // Devuelve el offset en minutos...
-            //
-            startH = new Date(start.getTime() - timezoneOffset * 60000);
-            endH = new Date(end.getTime() - timezoneOffset * 60000);
+            // Se parsea las horas recibidas usando 'Luxon' y ajustamos a la zona horaria de Colombia...
+            const start = DateTime.fromISO(hora_inicio, {
+                zone: 'America/Bogota',
+            });
+            const end = DateTime.fromISO(hora_final, {
+                zone: 'America/Bogota',
+            });
 
-            total_horas = (endH - startH) / (1000 * 60 * 60);
+            // Se asignan las horas ajustadas a la zona horaria local (sin conversión a UTC)...
+            startH = start.toISO();
+            endH = end.toISO();
+
+            // Se Se calcula la diferencia total en milisegundos...
+            const differenceMSecs = end.diff(start).as('milliseconds');
+
+            // Se convierte la diferencia en horas completas con decimales...
+            const totalHoursWithDecimals = differenceMSecs / (1000 * 60 * 60);
+
+            totalHours = parseFloat(totalHoursWithDecimals.toFixed(2));
         }
 
         const total_km_dia = km_final - km_inicial;
 
-        // Se genera número aleatorio de control para la planilla de volquetas...
-        // const generateCN = await generateRandomFormNumber();
-        // // // const generateCN = generarNumeroPlanilla();
-
         const volquetaData = new Volqueta({
-            // n_planilla: generateCN,
             n_planilla,
             fecha,
             placa_vehiculo,
@@ -92,7 +82,7 @@ export const createVolqueta = async (req, res) => {
             material,
             hora_inicio: startH,
             hora_final: endH,
-            total_horas,
+            total_horas: totalHours,
             km_inicial,
             km_final,
             total_km_dia,
@@ -103,25 +93,16 @@ export const createVolqueta = async (req, res) => {
 
         const newVolqueta = await volquetaData.save();
 
-        const volquetaCompleta = await Volqueta.findById(newVolqueta._id)
-            .populate('conductor', 'nombres apellidos')
-            .populate('placa', 'placa');
-
-        console.log('Llamando a la función plantillaVolquetas con los datos:');
-        console.log(volquetaCompleta);
-
-        plantillaVolquetas([volquetaCompleta]);
+        await volquetaTemplate(newVolqueta);
 
         await Persona.findOneAndUpdate(
             driver._id,
-            // { $set: updateDataDriver },
             { $push: { volquetas: newVolqueta._id } },
             { new: true },
         );
         //
         await Vehiculo.findOneAndUpdate(
             vehicle._id,
-            // { $set: updateDataVehicle },
             { $push: { volquetas: newVolqueta._id } },
             { new: true },
         );

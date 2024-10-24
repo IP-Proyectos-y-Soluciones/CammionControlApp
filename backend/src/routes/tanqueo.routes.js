@@ -5,8 +5,6 @@ import {
     getTanqueoById,
     updateTanqueo,
     deleteTanqueo,
-    // getDriverByDNI,
-    // getVehicleById,
 } from '../controllers/tanqueos.controller';
 // import { TokenValidation } from '../authentication/tokens/verifyToken'; // Activar para la producción...
 
@@ -41,16 +39,5 @@ router.delete(
     // TokenValidation,
     deleteTanqueo,
 );
-
-// router.get(
-//     '/driverced/:cedula',
-//     // TokenValidation,
-//     getDriverByDNI,
-// );
-// router.get(
-//     '/vehicleid/:id',
-//     // TokenValidation,
-//     getVehicleById,
-// );
 
 export default router;
